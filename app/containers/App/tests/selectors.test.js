@@ -4,12 +4,12 @@ import expect from 'expect';
 import { selectLocationState } from 'containers/App/selectors';
 
 describe('selectLocationState', () => {
-  it('should select the route as a plain JS object', () => {
+  it('should select route as a plain JS object', () => {
     const route = fromJS({
-      locationBeforeTransitions: null,
+      locationBeforeTransitions: null
     });
     const mockedState = fromJS({
-      route,
+      route,3
     });
     expect(selectLocationState()(mockedState)).toEqual(route.toJS());
   });
