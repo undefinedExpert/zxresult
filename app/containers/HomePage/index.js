@@ -18,7 +18,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     return (
       <div>
         <Navigation />
-        <h1>Cop tam</h1>
+        <h1 className="btn btn-lg btn-primary">Cop tam</h1>
       </div>
     );
   }

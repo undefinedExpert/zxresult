@@ -18,8 +18,8 @@ class Navigation extends React.Component {
           </div>
           <div className="bar__right">
             <ul>
-              <li><a href="#">Log In |</a></li>
-              <li><a href="#">Register</a></li>
+              <li className="right__item right__item--login"><a href="#">Log In |</a></li>
+              <li className="right__item right__item--register"><a href="#">Register</a></li>
             </ul>
           </div>
         </div>
