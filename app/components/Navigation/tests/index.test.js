@@ -5,12 +5,15 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('<Navigation />', () => {
-    const children = (<h1>Test</h1>);
-
     it('Contains login link', () => {
-      const renderedComponent = shallow(<A className="test" />);
-        expect(renderedComponent.find('.right__item ight__item--login'))
-        console.log()
+      const renderedComponent = shallow(<Navigation />);
+      let link = (<a id="loginButton" href="#">Log In |</a>);
+      expect(renderedComponent.contains(
+        <li className="right__item right__item--login">
+          {link}
+        </li>
+      )).toEqual(true);
+
     });
     
 });
