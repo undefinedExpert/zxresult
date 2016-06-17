@@ -21,11 +21,11 @@
   font-weight: bold;
   font-size: 16px;
   color: #FFF;
-  border: 2px solid #41ADDD;
+  border: 2px solid #000000;
   color: #41ADDD;
 }
 
 .button:active {
-  background: #41ADDD;
+  background: #323255;
   color: #FFF;
 }

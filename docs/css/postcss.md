@@ -23,5 +23,4 @@ For more awesome features that the PostCSS ecosystem offers, check out the
 comprehensive, fully-searchable catalog of available plugins at [postcss.parts](http://postcss.parts).
 
 ---
-
 _Don't like this feature? [Click here](remove.md)_
