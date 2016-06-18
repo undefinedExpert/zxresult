@@ -11,15 +11,15 @@ body {
     &__item {
         &--left {
             background-color: #ff0000;
-            &__item {
-                &--logo {
-                    color: #fff;
-                }
-            }
         }
         &--right {
             background-color: #353;
         }
     }
 
+}
+#logotype {
+    h3 {
+        color: #fff;
+    }
 }

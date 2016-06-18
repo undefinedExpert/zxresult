@@ -14,14 +14,14 @@ class Navigation extends React.Component {
       <div className={styles.navigation}>
         <div className={styles.bar}>
           <div className={styles['bar__item', 'bar__item--left']}>
-            <div id="logotype" className={styles['bar__item--left__item', 'bar__item--left__item--logo']}>
+            <div id="logotype">
               <h3>Logotyp</h3>
             </div>
           </div>
           <div className={styles['bar__item', 'bar__item--right']}>
             <ul>
-              <li className="right__item right__item--login"><a id="loginButton" href="#">Log In |</a></li>
-              <li className="right__item right__item--register"><a id="registerButton" href="#">Register</a></li>
+              <li id="loginButton"><a href="#">Log In |</a></li>
+              <li id="registerButton"><a href="#">Register</a></li>
             </ul>
           </div>
         </div>

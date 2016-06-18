@@ -19,12 +19,12 @@ describe('<Navigation />', () => {
 
       it('Login link exist', () => {
         const renderedComponent = shallow(<Navigation />);
-        expect(renderedComponent.find('.right__item--login').length).toEqual(1);
+        expect(renderedComponent.find('#loginButton').length).toEqual(1);
       });
 
-      it('register link exist', () => {
+      it('Register link exist', () => {
         const renderedComponent = shallow(<Navigation />);
-        expect(renderedComponent.find('.right__item--register').length).toEqual(1);
+        expect(renderedComponent.find('#registerButton').length).toEqual(1);
       });
 
     });
