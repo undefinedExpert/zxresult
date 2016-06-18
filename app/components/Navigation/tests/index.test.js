@@ -9,13 +9,8 @@ describe('<Navigation />', () => {
   describe('bar__left', () => {
 
     it('Logotype element exist', () => {
-
-
       const renderedComponent = shallow(<Navigation />);
-
       expect(renderedComponent.find('.left__item--logo').length).toEqual(1);
-
-
     });
 
   });
@@ -24,26 +19,12 @@ describe('<Navigation />', () => {
 
       it('Login link exist', () => {
         const renderedComponent = shallow(<Navigation />);
-        const link = (<a id="loginButton" href="#">Log In |</a>);
-        const element = (
-          <li className="right__item right__item--login">
-            {link}
-          </li>
-        );
-
-        expect(renderedComponent.contains(element)).toEqual(true);
+        expect(renderedComponent.find('.right__item--login').length).toEqual(1);
       });
 
       it('register link exist', () => {
         const renderedComponent = shallow(<Navigation />);
-        const link = (<a id="registerButton" href="#">Register</a>);
-        const element = (
-          <li className="right__item right__item--register">
-            {link}
-          </li>
-        );
-
-        expect(renderedComponent.contains(element)).toEqual(true);
+        expect(renderedComponent.find('.right__item--register').length).toEqual(1);
       });
 
     });
