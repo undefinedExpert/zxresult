@@ -1,3 +1,7 @@
+body {
+    lost-center: 90%;
+}
+
 .navigation {
 
 }
@@ -5,14 +9,11 @@
 .bar {
     background-color: #00ff00;
     &__item {
-
-
         &--left {
             background-color: #ff0000;
-             lost-center: 980px;
         }
         &--right {
-            background-color: #0000ff;
+            background-color: #353;
         }
     }
 

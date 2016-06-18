@@ -15,7 +15,7 @@ class Navigation extends React.Component {
         <div className={styles.bar}>
           <div className={styles['bar__item', 'bar__item--left']}>
             <div className="left__item left__item--logo">
-              <h3>Logotyp qsfilm</h3>
+              <h3>Logotyp</h3>
             </div>
           </div>
           <div className={styles['bar__item', 'bar__item--right']}>
