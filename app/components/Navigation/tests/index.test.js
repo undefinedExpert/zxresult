@@ -10,7 +10,7 @@ describe('<Navigation />', () => {
 
     it('Logotype element exist', () => {
       const renderedComponent = shallow(<Navigation />);
-      expect(renderedComponent.find('.left__item--logo').length).toEqual(1);
+      expect(renderedComponent.find('#logotype').length).toEqual(1);
     });
 
   });
