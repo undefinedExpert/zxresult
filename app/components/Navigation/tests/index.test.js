@@ -8,11 +8,11 @@ describe('<Navigation />', () => {
 
   describe('bar__left', () => {
 
+    //TODO: do all tests when needed
     it('Logotype element exist', () => {
       const renderedComponent = shallow(<Navigation />);
       expect(renderedComponent.find('#logotype').length).toEqual(1);
     });
-
   });
 
   describe('bar__right', () => {
