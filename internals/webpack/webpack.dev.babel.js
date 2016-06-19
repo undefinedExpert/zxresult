@@ -11,6 +11,9 @@ const cssnext = require('postcss-cssnext');
 const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
 const lostCssGrid = require('lost');
+const precss = require('precss');
+const postcssSass = require('postcss-scss');
+
 
 module.exports = require('./webpack.base.babel')({
   // Add hot reloading in development
@@ -38,7 +41,9 @@ module.exports = require('./webpack.base.babel')({
     postcssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
     }),
-    lostCssGrid()
+    lostCssGrid(), //Loads grid
+    precss(),
+
   ],
 
   // Add hot reloading

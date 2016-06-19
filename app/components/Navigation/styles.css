@@ -7,10 +7,10 @@ body {
 }
 
 .bar {
-    background-color: #00ff00;
+    background-color: $blue;
     &__item {
         &--left {
-            background-color: #ff0000;
+            background-color: $blue;
         }
         &--right {
             background-color: #353;
@@ -22,7 +22,7 @@ body {
     TODO: Refator this to make it more flexible & repeatitive
 */
 #logotype {
-    h3 {
-        color: #fff;
+   h3 {
+        color: #ffffff;
     }
 }
