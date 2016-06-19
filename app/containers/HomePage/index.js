@@ -11,6 +11,8 @@
 
 import React from 'react';
 import Navigation from 'components/Navigation';
+import WelcomeText from 'components/WelcomeText';
+import SearchForm from 'components/SearchForm';
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -18,7 +20,8 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     return (
       <div>
         <Navigation />
-        <h1 className="btn btn-lg btn-primary">Cop tam</h1>
+        <WelcomeText />
+        <SearchForm />
       </div>
     );
   }

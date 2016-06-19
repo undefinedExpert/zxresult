@@ -1,3 +1,6 @@
 .welcomeText {
-
+    margin-top: 25vh;
+    h1,h3 {
+     text-align: center;
+    }
 }
