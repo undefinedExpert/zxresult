@@ -11,7 +11,7 @@ $green: #0f0;
 }
 
 .bar {
-    lost-center: 90%;
+    lost-center: 95%;
     &__item {
         &--left, &--right {
              lost-column: 1/2;
