@@ -20,8 +20,9 @@ class SearchForm extends React.Component {
     let feeling = this.state.feeling;
 
     // console.log( this.state.feeling );
-    
-    browserHistory.push( `/result/${feeling}` )
+    //{ pathname: '/user/bob', query: { showAge: true } }
+    // browserHistory.push( `/result/${feeling}` )
+    browserHistory.push( { pathname: '/result', query: { feeling } } )
   }
 
   change( event ) {
