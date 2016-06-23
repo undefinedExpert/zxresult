@@ -17,7 +17,6 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     return (
       <div>
         <Navigation />
-        <WelcomeText />
         <h1>Movie result</h1>
       </div>
     );
@@ -26,10 +25,10 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 
 const mapStateToProps = selectMovieSearchResult();
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps( dispatch ) {
   return {
     dispatch,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchResult);
+export default connect( mapStateToProps, mapDispatchToProps )( MovieSearchResult );

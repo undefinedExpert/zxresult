@@ -4,63 +4,63 @@
 // about the code splitting business
 import { getHooks } from 'utils/hooks';
 
-const errorLoading = (err) => {
-  console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
+const errorLoading = ( err ) => {
+  console.error( 'Dynamic page loading failed', err ); // eslint-disable-line no-console
 };
 
-const loadModule = (cb) => (componentModule) => {
-  cb(null, componentModule.default);
+const loadModule = ( cb ) => ( componentModule ) => {
+  cb( null, componentModule.default );
 };
 
-export default function createRoutes(store) {
+export default function createRoutes( store ) {
   // Create reusable async injectors using getHooks factory
-  const { injectReducer, injectSagas } = getHooks(store);
+  const { injectReducer, injectSagas } = getHooks( store );
 
   return [
     {
       path: '/',
       name: 'home',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/HomePage'),
-        ]);
+      getComponent( nextState, cb ) {
+        const importModules = Promise.all( [
+          System.import( 'containers/HomePage' ),
+        ] );
 
-        const renderRoute = loadModule(cb);
+        const renderRoute = loadModule( cb );
 
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
+        importModules.then( ( [component] ) => {
+          renderRoute( component );
+        } );
 
-        importModules.catch(errorLoading);
+        importModules.catch( errorLoading );
       },
-    },    {
+    }, {
       path: '/result',
       name: 'movieSearchResult',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/MovieSearchResult/reducer'),
-          System.import('containers/MovieSearchResult/sagas'),
-          System.import('containers/MovieSearchResult'),
-        ]);
+      getComponent( nextState, cb ) {
+        const importModules = Promise.all( [
+          System.import( 'containers/MovieSearchResult/reducer' ),
+          System.import( 'containers/MovieSearchResult/sagas' ),
+          System.import( 'containers/MovieSearchResult' )
+        ] );
 
-        const renderRoute = loadModule(cb);
+        const renderRoute = loadModule( cb );
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('movieSearchResult', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
+        importModules.then( ( [reducer, sagas, component] ) => {
+          injectReducer( 'movieSearchResult', reducer.default );
+          injectSagas( sagas.default );
+          renderRoute( component );
+        } );
 
-        importModules.catch(errorLoading);
+        importModules.catch( errorLoading );
       },
     }, {
       path: '*',
 
       name: 'notfound',
-      getComponent(nextState, cb) {
-        System.import('containers/NotFoundPage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+      getComponent( nextState, cb ) {
+        System.import( 'containers/NotFoundPage' )
+          .then( loadModule( cb ) )
+          .catch( errorLoading );
       },
     },
   ];
