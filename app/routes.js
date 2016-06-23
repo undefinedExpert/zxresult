@@ -53,6 +53,28 @@ export default function createRoutes( store ) {
 
         importModules.catch( errorLoading );
       },
+
+    }, {
+      path: '/result/:feeling',
+      name: 'movieSearchResult',
+      getComponent( nextState, cb ) {
+        const importModules = Promise.all( [
+          System.import( 'containers/MovieSearchResult/reducer' ),
+          System.import( 'containers/MovieSearchResult/sagas' ),
+          System.import( 'containers/MovieSearchResult' )
+        ] );
+
+        const renderRoute = loadModule( cb );
+
+        importModules.then( ( [reducer, sagas, component] ) => {
+          injectReducer( 'movieSearchResult', reducer.default );
+          injectSagas( sagas.default );
+          renderRoute( component );
+        } );
+
+        importModules.catch( errorLoading );
+      },
+
     }, {
       path: '*',
 

@@ -10,29 +10,36 @@ import { browserHistory } from 'react-router';
 import styles from './styles.css';
 
 class SearchForm extends React.Component {
+  constructor( props ) {
+    super( props );
+    this.state = { feeling: '' };
+  }
 
   onSubmitHandler( event ) {
     event.preventDefault();
-    console.log( this.state );
-    browserHistory.push( '/result' )
+    let feeling = this.state.feeling;
+
+    // console.log( this.state.feeling );
+    
+    browserHistory.push( `/result/${feeling}` )
   }
+
+  change( event ) {
+    this.setState( { feeling: event.target.value } );
+  }
+
 
   render() {
     return (
       <div className={styles.searchForm}>
-        <form onSubmit={this.onSubmitHandler}>
-          <select className={'c-select'}>
-            <option defaultValue>Pick The Mood</option>
-            <option value="sad">Sad</option>
-            <option value="funny">Funny</option>
-            <option value="dramatic">Dramatic</option>
+        <form onSubmit={this.onSubmitHandler.bind(this)}>
+          <select className="c-select" id="feeling" onChange={this.change.bind(this)} value={this.state.feeling}>
+            <option value="select">Select</option>
+            <option value="Java">Java</option>
+            <option value="C++">C++</option>
           </select>
-          <select className="c-select">
-            <option defaultValue>Select trend</option>
-            <option value="classical">Classical</option>
-            <option value="popular">Popular</option>
-            <option value="modern">Modern</option>
-          </select>
+          <p>{this.state.value}</p>
+
           <div>
             <button type="Submit" className="btn btn-primary">Look for movie</button>
           </div>
