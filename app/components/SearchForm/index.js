@@ -19,9 +19,9 @@ class SearchForm extends React.Component {
 
   onSubmitHandler( event ) {
     event.preventDefault();
-    let feeling = this.state.feeling;
+    let feeling = this.state.feeling === '' || this.state.feeling === 'select' ? 'random' : this.state.feeling;
 
-    // console.log( this.state.feeling );
+    console.log( feeling );
     //{ pathname: '/user/bob', query: { showAge: true } }
     // browserHistory.push( `/result/${feeling}` )
     browserHistory.push( { pathname: '/result', query: { feeling } } )
@@ -30,7 +30,7 @@ class SearchForm extends React.Component {
   change( event ) {
     this.setState( { feeling: event.target.value } );
   }
-  
+
   render() {
     return (
       <div className={styles.searchForm}>

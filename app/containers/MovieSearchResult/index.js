@@ -15,6 +15,7 @@ import SearchForm from 'components/SearchForm';
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor( props ) {
     super( props );
+    this.feeling = this.props.location.query.feeling;
   }
 
   render() {
@@ -22,7 +23,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
       <div>
         <Navigation />
         <h1>Movie result</h1>
-        <h2>You're looking for the {this.props.location.query.feeling} movie</h2>
+        <h2>You're looking for a {this.feeling} movie</h2>
       </div>
     );
   }
