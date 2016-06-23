@@ -15,7 +15,8 @@ import SearchForm from 'components/SearchForm';
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor( props ) {
     super( props );
-    this.feeling = this.props.location.query.feeling;
+    console.log( this.props );
+    this.feeling = this.props.feeling;
   }
 
   render() {
