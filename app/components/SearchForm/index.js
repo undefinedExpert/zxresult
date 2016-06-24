@@ -5,8 +5,11 @@
  */
 
 import React from 'react';
-import { browserHistory } from 'react-router';
+
 import styles from './styles.css';
+
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class SearchForm extends React.Component {
   constructor( props ) {
@@ -22,9 +25,7 @@ class SearchForm extends React.Component {
     let feeling = this.state.feeling === '' || this.state.feeling === 'select' ? 'random' : this.state.feeling;
 
     console.log( feeling );
-    //{ pathname: '/user/bob', query: { showAge: true } }
-    // browserHistory.push( `/result/${feeling}` )
-    browserHistory.push( { pathname: '/result', query: { feeling } } )
+    browserHistory.push( `/result/${feeling}` )
   }
 
   onChangeFeeling( event ) {

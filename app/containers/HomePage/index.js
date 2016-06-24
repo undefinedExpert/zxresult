@@ -13,6 +13,7 @@ import React from 'react';
 import Navigation from 'components/Navigation';
 import WelcomeText from 'components/WelcomeText';
 import SearchForm from 'components/SearchForm';
+import Form from 'containers/Form'
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -21,7 +22,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
       <div>
         <Navigation />
         <WelcomeText />
-        <SearchForm />
+        <Form />
       </div>
     );
   }

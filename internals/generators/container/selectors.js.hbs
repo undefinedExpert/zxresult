@@ -16,7 +16,9 @@ const select{{ properCase name }}Domain = () => state => state.get('{{ camelCase
 
 const select{{ properCase name }} = () => createSelector(
   select{{ properCase name }}Domain(),
-  (substate) => substate.toJS()
+    ( substate ) => {
+    return {}; //This is where you need to add the state for the container
+    }
 );
 
 export default select{{ properCase name }};
