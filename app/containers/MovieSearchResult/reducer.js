@@ -9,12 +9,18 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-const initialState = fromJS({});
+// The initial state of the App
+const initialState = fromJS( {
+  username: '',
+} );
 
-function movieSearchResultReducer(state = initialState, action) {
-  switch (action.type) {
+function movieSearchResultReducer( state = initialState, action ) {
+  switch ( action.type ) {
     case DEFAULT_ACTION:
-      return state;
+
+      // Delete prefixed '@' from the github username
+      return state
+        .set( 'username', action.name );
     default:
       return state;
   }

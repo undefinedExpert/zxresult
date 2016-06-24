@@ -16,10 +16,11 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   constructor( props ) {
     super( props );
     console.log( this.props );
-    this.feeling = this.props.feeling;
+    this.feeling = this.props.get;
   }
 
   render() {
+
     return (
       <div>
         <Navigation />
