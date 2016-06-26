@@ -23,7 +23,7 @@ import configureStore from './store';
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/lib/sanitize.css';
 
-//Import bootstrap
+// Import bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

@@ -41,7 +41,7 @@ module.exports = require('./webpack.base.babel')({
     postcssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
     }),
-    lostCssGrid(), //Loads grid
+    lostCssGrid(), // Loads grid
     precss(),
 
   ],

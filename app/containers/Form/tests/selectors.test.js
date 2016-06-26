@@ -4,7 +4,7 @@ import {
 import { fromJS } from 'immutable';
 import { expect } from 'chai';
 
-const selector = selectForm();
+// const selector = selectForm();
 
 describe('selectForm', () => {
 

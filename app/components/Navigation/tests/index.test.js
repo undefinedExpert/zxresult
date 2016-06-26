@@ -4,28 +4,28 @@ import { expect } from 'chai';
 import { shallow, render, mount } from 'enzyme';
 import React from 'react';
 
-describe( '<Navigation />', () => {
+describe('<Navigation />', () => {
 
-  describe( 'bar__left', () => {
-    
-    it( 'Logotype element exist', () => {
-      const renderedComponent = shallow( <Navigation /> );
-      expect( renderedComponent.find( '#logotype' ) ).to.exist
-    } );
-  } );
+  describe('bar__left', () => {
 
-  describe( 'bar__right', () => {
+    it('Logotype element exist', () => {
+      const renderedComponent = shallow(<Navigation />);
+      expect(renderedComponent.find('#logotype')).to.exist
+    });
+  });
 
-    it( 'Login link exist', () => {
-      const renderedComponent = shallow( <Navigation /> );
-      expect( renderedComponent.find( '#loginButton' ) ).to.exist
-    } );
+  describe('bar__right', () => {
 
-    it( 'Register link exist', () => {
-      const renderedComponent = shallow( <Navigation /> );
-      expect( renderedComponent.find( '#registerButton' ) ).to.exist
-    } );
+    it('Login link exist', () => {
+      const renderedComponent = shallow(<Navigation />);
+      expect(renderedComponent.find('#loginButton')).to.exist
+    });
 
-  } );
+    it('Register link exist', () => {
+      const renderedComponent = shallow(<Navigation />);
+      expect(renderedComponent.find('#registerButton')).to.exist
+    });
 
-} );
+  });
+
+});

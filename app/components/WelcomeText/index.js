@@ -1,8 +1,8 @@
 /**
-*
-* WelcomeText
-*
-*/
+ *
+ * WelcomeText
+ *
+ */
 
 import React from 'react';
 

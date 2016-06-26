@@ -12,20 +12,20 @@ import { push } from 'react-router-redux';
 
 export class Form extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-  openRoute = ( route ) => {
-    this.props.changeRoute( route );
+  openRoute = (route) => {
+    this.props.changeRoute(route);
   };
 
   /**
    * Changed route to '/features'
    */
   openFeaturesPage = () => {
-    this.openRoute( '/result' );
+    this.openRoute('/result');
   };
 
   render() {
 
-    console.log( defaultAction() );
+    console.log(defaultAction());
     return (
       <div>
         <label htmlFor="username">Show Github repositories by
@@ -56,14 +56,14 @@ Form.propTypes = {
 };
 
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: ( evt ) => dispatch( defaultAction( evt.target.value ) ),
-    changeRoute: ( url ) => dispatch( push( url ) ),
+    onChangeUsername: (evt) => dispatch(defaultAction(evt.target.value)),
+    changeRoute: (url) => dispatch(push(url)),
 
 
     dispatch,
   };
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )( Form );
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

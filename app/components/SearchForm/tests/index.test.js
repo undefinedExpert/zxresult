@@ -4,23 +4,23 @@ import { expect } from 'chai';
 import { shallow, render, mount } from 'enzyme';
 import React from 'react';
 
-describe( '<SearchForm />', () => {
+describe('<SearchForm />', () => {
 
 
-  it( 'Simulates onChange event on #feeling select input', () => {
+  it('Simulates onChange event on #feeling select input', () => {
     //Mount SearchForm component
-    const wrapper = mount( <SearchForm /> );
+    const wrapper = mount(<SearchForm />);
     //Find specific selector
-    const feelingSelector = wrapper.find( '#feeling' );
+    const feelingSelector = wrapper.find('#feeling');
 
     //Set default feeling state
-    wrapper.setState( { feeling: 'sad' } );
+    wrapper.setState({ feeling: 'sad' });
     //Simulate a change on selector
-    feelingSelector.simulate( 'change', { target: { value: 'emotional' } } );
+    feelingSelector.simulate('change', { target: { value: 'emotional' } });
 
     //condition
-    expect( wrapper.state( 'feeling' ) ).to.equal( 'emotional' );
-  } );
+    expect(wrapper.state('feeling')).to.equal('emotional');
+  });
 
 
-} );
+});
