@@ -1,6 +1,6 @@
 /*
  *
- * Form actions
+ * HomePage actions
  *
  */
 
@@ -8,9 +8,8 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-export function defaultAction(name) {
+export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
-    name
   };
 }

@@ -1,9 +1,13 @@
-import expect from 'expect';
+import { expect } from 'chai';
 import movieSearchResultReducer from '../reducer';
 import { fromJS } from 'immutable';
 
 describe('movieSearchResultReducer', () => {
   it('returns the initial state', () => {
-    expect(movieSearchResultReducer(undefined, {})).toEqual(fromJS({}));
+    const expected = {
+      username: '',
+    };
+
+    expect(movieSearchResultReducer(undefined, {})).to.eql(fromJS(expected));
   });
 });

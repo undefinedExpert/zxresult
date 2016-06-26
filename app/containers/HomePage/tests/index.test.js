@@ -1,3 +1,9 @@
-/**
- * This file has been created by Emanuel Slotwinski on 2016-06-17
- */
+import HomePage from '../index';
+
+import { expect } from 'chai';
+import { shallow, render, mount } from 'enzyme';
+import React from 'react';
+
+describe('<HomePage />', () => {
+
+});

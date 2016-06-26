@@ -1,11 +1,11 @@
 import {
-  selectForm,
+  selectHomePage,
 } from '../selectors';
 import { fromJS } from 'immutable';
 import { expect } from 'chai';
 
-const selector = selectForm();
+const selector = selectHomePage();
 
-describe('selectForm', () => {
+describe('selectHomePage', () => {
 
 });
