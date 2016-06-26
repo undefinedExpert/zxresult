@@ -1,6 +1,6 @@
 /*
  *
- * Form reducer
+ * HomePage reducer
  *
  */
 
@@ -9,9 +9,11 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  secondHelloWorld: 'siemanko',
+});
 
-function formReducer(state = initialState, action) {
+function homePageReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +22,4 @@ function formReducer(state = initialState, action) {
   }
 }
 
-export default formReducer;
+export default homePageReducer;

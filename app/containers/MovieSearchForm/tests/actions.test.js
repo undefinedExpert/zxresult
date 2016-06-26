@@ -6,13 +6,14 @@ import {
   DEFAULT_ACTION,
 } from '../constants';
 
-describe('{{ properCase name }} actions', () => {
+describe('MovieSearchForm actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
         type: DEFAULT_ACTION,
       };
-      expect(defaultAction())..to.eql(expected);
+      expect(defaultAction()).to.eql(expected);
     });
   });
 });
+2

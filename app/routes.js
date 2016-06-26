@@ -22,15 +22,18 @@ export default function createRoutes(store) {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
+          System.import('containers/HomePage/reducer'),
           System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, component]) => {
+          //Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
+          injectReducer('home', reducer.default);
           renderRoute(component);
         });
-
+        
         importModules.catch(errorLoading);
       },
     }, {

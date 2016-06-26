@@ -1,29 +1,35 @@
 /*
+ *
  * HomePage
  *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a neccessity for you then you can refactor it and remove
- * the linting exception.
  */
 
 import React from 'react';
-import Navigation from 'components/Navigation';
-import WelcomeText from 'components/WelcomeText';
-import SearchForm from 'components/SearchForm';
-import Form from 'containers/Form'
+import { connect } from 'react-redux';
+import { selectHomePage } from './selectors';
+import { createStructuredSelector } from 'reselect';
 
-export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
+export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <Navigation />
-        <WelcomeText />
-        <Form />
+        This is HomePage container !
+        <h1>{this.props.repos}</h1>
       </div>
     );
   }
 }
+
+
+const mapStateToProps = createStructuredSelector({
+  repos: selectHomePage(),
+});
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
