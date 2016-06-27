@@ -15,6 +15,7 @@ const selectLocationState = () => {
   };
 };
 
+console.log(selectLocationState());
 export {
   selectLocationState,
 };
