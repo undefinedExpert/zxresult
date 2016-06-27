@@ -12,24 +12,24 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 class SearchForm extends React.Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
     this.state = { feeling: '' };
 
-    this.onSubmitHandler = this.onSubmitHandler.bind( this );
+    this.onSubmitHandler = this.onSubmitHandler.bind(this);
 
   }
 
-  onSubmitHandler( event ) {
+  onSubmitHandler(event) {
     event.preventDefault();
     let feeling = this.state.feeling === '' || this.state.feeling === 'select' ? 'random' : this.state.feeling;
 
-    console.log( feeling );
-    browserHistory.push( `/result/${feeling}` )
+    console.log(feeling);
+    browserHistory.push(`/result/${feeling}`)
   }
 
-  onChangeFeeling( event ) {
-    this.setState( { feeling: event.target.value } );
+  onChangeFeeling(event) {
+    this.setState({ feeling: event.target.value });
   }
 
   render() {

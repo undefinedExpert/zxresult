@@ -26,6 +26,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 }
 HomePage.propTypes = {
   repos: React.PropTypes.string,
+  children: React.PropTypes.node,
 };
 
 const mapStateToProps = createStructuredSelector({

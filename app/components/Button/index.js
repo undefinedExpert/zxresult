@@ -17,6 +17,7 @@ function Button(props) {
 
 Button.propTypes = {
   type: React.PropTypes.string,
+  children: React.PropTypes.node.isRequired,
 };
 
 export default Button;

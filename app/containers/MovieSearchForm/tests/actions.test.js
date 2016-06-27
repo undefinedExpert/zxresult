@@ -16,4 +16,3 @@ describe('MovieSearchForm actions', () => {
     });
   });
 });
-2

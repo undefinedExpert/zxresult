@@ -1,10 +1,10 @@
-import {
-  selectHomePage,
-} from '../selectors';
-import { fromJS } from 'immutable';
-import { expect } from 'chai';
+// import {
+//   selectHomePage,
+// } from '../selectors';
+// import { fromJS } from 'immutable';
+// import { expect } from 'chai';
 
-const selector = selectHomePage();
+// const selector = selectHomePage();
 
 describe('selectHomePage', () => {
 

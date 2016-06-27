@@ -29,11 +29,11 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, component]) => {
-          //Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
+          // Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
           injectReducer('home', reducer.default);
           renderRoute(component);
         });
-        
+
         importModules.catch(errorLoading);
       },
     }, {
@@ -43,7 +43,7 @@ export default function createRoutes(store) {
         const importModules = Promise.all([
           System.import('containers/MovieSearchResult/reducer'),
           System.import('containers/MovieSearchResult/sagas'),
-          System.import('containers/MovieSearchResult')
+          System.import('containers/MovieSearchResult'),
         ]);
 
         const renderRoute = loadModule(cb);

@@ -16,9 +16,7 @@ const selectMovieSearchFormDomain = () => state => state.get('movieSearchForm');
 
 const selectMovieSearchForm = () => createSelector(
   selectMovieSearchFormDomain(),
-  (substate) => {
-    return {}; //This is where you need to add the state for the container
-  }
+  (substate) => substate.get('movieSearchForm')
 );
 
 export default selectMovieSearchForm;

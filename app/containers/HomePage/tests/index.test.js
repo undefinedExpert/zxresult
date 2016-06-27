@@ -4,7 +4,7 @@ import MovieSearchForm from 'containers/MovieSearchForm';
 import WelcomeText from 'components/WelcomeText';
 
 import { expect } from 'chai';
-import { shallow, render, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('<HomePage />', () => {

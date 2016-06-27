@@ -1,9 +1,9 @@
 import { MovieSearchForm } from '../index';
-import FilterSelect from 'components/FilterSelect';
+// import FilterSelect from 'components/FilterSelect';
 import Button from 'components/Button';
 
 import { expect } from 'chai';
-import { shallow, render, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 
@@ -32,5 +32,5 @@ describe('<MovieSearchForm />', () => {
     const expected = renderComponent.contains(<Button type="submit">Search</Button>);
     expect(expected).to.eql(true);
   });
-
 });
+
