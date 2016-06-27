@@ -9,19 +9,24 @@ import { connect } from 'react-redux';
 import { selectHomePage } from './selectors';
 import { createStructuredSelector } from 'reselect';
 import Navigation from 'components/Navigation';
+import MovieSearchForm from 'containers/MovieSearchForm';
+import WelcomeText from 'components/WelcomeText';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
         <Navigation />
-        This is HomePage container!
-        <h1>{this.props.repos}</h1>
+        <WelcomeText />
+        <MovieSearchForm />
+        {this.props.children}
       </div>
     );
   }
 }
-
+HomePage.propTypes = {
+  repos: React.PropTypes.string,
+};
 
 const mapStateToProps = createStructuredSelector({
   repos: selectHomePage(),

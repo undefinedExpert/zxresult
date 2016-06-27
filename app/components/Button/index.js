@@ -1,18 +1,22 @@
 /**
-*
-* Button
-*
-*/
+ *
+ * Button
+ *
+ */
 
 import React from 'react';
-
+import classNames from 'classnames';
 import styles from './styles.css';
 
-function Button() {
+function Button(props) {
   return (
-    <div className={styles.button}>
-    </div>
+    <button className={classNames('btn', 'btn-primary', styles.button)} type={props.type}> {props.children}
+    </button>
   );
 }
+
+Button.propTypes = {
+  type: React.PropTypes.string,
+};
 
 export default Button;
