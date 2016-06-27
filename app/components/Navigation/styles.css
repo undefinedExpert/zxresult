@@ -1,44 +1,43 @@
 @lost flexbox flex;
-$blue: #00f;
-$red: #f00;
-$green: #0f0;
 
 .navigation {
-    position: relative;
-    background-color: $blue;
-    width : 100%;
-    height: 50px;
+  position: relative;
+  background-color: #00F;
+  width: 100%;
+  height: 50px;
 }
 
 .bar {
-    lost-center: 95%;
-    &__item {
-        &--left, &--right {
-             lost-column: 1/2;
-             background-color: #f00;
-             height: 50px;
-             display: flex;
-             align-items: center;
-        }
-        &--right {
-             justify-content: flex-end;
-         }
+  lost-center: 95%;
+  &__item {
+    &--left,
+    &--right {
+      lost-column: 1/2;
+      background-color: #F00;
+      height: 50px;
+      display: flex;
+      align-items: center;
     }
+    &--right {
+      justify-content: flex-end;
+    }
+  }
 }
+
 /*
     TODO: Refator this to make it more flexible & repeatitive
 */
+
 .logotype {
-   h3 {
-        color: #fff;
-    }
+  h3 {
+    color: #FFF;
+  }
 }
 
 .links {
-    align-self: flex-end;
-    li {
-        display: inline-block;
-        margin-right: 12px;
-
-    }
+  align-self: flex-end;
+  li {
+    display: inline-block;
+    margin-right: 12px;
+  }
 }

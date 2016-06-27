@@ -9,7 +9,7 @@ describe('<Navigation />', () => {
     it('Should contain logotype element', () => {
       const renderedComponent = shallow(<Navigation />);
       const logotype = renderedComponent.find('#logotype');
-      expect(logotype).to.exist;
+      expect(logotype).to.equal(true);
     });
   });
 
@@ -17,12 +17,12 @@ describe('<Navigation />', () => {
     it('Login link exist', () => {
       const renderedComponent = shallow(<Navigation />);
       const button = renderedComponent.find('#loginButton');
-      expect(button).to.exist;
+      expect(button).to.equal(true);
     });
 
     it('Register link exist', () => {
       const renderedComponent = shallow(<Navigation />);
-      expect(renderedComponent.find('#registerButton')).to.exist;
+      expect(renderedComponent.find('#registerButton')).to.equal(true);
     });
   });
 });

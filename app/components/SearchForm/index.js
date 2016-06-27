@@ -8,24 +8,20 @@ import React from 'react';
 
 import styles from './styles.css';
 
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { feeling: '' };
-
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
-
+    this.onChangeFeeling = this.onChangeFeeling.bind(this);
   }
 
   onSubmitHandler(event) {
     event.preventDefault();
-    let feeling = this.state.feeling === '' || this.state.feeling === 'select' ? 'random' : this.state.feeling;
-
-    console.log(feeling);
-    browserHistory.push(`/result/${feeling}`)
+    const feeling = this.state.feeling === '' || this.state.feeling === 'select' ? 'random' : this.state.feeling;
+    browserHistory.push(`/result/${feeling}`);
   }
 
   onChangeFeeling(event) {
@@ -37,8 +33,12 @@ class SearchForm extends React.Component {
       <div className={styles.searchForm}>
         <h2 id="h2test">test</h2>
         <form onSubmit={this.onSubmitHandler}>
-          <select className="c-select" id="feeling" onChange={this.onChangeFeeling.bind(this)}
-                  value={this.state.feeling}>
+          <select
+            className="c-select"
+            id="feeling"
+            onChange={this.onChangeFeeling}
+            value={this.state.feeling}
+          >
             <option value="select">Select the feeling</option>
             <option value="sad">Sad</option>
             <option value="emotional">Emotional</option>

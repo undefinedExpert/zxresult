@@ -12,7 +12,6 @@ const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
 const lostCssGrid = require('lost');
 const precss = require('precss');
-const postcssSass = require('postcss-scss');
 
 
 module.exports = require('./webpack.base.babel')({
@@ -43,8 +42,6 @@ module.exports = require('./webpack.base.babel')({
     }),
     lostCssGrid(), // Loads grid
     precss(),
-    postcssSass(),
-
   ],
 
   // Add hot reloading
