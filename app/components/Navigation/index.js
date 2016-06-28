@@ -9,7 +9,6 @@ import styles from './styles.css';
 import classNames from 'classnames';
 
 function Navigation() {
-  console.log(styles);
   return (
     <div className={styles.navigation}>
       <div className={styles.bar}>

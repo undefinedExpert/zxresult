@@ -6,15 +6,14 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import selectMovieSearchResult from './selectors';
+import { selectMovieSearchResult } from './selectors';
 import Navigation from 'components/Navigation';
-
+import { createStructuredSelector } from 'reselect';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <Navigation />
         <h1>Movie result</h1>
         <h2>You're looking for a {this.feeling} movie</h2>
       </div>
@@ -22,7 +21,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   }
 }
 
-const mapStateToProps = selectMovieSearchResult();
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {

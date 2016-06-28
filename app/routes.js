@@ -14,7 +14,7 @@ const loadModule = (cb) => (componentModule) => {
 
 export default function createRoutes(store) {
   // Create reusable async injectors using getHooks factory
-  const { injectReducer, injectSagas } = getHooks(store);
+  const { injectReducer } = getHooks(store);
 
   return [
     {
@@ -38,28 +38,14 @@ export default function createRoutes(store) {
       },
     }, {
       path: '/result',
-      name: 'movieSearchResult',
+      name: 'result',
       getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/MovieSearchResult/reducer'),
-          System.import('containers/MovieSearchResult/sagas'),
-          System.import('containers/MovieSearchResult'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('movieSearchResult', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
+        System.import('containers/MovieSearchResult')
+          .then(loadModule(cb))
+          .catch(errorLoading);
       },
-
     }, {
       path: '*',
-
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')

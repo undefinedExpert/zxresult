@@ -10,7 +10,7 @@ import styles from './styles.css';
 
 function Button(props) {
   return (
-    <button className={classNames('btn', 'btn-primary', styles.button)} type={props.type}> {props.children}
+    <button onClick={props.handleRoute} className={classNames('btn', 'btn-primary', styles.button)} type={props.type}> {props.children}
     </button>
   );
 }
@@ -18,6 +18,7 @@ function Button(props) {
 Button.propTypes = {
   type: React.PropTypes.string,
   children: React.PropTypes.node.isRequired,
+  onClick: React.PropTypes.func,
 };
 
 export default Button;
