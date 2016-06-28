@@ -10,12 +10,12 @@ describe('<WelcomeText />', () => {
     renderComponent = shallow(<WelcomeText />);
   });
   it('Should contains h1 element', () => {
-    const h1 = renderComponent.find('h1');
-    expect(h1).to.equal(true);
+    const expected = renderComponent.find('h1');
+    expect(expected).to.not.eql(undefined);
   });
 
   it('Should contains h1 element', () => {
-    const h3 = renderComponent.find('h3');
-    expect(h3).to.equal(true);
+    const expected = renderComponent.find('h3');
+    expect(expected).to.not.eql(undefined);
   });
 });

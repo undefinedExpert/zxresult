@@ -7,6 +7,6 @@ import React from 'react';
 describe('<Button />', () => {
   it('Should return a button', () => {
     const renderComponent = shallow(<Button />);
-    expect(renderComponent).to.equal(true);
+    expect(renderComponent).to.not.eql(undefined);
   });
 });
