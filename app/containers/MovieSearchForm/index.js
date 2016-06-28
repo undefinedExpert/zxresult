@@ -26,14 +26,14 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     this.props.onSubmitForm();
   };
 
+  // TODO: fix the issue with handling onSubmit event
   render() {
     return (
       <div>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
-          <div>
-            <Button type="submit" handleRoute={this.routeToResult}>Search</Button>
-          </div>
+
         </form>
+        <Button handleRoute={this.routeToResult}>Search</Button>
       </div>
     );
   }
