@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the movieSearchForm state domain
  */
-const selectMovieSearchFormDomain = () => state => state.get('movieSearchForm');
+const selectMovieSearchFormDomain = () => state => state.get('home');
 
 /**
  * Other specific selectors

@@ -10,8 +10,7 @@
 .bar {
   lost-center: 95%;
   &__item {
-    &--left,
-    &--right {
+    &--left, &--right {
       lost-column: 1/2;
       background-color: #F00;
       height: 50px;
