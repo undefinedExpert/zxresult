@@ -19,6 +19,7 @@ Button.propTypes = {
   type: React.PropTypes.string,
   children: React.PropTypes.node.isRequired,
   onClick: React.PropTypes.func,
+  handleRoute: React.PropTypes.func,
 };
 
 export default Button;

@@ -6,8 +6,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectMovieSearchResult } from './selectors';
-import Navigation from 'components/Navigation';
 import { createStructuredSelector } from 'reselect';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function

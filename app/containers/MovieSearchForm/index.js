@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { selectMovieSearchForm } from './selectors';
 import Button from 'components/Button';
@@ -14,16 +13,17 @@ import { createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  openRoute = (route) => {
-    this.props.changeRoute(route);
+  onSubmit = () => {
+    this.props.onSubmitForm();
   };
 
   routeToResult = () => {
-    console.log('siemanko');
+    // console.log('siemanko');
     this.openRoute('/result');
   };
-  onSubmit = (event) => {
-    this.props.onSubmitForm();
+
+  openRoute = (route) => {
+    this.props.changeRoute(route);
   };
 
   // TODO: fix the issue with handling onSubmit event
