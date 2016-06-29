@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the movieSearchForm state domain
  */
-const selectMovieSearchFormDomain = () => state => state.get('home');
+const selectMovieSearchFormDomain = () => state => state.get('global');
 
 /**
  * Other specific selectors
@@ -16,7 +16,7 @@ const selectMovieSearchFormDomain = () => state => state.get('home');
 
 const selectMovieSearchForm = () => createSelector(
   selectMovieSearchFormDomain(),
-  (substate) => substate.get('movieSearchForm')
+  (substate) => substate.get('secondHelloWorld')
 );
 
 export default selectMovieSearchForm;

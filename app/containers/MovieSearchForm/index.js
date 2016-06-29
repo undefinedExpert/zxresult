@@ -30,6 +30,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   render() {
     return (
       <div>
+        <h1>{this.props.repos}</h1>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
 
         </form>

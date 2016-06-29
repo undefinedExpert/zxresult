@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the movieSearchResult state domain
  */
-const selectMovieSearchResultDomain = () => state => state.get('home');
+const selectMovieSearchResultDomain = () => state => state.get('global');
 
 /**
  * Other specific selectors

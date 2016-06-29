@@ -30,7 +30,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, component]) => {
           // Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
-          injectReducer('home', reducer.default);
+          injectReducer('global', reducer.default);
           renderRoute(component);
         });
 
