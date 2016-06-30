@@ -12,7 +12,6 @@ import {
 // The initial state of the App
 const initialState = fromJS({
   username: '',
-  ktosTam: '',
 });
 
 function movieSearchResultReducer(state = initialState, action) {

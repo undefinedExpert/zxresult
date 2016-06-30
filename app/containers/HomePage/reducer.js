@@ -9,6 +9,7 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
+
 // Co chcialbym uzyskac?
 // const initialState = fromJS({
 //   global: {
@@ -44,7 +45,6 @@ import {
 //     time: '70s',
 //   }
 // });
-
 const initialState = fromJS({
   secondHelloWorld: {
     siemanko: 'siema',
