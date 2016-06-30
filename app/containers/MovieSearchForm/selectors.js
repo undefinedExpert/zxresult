@@ -19,8 +19,14 @@ const selectMovieSearchForm = () => createSelector(
   (substate) => substate.get('secondHelloWorld')
 );
 
+const siemanko2 = () => createSelector(
+  selectMovieSearchForm(),
+  (selectGlobal) => selectGlobal.get('siemankodwa')
+);
+
 export default selectMovieSearchForm;
 export {
   selectMovieSearchForm,
+  siemanko2,
   selectMovieSearchFormDomain,
 };

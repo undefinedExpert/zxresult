@@ -9,7 +9,7 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-//Co chcialbym uzyskac?
+// Co chcialbym uzyskac?
 // const initialState = fromJS({
 //   global: {
 //     isLogged: true,
@@ -46,7 +46,10 @@ import {
 // });
 
 const initialState = fromJS({
-  secondHelloWorld: 'siemanko',
+  secondHelloWorld: {
+    siemanko: 'siema',
+    siemankodwa: 'siema2',
+  },
   username: 'siemankocotam',
 });
 

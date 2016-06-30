@@ -7,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectMovieSearchResult }  from './selectors';
+// import { selectMovieSearchResult }  from './selectors';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -21,9 +21,11 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  
-});
+MovieSearchResult.propTypes = {
+  movie: React.PropTypes.string,
+};
+
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectMovieSearchForm } from './selectors';
+import { selectMovieSearchForm, siemanko2 } from './selectors';
 import Button from 'components/Button';
 import styles from './styles.css';
 import { createStructuredSelector } from 'reselect';
@@ -30,7 +30,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   render() {
     return (
       <div>
-        <h1>{this.props.repos}</h1>
+        <h1>{this.props.siemanko}</h1>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
 
         </form>
@@ -42,7 +42,8 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
 
 MovieSearchForm.propTypes = {
-  repos: React.PropTypes.string,
+  repos: React.PropTypes.object,
+  siemanko: React.PropTypes.func,
   changeRoute: React.PropTypes.func,
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
@@ -50,6 +51,7 @@ MovieSearchForm.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   repos: selectMovieSearchForm(),
+  siemanko: siemanko2(),
 });
 
 function mapDispatchToProps(dispatch) {
