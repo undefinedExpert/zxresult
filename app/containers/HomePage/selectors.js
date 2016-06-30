@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the homePage state domain
  */
-const selectHomePageDomain = () => state => state.get('global');
+const selectGlobal = () => state => state.get('global');
 
 /**
  * Other specific selectors
@@ -14,13 +14,13 @@ const selectHomePageDomain = () => state => state.get('global');
  * Default selector used by HomePage
  */
 
-const selectHomePage = () => createSelector(
-  selectHomePageDomain(),
-  (homeState) => homeState.get('secondHelloWorld')
+const selectFilters = () => createSelector(
+  selectGlobal(),
+  (homeState) => homeState.get('filters')
 );
 
-export default selectHomePage;
+export default selectFilters;
 export {
-  selectHomePage,
-  selectHomePageDomain,
+  selectFilters,
+  selectGlobal,
 };

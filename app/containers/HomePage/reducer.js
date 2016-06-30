@@ -46,11 +46,24 @@ import {
 //   }
 // });
 const initialState = fromJS({
-  secondHelloWorld: {
-    siemanko: 'siema',
-    siemankodwa: 'siema2',
+  isLogged: true,
+  filters: {
+    mood: 'Sad',
+    trend: 'Classical',
+    decade: '90s',
   },
-  username: 'siemankocotam',
+  username: {
+    name: 'Emanuel',
+    avatar: 'https://avatars0.githubusercontent.com/u/5350669?v=3&s=460',
+    watchList: [
+      {
+        name: 'Titanic',
+        decade: '90s',
+        rating: 86,
+        popularity: 90,
+      },
+    ],
+  },
 });
 
 function homePageReducer(state = initialState, action) {

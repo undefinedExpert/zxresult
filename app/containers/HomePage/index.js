@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectHomePage } from './selectors';
+import { selectFilters } from './selectors';
 import { createStructuredSelector } from 'reselect';
 import Navigation from 'components/Navigation';
 import MovieSearchForm from 'containers/MovieSearchForm';
@@ -25,12 +25,12 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
   }
 }
 HomePage.propTypes = {
-  repos: React.PropTypes.string,
+  filters: React.PropTypes.object,
   children: React.PropTypes.node,
 };
 
 const mapStateToProps = createStructuredSelector({
-  repos: selectHomePage(),
+  filters: selectFilters(),
 });
 
 

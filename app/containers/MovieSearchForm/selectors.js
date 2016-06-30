@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the movieSearchForm state domain
  */
-const selectMovieSearchFormDomain = () => state => state.get('global');
+const globalDomain = () => state => state.get('global');
 
 /**
  * Other specific selectors
@@ -14,19 +14,13 @@ const selectMovieSearchFormDomain = () => state => state.get('global');
  * Default selector used by MovieSearchForm
  */
 
-const selectMovieSearchForm = () => createSelector(
-  selectMovieSearchFormDomain(),
-  (substate) => substate.get('secondHelloWorld')
+const selectFilters = () => createSelector(
+  globalDomain(),
+  (globalSelect) => globalSelect.get('filters').toJS()
 );
 
-const siemanko2 = () => createSelector(
-  selectMovieSearchForm(),
-  (selectGlobal) => selectGlobal.get('siemankodwa')
-);
-
-export default selectMovieSearchForm;
+export default selectFilters;
 export {
-  selectMovieSearchForm,
-  siemanko2,
-  selectMovieSearchFormDomain,
+  selectFilters,
+  globalDomain,
 };

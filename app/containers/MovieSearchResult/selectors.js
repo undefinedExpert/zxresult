@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-
+import {selectFilters} from '../HomePage/selectors';
 /**
  * Direct selector to the movieSearchResult state domain
  */

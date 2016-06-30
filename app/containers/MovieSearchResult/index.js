@@ -7,14 +7,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { selectMovieSearchResult }  from './selectors';
+import { selectFilters }  from './selectors';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
         <h1>Movie result</h1>
-        <h2>Username: {this.props.movie}</h2>
+        <h1>{this.props.filters.trend}</h1>
+        <h1>{this.props.filters.mood}</h1>
+        <h1>{this.props.filters.decade}</h1>
         <h2>You're looking for a {this.feeling} movie</h2>
       </div>
     );
@@ -22,10 +24,12 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 }
 
 MovieSearchResult.propTypes = {
-  movie: React.PropTypes.string,
+  filters: React.PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  filters: selectFilters(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
