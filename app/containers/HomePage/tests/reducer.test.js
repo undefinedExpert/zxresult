@@ -11,7 +11,7 @@ describe('homePageReducer', () => {
         trend: 'Classical',
         decade: '90s',
       },
-      username: {
+      user: {
         name: 'Emanuel',
         avatar: 'https://avatars0.githubusercontent.com/u/5350669?v=3&s=460',
         watchList: [

@@ -6,9 +6,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectFilters } from './selectors';
 import Button from 'components/Button';
 import styles from './styles.css';
+import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
 
@@ -28,11 +28,11 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
   // TODO: fix the issue with handling onSubmit event
   render() {
+    console.log(this.props.filters);
+
     return (
       <div>
-        <h1>{this.props.filters.trend}</h1>
-        <h1>{this.props.filters.mood}</h1>
-        <h1>{this.props.filters.decade}</h1>
+        <h1></h1>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
 
         </form>
@@ -51,7 +51,8 @@ MovieSearchForm.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  filters: selectFilters(),
+   filters: selectFilters(),
+
 });
 
 function mapDispatchToProps(dispatch) {

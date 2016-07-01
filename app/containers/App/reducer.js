@@ -66,7 +66,7 @@ const initialState = fromJS({
   },
 });
 
-function homePageReducer(state = initialState, action) {
+function appReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -75,4 +75,4 @@ function homePageReducer(state = initialState, action) {
   }
 }
 
-export default homePageReducer;
+export default appReducer;
