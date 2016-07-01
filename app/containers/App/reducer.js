@@ -7,51 +7,16 @@
 import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
+  MOOD_UPDATE,
 } from './constants';
 
-
-// Co chcialbym uzyskac?
-// const initialState = fromJS({
-//   global: {
-//     isLogged: true,
-//     user: {
-//       username: 'Lansky',
-//       avatar: 'url',
-//       userProfileData: {
-//         description: '...',
-//         accCreated: '...',
-//         comments: [
-//           {
-//             date: '...',
-//             movie: '...',
-//             inReplyTo: '...',
-//           }
-//         ],
-//         watchlist: [
-//           {
-//             // ...
-//           }
-//         ],
-//         statistics: {
-//           moviesWatched: '...',
-//           comments: '...',
-//         }
-//       }
-//     }
-//   },
-//   filters {
-//     trend: 'custom',
-//     mood: 'sad',
-//     time: '70s',
-//   }
-// });
 const initialState = fromJS({
   isLogged: true,
-  filters: {
-    mood: 'Sad',
+  filters: fromJS({
+    mood: 'Funny',
     trend: 'Classical',
     decade: '90s',
-  },
+  }),
   user: {
     name: 'Emanuel',
     avatar: 'https://avatars0.githubusercontent.com/u/5350669?v=3&s=460',
@@ -70,6 +35,9 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
+    case MOOD_UPDATE:
+      return state
+        .setIn(['filters', 'mood'], action.value);
     default:
       return state;
   }

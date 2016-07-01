@@ -11,6 +11,7 @@ import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
+import moodUpdate  from 'containers/App/actions';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   onSubmit = () => {
@@ -28,13 +29,16 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
   // TODO: fix the issue with handling onSubmit event
   render() {
-    console.log(this.props.filters);
+    console.log(moodUpdate);
 
     return (
       <div>
         <h1></h1>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
-
+          <select className="form-control" name="mood" id="mood" onChange={this.props.onChangeMood}>
+            <option value="funny">Funny</option>
+            <option value="sad">Sad</option>
+          </select>
         </form>
         <Button handleRoute={this.routeToResult}>Search</Button>
       </div>
@@ -48,15 +52,17 @@ MovieSearchForm.propTypes = {
   changeRoute: React.PropTypes.func,
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
+  onChangeMood: React.PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-   filters: selectFilters(),
-
+  filters: selectFilters(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    // onChangeMood: (evt) => dispatch(moodUpdate(evt)),
+    onChangeMood: (evt) => dispatch(moodUpdate(evt.target.value)),
     changeRoute: (url) => dispatch(push(url)),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();

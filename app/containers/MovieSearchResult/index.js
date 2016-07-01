@@ -14,12 +14,11 @@ import { selectFilters } from 'containers/App/selectors';
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     console.log(this.props.filters);
-
     return (
       <div>
         <h1>Movie result</h1>
 
-        <h2>You're looking for a {this.feeling} movie</h2>
+        <h2>You're looking for a {this.props.filters.mood} movie</h2>
       </div>
     );
   }
