@@ -19,12 +19,12 @@ const selectUser = () => createSelector(
 
 const selectUsername = () => createSelector(
   selectUser(),
-  (substate) => substate.get('username')
+  (substate) => substate.get('username').toJS()
 );
 
 const selectMood = () => createSelector(
   selectFilters(),
-  (substate) => substate.get('mood')
+  (substate) => (substate.mood)
 );
 
 // selectLocationState expects a plain JS object for the routing state
