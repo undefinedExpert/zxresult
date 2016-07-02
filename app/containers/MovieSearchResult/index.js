@@ -13,7 +13,7 @@ import { selectFilters } from 'containers/App/selectors';
 // <h1>{this.props.filters.decade}</h1>
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log(this.props.filters);
+    // console.log(this.props.filters);
     return (
       <div>
         <h1>Movie result</h1>

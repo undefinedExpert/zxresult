@@ -11,7 +11,7 @@ import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
-import moodUpdate  from 'containers/App/actions';
+import moodUpdate from 'containers/App/actions';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   onSubmit = () => {
@@ -29,7 +29,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
   // TODO: fix the issue with handling onSubmit event
   render() {
-    console.log(moodUpdate);
+    // console.log(moodUpdate);
 
     return (
       <div>

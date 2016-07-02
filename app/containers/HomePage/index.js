@@ -14,7 +14,7 @@ import WelcomeText from 'components/WelcomeText';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log(this.props.filters);
+    // console.log(this.props.filters);
     return (
       <div>
         <Navigation />
