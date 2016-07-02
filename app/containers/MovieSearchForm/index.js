@@ -8,7 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
 import styles from './styles.css';
-import { selectFilters } from 'containers/App/selectors';
+import { selectFilters, selectMood } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import moodUpdate from 'containers/App/actions';
@@ -35,7 +35,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <h1></h1>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
-          <select className="form-control" name="mood" id="mood" onChange={this.props.onChangeMood}>
+          <select className="form-control" name="mood" id="mood" value={this.props.mood} onChange={this.props.onChangeMood}>
             <option value="funny">Funny</option>
             <option value="sad">Sad</option>
           </select>
@@ -53,10 +53,12 @@ MovieSearchForm.propTypes = {
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
   onChangeMood: React.PropTypes.func,
+  mood: React.PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   filters: selectFilters(),
+  mood: selectMood(),
 });
 
 function mapDispatchToProps(dispatch) {

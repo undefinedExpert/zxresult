@@ -13,7 +13,18 @@ const selectFilters = () => createSelector(
 
 const selectUser = () => createSelector(
   globalDomain(),
+  (globalSelect) => globalSelect.get('user').toJS()
+);
+
+
+const selectUsername = () => createSelector(
+  selectUser(),
   (substate) => substate.get('username')
+);
+
+const selectMood = () => createSelector(
+  selectFilters(),
+  (substate) => substate.get('mood')
 );
 
 // selectLocationState expects a plain JS object for the routing state
@@ -36,6 +47,8 @@ const selectLocationState = () => {
 export {
   selectLocationState,
   globalDomain,
+  selectMood,
+  selectUsername,
   selectFilters,
   selectUser,
 };
