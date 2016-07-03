@@ -127,7 +127,7 @@
     "reselect": "^2.5.1",
     "retext": "^3.0.0",
     "retext-keywords": "^2.0.2",
-    "retext-pos": "^1.0.0",
+    "retext-pos": "lanskey/retext-pos",
     "sanitize.css": "^3.3.0",
     "whatwg-fetch": "^1.0.0"
   },
