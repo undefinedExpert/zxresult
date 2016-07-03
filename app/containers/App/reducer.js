@@ -8,6 +8,8 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
   MOOD_UPDATE,
+  GENRE_UPDATE,
+  RESULT_SET,
 } from './constants';
 
 const initialState = fromJS({
@@ -100,6 +102,10 @@ const initialState = fromJS({
       },
     ],
   }),
+  result: fromJS({
+    movie: null,
+    movies: null,
+  }),
   user: {
     name: 'Emanuel',
     avatar: 'https://avatars0.githubusercontent.com/u/5350669?v=3&s=460',
@@ -121,6 +127,13 @@ function appReducer(state = initialState, action) {
     case MOOD_UPDATE:
       return state
         .setIn(['filters', 'mood'], action.value);
+    case GENRE_UPDATE:
+      return state
+        .setIn(['filters', 'genre'], action.value);
+    case RESULT_SET:
+      return state
+        .setIn(['result', 'movie'], action.single)
+        .setIn(['result', 'movies'], action.movies);
     default:
       return state;
   }

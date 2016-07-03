@@ -37,6 +37,16 @@ const selectGenreList = () => createSelector(
   (substate) => (substate.genreList)
 );
 
+const selectResult = () => createSelector(
+  globalDomain(),
+  (substate) => substate.get('result').toJS()
+);
+
+const selectSingleResult = () => createSelector(
+  selectResult(),
+  (substate) => substate.movie
+);
+
 // selectLocationState expects a plain JS object for the routing state
 const selectLocationState = () => {
   let prevRoutingState;
@@ -63,4 +73,6 @@ export {
   selectUsername,
   selectFilters,
   selectUser,
+  selectResult,
+  selectSingleResult,
 };
