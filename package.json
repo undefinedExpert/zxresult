@@ -112,6 +112,8 @@
     "history": "^2.1.0",
     "immutable": "^3.8.1",
     "lost": "^6.8.1",
+    "nlcst-to-string": "^2.0.0",
+    "pos": "^0.3.0",
     "react": "^15.0.1",
     "react-addons-shallow-compare": "^15.1.0",
     "react-dom": "^15.0.1",
@@ -123,6 +125,9 @@
     "redux-immutable": "^3.0.6",
     "redux-saga": "^0.10.0",
     "reselect": "^2.5.1",
+    "retext": "^3.0.0",
+    "retext-keywords": "^2.0.2",
+    "retext-pos": "^1.0.0",
     "sanitize.css": "^3.3.0",
     "whatwg-fetch": "^1.0.0"
   },

@@ -9,7 +9,7 @@ const MOOD_UPDATE = 'app/App/MOOD_UPDATE';
 const GENRE_UPDATE = 'app/App/GENRE_UPDATE';
 const RESULT_SET = 'app/App/RESULT_SET';
 const RESULT_SET_ERROR = 'app/App/RESULT_SET_ERROR';
-
+const FILTER_FORM_UPDATE = 'app/App/FILTER_FORM_UPDATE';
 
 export {
   DEFAULT_ACTION,
@@ -17,4 +17,5 @@ export {
   GENRE_UPDATE,
   RESULT_SET,
   RESULT_SET_ERROR,
+  FILTER_FORM_UPDATE,
 };

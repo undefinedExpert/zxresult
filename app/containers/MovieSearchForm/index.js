@@ -11,7 +11,7 @@ import styles from './styles.css';
 import { selectFilters, selectMood, selectGenre } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
 import { push } from 'react-router-redux';
-import {moodUpdate, genreUpdate} from 'containers/App/actions';
+import { moodUpdate, genreUpdate, filterFormUpdate } from 'containers/App/actions';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   onSubmit = () => {
@@ -35,11 +35,9 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <h1></h1>
         <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
-          <select className="form-control" name="mood" id="mood" value={this.props.genre} onChange={this.props.onChangeGenre}>
-            <option value="action">action</option>
-            <option value="drama">drama</option>
-          </select>
+          <input className="form-control" name="mood" id="mood" value={this.props.genre} onChange={this.props.onChangeGenre} />
         </form>
+        <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
       </div>
     );
@@ -52,6 +50,7 @@ MovieSearchForm.propTypes = {
   changeRoute: React.PropTypes.func,
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
+  filterFormUpdate: React.PropTypes.func,
   onChangeMood: React.PropTypes.func,
   mood: React.PropTypes.string,
   genre: React.PropTypes.string,
@@ -69,6 +68,7 @@ function mapDispatchToProps(dispatch) {
     onChangeMood: (evt) => dispatch(moodUpdate(evt.target.value)),
     onChangeGenre: (evt) => dispatch(genreUpdate(evt.target.value)),
     changeRoute: (url) => dispatch(push(url)),
+    filterUpdate: () => dispatch(filterFormUpdate()),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       // dispatch(loadRepos());
