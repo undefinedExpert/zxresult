@@ -20,6 +20,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
         <Navigation />
         <h1>Title: {this.props.result.original_title}</h1>
         <h2>{this.props.result.overview}</h2>
+        <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.poster_path}`} alt="" />
       </div>
     );
   }

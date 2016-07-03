@@ -4,24 +4,29 @@ import { selectGenre, selectGenreList } from 'containers/App/selectors';
 import { resultSet } from 'containers/App/actions';
 import request from 'utils/request';
 import _ from 'lodash';
+import Chance from 'chance';
 
 // Individual exports for testing
 export function* getRepos() {
   // Select username from store
+  var chance = new Chance();
   const genre = yield select(selectGenre());
   const genreUpperLetter = _.upperFirst(genre);
   const genreList = yield select(selectGenreList());
   const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
+  const randomNumber = chance.integer({ min: 0, max: 250 });
 
-  console.log(genreId);
-
+  // const number = chance.integer({min: 0, max: 250});
+  // Jakie zapytanie powinnienm skonstruowac aby otrzymac swoj wynik?
+  // - Musi to byc wynik zgodnie ze wskazówkami
+  // - Musi Wynik musi byc zaokraglony do 5 najlepszych wynikow
+  // -
   const Url = 'http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5';
-  const requestUrl = `${Url}&with_genres=${genreList[genreId].id}`;
-  console.log(requestUrl);
-  // // http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5&with_keywords=11828&with_genres=16
-  //
+  const requestUrl = `${Url}&with_genres=${genreList[genreId].id}&page=${randomNumber}`;
+
   const movies = yield call(request, requestUrl);
-  // // http://private-anon-e898af97d-themoviedb.apiary-mock.com/3/genre/movie/list
+
+  console.log(randomNumber);
 
   if (!movies.err) {
     yield put(resultSet(movies.data, movies.data.results[0]));
