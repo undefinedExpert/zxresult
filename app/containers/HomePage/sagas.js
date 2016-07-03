@@ -1,7 +1,7 @@
-import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, select } from 'redux-saga/effects';
 import { MOOD_UPDATE } from 'containers/App/constants';
 import { selectGenre, selectGenreList } from 'containers/App/selectors';
-import request from 'utils/request';
+// import request from 'utils/request';
 import _ from 'lodash';
 
 // Individual exports for testing

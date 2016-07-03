@@ -2,7 +2,7 @@
 
 .navigation {
   position: relative;
-  background-color: #00F;
+  background-color: #00f;
   width: 100%;
   height: 50px;
 }
@@ -13,7 +13,7 @@
     &--left,
     &--right {
       lost-column: 1/2;
-      background-color: #F00;
+      background-color: #f00;
       height: 50px;
       display: flex;
       align-items: center;
@@ -30,7 +30,7 @@
 
 .logotype {
   h3 {
-    color: #FFF;
+    color: #fff;
   }
 }
 
