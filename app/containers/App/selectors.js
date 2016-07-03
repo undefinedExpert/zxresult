@@ -27,6 +27,16 @@ const selectMood = () => createSelector(
   (substate) => (substate.mood)
 );
 
+const selectGenre = () => createSelector(
+  selectFilters(),
+  (substate) => (substate.genre)
+);
+
+const selectGenreList = () => createSelector(
+  selectFilters(),
+  (substate) => (substate.genreList)
+);
+
 // selectLocationState expects a plain JS object for the routing state
 const selectLocationState = () => {
   let prevRoutingState;
@@ -48,6 +58,8 @@ export {
   selectLocationState,
   globalDomain,
   selectMood,
+  selectGenre,
+  selectGenreList,
   selectUsername,
   selectFilters,
   selectUser,
