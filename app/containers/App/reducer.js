@@ -6,7 +6,6 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
   MOOD_UPDATE,
   GENRE_UPDATE,
   RESULT_SET,
@@ -122,8 +121,6 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
     case MOOD_UPDATE:
       return state
         .setIn(['filters', 'mood'], action.value);
