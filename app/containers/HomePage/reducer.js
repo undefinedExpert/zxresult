@@ -9,42 +9,6 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-
-// Co chcialbym uzyskac?
-// const initialState = fromJS({
-//   global: {
-//     isLogged: true,
-//     user: {
-//       username: 'Lansky',
-//       avatar: 'url',
-//       userProfileData: {
-//         description: '...',
-//         accCreated: '...',
-//         comments: [
-//           {
-//             date: '...',
-//             movie: '...',
-//             inReplyTo: '...',
-//           }
-//         ],
-//         watchlist: [
-//           {
-//             // ...
-//           }
-//         ],
-//         statistics: {
-//           moviesWatched: '...',
-//           comments: '...',
-//         }
-//       }
-//     }
-//   },
-//   filters {
-//     trend: 'custom',
-//     mood: 'sad',
-//     time: '70s',
-//   }
-// });
 const initialState = fromJS({
   isLogged: true,
   filters: {
