@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import {
   selectLocationState,
+  globalDomain,
   selectFilters,
   selectUser,
   selectUsername,
@@ -23,31 +24,48 @@ describe('selectLocationState', () => {
     });
     expect(selectLocationState()(mockedState)).to.eql(route.toJS());
   });
+});
 
-  describe('selectFilters', () => {
 
-    it('Should select mood', () => {
-      const mood = 'sad';
-      const mockedState = fromJS({
-        filters: fromJS({
-          mood,
-        }),
-      });
-
-      expect(selectMood(mockedState)).to.eql(mood);
+describe('selectGlobalState', () => {
+  const globalSelector = globalDomain();
+  it('Should select global', () => {
+    const globalState = fromJS({
+      data: {},
     });
-
-    it('Should select genre', () => {
-
+    const mockedState = fromJS({
+      global: globalState,
     });
+    expect(globalSelector(mockedState)).to.eql(globalState);
+  });
+});
 
-    it('Should select genreList', () => {
-
+describe('selectFilters', () => {
+  const filterSelector = selectFilters();
+  it('Should select filters', () => {
+    const filterState = {
+      data: {},
+    };
+    const mockedState = fromJS({
+      global: fromJS({
+        filters: fromJS(filterState),
+      }),
     });
+    expect(filterSelector(mockedState)).to.eql(filterState);
   });
 
 
+  it('Should select mood', () => {
 
+  });
 
+  it('Should select genre', () => {
 
+  });
+
+  it('Should select genreList', () => {
+
+  });
 });
+
+
