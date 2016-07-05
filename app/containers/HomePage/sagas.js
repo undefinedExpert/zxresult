@@ -1,24 +1,15 @@
 import { take, call, select, put } from 'redux-saga/effects';
-import { MOOD_UPDATE, GENRE_UPDATE, FILTER_FORM_UPDATE} from 'containers/App/constants';
+import { FILTER_FORM_UPDATE } from 'containers/App/constants';
 import { selectGenre, selectGenreList } from 'containers/App/selectors';
 import { resultSet } from 'containers/App/actions';
 import request from 'utils/request';
 import _ from 'lodash';
 import Chance from 'chance';
-import retext from 'retext';
-import nlcstToString from 'nlcst-to-string';
-import keywords from 'retext-keywords';
-
-
-//
-// // var retext = require('retext');
-// // var nlcstToString = require('nlcst-to-string');
-// // var keywords = require('retext-keywords');
-//
-// console.log(keywords);
+// import retext from 'retext';
+// import nlcstToString from 'nlcst-to-string';
+// import keywords from 'retext-keywords';
 // Individual exports for testing
 export function* getRepos() {
-  console.log(retext);
   // Select username from store
   const chance = new Chance();
   const genre = yield select(selectGenre());
@@ -26,7 +17,11 @@ export function* getRepos() {
   const genreList = yield select(selectGenreList());
   const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
 
-  if (genreId === -1) return console.warn(`Genre "${genre}" wasn't found in genreList`);
+  // Is the typed genre is inside of our genre list?
+  if (genreId === -1) {
+    console.warn(`Genre "${genre}" wasn't found in genreList`);
+    return;
+  }
 
   const randomNumber = chance.integer({ min: 0, max: 250 });
 
@@ -35,9 +30,6 @@ export function* getRepos() {
   // console.log(genreId);
   const requestUrl = `${Url}&with_genres=${genreList[genreId].id}&page=${randomNumber}`;
   const movies = yield call(request, requestUrl);
-
-  console.log(randomNumber);
-
   if (!movies.err) {
     yield put(resultSet(movies.data, movies.data.results[0]));
   }

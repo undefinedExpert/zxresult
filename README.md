@@ -1,1 +1,1 @@
-### Quick Movie Search application 
+### Quick Movie Search application

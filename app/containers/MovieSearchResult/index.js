@@ -31,7 +31,9 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 }
 
 MovieSearchResult.propTypes = {
+  filterUpdate: React.PropTypes.func,
   filters: React.PropTypes.object,
+  result: React.PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

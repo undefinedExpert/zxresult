@@ -54,6 +54,8 @@ MovieSearchForm.propTypes = {
   onChangeMood: React.PropTypes.func,
   mood: React.PropTypes.string,
   genre: React.PropTypes.string,
+  onChangeGenre: React.PropTypes.func,
+  filterUpdate: React.PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
