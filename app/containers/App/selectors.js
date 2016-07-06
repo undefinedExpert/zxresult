@@ -32,10 +32,10 @@ const struct = createStructuredSelector({
   genreList: (substate) => substate.genreList,
 });
 
-const getFilters = () => createSelector(
-  selectFilters(),
-  struct,
-);
+// const getFilters = () => createSelector({
+//   selectFilters(),
+//   struct,
+// )};
 
 
 // Select user
@@ -93,5 +93,4 @@ export {
   selectUser,
   selectResult,
   selectSingleResult,
-  getFilters,
 };

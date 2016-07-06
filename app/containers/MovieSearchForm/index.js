@@ -39,7 +39,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
         </form>
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
-        <h2>Genre: {this.props.filters.mood}</h2>
+        <h2>Genre: {this.props.genre}</h2>
 
       </div>
     );
@@ -60,15 +60,38 @@ MovieSearchForm.propTypes = {
   filterUpdate: React.PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  filters: getFilters(),
-});
-//
-// selectFilters(),
+// function mapStateToProps(state) {
+//   return {
+//     data: state.getIn(['global', 'filters', 'mood'])
+//   };
+// }
+
+const mapStateToProps = () => {
+  const filterSelector = createStructuredSelector({
+    mood: (state, props) => state.mood,
+    genre: (state, props) => state.genre,
+  });
+
+  return createSelector(
+    selectFilters(),
+    filterSelector,
+    (cs) => {
+      const mood = cs.mood;
+      const genre = cs.genre;
+
+      return {mood, genre};
+    }
+  )
+};
+
+
+// const mapStateToProps = createSelector(
+//   selectFilters(),
 //   createStructuredSelector({
 //     mood: (state) => state.mood,
 //     genre: (state) => state.genre,
 //   }),
+// );
 
 function mapDispatchToProps(dispatch) {
   return {
