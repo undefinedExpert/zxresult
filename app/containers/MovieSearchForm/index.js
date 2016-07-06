@@ -29,7 +29,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
   // TODO: fix the issue with handling onSubmit event
   render() {
-    // console.log(genreUpdate);
+    console.log(this.props.mood);
 
     return (
       <div>
@@ -46,7 +46,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   }
 }
 
-
+// kocham Emanuela <3
 MovieSearchForm.propTypes = {
   filters: React.PropTypes.object,
   changeRoute: React.PropTypes.func,
@@ -60,38 +60,13 @@ MovieSearchForm.propTypes = {
   filterUpdate: React.PropTypes.func,
 };
 
-// function mapStateToProps(state) {
-//   return {
-//     data: state.getIn(['global', 'filters', 'mood'])
-//   };
-// }
-
-const mapStateToProps = () => {
-  const filterSelector = createStructuredSelector({
-    mood: (state, props) => state.mood,
-    genre: (state, props) => state.genre,
-  });
-
-  return createSelector(
-    selectFilters(),
-    filterSelector,
-    (cs) => {
-      const mood = cs.mood;
-      const genre = cs.genre;
-
-      return {mood, genre};
-    }
-  )
-};
-
-
-// const mapStateToProps = createSelector(
-//   selectFilters(),
-//   createStructuredSelector({
-//     mood: (state) => state.mood,
-//     genre: (state) => state.genre,
-//   }),
-// );
+const mapStateToProps = createSelector(
+  getFilters(),
+  createStructuredSelector({
+    mood: (state) => state.mood,
+    genre: (state) => state.genre,
+  })
+);
 
 function mapDispatchToProps(dispatch) {
   return {

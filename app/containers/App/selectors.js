@@ -26,15 +26,33 @@ const selectGenreList = () => createSelector(
   (substate) => (substate.genreList)
 );
 
-const struct = createStructuredSelector({
-  mood: (substate) => substate.mood,
-  genre: (substate) => substate.genre,
-  genreList: (substate) => substate.genreList,
+const filterSelector = createStructuredSelector({
+  mood: (state, props) => state.mood,
+  genre: (state, props) => state.genre,
 });
+
+const getFilters = () => createSelector(
+
+    selectFilters(),
+    filterSelector,
+    (cs) => {
+      const mood = cs.mood;
+      const genre = cs.genre;
+
+      return {mood, genre};
+    }
+
+);
 
 // const getFilters = () => createSelector({
 //   selectFilters(),
 //   struct,
+//   (cs) => {
+//     const mood = cs.mood;
+//     const genre = cs.genre;
+//  
+//     return {mood, genre};
+//   }
 // )};
 
 
@@ -93,4 +111,5 @@ export {
   selectUser,
   selectResult,
   selectSingleResult,
+  getFilters,
 };
