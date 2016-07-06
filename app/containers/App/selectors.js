@@ -1,5 +1,4 @@
-import { createSelector } from 'reselect';
-import _ from 'lodash';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 const globalDomain = () => state => state.get('global');
 
@@ -10,16 +9,6 @@ const globalDomain = () => state => state.get('global');
 const selectFilters = () => createSelector(
   globalDomain(),
   (globalSelect) => globalSelect.get('filters').toJS()
-);
-
-const selectUser = () => createSelector(
-  globalDomain(),
-  (globalSelect) => globalSelect.get('user').toJS()
-);
-
-const selectUsername = () => createSelector(
-  selectUser(),
-  (substate) => substate.get('username').toJS()
 );
 
 const selectMood = () => createSelector(
@@ -37,6 +26,30 @@ const selectGenreList = () => createSelector(
   (substate) => (substate.genreList)
 );
 
+const struct = createStructuredSelector({
+  mood: (substate) => substate.mood,
+  genre: (substate) => substate.genre,
+  genreList: (substate) => substate.genreList,
+});
+
+const getFilters = () => createSelector(
+  selectFilters(),
+  struct,
+);
+
+
+// Select user
+const selectUser = () => createSelector(
+  globalDomain(),
+  (globalSelect) => globalSelect.get('user').toJS()
+);
+
+const selectUsername = () => createSelector(
+  selectUser(),
+  (substate) => substate.get('username').toJS()
+);
+
+// Select result
 const selectResult = () => createSelector(
   globalDomain(),
   (substate) => substate.get('result').toJS()
@@ -45,6 +58,11 @@ const selectResult = () => createSelector(
 const selectSingleResult = () => createSelector(
   selectResult(),
   (substate) => substate.movie
+);
+
+const selectTest = () => createSelector(
+  selectFilters(),
+  (substate) => console.log(substate)
 );
 
 // selectLocationState expects a plain JS object for the routing state
@@ -75,4 +93,5 @@ export {
   selectUser,
   selectResult,
   selectSingleResult,
+  getFilters,
 };

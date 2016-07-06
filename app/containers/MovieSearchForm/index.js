@@ -8,8 +8,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
 import styles from './styles.css';
-import { selectFilters, selectMood, selectGenre } from 'containers/App/selectors';
-import { createStructuredSelector } from 'reselect';
+import { selectFilters, selectMood, selectGenre, getFilters } from 'containers/App/selectors';
+import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { moodUpdate, genreUpdate, filterFormUpdate } from 'containers/App/actions';
 
@@ -39,7 +39,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
         </form>
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
-
+        <h2>Genre: {this.props.filters.mood}</h2>
 
       </div>
     );
@@ -61,10 +61,14 @@ MovieSearchForm.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  filters: selectFilters(),
-  mood: selectMood(),
-  genre: selectGenre(),
+  filters: getFilters(),
 });
+//
+// selectFilters(),
+//   createStructuredSelector({
+//     mood: (state) => state.mood,
+//     genre: (state) => state.genre,
+//   }),
 
 function mapDispatchToProps(dispatch) {
   return {
