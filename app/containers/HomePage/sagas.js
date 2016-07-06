@@ -16,19 +16,25 @@ function randomizePage() {
   return chance.integer({ min: 0, max: 250 });
 }
 
-function rateKeywords() {
-  //...
-}
-
-function* constructUrl(keywords) {
-  const randomNumber = randomizePage();
-  const filters = yield select(selectFilters());
+function rateKeywords(filters) {
   const genreUpperLetter = _.upperFirst(filters.genre);
   const genreList = filters.genreList;
   const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
+
+  const constructedGenre = genreList[genreId].id;
+
+  console.log(constructedGenre);
+
+  return {constructedGenre, genreList};
+}
+
+function* constructUrl() {
+  const randomNumber = randomizePage();
+  const filters = yield select(selectFilters());
+  const keywords = rateKeywords(filters);
   const Url = 'http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5';
 
-  return `${Url}&with_genres=${genreList[genreId].id}&page=${randomNumber}`;
+  return `${Url}&with_genres=${keywords.constructedGenre}&page=${randomNumber}`;
 }
 
 export function* getRepos() {
@@ -40,7 +46,6 @@ export function* getRepos() {
     yield put(resultSet(movies.data, movies.data.results[0]));
   }
 }
-
 
 /**
  * Watches for LOAD_REPOS action and calls handler
