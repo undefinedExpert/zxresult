@@ -16,14 +16,14 @@ import { filterFormUpdate } from 'containers/App/actions';
 // <h1>{this.props.filters.decade}</h1>
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log(this.props.result);
+    console.log(this.props.result.movie);
     return (
       <div>
         <Navigation />
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
-        <h1>Title: {this.props.result.original_title}</h1>
-        <h2>{this.props.result.overview}</h2>
-        <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.poster_path}`} alt="" />
+        <h1>Title: {this.props.result.movie.original_title}</h1>
+        <h2>{this.props.result.movie.overview}</h2>
+        <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.movie.poster_path}`} alt="" />
 
       </div>
     );
