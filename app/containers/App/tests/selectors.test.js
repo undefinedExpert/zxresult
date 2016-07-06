@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import {
   selectLocationState,
   globalDomain,
-  selectFilters,
+  filtersDomain,
   selectUser,
   selectUsername,
   selectMood,
@@ -40,8 +40,8 @@ describe('selectGlobalState', () => {
   });
 });
 
-describe('selectFilters', () => {
-  const filterSelector = selectFilters();
+describe('filtersDomain', () => {
+  const filterSelector = filtersDomain();
   it('Should select filters', () => {
     const filterState = {
       data: {},

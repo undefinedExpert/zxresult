@@ -5,20 +5,20 @@ const globalDomain = () => state => state.get('global');
 /**
  * Other specific selectors
  */
-// TODO: Refactor selectors
-const selectFilters = () => createSelector(
+const filtersDomain = () => createSelector(
   globalDomain(),
   (globalSelect) => globalSelect.get('filters').toJS()
 );
 
-const filterSelector = createStructuredSelector({
-  mood: (state) => state.mood,
-  genre: (state) => state.genre,
-  genreList: (state) => state.genreList,
-});
-
-const getFilters = () => createSelector(
-    selectFilters(),
+// Attach nested filters state proprieties
+const selectFilters = () => {
+  const filterSelector = createStructuredSelector({
+    mood: (state) => state.mood,
+    genre: (state) => state.genre,
+    genreList: (state) => state.genreList,
+  });
+  return createSelector(
+    filtersDomain(),
     filterSelector,
     (filtersState) => {
       const mood = filtersState.mood;
@@ -26,47 +26,48 @@ const getFilters = () => createSelector(
       const genreList = filtersState.genreList;
       return { mood, genre, genreList };
     }
-);
-
-// const getFilters = () => createSelector({
-//   selectFilters(),
-//   struct,
-//   (cs) => {
-//     const mood = cs.mood;
-//     const genre = cs.genre;
-//  
-//     return {mood, genre};
-//   }
-// )};
-
+  );
+};
 
 // Select user
-const selectUser = () => createSelector(
+const userDomain = () => createSelector(
   globalDomain(),
   (globalSelect) => globalSelect.get('user').toJS()
 );
 
-const selectUsername = () => createSelector(
-  selectUser(),
-  (substate) => substate.get('username').toJS()
-);
+const selectUser = () => {
+  const filterSelector = createStructuredSelector({
+    mood: (state) => state.username,
+  });
+  return createSelector(
+    userDomain(),
+    filterSelector,
+    (filtersState) => {
+      const username = filtersState.username;
+      return { username };
+    }
+  );
+};
 
 // Select result
-const selectResult = () => createSelector(
+const resultDomain = () => createSelector(
   globalDomain(),
   (substate) => substate.get('result').toJS()
 );
 
-const selectSingleResult = () => createSelector(
-  selectResult(),
-  (substate) => substate.movie
-);
-
-const selectTest = () => createSelector(
-  selectFilters(),
-  (substate) => console.log(substate)
-);
-
+const selectResult = () => {
+  const filterSelector = createStructuredSelector({
+    movie: (state) => state.movie,
+  });
+  return createSelector(
+    resultDomain(),
+    filterSelector,
+    (filtersState) => {
+      const movie = filtersState.movie;
+      return { movie };
+    }
+  );
+};
 // selectLocationState expects a plain JS object for the routing state
 const selectLocationState = () => {
   let prevRoutingState;
@@ -85,12 +86,12 @@ const selectLocationState = () => {
 };
 
 export {
-  selectLocationState,
   globalDomain,
-  selectUsername,
+  filtersDomain,
   selectFilters,
+  userDomain,
   selectUser,
+  resultDomain,
   selectResult,
-  selectSingleResult,
-  getFilters,
+  selectLocationState,
 };

@@ -8,7 +8,7 @@ import {
   MOOD_UPDATE,
   GENRE_UPDATE,
   RESULT_SET,
-//  FILTER_FORM_UPDATE,
+  FILTER_FORM_UPDATE,
 } from './constants';
 
 export function moodUpdate(value) {
@@ -33,11 +33,12 @@ export function resultSet(movies, single) {
   };
 }
 
-// export function filterFormUpdate(movies, single) {
-//   return {
-//     type: FILTER_FORM_UPDATE,
-//   };
-// }
+//TODO: Refactor
+export function filterFormUpdate() {
+  return {
+    type: FILTER_FORM_UPDATE,
+  };
+}
 
 // {
 //   moodUpdate as mood,

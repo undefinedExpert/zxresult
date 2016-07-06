@@ -8,7 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
 import styles from './styles.css';
-import { getFilters } from 'containers/App/selectors';
+import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { moodUpdate, genreUpdate, filterFormUpdate } from 'containers/App/actions';
@@ -44,7 +44,6 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   }
 }
 
-// kocham Emanuela <3
 MovieSearchForm.propTypes = {
   filters: React.PropTypes.object,
   changeRoute: React.PropTypes.func,
@@ -59,7 +58,7 @@ MovieSearchForm.propTypes = {
 };
 
 const mapStateToProps = createSelector(
-  getFilters(),
+  selectFilters(),
   createStructuredSelector({
     mood: (state) => state.mood,
     genre: (state) => state.genre,

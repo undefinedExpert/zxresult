@@ -1,19 +1,19 @@
 // import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 // import { selectMood } from 'containers/App/selectors';
-// import { MOOD_UPDATE } from 'containers/App/constants';
+// import { MOOD_UPDATE, FILTER_FORM_UPDATE } from 'containers/App/constants';
 // import { LOCATION_CHANGE } from 'react-router-redux';
-//
-// // Individual exports for testing
+// //
+// // // Individual exports for testing
 // export function* getMovie() {
 //   // Select username from store
 //   console.log(selectMood);
 // }
-//
-// /**
-//  * Watches for LOAD_REPOS action and calls handler
-//  */
+// //
+// // /**
+// //  * Watches for LOAD_REPOS action and calls handler
+// //  */
 // export function* getReposWatcher() {
-//   while (yield take(MOOD_UPDATE)) {
+//   while (yield take(FILTER_FORM_UPDATE)) {
 //     yield call(getMovie);
 //   }
 // }

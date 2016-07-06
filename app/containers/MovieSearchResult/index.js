@@ -7,8 +7,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
-import { createStructuredSelector } from 'reselect';
-import { selectFilters, selectSingleResult } from 'containers/App/selectors';
+import { createStructuredSelector, createSelector } from 'reselect';
+import { selectFilters, selectResult } from 'containers/App/selectors';
 import Navigation from 'components/Navigation';
 import { filterFormUpdate } from 'containers/App/actions';
 // <h1>{this.props.filters.trend}</h1>
@@ -16,7 +16,7 @@ import { filterFormUpdate } from 'containers/App/actions';
 // <h1>{this.props.filters.decade}</h1>
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    // console.log(this.props.filters);
+    console.log(this.props.result);
     return (
       <div>
         <Navigation />
@@ -37,8 +37,20 @@ MovieSearchResult.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  filters: selectFilters(),
-  result: selectSingleResult(),
+  result: createSelector(
+    selectResult(),
+    createStructuredSelector({
+      movie: (state) => state.movie,
+    })
+  ),
+  filters: createSelector(
+    selectFilters(),
+    createStructuredSelector({
+      mood: (state) => state.mood,
+      genre: (state) => state.genre,
+      genreList: (state) => state.genreList,
+    })
+  ),
 });
 
 function mapDispatchToProps(dispatch) {
