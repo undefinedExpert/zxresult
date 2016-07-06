@@ -39,6 +39,8 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
         </form>
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
+
+
       </div>
     );
   }

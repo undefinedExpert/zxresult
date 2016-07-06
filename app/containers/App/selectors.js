@@ -1,11 +1,12 @@
 import { createSelector } from 'reselect';
+import _ from 'lodash';
 
 const globalDomain = () => state => state.get('global');
 
 /**
  * Other specific selectors
  */
-
+// TODO: Refactor selectors
 const selectFilters = () => createSelector(
   globalDomain(),
   (globalSelect) => globalSelect.get('filters').toJS()
@@ -15,7 +16,6 @@ const selectUser = () => createSelector(
   globalDomain(),
   (globalSelect) => globalSelect.get('user').toJS()
 );
-
 
 const selectUsername = () => createSelector(
   selectUser(),

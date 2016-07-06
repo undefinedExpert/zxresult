@@ -13,7 +13,7 @@ import {
 
 const initialState = fromJS({
   isLogged: true,
-  filters: fromJS({
+  filters: {
     mood: 'Funny',
     trend: 'Classical',
     decade: '90s',
@@ -100,11 +100,11 @@ const initialState = fromJS({
         name: 'Western',
       },
     ],
-  }),
-  result: fromJS({
+  },
+  result: {
     movie: null,
     movies: null,
-  }),
+  },
   user: {
     name: 'Emanuel',
     avatar: 'https://avatars0.githubusercontent.com/u/5350669?v=3&s=460',
