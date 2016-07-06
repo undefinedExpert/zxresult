@@ -20,12 +20,9 @@ function rateKeywords(filters) {
   const genreUpperLetter = _.upperFirst(filters.genre);
   const genreList = filters.genreList;
   const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
-
   const constructedGenre = genreList[genreId].id;
 
-  console.log(constructedGenre);
-
-  return {constructedGenre, genreList};
+  return { constructedGenre, genreList };
 }
 
 function* constructUrl() {
