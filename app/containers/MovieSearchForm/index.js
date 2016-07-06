@@ -8,7 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
 import styles from './styles.css';
-import { selectFilters, selectMood, selectGenre, getFilters } from 'containers/App/selectors';
+import { getFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { moodUpdate, genreUpdate, filterFormUpdate } from 'containers/App/actions';
@@ -29,8 +29,6 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
   // TODO: fix the issue with handling onSubmit event
   render() {
-    console.log(this.props.mood);
-
     return (
       <div>
         <h1></h1>
@@ -65,6 +63,7 @@ const mapStateToProps = createSelector(
   createStructuredSelector({
     mood: (state) => state.mood,
     genre: (state) => state.genre,
+    genreList: (state) => state.genreList,
   })
 );
 

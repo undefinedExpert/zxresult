@@ -11,37 +11,21 @@ const selectFilters = () => createSelector(
   (globalSelect) => globalSelect.get('filters').toJS()
 );
 
-const selectMood = () => createSelector(
-  selectFilters(),
-  (substate) => (substate.mood)
-);
-
-const selectGenre = () => createSelector(
-  selectFilters(),
-  (substate) => (substate.genre)
-);
-
-const selectGenreList = () => createSelector(
-  selectFilters(),
-  (substate) => (substate.genreList)
-);
-
 const filterSelector = createStructuredSelector({
-  mood: (state, props) => state.mood,
-  genre: (state, props) => state.genre,
+  mood: (state) => state.mood,
+  genre: (state) => state.genre,
+  genreList: (state) => state.genreList,
 });
 
 const getFilters = () => createSelector(
-
     selectFilters(),
     filterSelector,
-    (cs) => {
-      const mood = cs.mood;
-      const genre = cs.genre;
-
-      return {mood, genre};
+    (filtersState) => {
+      const mood = filtersState.mood;
+      const genre = filtersState.genre;
+      const genreList = filtersState.genreList;
+      return { mood, genre, genreList };
     }
-
 );
 
 // const getFilters = () => createSelector({
@@ -103,9 +87,6 @@ const selectLocationState = () => {
 export {
   selectLocationState,
   globalDomain,
-  selectMood,
-  selectGenre,
-  selectGenreList,
   selectUsername,
   selectFilters,
   selectUser,
