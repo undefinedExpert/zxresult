@@ -33,10 +33,13 @@ function prepareSentence(text) {
   return tempArray;
 }
 
-
 function* detectCompany(keyword) {
   const companyUrl = `${url}/search/company?${apiKey}&${keyword}`;
   const isCompany = yield call(request, companyUrl);
+
+  if (!isCompany.err) {
+    console.log(isCompany);
+  }
 }
 
 function settleParam(filters, keywords) {
@@ -69,10 +72,8 @@ function settleParam(filters, keywords) {
     // console.log(price);
     // console.info(`params keyword: ${keyword}`);
 
-    const isCompany = detectCompany(keyword).next();
-
-
-    console.log(isCompany);
+    const isCompany = detectCompany(keyword);
+    yield console.log(isCompany);
   }
 
   // popularnosc
