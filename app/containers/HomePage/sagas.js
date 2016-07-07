@@ -28,10 +28,39 @@ function prepareSentence(text) {
   return tempArray;
 }
 
+function settleParam(filters, keywords) {
+  // Is it genre?
+  const params = {
+    genres: [],
+    companies: [],
+    year: [],
+    crew: [],
+    country: [],
+    keywords: [],
+  };
+  
+  for(let i = 0, len = keywords.length; i < len; i++) {
+    const capital = _.upperFirst(keywords[i]);
+    const value = _.find(filters.genreList, _.matchesProperty('name', capital));
+    if(value) {
+
+    }
+  }
+
+  // popularnosc
+  // firma
+  // Rok
+  // gatunek
+  // z obsada
+  // kraj
+  // other
+}
+
 function rateKeywords(filters) {
   // Zaktualizowac wyniki 'przeszukiwania' na realne keywordsy
   const keywords = prepareSentence(filters.sentence);
-  console.log(keywords);
+  const params = settleParam(filters, keywords);
+
   const genreUpperLetter = _.upperFirst(filters.genre);
   const genreList = filters.genreList;
   const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
