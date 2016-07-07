@@ -9,6 +9,11 @@ import Chance from 'chance';
 import retext from 'retext';
 import nlcstToString from 'nlcst-to-string';
 import filterKeywords from 'retext-keywords';
+const url = 'http://api.themoviedb.org/3';
+//discover/movie
+const apiKey = 'api_key=9dee05d48efe51f51b15cc63b1fee3f5';
+
+//search/company
 
 // Individual exports for testing
 function randomizePage() {
@@ -28,6 +33,12 @@ function prepareSentence(text) {
   return tempArray;
 }
 
+
+function* detectCompany(keyword) {
+  const companyUrl = `${url}/search/company?${apiKey}&${keyword}`;
+  const isCompany = yield call(request, companyUrl);
+}
+
 function settleParam(filters, keywords) {
   // Is it genre?
   const params = {
@@ -44,22 +55,33 @@ function settleParam(filters, keywords) {
     const capitalKeyword = _.upperFirst(keyword);
 
     // it is a genre?
-    let isGenre = _.find(filters.genreList, _.matchesProperty('name', capitalKeyword));
+    const isGenre = _.find(filters.genreList, _.matchesProperty('name', capitalKeyword));
     if (isGenre) {
       params.genres.push(isGenre);
-      console.info(`params genre: ${isGenre.name}`)
+      console.info(`params genre: ${isGenre.name}`);
       continue;
     }
 
+    // FIXME: Keyword library dosen't settle number as keyword from sentence
+    // year
+    // const re = /^(19|20)\d{2}$/;
+    // var price = parseFloat(re.exec(keyword));
+    // console.log(price);
+    // console.info(`params keyword: ${keyword}`);
+
+    const isCompany = detectCompany(keyword).next();
+
+
+    console.log(isCompany);
   }
 
   // popularnosc
-  // firma
-  // Rok
-  // gatunek
-  // z obsada
-  // kraj
-  // other
+  // firma // request
+  // Rok // bez
+  // gatunek // bez
+  // z obsada // potrzebny request
+  // kraj // request
+  // other // request
 }
 
 function rateKeywords(filters) {
@@ -79,9 +101,8 @@ function* constructUrl() {
   const randomNumber = randomizePage();
   const filters = yield select(selectFilters());
   const keywords = rateKeywords(filters);
-  const Url = 'http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5';
 
-  return `${Url}&with_genres=${keywords.constructedGenre}&page=${randomNumber}`;
+  return `${url}/discover/movie?${apiKey}&with_genres=${keywords.constructedGenre}&page=${randomNumber}`;
 }
 
 export function* getRepos() {

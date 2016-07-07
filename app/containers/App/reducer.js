@@ -19,6 +19,7 @@ const initialState = fromJS({
     mood: 'Funny',
     trend: 'Classical',
     decade: '90s',
+    company: '',
     genre: 'action',
     genreList: [
       {
