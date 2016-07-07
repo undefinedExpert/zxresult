@@ -8,7 +8,7 @@ import _ from 'lodash';
 import Chance from 'chance';
 import retext from 'retext';
 import nlcstToString from 'nlcst-to-string';
-import keywords from 'retext-keywords';
+import filterKeywords from 'retext-keywords';
 
 // Individual exports for testing
 function randomizePage() {
@@ -19,7 +19,7 @@ function randomizePage() {
 function prepareSentence(text) {
   const tempArray = [];
   // running retext process to split sentence into keywords
-  retext().use(keywords).process(text, (err, file) => {
+  retext().use(filterKeywords).process(text, (err, file) => {
     const space = file.namespace('retext');
     space.keywords.forEach((keyword) => {
       tempArray.push(nlcstToString(keyword.matches[0].node));
@@ -38,13 +38,19 @@ function settleParam(filters, keywords) {
     country: [],
     keywords: [],
   };
-  
-  for(let i = 0, len = keywords.length; i < len; i++) {
-    const capital = _.upperFirst(keywords[i]);
-    const value = _.find(filters.genreList, _.matchesProperty('name', capital));
-    if(value) {
 
+  for(let i = 0, len = keywords.length; i < len; i++) {
+    const keyword = keywords[i];
+    const capitalKeyword = _.upperFirst(keyword);
+
+    // it is a genre?
+    let isGenre = _.find(filters.genreList, _.matchesProperty('name', capitalKeyword));
+    if (isGenre) {
+      params.genres.push(isGenre);
+      console.info(`params genre: ${isGenre.name}`)
+      continue;
     }
+
   }
 
   // popularnosc
