@@ -9,11 +9,13 @@ import {
   MOOD_UPDATE,
   GENRE_UPDATE,
   RESULT_SET,
+  SENTENCE_UPDATE,
 } from './constants';
 
 const initialState = fromJS({
   isLogged: true,
   filters: {
+    sentence: 'Get a list of TV show ids that have been edited.',
     mood: 'Funny',
     trend: 'Classical',
     decade: '90s',
@@ -124,6 +126,9 @@ function appReducer(state = initialState, action) {
     case MOOD_UPDATE:
       return state
         .setIn(['filters', 'mood'], action.value);
+    case SENTENCE_UPDATE:
+      return state
+        .setIn(['filters', 'sentence'], action.value);
     case GENRE_UPDATE:
       return state
         .setIn(['filters', 'genre'], action.value);

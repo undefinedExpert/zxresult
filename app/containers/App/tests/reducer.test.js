@@ -13,6 +13,7 @@ describe('appReducer', () => {
     state = fromJS({
       isLogged: true,
       filters: fromJS({
+        sentence: 'Get a list of TV show ids that have been edited.',
         mood: 'Funny',
         trend: 'Classical',
         decade: '90s',

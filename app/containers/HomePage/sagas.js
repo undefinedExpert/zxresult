@@ -16,7 +16,22 @@ function randomizePage() {
   return chance.integer({ min: 0, max: 250 });
 }
 
+function prepareSentence(text) {
+  const tempArray = [];
+  // running retext process to split sentence into keywords
+  retext().use(keywords).process(text, (err, file) => {
+    const space = file.namespace('retext');
+    space.keywords.forEach((keyword) => {
+      tempArray.push(nlcstToString(keyword.matches[0].node));
+    });
+  });
+  return tempArray;
+}
+
 function rateKeywords(filters) {
+  // Zaktualizowac wyniki 'przeszukiwania' na realne keywordsy
+  const keywords = prepareSentence(filters.sentence);
+  console.log(keywords);
   const genreUpperLetter = _.upperFirst(filters.genre);
   const genreList = filters.genreList;
   const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
@@ -35,6 +50,7 @@ function* constructUrl() {
 }
 
 export function* getRepos() {
+  console.info('sagas run');
   // Select username from store
   const requestUrl = yield constructUrl();
   const movies = yield call(request, requestUrl);
@@ -68,5 +84,4 @@ export function* githubData() {
 // Bootstrap sagas
 export default [
   getReposWatcher,
-  githubData,
 ];

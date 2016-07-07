@@ -9,6 +9,7 @@ import {
   GENRE_UPDATE,
   RESULT_SET,
   FILTER_FORM_UPDATE,
+  SENTENCE_UPDATE,
 } from './constants';
 
 export function moodUpdate(value) {
@@ -21,6 +22,13 @@ export function moodUpdate(value) {
 export function genreUpdate(value) {
   return {
     type: GENRE_UPDATE,
+    value,
+  };
+}
+
+export function sentenceUpdate(value) {
+  return {
+    type: SENTENCE_UPDATE,
     value,
   };
 }
