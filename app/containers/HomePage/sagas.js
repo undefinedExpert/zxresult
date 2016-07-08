@@ -13,7 +13,6 @@ const url = 'http://api.themoviedb.org/3';
 //discover/movie
 const apiKey = 'api_key=9dee05d48efe51f51b15cc63b1fee3f5';
 
-//search/company
 
 // Individual exports for testing
 function randomizePage() {
@@ -34,34 +33,31 @@ function prepareSentence(text) {
 }
 
 function* detectCompany(keyword) {
-  const companyUrl = `${url}/search/company?${apiKey}&${keyword}`;
+  const companyUrl = `${url}/search/company?${apiKey}&query=${keyword}`;
+  // https://api.themoviedb.org/3/search/company?api_key=9dee05d48efe51f51b15cc63b1fee3f5&query=Disney
   const isCompany = yield call(request, companyUrl);
-
-  if (!isCompany.err) {
-    console.log(isCompany);
-  }
+  return isCompany.data.results[0];
 }
+const params = {
+  genres: [],
+  company: null,
+  year: [],
+  crew: [],
+  country: [],
+  keywords: [],
+};
 
-function settleParam(filters, keywords) {
+function* settleParam(filters, keywords) {
   // Is it genre?
-  const params = {
-    genres: [],
-    companies: [],
-    year: [],
-    crew: [],
-    country: [],
-    keywords: [],
-  };
-
-  for(let i = 0, len = keywords.length; i < len; i++) {
+  for (let i = 0, len = keywords.length; i < len; i++) {
     const keyword = keywords[i];
     const capitalKeyword = _.upperFirst(keyword);
 
     // it is a genre?
-    const isGenre = _.find(filters.genreList, _.matchesProperty('name', capitalKeyword));
+    const isGenre = yield _.find(filters.genreList, _.matchesProperty('name', capitalKeyword));
     if (isGenre) {
       params.genres.push(isGenre);
-      console.info(`params genre: ${isGenre.name}`);
+      console.info(`params genre added: ${isGenre.name}`);
       continue;
     }
 
@@ -72,8 +68,27 @@ function settleParam(filters, keywords) {
     // console.log(price);
     // console.info(`params keyword: ${keyword}`);
 
-    const isCompany = detectCompany(keyword);
-    yield console.log(isCompany);
+    // it's a company? Does it exist?
+    if (params.company === null && keyword.length >= 3) {
+      const isCompany = yield detectCompany(keyword);
+      if (isCompany && isCompany.name) {
+        const isCompanySplit = isCompany.name.split(' ');
+        if (isCompanySplit.length > 1) {
+          const filter = _.includes(isCompanySplit, keyword);
+          if (filter) {
+            params.company = isCompany;
+            console.log(`multiple named added: ${isCompany.name}`);
+            continue;
+          }
+        } else if (isCompany.name.length === keyword.length) {
+          params.company = isCompany;
+          console.log(`Single named added: ${isCompany.name}`);
+          continue;
+        }
+        continue;
+      }
+    }
+
   }
 
   // popularnosc
@@ -85,33 +100,27 @@ function settleParam(filters, keywords) {
   // other // request
 }
 
-function rateKeywords(filters) {
+function* rateKeywords(filters) {
   // Zaktualizowac wyniki 'przeszukiwania' na realne keywordsy
-  const keywords = prepareSentence(filters.sentence);
-  const params = settleParam(filters, keywords);
-
-  const genreUpperLetter = _.upperFirst(filters.genre);
-  const genreList = filters.genreList;
-  const genreId = _.findIndex(genreList, ['name', genreUpperLetter]);
-  const constructedGenre = genreList[genreId].id;
-
-  return { constructedGenre, genreList };
+  const keywords =  prepareSentence(filters.sentence);
+  const settledParams = yield settleParam(filters, keywords);
+  console.log(settledParams);
 }
 
+// Construct end url from data
 function* constructUrl() {
   const randomNumber = randomizePage();
   const filters = yield select(selectFilters());
-  const keywords = rateKeywords(filters);
-
-  return `${url}/discover/movie?${apiKey}&with_genres=${keywords.constructedGenre}&page=${randomNumber}`;
+  const rated = yield rateKeywords(filters);
+  console.log(params);
+  return `${url}/discover/movie?${apiKey}&with_genres=${params.genres[0].id}&with_companies=${params.company.id}`;
 }
 
 export function* getRepos() {
   console.info('sagas run');
-  // Select username from store
   const requestUrl = yield constructUrl();
   const movies = yield call(request, requestUrl);
-
+  console.log(movies);
   if (!movies.err) {
     yield put(resultSet(movies.data, movies.data.results[0]));
   }
