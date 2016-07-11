@@ -64,8 +64,7 @@ const mapStateToProps = createSelector(
   createStructuredSelector({
     sentence: (state) => state.sentence,
     mood: (state) => state.mood,
-    genre: (state) => state.genre,
-    genreList: (state) => state.genreList,
+    genre: (state) => state.genre.name,
   })
 );
 
