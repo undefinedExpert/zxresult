@@ -1,9 +1,8 @@
 ### Quick Movie Search application
+
 ![Travis ci][travis]
 ![Coverage Status][coverage]
-![Dependencies][dependencies]
 
 
 [travis]: https://travis-ci.org/lanskey/zxresult.svg?branch=master "Travis ci"
 [coverage]: https://coveralls.io/repos/github/lanskey/zxresult/badge.svg?branch=master "Code Coverage"
-[dependencies]: https://david-dm.org/lanskey/zxresult.svg "Dependencies"
