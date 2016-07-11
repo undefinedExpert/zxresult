@@ -47,5 +47,3 @@ describe('filtersDomain', () => {
     expect(filterSelector(mockedState)).to.eql(filterState);
   });
 });
-
-
