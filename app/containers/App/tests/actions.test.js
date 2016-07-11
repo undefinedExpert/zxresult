@@ -45,6 +45,4 @@ describe('Application actions', () => {
       expect(resultSet(movies, single)).to.eql(expected);
     });
   });
-
-
 });

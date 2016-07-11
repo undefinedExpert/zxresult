@@ -41,7 +41,7 @@ export function resultSet(movies, single) {
   };
 }
 
-//TODO: Refactor
+// TODO: Refactor
 export function filterFormUpdate() {
   return {
     type: FILTER_FORM_UPDATE,

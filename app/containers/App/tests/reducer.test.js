@@ -72,5 +72,4 @@ describe('appReducer', () => {
 
     expect(appReducer(state, resultSet(multiple, single))).to.eql(expectedResult);
   });
-
 });

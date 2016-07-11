@@ -5,13 +5,6 @@ import {
   selectLocationState,
   globalDomain,
   filtersDomain,
-  selectUser,
-  selectUsername,
-  selectMood,
-  selectGenre,
-  selectGenreList,
-  selectResult,
-  selectSingleResult,
 } from 'containers/App/selectors';
 
 describe('selectLocationState', () => {
@@ -52,19 +45,6 @@ describe('filtersDomain', () => {
       }),
     });
     expect(filterSelector(mockedState)).to.eql(filterState);
-  });
-
-
-  it('Should select mood', () => {
-
-  });
-
-  it('Should select genre', () => {
-
-  });
-
-  it('Should select genreList', () => {
-
   });
 });
 
