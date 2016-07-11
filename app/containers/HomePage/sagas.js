@@ -19,7 +19,6 @@ export function* getRepos() {
 
   // If url construction failed
   if (!requestUrl) return;
-  //
   const movies = yield call(request, requestUrl);
   if (!movies.err) {
     yield put(resultSet(movies.data, movies.data.results[0]));
