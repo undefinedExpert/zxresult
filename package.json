@@ -123,6 +123,7 @@
     "react-router-scroll": "^0.2.0",
     "react-select": "^1.0.0-beta13",
     "redux": "^3.5.2",
+    "redux-form": "^5.3.1",
     "redux-immutable": "^3.0.6",
     "redux-saga": "^0.10.0",
     "reselect": "^2.5.1",

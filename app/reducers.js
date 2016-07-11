@@ -7,6 +7,8 @@ import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import appReducer from 'containers/App/reducer';
+import { reducer as formReducer } from 'redux-form';
+
 /*
  * routeReducer
  *
@@ -38,10 +40,14 @@ function routeReducer(state = routeInitialState, action) {
 /**
  * Creates the main reducer with the asynchronously loaded ones
  */
+// TODO: Create form dump component
+// MORE INFO HERE https://github.com/mxstbr/react-boilerplate/issues/567
+// This should make the redux-form work
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: appReducer,
+    form: (state = fromJS({}), action) => fromJS(formReducer(state.toJS(), action)),
     ...asyncReducers,
   });
 }

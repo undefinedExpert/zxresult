@@ -19,6 +19,7 @@ var options = [
   { value: 'two', label: 'Two' }
 ];
 
+
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   onSubmit = () => {
     this.props.onSubmitForm();
@@ -50,11 +51,19 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       // or more specific queries will not be sent to the server.
       // complete: true
     });
+  };
 
+  handleSelectChange = (value) => {
+    this.props.genre = value;
+    this.setState({value})
   };
 
   // TODO: fix the issue with handling onSubmit event
   render() {
+    var options = [
+      { value: 'one', label: 'One' },
+      { value: 'two', label: 'Two' }
+    ];
     return (
       <div>
         <form action="" onSubmit={this.handleOnSubmit} className={styles.form}>
@@ -64,13 +73,12 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
-        <Select.Async
+        <Select
           name="form-field-name"
-          value="siema"
-          labelKey="name"
-          isLoading={true}
-          loadOptions={this.getOptions}
-          options=""
+          value="action"
+          options={options}
+          value={this.props.genre}
+          onChange={this.handleSelectChange}
         />
       </div>
     );
