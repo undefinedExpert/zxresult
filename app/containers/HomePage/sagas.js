@@ -88,7 +88,6 @@ function* settleParam(filters, keywords) {
         continue;
       }
     }
-
   }
 
   // popularnosc
