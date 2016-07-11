@@ -10,7 +10,6 @@ import retext from 'retext';
 import nlcstToString from 'nlcst-to-string';
 import filterKeywords from 'retext-keywords';
 const url = 'http://api.themoviedb.org/3';
-//discover/movie
 const apiKey = 'api_key=9dee05d48efe51f51b15cc63b1fee3f5';
 
 
@@ -32,15 +31,8 @@ function prepareSentence(text) {
   return tempArray;
 }
 
-function* detectCompany(keyword) {
-  const companyUrl = `${url}/search/company?${apiKey}&query=${keyword}`;
-  // https://api.themoviedb.org/3/search/company?api_key=9dee05d48efe51f51b15cc63b1fee3f5&query=Disney
-  const isCompany = yield call(request, companyUrl);
-  return isCompany.data.results[0];
-}
 const params = {
   genres: [],
-  company: null,
   year: [],
   crew: [],
   country: [],
@@ -60,48 +52,12 @@ function* settleParam(filters, keywords) {
       console.info(`params genre added: ${isGenre.name}`);
       continue;
     }
-
-    // FIXME: Keyword library dosen't settle number as keyword from sentence
-    // year
-    // const re = /^(19|20)\d{2}$/;
-    // var price = parseFloat(re.exec(keyword));
-    // console.log(price);
-    // console.info(`params keyword: ${keyword}`);
-
-    // it's a company? Does it exist?
-    if (params.company === null && keyword.length >= 3) {
-      const isCompany = yield detectCompany(keyword);
-      if (isCompany && isCompany.name) {
-        const isCompanySplit = isCompany.name.split(' ');
-        if (isCompanySplit.length > 1) {
-          const filter = _.includes(isCompanySplit, keyword);
-          if (filter) {
-            params.company = isCompany;
-            console.log(`multiple named added: ${isCompany.name}`);
-            continue;
-          }
-        } else if (isCompany.name.length === keyword.length) {
-          params.company = isCompany;
-          console.log(`Single named added: ${isCompany.name}`);
-          continue;
-        }
-        continue;
-      }
-    }
   }
-
-  // popularnosc
-  // firma // request
-  // Rok // bez
-  // gatunek // bez
-  // z obsada // potrzebny request
-  // kraj // request
-  // other // request
 }
 
 function* rateKeywords(filters) {
   // Zaktualizowac wyniki 'przeszukiwania' na realne keywordsy
-  const keywords =  prepareSentence(filters.sentence);
+  const keywords = prepareSentence(filters.sentence);
   const settledParams = yield settleParam(filters, keywords);
   console.log(settledParams);
 }
@@ -110,14 +66,18 @@ function* rateKeywords(filters) {
 function* constructUrl() {
   const randomNumber = randomizePage();
   const filters = yield select(selectFilters());
-  const rated = yield rateKeywords(filters);
-  console.log(params);
-  return `${url}/discover/movie?${apiKey}&with_genres=${params.genres[0].id}&with_companies=${params.company.id}`;
+  const keywords = yield rateKeywords(filters);
+  if (params.genres.length <= 0) return false;
+  // Return constructed URL
+  return `${url}/discover/movie?${apiKey}&with_genres=${params.genres[0].id}`;
 }
 
 export function* getRepos() {
   console.info('sagas run');
   const requestUrl = yield constructUrl();
+
+  // If url construction failed
+  if (!requestUrl) return;
   const movies = yield call(request, requestUrl);
   console.log(movies);
   if (!movies.err) {
