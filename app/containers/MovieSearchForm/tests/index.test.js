@@ -7,7 +7,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 
-describe('<MovieSearchForm />', () => {
+describe('<Movie-search-form />', () => {
   let renderComponent;
   beforeEach(() => {
     renderComponent = shallow(<MovieSearchForm />);

@@ -1,6 +1,6 @@
 /*
  *
- * MovieSearchForm constants
+ * Movie-search-form constants
  *
  */
 
@@ -11,6 +11,11 @@ const RESULT_SET = 'app/App/RESULT_SET';
 const RESULT_SET_ERROR = 'app/App/RESULT_SET_ERROR';
 const FILTER_FORM_UPDATE = 'app/App/FILTER_FORM_UPDATE';
 const SENTENCE_UPDATE = 'app/App/SENTENCE_UPDATE';
+
+// Get genres for async input field
+const GET_GENRES_LIST = 'app/App/GET_GENRES_LIST';
+const GET_GENRES_LIST_SUCCESS = 'app/App/GET_GENRES_LIST_SUCCESS';
+const GET_GENRES_LIST_ERR = 'app/App/GET_GENRES_LIST_ERR';
 
 // API
 const apiUrl = 'http://api.themoviedb.org/3';
@@ -24,6 +29,9 @@ export {
   RESULT_SET_ERROR,
   FILTER_FORM_UPDATE,
   SENTENCE_UPDATE,
+  GET_GENRES_LIST,
+  GET_GENRES_LIST_SUCCESS,
+  GET_GENRES_LIST_ERR,
   apiUrl,
   apiKey,
 };

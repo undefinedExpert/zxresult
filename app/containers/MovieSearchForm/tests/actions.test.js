@@ -6,4 +6,4 @@
 //   DEFAULT_ACTION,
 // } from '../constants';
 
-describe('MovieSearchForm actions', () => {});
+describe('Movie-search-form actions', () => {});

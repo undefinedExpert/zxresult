@@ -10,7 +10,7 @@ import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
 import Navigation from 'components/Navigation';
 import MovieSearchForm from 'containers/MovieSearchForm';
-import WelcomeText from 'components/WelcomeText';
+import WelcomeText from 'components/Welcome-text';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

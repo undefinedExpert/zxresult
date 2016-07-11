@@ -1,7 +1,7 @@
 import { HomePage } from '../index';
 import Navigation from 'components/Navigation';
 import MovieSearchForm from 'containers/MovieSearchForm';
-import WelcomeText from 'components/WelcomeText';
+import WelcomeText from 'components/Welcome-text';
 
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
@@ -18,7 +18,7 @@ describe('<HomePage />', () => {
     expect(excepted).to.eql(true);
   });
 
-  it('Should render MovieSearchForm', () => {
+  it('Should render Movie-search-form', () => {
     const excepted = renderedComponent.containsMatchingElement(<MovieSearchForm />);
     expect(excepted).to.eql(true);
   });

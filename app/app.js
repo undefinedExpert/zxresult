@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
+import Select from 'react-select';
 
 import configureStore from './store';
 
@@ -26,6 +27,7 @@ import 'sanitize.css/lib/sanitize.css';
 
 // Import bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-select/dist/react-select.css';
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router

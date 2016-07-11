@@ -1,6 +1,6 @@
 /*
  *
- * MovieSearchForm actions
+ * Movie-search-form actions
  *
  */
 
@@ -10,6 +10,9 @@ import {
   RESULT_SET,
   FILTER_FORM_UPDATE,
   SENTENCE_UPDATE,
+  GET_GENRES_LIST,
+  GET_GENRES_LIST_SUCCESS,
+  GET_GENRES_LIST_ERR,
 } from './constants';
 
 export function moodUpdate(value) {
@@ -26,10 +29,10 @@ export function genreUpdate(value) {
   };
 }
 
-export function sentenceUpdate(value) {
+// TODO: Refactor
+export function filterFormUpdate() {
   return {
-    type: SENTENCE_UPDATE,
-    value,
+    type: FILTER_FORM_UPDATE,
   };
 }
 
@@ -41,14 +44,17 @@ export function resultSet(movies, single) {
   };
 }
 
-// TODO: Refactor
-export function filterFormUpdate() {
+
+export function genreListSet(value) {
   return {
-    type: FILTER_FORM_UPDATE,
+    type: GET_GENRES_LIST,
+    value,
   };
 }
 
-// {
-//   moodUpdate as mood,
-//   defaultAction,
-// };
+export function genreListSetSuccess(value) {
+  return {
+    type: GET_GENRES_LIST_SUCCESS,
+    value,
+  };
+}

@@ -33,7 +33,7 @@ describe('Application actions', () => {
     });
   });
 
-  describe('genreUpdate()', () => {
+  describe('resultSet()', () => {
     it('Should return type, movie, single properties', () => {
       const movies = [{}, {}];
       const single = {};

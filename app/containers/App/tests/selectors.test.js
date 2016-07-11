@@ -19,7 +19,6 @@ describe('selectLocationState', () => {
   });
 });
 
-
 describe('selectGlobalState', () => {
   const globalSelector = globalDomain();
   it('Should select global', () => {

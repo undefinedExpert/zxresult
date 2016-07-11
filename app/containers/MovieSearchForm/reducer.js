@@ -1,20 +1,19 @@
 /*
  *
- * MovieSearchForm reducer
+ * Movie-search-form reducer
  *
  */
 
 import { fromJS } from 'immutable';
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { GET_GENRES_LIST_SUCCESS } from 'containers/App/constants';
 
 const initialState = fromJS({});
 
 function movieSearchFormReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case GET_GENRES_LIST_SUCCESS:
+      return state
+        .setIn(['filters', 'genreList'], action.value);
     default:
       return state;
   }

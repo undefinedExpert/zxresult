@@ -11,7 +11,13 @@ import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
-import { sentenceUpdate, filterFormUpdate } from 'containers/App/actions';
+import { genreUpdate, filterFormUpdate, genreListSet } from 'containers/App/actions';
+var Select = require('react-select');
+
+var options = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' }
+];
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   onSubmit = () => {
@@ -27,18 +33,45 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     this.props.changeRoute(route);
   };
 
+  handleOnSubmit = (event) => {
+    event.stopPropagation();
+  };
+
+  selectOnChange = (event) => {
+    console.log(event);
+  };
+
+  getOptions = (input, callback) => {
+    this.props.getGenreList(input);
+
+    callback(null, {
+      options: this.props.genreList,
+      // CAREFUL! Only set this to true when there are no more options,
+      // or more specific queries will not be sent to the server.
+      // complete: true
+    });
+
+  };
+
   // TODO: fix the issue with handling onSubmit event
   render() {
     return (
       <div>
-        <h1></h1>
-        <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
-          <input className="form-control" name="sentence" id="sentence" value={this.props.sentence} onChange={this.props.onChangeSentence} />
+        <form action="" onSubmit={this.handleOnSubmit} className={styles.form}>
+          <input className="form-control" name="genre" id="genre" value={this.props.genre} onChange={this.props.onChangeGenre} />
+          <h2>Genre: {this.props.genre}</h2>
         </form>
+
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
-        <h2>Genre: {this.props.genre}</h2>
-
+        <Select.Async
+          name="form-field-name"
+          value="siema"
+          labelKey="name"
+          isLoading={true}
+          loadOptions={this.getOptions}
+          options=""
+        />
       </div>
     );
   }
@@ -50,10 +83,11 @@ MovieSearchForm.propTypes = {
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
   filterFormUpdate: React.PropTypes.func,
+  getGenreList: React.PropTypes.func,
   onChangeMood: React.PropTypes.func,
   mood: React.PropTypes.string,
   genre: React.PropTypes.string,
-  sentence: React.PropTypes.string,
+  genreList: React.PropTypes.array,
   onChangeGenre: React.PropTypes.func,
   onChangeSentence: React.PropTypes.func,
   filterUpdate: React.PropTypes.func,
@@ -62,20 +96,23 @@ MovieSearchForm.propTypes = {
 const mapStateToProps = createSelector(
   selectFilters(),
   createStructuredSelector({
-    sentence: (state) => state.sentence,
     mood: (state) => state.mood,
     genre: (state) => state.genre.name,
+    genreList: (state) => state.genreList,
   })
 );
 
 function mapDispatchToProps(dispatch) {
   return {
     // onChangeMood: (evt) => dispatch(moodUpdate(evt)),
-    onChangeSentence: (evt) => dispatch(sentenceUpdate(evt.target.value)),
+    onChangeGenre: (evt) => dispatch(genreUpdate(evt.target.value)),
     changeRoute: (url) => dispatch(push(url)),
     filterUpdate: () => dispatch(filterFormUpdate()),
+    getGenreList: (value) => dispatch(genreListSet(value)),
     onSubmitForm: (evt) => {
+      console.log(evt.preventDefault);
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      return false;
       // dispatch(loadRepos());
     },
     dispatch,

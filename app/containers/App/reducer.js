@@ -10,6 +10,7 @@ import {
   GENRE_UPDATE,
   RESULT_SET,
   SENTENCE_UPDATE,
+  GET_GENRES_LIST_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -17,12 +18,13 @@ const initialState = fromJS({
   filters: {
     sentence: 'Get a list of TV show ids that have been edited.',
     mood: 'Funny',
-    trend: 'Classical',
+    popularity: 'Classical',
     decade: '90s',
     genre: fromJS({
       id: 28,
       name: 'Action',
     }),
+    genreList: [],
   },
   result: fromJS({
     movie: null,
@@ -52,11 +54,14 @@ function appReducer(state = initialState, action) {
         .setIn(['filters', 'sentence'], action.value);
     case GENRE_UPDATE:
       return state
-        .setIn(['filters', 'genre'], action.value);
+        .setIn(['filters', 'genre', 'name'], action.value);
     case RESULT_SET:
       return state
         .setIn(['result', 'movie'], action.single)
         .setIn(['result', 'movies'], action.movies);
+    case GET_GENRES_LIST_SUCCESS:
+      return state
+        .setIn(['filters', 'genreList'], action.value);
     default:
       return state;
   }
