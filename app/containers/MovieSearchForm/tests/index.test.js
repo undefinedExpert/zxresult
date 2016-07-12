@@ -6,13 +6,18 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
-
+// import configureStore from 'redux-mock-store';
+// const mockStore = configureStore();
 
 describe('<Movie-search-form />', () => {
   let renderComponent;
-
+  const props = {
+    filters: {
+      genre: '1',
+    },
+  };
   beforeEach(() => {
-    renderComponent = shallow(<MovieSearchForm />, { context: { } });
+    renderComponent = shallow(<MovieSearchForm { ...props } />, {});
   });
 
   it('Should contain Form Element', () => {

@@ -125,6 +125,7 @@
     "redux": "^3.5.2",
     "redux-form": "^5.3.1",
     "redux-immutable": "^3.0.6",
+    "redux-mock-store": "^1.1.2",
     "redux-saga": "^0.10.0",
     "reselect": "^2.5.1",
     "retext": "^3.0.0",
