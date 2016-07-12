@@ -21,6 +21,13 @@ const options = [
 ];
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  // Zmienia dane
+  onChange(value) {
+    console.log(value);
+    this.props.onChangeGenreSelector(value);
+  }
+
   getOptions = (input, callback) => {
     this.props.getGenreList(input);
 
@@ -32,10 +39,6 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     });
   };
 
-  selectOnChange = (event) => {
-    console.log(event);
-  };
-
   routeToResult = () => {
     // console.log('siemanko');
     this.openRoute('/result');
@@ -45,9 +48,34 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     this.props.changeRoute(route);
   };
 
-  handleSelectChange = (value) => {
-    this.props.genre = value;
-    this.setState({ value });
+
+  // Pobiera dane
+  getContributors = (input, callback) => {
+    let genreList = this.props.filters.genreList;
+    if (genreList.length <= 0) this.props.getGenreList(input);
+    // callback(null, {
+    //   options: this.props.filters.genreList,
+    //   // CAREFUL! Only set this to true when there are no more options,
+    //   // or more specific queries will not be sent to the server.
+    //   // complete: true
+    // });
+
+    // input = input.toLowerCase();
+    let options = genreList.filter((i) => {
+      console.log(i);
+      return i.name.substr(0, input.length) === input;
+    });
+
+
+
+    setTimeout(() => {
+
+      let data = {
+        options: this.props.filters.genreList,
+        complete: options.length <= 6,
+      };
+      callback(null, data);
+    }, 500);
   };
   // TODO: fix the issue with handling onSubmit event
   render() {
@@ -56,26 +84,25 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     } = this.props;
 
     const renderInput = () => <div>
+      <Select.Async
+        value={genre}
+        onChange={this.props.onChangeGenreSelector}
+        valueKey="name"
+        labelKey="name"
+        loadOptions={this.getContributors}
+      />
       <input className="form-control" name="genre" id="genre" value={genre} onChange={this.props.onChangeGenre} />
       <h2>Genre: {genre}</h2>
     </div>;
 
     return (
       <div>
+        <form onSubmit={this.props.onSubmitForm} className={styles.form}>
+          {renderInput(genre)}
+        </form>
 
-          <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
-            {renderInput(genre)}
-          </form>
-
-          <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
-          <Button handleRoute={this.routeToResult}>Search</Button>
-          <Select
-            name="form-field-name"
-            value="action"
-            options={options}
-            value={this.props.genre}
-            onChange={this.handleSelectChange}
-          />
+        <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
+        <Button handleRoute={this.routeToResult}>Search</Button>
       </div>
     );
   }
@@ -113,6 +140,7 @@ function mapDispatchToProps(dispatch) {
   return {
     // onChangeMood: (evt) => dispatch(moodUpdate(evt)),
     onChangeGenre: (evt) => dispatch(genreUpdate(evt.target.value)),
+    onChangeGenreSelector: (value) => dispatch(genreUpdate(value)),
     changeRoute: (url) => dispatch(push(url)),
     filterUpdate: () => dispatch(filterFormUpdate()),
     getGenreList: (value) => dispatch(genreListSet(value)),
