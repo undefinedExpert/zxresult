@@ -7,7 +7,6 @@ import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import appReducer from 'containers/App/reducer';
-import { reducer as formReducer } from 'redux-form';
 
 /*
  * routeReducer

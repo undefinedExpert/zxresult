@@ -7,7 +7,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
-import Form from 'components/SearchForm';
 import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
@@ -15,83 +14,50 @@ import { push } from 'react-router-redux';
 import { genreUpdate, filterFormUpdate, genreListSet } from 'containers/App/actions';
 import Select from 'react-select';
 
-const options = [
-  { value: 'one', label: 'One' },
-  { value: 'two', label: 'Two' },
-];
-
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
+  // fixme: https://github.com/reactjs/redux/issues/239
+  componentWillMount() {
+    // Make xhr call
+    if (this.props.filters.genreList <= 0) {
+      this.props.getGenreList();
+    }
+  }
   // Zmienia dane
   onChange = (value) => {
-    console.log(value);
     this.props.onChangeGenre(value.name);
-  }
-
-  getOptions = (input, callback) => {
-    this.props.getGenreList(input);
-
-    callback(null, {
-      options: this.props.genreList,
-      // CAREFUL! Only set this to true when there are no more options,
-      // or more specific queries will not be sent to the server.
-      // complete: true
-    });
   };
 
   routeToResult = () => {
-    // console.log('siemanko');
     this.openRoute('/result');
   };
 
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
-
-
-  // Pobiera dane
-  getContributors = (input, callback) => {
-    let genreList = this.props.filters.genreList;
-    if (genreList.length <= 0) this.props.getGenreList(input);
-
-    // callback(null, {
-    //   options: this.props.filters.genreList,
-    //   // CAREFUL! Only set this to true when there are no more options,
-    //   // or more specific queries will not be sent to the server.
-    //   // complete: true
-    // });
-
-    // input = input.toLowerCase();
-
-    console.log(this.props.filters.genreList);
-    let data = {
-        options: this.props.filters.genreList,
-        complete: options.length <= 6,
-      };
-      callback(null, data);
-
-  };
-  // TODO: fix the issue with handling onSubmit event
   render() {
     const {
-      filters: { genre },
+      filters: { genre, genreList },
     } = this.props;
 
-    const renderInput = () => <div>
-      <Select.Async
-        value={genre}
-        onChange={this.onChange}
-        valueKey="name"
-        labelKey="name"
-        loadOptions={this.getContributors}
-      />
-      <h2>Genre: {genre}</h2>
-    </div>;
+    const renderInput = () => (
+      <div>
+        <Select
+          value={genre}
+          onChange={this.onChange}
+          valueKey="name"
+          labelKey="name"
+          autoload={false}
+          options={genreList}
+        />
+        <h2>Genre: {genre}</h2>
+      </div>
+    );
 
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
-          {renderInput(genre)}
+          {renderInput(genre, genreList)}
         </form>
 
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
@@ -135,7 +101,7 @@ function mapDispatchToProps(dispatch) {
     onChangeGenre: (value) => dispatch(genreUpdate(value)),
     changeRoute: (url) => dispatch(push(url)),
     filterUpdate: () => dispatch(filterFormUpdate()),
-    getGenreList: (value) => dispatch(genreListSet(value)),
+    getGenreList: () => dispatch(genreListSet()),
     onSubmitForm: (evt) => {
       console.log(evt.preventDefault);
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();

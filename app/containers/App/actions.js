@@ -43,10 +43,9 @@ export function resultSet(movies, single) {
 }
 
 
-export function genreListSet(value) {
+export function genreListSet() {
   return {
     type: GET_GENRES_LIST,
-    value,
   };
 }
 
