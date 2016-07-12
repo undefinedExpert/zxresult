@@ -13,11 +13,11 @@ describe('<Movie-search-form />', () => {
   let renderComponent;
   const props = {
     filters: {
-      genre: '1',
+      genre: 'test',
     },
   };
   beforeEach(() => {
-    renderComponent = shallow(<MovieSearchForm { ...props } />, {});
+    renderComponent = shallow(<MovieSearchForm {...props} />, {});
   });
 
   it('Should contain Form Element', () => {

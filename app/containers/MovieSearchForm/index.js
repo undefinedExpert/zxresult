@@ -14,7 +14,6 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { genreUpdate, filterFormUpdate, genreListSet } from 'containers/App/actions';
 import Select from 'react-select';
-import { initialize } from 'redux-form';
 
 const options = [
   { value: 'one', label: 'One' },
@@ -52,19 +51,31 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   };
   // TODO: fix the issue with handling onSubmit event
   render() {
-    console.log(this.props);
     const {
       filters: { genre },
     } = this.props;
 
-    const renderInput = (filters) => <div>
+    const renderInput = () => <div>
       <input className="form-control" name="genre" id="genre" value={genre} onChange={this.props.onChangeGenre} />
       <h2>Genre: {genre}</h2>
     </div>;
 
     return (
       <div>
-        {renderInput(genre)}
+
+          <form action="" onSubmit={this.props.onSubmitForm} className={styles.form}>
+            {renderInput(genre)}
+          </form>
+
+          <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
+          <Button handleRoute={this.routeToResult}>Search</Button>
+          <Select
+            name="form-field-name"
+            value="action"
+            options={options}
+            value={this.props.genre}
+            onChange={this.handleSelectChange}
+          />
       </div>
     );
   }

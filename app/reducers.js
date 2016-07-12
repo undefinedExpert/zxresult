@@ -47,7 +47,6 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: appReducer,
-    form: (state = fromJS({}), action) => fromJS(formReducer(state.toJS(), action)),
     ...asyncReducers,
   });
 }

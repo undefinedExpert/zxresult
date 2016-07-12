@@ -1,9 +1,10 @@
-import { take, call, select, put } from 'redux-saga/effects';
+import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
 import { GET_GENRES_LIST, FILTER_FORM_UPDATE, apiUrl, apiKey } from 'containers/App/constants';
 import { selectFilters } from 'containers/App/selectors';
 import { resultSet, genreListSetSuccess } from 'containers/App/actions';
 import request from 'utils/request';
 import Chance from 'chance';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 // Individual exports for testing
 function randomizePage() {
@@ -52,6 +53,24 @@ export function* getGenresListWatcher() {
   }
 }
 
+export function* getMovieData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(getMovieWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+
+export function* getGenresListData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(getGenresListWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
 
 /**
  * Root saga manages watcher lifecycle
@@ -59,6 +78,6 @@ export function* getGenresListWatcher() {
 
 // Bootstrap sagas
 export default [
-  getMovieWatcher,
-  getGenresListWatcher,
+  getMovieData,
+  getGenresListData,
 ];
