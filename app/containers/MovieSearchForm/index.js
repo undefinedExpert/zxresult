@@ -63,14 +63,13 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
     // input = input.toLowerCase();
 
-
-    setTimeout(() => {
-      let data = {
+    console.log(this.props.filters.genreList);
+    let data = {
         options: this.props.filters.genreList,
         complete: options.length <= 6,
       };
       callback(null, data);
-    }, 500);
+
   };
   // TODO: fix the issue with handling onSubmit event
   render() {
