@@ -5,12 +5,14 @@ import Button from 'components/Button';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import { fromJS } from 'immutable';
 
 
 describe('<Movie-search-form />', () => {
   let renderComponent;
+
   beforeEach(() => {
-    renderComponent = shallow(<MovieSearchForm />);
+    renderComponent = shallow(<MovieSearchForm />, { context: { } });
   });
 
   it('Should contain Form Element', () => {
