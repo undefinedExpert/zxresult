@@ -9,10 +9,8 @@ import {
   GENRE_UPDATE,
   RESULT_SET,
   FILTER_FORM_UPDATE,
-  SENTENCE_UPDATE,
   GET_GENRES_LIST,
   GET_GENRES_LIST_SUCCESS,
-  GET_GENRES_LIST_ERR,
 } from './constants';
 
 export function moodUpdate(value) {

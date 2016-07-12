@@ -18,7 +18,7 @@ import { Provider } from 'react-redux';
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
-import Select from 'react-select';
+import 'react-select';
 
 import configureStore from './store';
 

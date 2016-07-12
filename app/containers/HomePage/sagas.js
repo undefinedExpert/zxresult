@@ -1,5 +1,5 @@
 import { take, call, select, put } from 'redux-saga/effects';
-import { GET_GENRES_LIST, GET_GENRES_LIST_SUCCESS, GET_GENRES_LIST_ERR, FILTER_FORM_UPDATE, apiUrl, apiKey } from 'containers/App/constants';
+import { GET_GENRES_LIST, FILTER_FORM_UPDATE, apiUrl, apiKey } from 'containers/App/constants';
 import { selectFilters } from 'containers/App/selectors';
 import { resultSet, genreListSetSuccess } from 'containers/App/actions';
 import request from 'utils/request';
