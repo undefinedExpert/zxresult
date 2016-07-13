@@ -6,6 +6,8 @@ import request from 'utils/request';
 import Chance from 'chance';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
+const filters = select(selectFilters());
+
 // Individual exports for testing
 function randomizePage() {
   const chance = new Chance();
@@ -14,13 +16,10 @@ function randomizePage() {
 
 export function* getMovie() {
   console.info('sagas run');
-  const filters = yield select(selectFilters());
-  const randomPage = randomizePage();
+  const randomPage = randomizePage(); 
   const requestUrl = `${apiUrl}/discover/movie?${apiKey}&with_genres=${filters.genre.id}&page=${randomPage}`;
-
-  // If url construction failed
-  if (!requestUrl) return;
   const movies = yield call(request, requestUrl);
+  
   if (!movies.err) {
     yield put(resultSet(movies.data, movies.data.results[0]));
   }
@@ -28,11 +27,9 @@ export function* getMovie() {
 
 // // Individual exports for testing
 export function* getGenreList() {
-  // Select username from store
   // const filters = yield select(selectFilters());
   const requestUrl = `${apiUrl}/genre/movie/list?${apiKey}`;
   const genres = yield call(request, requestUrl);
-  console.log(genres.data.genres);
   if (!genres.err) {
     yield put(genreListSetSuccess(genres.data.genres));
   }

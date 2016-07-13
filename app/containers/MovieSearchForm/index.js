@@ -12,7 +12,7 @@ import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { genreUpdate, filterFormUpdate, genreListSet } from 'containers/App/actions';
-import Select from 'react-select';
+import Select from 'components/Select';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -44,11 +44,8 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <Select
           value={genre}
-          isLoading={this.props.filters.genreList <= 0}
+          isLoading={genreList <= 0}
           onChange={this.onChange}
-          valueKey="name"
-          labelKey="name"
-          autoload={false}
           options={genreList}
         />
         <h2>Genre: {genre}</h2>
