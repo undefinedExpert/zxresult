@@ -15,11 +15,10 @@ function randomizePage() {
 
 export function* getMovie() {
   console.info('sagas run');
-  console.log(select(selectFilters));
-  const filters = select();
+  const filters = yield select(selectFilters());
   const randomPage = randomizePage();
-  console.log(filters.genre);
-  const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${'28'}&page=${randomPage}`;
+
+  const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}`;
   const movies = yield call(request, requestUrl);
   
   if (!movies.err) {
@@ -32,6 +31,7 @@ export function* getGenreList() {
   // const filters = yield select(selectFilters());
   const requestUrl = `${CONSTANT.apiUrl}/genre/movie/list?${CONSTANT.apiKey}`;
   const genres = yield call(request, requestUrl);
+  console.log(genres);
   if (!genres.err) {
     yield put(updateFilterGenre.list.success(genres.data.genres));
   }
@@ -47,18 +47,19 @@ export function* getMovieWatcher() {
 }
 
 export function* getGenresListWatcher() {
-  while (yield take(CONSTANT.UPDATE_FILTER_GENRE_LIST)) {
+  while (yield take(CONSTANT.UPDATE_FILTER_GENRE_LIST.REQUEST)) {
     yield call(getGenreList);
   }
 }
 
 export function* getData() {
   // Fork watcher so we can continue execution
-  const movieswatcher = yield fork(getMovieWatcher);
+  const moviesWatcher = yield fork(getMovieWatcher);
+  const genreListWatcher = yield fork(getGenresListWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
-  yield cancel([movieswatcher]);
+  yield cancel([moviesWatcher, genreListWatcher]);
 }
 
 /**
