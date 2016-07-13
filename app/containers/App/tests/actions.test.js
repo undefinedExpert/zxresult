@@ -4,21 +4,18 @@ import {
   moodUpdate,
   resultSet,
 } from '../actions';
-import {
-  GENRE_UPDATE,
-  MOOD_UPDATE,
-  RESULT_SET,
-} from '../constants';
+import * as CONSTANT from './../constants';
+
 
 describe('Application actions', () => {
   describe('moodUpdate()', () => {
     it('Should return type and value properties', () => {
       const value = 'test';
       const expected = {
-        type: MOOD_UPDATE,
+        type: CONSTANT.UPDATE_FILTER_MOOD.REQUEST,
         value,
       };
-      expect(moodUpdate(value)).to.eql(expected);
+      expect(moodUpdate.request(value)).to.eql(expected);
     });
   });
 
@@ -26,7 +23,7 @@ describe('Application actions', () => {
     it('Should return type and value properties', () => {
       const value = 'test';
       const expected = {
-        type: GENRE_UPDATE,
+        type: CONSTANT.GENRE_UPDATE,
         value,
       };
       expect(genreUpdate(value)).to.eql(expected);
@@ -38,7 +35,7 @@ describe('Application actions', () => {
       const movies = [{}, {}];
       const single = {};
       const expected = {
-        type: RESULT_SET,
+        type: CONSTANT.RESULT_SET,
         movies,
         single,
       };

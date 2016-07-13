@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import * as constant from './constants';
+import * as CONSTANT from './constants';
 
 const initialState = fromJS({
   isLogged: true,
@@ -41,19 +41,19 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case constant.UPDATE_FILTER_MOOD.REQUEST:
+    case CONSTANT.UPDATE_FILTER_MOOD.REQUEST:
       return state
         .setIn(['filters', 'mood'], action.value);
-    case constant.GENRE_UPDATE:
+    case CONSTANT.GENRE_UPDATE:
       return state
         .setIn(['filters', 'genre', 'active', 'name'], action.value);
-    case constant.RESULT_SET:
+    case CONSTANT.RESULT_SET:
       return state
         .setIn(['result', 'movie'], action.single)
         .setIn(['result', 'movies'], action.movies);
-    case constant.GET_GENRES_LIST_SUCCESS:
+    case CONSTANT.GET_GENRES_LIST_SUCCESS:
       return state
-        .setIn(['filters', 'genreList'], action.value);
+        .setIn(['filters', 'genre', 'list'], action.value);
     default:
       return state;
   }

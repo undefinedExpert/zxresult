@@ -83,7 +83,8 @@ const mapStateToProps = createStructuredSelector({
     selectFilters(),
     createStructuredSelector({
       mood: (state) => state.mood,
-      genre: (state) => state.genre,
+      genre: (state) => state.genre.active.name,
+      genreList: (state) => state.genre.list,
     }),
   ),
   ohio: () => 'ohio',

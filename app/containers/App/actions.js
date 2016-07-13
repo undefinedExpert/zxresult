@@ -4,17 +4,17 @@
  *
  */
 
-import * as constant from './constants';
+import * as CONSTANT from './constants';
 
 function action(type, payload = {}) {
-  return { type, ...payload }
+  return { type, ...payload };
 }
 
 
 export const moodUpdate = {
-  request: value => action(constant.UPDATE_FILTER_MOOD.REQUEST, { value }),
-  success: (value, response) => action(constant.UPDATE_FILTER_MOOD.SUCCESS, { value, response }),
-  failure: (value, error) => action(constant.UPDATE_FILTER_MOOD.FAILURE, { value, error }),
+  request: value => action(CONSTANT.UPDATE_FILTER_MOOD.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_MOOD.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_MOOD.FAILURE, { value, error }),
 };
 
 // export function moodUpdate(value) {
@@ -26,7 +26,7 @@ export const moodUpdate = {
 
 export function genreUpdate(value) {
   return {
-    type: GENRE_UPDATE,
+    type: CONSTANT.GENRE_UPDATE,
     value,
   };
 }
@@ -34,13 +34,13 @@ export function genreUpdate(value) {
 // TODO: Refactor
 export function filterFormUpdate() {
   return {
-    type: FILTER_FORM_UPDATE,
+    type: CONSTANT.FILTER_FORM_UPDATE,
   };
 }
 
 export function resultSet(movies, single) {
   return {
-    type: RESULT_SET,
+    type: CONSTANT.RESULT_SET,
     movies,
     single,
   };
@@ -49,13 +49,13 @@ export function resultSet(movies, single) {
 
 export function genreListSet() {
   return {
-    type: GET_GENRES_LIST,
+    type: CONSTANT.GET_GENRES_LIST,
   };
 }
 
 export function genreListSetSuccess(value) {
   return {
-    type: GET_GENRES_LIST_SUCCESS,
+    type: CONSTANT.GET_GENRES_LIST_SUCCESS,
     value,
   };
 }

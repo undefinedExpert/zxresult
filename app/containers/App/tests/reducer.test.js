@@ -50,13 +50,13 @@ describe('appReducer', () => {
   it('should handle the moodUpdate action', () => {
     const fixture = 'eslotwinski';
     const expectedResult = state.setIn(['filters', 'mood'], fixture);
-    expect(appReducer(state, moodUpdate(fixture))).to.eql(expectedResult);
+    expect(appReducer(state, moodUpdate.request(fixture))).to.eql(expectedResult);
   });
 
   it('should handle the moodUpdate action', () => {
     const fixture = 'sad';
     const expectedResult = state.setIn(['filters', 'mood'], fixture);
-    expect(appReducer(state, moodUpdate(fixture))).to.eql(expectedResult);
+    expect(appReducer(state, moodUpdate.request(fixture))).to.eql(expectedResult);
   });
 
   it('should handle the genreUpdate action', () => {

@@ -16,7 +16,6 @@ const selectFilters = () => {
     sentence: (state) => state.sentence,
     mood: (state) => state.mood,
     genre: (state) => state.genre,
-    genreList: (state) => state.genreList,
   });
   return createSelector(
     filtersDomain(),
@@ -25,8 +24,7 @@ const selectFilters = () => {
       const sentence = filtersState.sentence;
       const mood = filtersState.mood;
       const genre = filtersState.genre;
-      const genreList = filtersState.genreList;
-      return { sentence, mood, genre, genreList };
+      return { sentence, mood, genre };
     }
   );
 };
