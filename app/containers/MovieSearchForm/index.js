@@ -25,7 +25,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   }
   // Zmienia dane
   onChangeSelector = (value) => {
-    this.props.onChangeGenre(value.name);
+    this.props.onChangeGenre(value);
   };
 
   routeToResult = () => {

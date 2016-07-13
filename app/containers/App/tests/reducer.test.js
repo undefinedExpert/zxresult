@@ -61,7 +61,7 @@ describe('appReducer', () => {
 
   it('should handle the updateFilterGenre action', () => {
     const fixture = 'drama';
-    const expectedResult = state.setIn(['filters', 'genre', 'active', 'name'], fixture);
+    const expectedResult = state.setIn(['filters', 'genre', 'active'], fixture);
     expect(appReducer(state, updateFilterGenre.active.request(fixture))).to.eql(expectedResult);
   });
 

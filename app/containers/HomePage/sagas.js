@@ -20,7 +20,6 @@ export function* getMovie() {
 
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}`;
   const movies = yield call(request, requestUrl);
-  
   if (!movies.err) {
     yield put(resultSet(movies.data, movies.data.results[0]));
   }
@@ -59,7 +58,8 @@ export function* getData() {
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
-  yield cancel([moviesWatcher, genreListWatcher]);
+  yield cancel(moviesWatcher);
+  yield cancel(genreListWatcher);
 }
 
 /**

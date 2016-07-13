@@ -52,7 +52,7 @@ function appReducer(state = initialState, action) {
         .setIn(['filters', 'mood'], action.value);
     case CONSTANT.UPDATE_FILTER_GENRE.REQUEST:
       return state
-        .setIn(['filters', 'genre', 'active', 'name'], action.value);
+        .setIn(['filters', 'genre', 'active'], action.value);
     case CONSTANT.UPDATE_FILTER_GENRE_LIST.SUCCESS:
       return state
         .setIn(['filters', 'genre', 'list'], action.value);
