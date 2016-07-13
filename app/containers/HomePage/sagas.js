@@ -53,23 +53,13 @@ export function* getGenresListWatcher() {
   }
 }
 
-export function* getMovieData() {
+export function* getData() {
   // Fork watcher so we can continue execution
-  const watcher = yield fork(getMovieWatcher);
-
+  const movieswatcher = yield fork(getMovieWatcher);
+  const genresWatcher = yield fork(getGenresListWatcher);
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
-}
-
-
-export function* getGenresListData() {
-  // Fork watcher so we can continue execution
-  const watcher = yield fork(getGenresListWatcher);
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  yield cancel([movieswatcher, genresWatcher]);
 }
 
 /**
@@ -78,6 +68,5 @@ export function* getGenresListData() {
 
 // Bootstrap sagas
 export default [
-  getMovieData,
-  getGenresListData,
+  getData,
 ];

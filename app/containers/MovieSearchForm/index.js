@@ -44,6 +44,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <Select
           value={genre}
+          isLoading={this.props.filters.genreList <= 0}
           onChange={this.onChange}
           valueKey="name"
           labelKey="name"
@@ -103,10 +104,7 @@ function mapDispatchToProps(dispatch) {
     filterUpdate: () => dispatch(filterFormUpdate()),
     getGenreList: () => dispatch(genreListSet()),
     onSubmitForm: (evt) => {
-      console.log(evt.preventDefault);
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      return false;
-      // dispatch(loadRepos());
     },
     dispatch,
   };
