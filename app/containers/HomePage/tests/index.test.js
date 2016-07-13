@@ -1,7 +1,7 @@
 import { HomePage } from '../index';
 import Navigation from 'components/Navigation';
 import MovieSearchForm from 'containers/MovieSearchForm';
-import WelcomeText from 'components/Welcome-text';
+import WelcomeText from 'components/WelcomeText';
 
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
