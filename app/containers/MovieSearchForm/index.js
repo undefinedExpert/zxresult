@@ -11,7 +11,7 @@ import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
-import { genreUpdate, filterFormUpdate, genreListSet } from 'containers/App/actions';
+import { updateFilterGenre, filterFormUpdate } from 'containers/App/actions';
 import Select from 'components/Select';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -83,8 +83,8 @@ const mapStateToProps = createStructuredSelector({
     selectFilters(),
     createStructuredSelector({
       mood: (state) => state.mood,
-      genre: (state) => state.genre.active.name,
-      genreList: (state) => state.genre.list,
+      genre: (state) => state.genre.name,
+      genreList: (state) => state.genreList,
     }),
   ),
   ohio: () => 'ohio',
@@ -92,11 +92,11 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    // onChangeMood: (evt) => dispatch(moodUpdate(evt)),
-    onChangeGenre: (value) => dispatch(genreUpdate(value)),
+    // onChangeMood: (evt) => dispatch(updateFilterMood(evt)),
+    onChangeGenre: (value) => dispatch(updateFilterGenre.active.request(value)),
     changeRoute: (url) => dispatch(push(url)),
     filterUpdate: () => dispatch(filterFormUpdate()),
-    getGenreList: () => dispatch(genreListSet()),
+    getGenreList: () => dispatch(updateFilterGenre.list.request()),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     },

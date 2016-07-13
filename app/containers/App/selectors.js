@@ -13,7 +13,6 @@ const filtersDomain = () => createSelector(
 // Attach nested filters state proprieties
 const selectFilters = () => {
   const filterSelector = createStructuredSelector({
-    sentence: (state) => state.sentence,
     mood: (state) => state.mood,
     genre: (state) => state.genre,
   });
@@ -21,10 +20,9 @@ const selectFilters = () => {
     filtersDomain(),
     filterSelector,
     (filtersState) => {
-      const sentence = filtersState.sentence;
       const mood = filtersState.mood;
       const genre = filtersState.genre;
-      return { sentence, mood, genre };
+      return { mood, genre };
     }
   );
 };

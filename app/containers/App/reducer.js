@@ -10,16 +10,20 @@ import * as CONSTANT from './constants';
 const initialState = fromJS({
   isLogged: true,
   filters: {
-    mood: 'Funny',
-    popularity: 'Classical',
-    decade: '90s',
-    genre: fromJS({
-      active: fromJS({
+    mood: {
+      active: {
         id: 28,
         name: 'Action',
-      }),
+      },
       list: [],
-    }),
+    },
+    popularity: 'Classical',
+    decade: '90s',
+    genre: {
+      id: 28,
+      name: 'Action',
+    },
+    genreList: [],
   },
   result: fromJS({
     movie: null,
@@ -44,16 +48,16 @@ function appReducer(state = initialState, action) {
     case CONSTANT.UPDATE_FILTER_MOOD.REQUEST:
       return state
         .setIn(['filters', 'mood'], action.value);
-    case CONSTANT.GENRE_UPDATE:
+    case CONSTANT.UPDATE_FILTER_MOOD.MOOD:
       return state
         .setIn(['filters', 'genre', 'active', 'name'], action.value);
+    case CONSTANT.UPDATE_FILTER_GENRE_LIST.SUCCESS:
+      return state
+        .setIn(['filters', 'genre', 'list'], action.value);
     case CONSTANT.RESULT_SET:
       return state
         .setIn(['result', 'movie'], action.single)
         .setIn(['result', 'movies'], action.movies);
-    case CONSTANT.GET_GENRES_LIST_SUCCESS:
-      return state
-        .setIn(['filters', 'genre', 'list'], action.value);
     default:
       return state;
   }

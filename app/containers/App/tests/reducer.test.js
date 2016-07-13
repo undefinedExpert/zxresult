@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import appReducer from '../reducer';
 import { fromJS } from 'immutable';
 import {
-  genreUpdate,
-  moodUpdate,
+  updateFilterGenre,
+  updateFilterMood,
   resultSet,
 } from '../actions';
 
@@ -13,14 +13,20 @@ describe('appReducer', () => {
     state = fromJS({
       isLogged: true,
       filters: {
-        mood: 'Funny',
+        mood: fromJS({
+          active: {
+            id: 28,
+            name: 'Action',
+          },
+          list: [],
+        }),
         popularity: 'Classical',
         decade: '90s',
         genre: fromJS({
-          active: fromJS({
+          active: {
             id: 28,
             name: 'Action',
-          }),
+          },
           list: [],
         }),
       },
@@ -47,22 +53,16 @@ describe('appReducer', () => {
     expect(appReducer(undefined, {})).to.eql(excepted);
   });
 
-  it('should handle the moodUpdate action', () => {
+  it('should handle the updateFilterMood action', () => {
     const fixture = 'eslotwinski';
     const expectedResult = state.setIn(['filters', 'mood'], fixture);
-    expect(appReducer(state, moodUpdate.request(fixture))).to.eql(expectedResult);
+    expect(appReducer(state, updateFilterMood.active.request(fixture))).to.eql(expectedResult);
   });
 
-  it('should handle the moodUpdate action', () => {
-    const fixture = 'sad';
-    const expectedResult = state.setIn(['filters', 'mood'], fixture);
-    expect(appReducer(state, moodUpdate.request(fixture))).to.eql(expectedResult);
-  });
-
-  it('should handle the genreUpdate action', () => {
+  it('should handle the updateFilterGenre action', () => {
     const fixture = 'drama';
     const expectedResult = state.setIn(['filters', 'genre', 'active', 'name'], fixture);
-    expect(appReducer(state, genreUpdate(fixture))).to.eql(expectedResult);
+    expect(appReducer(state, updateFilterGenre.active.request(fixture))).to.eql(expectedResult);
   });
 
   it('should handle the resultSet action', () => {
