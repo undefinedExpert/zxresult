@@ -4,21 +4,25 @@
  *
  */
 
-import {
-  MOOD_UPDATE,
-  GENRE_UPDATE,
-  RESULT_SET,
-  FILTER_FORM_UPDATE,
-  GET_GENRES_LIST,
-  GET_GENRES_LIST_SUCCESS,
-} from './constants';
+import * as constant from './constants';
 
-export function moodUpdate(value) {
-  return {
-    type: MOOD_UPDATE,
-    value,
-  };
+function action(type, payload = {}) {
+  return { type, ...payload }
 }
+
+
+export const moodUpdate = {
+  request: value => action(constant.UPDATE_FILTER_MOOD.REQUEST, { value }),
+  success: (value, response) => action(constant.UPDATE_FILTER_MOOD.SUCCESS, { value, response }),
+  failure: (value, error) => action(constant.UPDATE_FILTER_MOOD.FAILURE, { value, error }),
+};
+
+// export function moodUpdate(value) {
+//   return {
+//     type: MOOD_UPDATE,
+//     value,
+//   };
+// }
 
 export function genreUpdate(value) {
   return {

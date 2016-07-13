@@ -24,7 +24,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     }
   }
   // Zmienia dane
-  onChange = (value) => {
+  onChangeSelector = (value) => {
     this.props.onChangeGenre(value.name);
   };
 
@@ -40,21 +40,23 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       filters: { genre, genreList },
     } = this.props;
 
-    const renderInput = () => (
+    const renderInput = (value, array) => (
       <div>
         <Select
-          value={genre}
-          isLoading={genreList <= 0}
-          onChange={this.onChange}
-          options={genreList}
+          value={value}
+          isLoading={array <= 0}
+          onChange={this.onChangeSelector}
+          options={array}
         />
-        <h2>Genre: {genre}</h2>
+        <h2>Genre: {value}</h2>
       </div>
     );
 
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
+
+          {renderInput(genre, genreList)}
           {renderInput(genre, genreList)}
         </form>
 
@@ -71,13 +73,8 @@ MovieSearchForm.propTypes = {
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
   filterFormUpdate: React.PropTypes.func,
-  getGenreList: React.PropTypes.func,
-  onChangeMood: React.PropTypes.func,
-  mood: React.PropTypes.string,
-  genre: React.PropTypes.string,
-  genreList: React.PropTypes.array,
+  getGenreList: React.PropTypes.func.isRequired,
   onChangeGenre: React.PropTypes.func,
-  onChangeSentence: React.PropTypes.func,
   filterUpdate: React.PropTypes.func,
 };
 
@@ -86,8 +83,7 @@ const mapStateToProps = createStructuredSelector({
     selectFilters(),
     createStructuredSelector({
       mood: (state) => state.mood,
-      genre: (state) => state.genre.name,
-      genreList: (state) => state.genreList,
+      genre: (state) => state.genre,
     }),
   ),
   ohio: () => 'ohio',

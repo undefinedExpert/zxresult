@@ -13,15 +13,16 @@ describe('appReducer', () => {
     state = fromJS({
       isLogged: true,
       filters: {
-        sentence: 'Get a list of TV show ids that have been edited.',
         mood: 'Funny',
         popularity: 'Classical',
         decade: '90s',
         genre: fromJS({
-          id: 28,
-          name: 'Action',
+          active: fromJS({
+            id: 28,
+            name: 'Action',
+          }),
+          list: [],
         }),
-        genreList: [],
       },
       result: fromJS({
         movie: null,
@@ -60,7 +61,7 @@ describe('appReducer', () => {
 
   it('should handle the genreUpdate action', () => {
     const fixture = 'drama';
-    const expectedResult = state.setIn(['filters', 'genre', 'name'], fixture);
+    const expectedResult = state.setIn(['filters', 'genre', 'active', 'name'], fixture);
     expect(appReducer(state, genreUpdate(fixture))).to.eql(expectedResult);
   });
 
