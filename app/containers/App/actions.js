@@ -12,7 +12,6 @@ function action(type, payload = {}) {
 
 // Mood Update Actions
 //
-//
 const moodActive = {
   request: value => action(CONSTANT.UPDATE_FILTER_MOOD.REQUEST, { value }),
   success: (value, response) => action(CONSTANT.UPDATE_FILTER_MOOD.SUCCESS, { value, response }),
@@ -33,7 +32,6 @@ export const updateFilterMood = {
 
 // Genre Update Actions
 //
-//
 const genreActive = {
   request: value => action(CONSTANT.UPDATE_FILTER_GENRE.REQUEST, { value }),
   success: (value, response) => action(CONSTANT.UPDATE_FILTER_GENRE.SUCCESS, { value, response }),
@@ -51,27 +49,8 @@ export const updateFilterGenre = {
   list: genreList,
 };
 
-// export function genreUpdate(value) {
-//   return {
-//     type: CONSTANT.GENRE_UPDATE,
-//     value,
-//   };
-// }
-//
-// export function genreListSet() {
-//   return {
-//     type: CONSTANT.GET_GENRES_LIST,
-//   };
-// }
-//
-// export function genreListSetSuccess(value) {
-//   return {
-//     type: CONSTANT.GET_GENRES_LIST_SUCCESS,
-//     value,
-//   };
-// }
 
-
+// TEMPORARY FUNCTIONS
 // TODO: Refactor
 export function filterFormUpdate() {
   return {
