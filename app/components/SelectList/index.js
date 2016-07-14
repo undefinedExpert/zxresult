@@ -16,13 +16,13 @@ class SelectList extends React.Component {
     return (
       <div key={index}>
         <Select
-          value={item.value}
+          value={item.active.name}
           key={index}
           isLoading={item.list <= 0}
           options={item.list}
           onChange={onChangeHandler}
         />
-        <h2>Genre: {item.value}</h2>
+        <h2>Genre: {item.active.name}</h2>
       </div>
     );
   }

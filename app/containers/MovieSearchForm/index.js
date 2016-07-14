@@ -18,7 +18,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   // fixme: https://github.com/reactjs/redux/issues/239
   componentWillMount() {
     // Make xhr call
-    if (this.props.filters.genreList <= 0) {
+    if (this.props.filters.genre.list <= 0) {
       this.props.getGenreList();
     }
   }
@@ -45,7 +45,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <SelectList
-            items={[{ value: genre, list: genreList }, { value: genre, list: genreList }]}
+            items={[genre, genre]}
             onChangeHandler={this.onChangeSelector}
           />
 
@@ -74,8 +74,7 @@ const mapStateToProps = createStructuredSelector({
     selectFilters(),
     createStructuredSelector({
       mood: (state) => state.mood,
-      genre: (state) => state.genre.active.name,
-      genreList: (state) => state.genre.list,
+      genre: (state) => state.genre,
     }),
   ),
   ohio: () => 'ohio',
