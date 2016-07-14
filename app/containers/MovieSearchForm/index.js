@@ -13,6 +13,7 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { updateFilterGenre, filterFormUpdate } from 'containers/App/actions';
 import SelectList from 'components/SelectList';
+import Select from 'components/Select';
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   // fixme: https://github.com/reactjs/redux/issues/239
@@ -35,10 +36,26 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
-  
+
+  // Template for select
+  renderSelect = (item, index) => {
+    const { onChangeHandler } = this.props;
+    return (
+      <div key={index}>
+        <Select
+          value={item.active.name}
+          key={index}
+          isLoading={item.list <= 0}
+          options={item.list}
+          onChange={onChangeHandler}
+        />
+        <h2>Genre: {item.active.name}</h2>
+      </div>
+    );
+  };
   render() {
     const {
-      filters: { genre, genreList },
+      filters: { genre },
     } = this.props;
 
     return (
@@ -46,6 +63,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <SelectList
             items={[genre, genre]}
+            renderHandler={this.renderSelect}
             onChangeHandler={this.onChangeSelector}
           />
 
