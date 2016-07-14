@@ -1,5 +1,4 @@
 import { HomePage } from '../index';
-import Navigation from 'components/Navigation';
 import MovieSearchForm from 'containers/MovieSearchForm';
 import WelcomeText from 'components/WelcomeText';
 
@@ -11,11 +10,6 @@ describe('<HomePage />', () => {
   let renderedComponent;
   beforeEach(() => {
     renderedComponent = shallow(<HomePage />);
-  });
-
-  it('Should render Navigation component', () => {
-    const excepted = renderedComponent.containsMatchingElement(<Navigation />);
-    expect(excepted).to.eql(true);
   });
 
   it('Should render Movie-search-form', () => {

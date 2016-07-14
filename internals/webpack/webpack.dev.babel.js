@@ -39,11 +39,11 @@ module.exports = require('./webpack.base.babel')({
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
       features: {
         customProperties: {
-          variables: cssConfig
+          variables: cssConfig,
         },
         calc: {
           mediaQueries: true,
-        }
+        },
       },
     }),
     postcssReporter({ // Posts messages from plugins to the terminal

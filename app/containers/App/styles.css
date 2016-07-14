@@ -1,7 +1,9 @@
+$main: #1d1921;
+
 :root {
-  background-color: var(--red);
-}
-.app {
-  background-color: blue;
+  background-color: $main;
 }
 
+.app {
+  background-color: $main;
+}
