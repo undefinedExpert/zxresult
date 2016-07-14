@@ -47,7 +47,7 @@ class Navigation extends React.Component {
 }
 
 Navigation.propTypes = {
-  logotype: React.PropTypes.func,
+  logotype: React.PropTypes.bool,
   filters: React.PropTypes.array,
   links: React.PropTypes.array,
 };
