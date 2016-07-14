@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import Button from 'components/Button';
 import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
@@ -14,8 +13,8 @@ import { push } from 'react-router-redux';
 import { updateFilterGenre, filterFormUpdate } from 'containers/App/actions';
 import SelectList from 'components/SelectList';
 import Select from 'components/Select';
-export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
+export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   // fixme: https://github.com/reactjs/redux/issues/239
   componentWillMount() {
     // Make xhr call
@@ -27,14 +26,6 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   // Zmienia dane
   onChangeSelector = (value) => {
     this.props.onChangeGenre(value);
-  };
-
-  routeToResult = () => {
-    this.openRoute('/result');
-  };
-
-  openRoute = (route) => {
-    this.props.changeRoute(route);
   };
 
   // Template for select
@@ -53,6 +44,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       </div>
     );
   };
+
   render() {
     const {
       filters: { genre },
@@ -66,11 +58,8 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
             renderHandler={this.renderSelect}
             onChangeHandler={this.onChangeSelector}
           />
-
         </form>
 
-        <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
-        <Button handleRoute={this.routeToResult}>Search</Button>
       </div>
     );
   }

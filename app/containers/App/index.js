@@ -27,7 +27,7 @@ export default class App extends React.Component { // eslint-disable-line react/
   render() {
     return (
       <div className={styles.app}>
-        <Navigation />
+        <Navigation logotype={true} />
         {this.props.children}
         <BottomNavigation />
       </div>

@@ -9,22 +9,17 @@ import { connect } from 'react-redux';
 import Button from 'components/Button';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
-import Navigation from 'components/Navigation';
 import { filterFormUpdate } from 'containers/App/actions';
-// <h1>{this.props.filters.trend}</h1>
-// <h1>{this.props.filters.mood}</h1>
-// <h1>{this.props.filters.decade}</h1>
+
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     console.log(this.props.result.movie);
     return (
       <div>
-        <Navigation />
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <h1>Title: {this.props.result.movie.original_title}</h1>
         <h2>{this.props.result.movie.overview}</h2>
         <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.movie.poster_path}`} alt="" />
-
       </div>
     );
   }
