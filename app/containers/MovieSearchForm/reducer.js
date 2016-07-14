@@ -5,7 +5,6 @@
  */
 
 import { fromJS } from 'immutable';
-import { GET_GENRES_LIST_SUCCESS } from 'containers/App/constants';
 
 const initialState = fromJS({});
 
