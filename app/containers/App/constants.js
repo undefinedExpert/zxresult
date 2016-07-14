@@ -3,19 +3,7 @@
  * Movie-search-form constants
  *
  */
-// STATUS CONSTANTS
-const REQUEST = 'REQUEST';
-const SUCCESS = 'SUCCESS';
-const FAILURE = 'FAILURE';
-
-// HELPER FUNCTION
-// TODO: Move it to utils as separate function
-function createRequestTypes(base) {
-  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
-    acc[type] = `${base}_${type}`; // eslint-disable-line
-    return acc;
-  }, {});
-}
+import { createRequestTypes } from 'utils/hooks';
 
 // MOOD CONSTANTS
 const UPDATE_FILTER_MOOD = createRequestTypes('app/App/UPDATE_FILTER_MOOD');

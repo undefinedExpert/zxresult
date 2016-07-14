@@ -17,6 +17,19 @@ export function injectAsyncSagas(store) {
   return (sagas) => sagas.map(store.runSaga);
 }
 
+
+// They are needed by createRequestTypes
+const REQUEST = 'REQUEST';
+const SUCCESS = 'SUCCESS';
+const FAILURE = 'FAILURE';
+
+// It allows to create multi request type actions
+export function createRequestTypes(base) {
+  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
+    acc[type] = `${base}_${type}`; // eslint-disable-line
+    return acc;
+  }, {});
+}
 /**
  * Helper for creating injectors
  */
