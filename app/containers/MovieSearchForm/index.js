@@ -62,7 +62,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <SelectList
-            items={[genre, genre]}
+            items={[genre]}
             renderHandler={this.renderSelect}
             onChangeHandler={this.onChangeSelector}
           />

@@ -13,7 +13,6 @@ const postcssReporter = require('postcss-reporter');
 const lostCssGrid = require('lost');
 const precss = require('precss');
 
-
 module.exports = require('./webpack.base.babel')({
   // Add hot reloading in development
   entry: [
@@ -34,6 +33,7 @@ module.exports = require('./webpack.base.babel')({
   // Process the CSS with PostCSS
   postcssPlugins: [
     postcssFocus(), // Add a :focus to every :hover
+
     cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
     }),
