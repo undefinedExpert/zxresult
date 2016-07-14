@@ -12,8 +12,7 @@ import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import { updateFilterGenre, filterFormUpdate } from 'containers/App/actions';
-import Select from 'components/Select';
-
+import SelectList from 'components/SelectList';
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   // fixme: https://github.com/reactjs/redux/issues/239
@@ -23,6 +22,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       this.props.getGenreList();
     }
   }
+
   // Zmienia dane
   onChangeSelector = (value) => {
     this.props.onChangeGenre(value);
@@ -35,29 +35,20 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
+  
   render() {
     const {
       filters: { genre, genreList },
     } = this.props;
 
-    const renderInput = (value, array) => (
-      <div>
-        <Select
-          value={value}
-          isLoading={array <= 0}
-          onChange={this.onChangeSelector}
-          options={array}
-        />
-        <h2>Genre: {value}</h2>
-      </div>
-    );
-
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
+          <SelectList
+            items={[{ value: genre, list: genreList }, { value: genre, list: genreList }]}
+            onChangeHandler={this.onChangeSelector}
+          />
 
-          {renderInput(genre, genreList)}
-          {renderInput(genre, genreList)}
         </form>
 
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
@@ -73,7 +64,7 @@ MovieSearchForm.propTypes = {
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,
   filterFormUpdate: React.PropTypes.func,
-  getGenreList: React.PropTypes.func.isRequired,
+  getGenreList: React.PropTypes.func,
   onChangeGenre: React.PropTypes.func,
   filterUpdate: React.PropTypes.func,
 };
