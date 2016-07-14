@@ -1,5 +1,7 @@
-
+:root {
+  background-color: var(--red);
+}
 .app {
-  background-color: var(--mainColor);
+  background-color: blue;
 }
 

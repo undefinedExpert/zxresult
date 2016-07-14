@@ -12,6 +12,7 @@ const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
 const lostCssGrid = require('lost');
 const precss = require('precss');
+const cssConfig = require('../../app/css-config.js');
 
 module.exports = require('./webpack.base.babel')({
   // Add hot reloading in development
@@ -36,6 +37,14 @@ module.exports = require('./webpack.base.babel')({
 
     cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
+      features: {
+        customProperties: {
+          variables: cssConfig
+        },
+        calc: {
+          mediaQueries: true,
+        }
+      },
     }),
     postcssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
