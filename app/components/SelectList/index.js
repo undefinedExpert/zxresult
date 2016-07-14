@@ -1,26 +1,24 @@
 /**
-*
-* SelectList
-*
-*/
+ *
+ * SelectList
+ *
+ */
 
 import React from 'react';
 
 import styles from './styles.css';
 
 
-class SelectList extends React.Component {
-  render() {
-    const {
-      items, renderHandler,
-    } = this.props;
+function SelectList(props) {
+  const {
+    items, renderHandler,
+  } = props;
 
-    return (
-      <div className={styles.selectList}>
-        {items.map(renderHandler)}
-      </div>
-    );
-  }
+  return (
+    <div className={styles.selectList}>
+      {items.map(renderHandler)}
+    </div>
+  );
 }
 
 SelectList.propTypes = {
