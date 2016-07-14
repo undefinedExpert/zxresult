@@ -4,12 +4,14 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import * as CONSTANT from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
+function action(type, payload = {}) {
+  return { type, ...payload };
 }
+
+export const defaultAction = {
+  request: value => action(CONSTANT.DEFAULT_ACTION.REQUEST, {}),
+  success: (value, response) => action(CONSTANT.DEFAULT_ACTION.SUCCESS, {}),
+  failure: (value, error) => action(CONSTANT.DEFAULT_ACTION.FAILURE, {}),
+};

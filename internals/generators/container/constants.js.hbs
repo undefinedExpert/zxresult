@@ -4,4 +4,10 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/{{ properCase name }}/DEFAULT_ACTION';
+import { createRequestTypes } from 'utils/hooks';
+
+const DEFAULT_ACTION = createRequestTypes('app/{{ properCase name }}/DEFAULT_ACTION');
+
+export {
+  DEFAULT_ACTION,
+}
