@@ -1,4 +1,4 @@
-### Quick Movie Search application
+### Quick Movie Search app
 
 ![Travis ci][travis]
 ![Coverage Status][coverage]
