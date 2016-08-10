@@ -13,7 +13,7 @@ function Select(props) {
   return (
     <div className={styles.select}>
       <ReactSelect
-        value={props.value}
+        value={props.value || ''}
         isLoading={props.loading}
         valueKey={props.valueKey || 'name'}
         labelKey={props.labelKey || 'name'}

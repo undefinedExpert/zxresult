@@ -12,16 +12,19 @@ import Select from 'components/Select';
 class SelectList extends React.Component {
   renderSelect = (item, index) => {
     const { onChangeHandler } = this.props;
+    const value = item.value === null ? '' : item.value.name;
+    const list = item.list;
+
     return (
       <div key={index}>
         <Select
-          value={item.value.name}
+          value={value}
           key={index}
-          isLoading={item.list <= 0}
-          options={item.list}
+          isLoading={list <= 0}
+          options={list}
           onChange={onChangeHandler}
         />
-        <h2>Genre: {item.value.name}</h2>
+        <h2>Genre: {value}</h2>
       </div>
     );
   };
