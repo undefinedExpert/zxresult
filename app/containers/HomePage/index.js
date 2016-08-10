@@ -29,7 +29,6 @@ HomePage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({});
 
-
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

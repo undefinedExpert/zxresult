@@ -1,9 +1,8 @@
-$main: #1d1921;
-
+/* Global Variables */
 :root {
-  background-color: $main;
+  background-color: var(--cMain);
 }
 
 .app {
-  background-color: $main;
+  background-color: var(--cMain);
 }
