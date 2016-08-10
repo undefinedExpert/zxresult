@@ -38,7 +38,9 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
           <SelectList
             items={items}
             onChangeHandler={this.onChangeGenreHandler}
+            title="Genre"
           />
+
         </form>
       </div>
     );

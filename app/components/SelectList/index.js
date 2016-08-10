@@ -11,7 +11,7 @@ import Select from 'components/Select';
 
 class SelectList extends React.Component {
   renderSelect = (item, index) => {
-    const { onChangeHandler } = this.props;
+    const { onChangeHandler, title } = this.props;
     const value = item.value === null ? '' : item.value.name;
     const list = item.list;
 
@@ -23,6 +23,8 @@ class SelectList extends React.Component {
           isLoading={list <= 0}
           options={list}
           onChange={onChangeHandler}
+          title={title}
+          {...this.props}
         />
         <h2>Genre: {value}</h2>
       </div>

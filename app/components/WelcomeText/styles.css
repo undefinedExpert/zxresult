@@ -1,6 +1,6 @@
 .welcomeText {
   margin-top: 25vh;
-  color: #7f7f7f;
+  color: var(--cHeading);
   h1,
   h3 {
     text-align: center;
