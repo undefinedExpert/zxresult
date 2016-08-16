@@ -40,7 +40,6 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
             onChangeHandler={this.onChangeGenreHandler}
             title="Genre"
           />
-
         </form>
       </div>
     );

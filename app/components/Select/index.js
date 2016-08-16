@@ -20,6 +20,7 @@ function inputHeading(title) {
 }
 
 function Select(props) {
+  console.log(props.value);
   return (
     <div className={styles.select}>
       {inputHeading(props.title)}

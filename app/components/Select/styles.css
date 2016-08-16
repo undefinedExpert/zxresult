@@ -1,10 +1,15 @@
 :global .Select-control,
-:global .is-open >.Select-control,
+:global .is-open > .Select-control,
 :global .Select-menu-outer,
 :global .Select-option {
   background-color: var(--cMain);
   border-color: var(--cText);
   border-radius: 0;
+}
+
+:global .Select-control {
+  min-width: 200px;
+  max-width: 350px;
 }
 
 :global .Select-option {
@@ -22,7 +27,7 @@
 
 :global .has-value.Select--single > .Select-control > .Select-value .Select-value-label,
 :global .has-value.is-pseudo-focused.Select--single > .Select-control > .Select-value .Select-value-label {
-  color:  var(--cText);
+  color: var(--cText);
 }
 
 .title {

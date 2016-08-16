@@ -26,7 +26,6 @@ class SelectList extends React.Component {
           title={title}
           {...this.props}
         />
-        <h2>Genre: {value}</h2>
       </div>
     );
   };
@@ -46,6 +45,7 @@ class SelectList extends React.Component {
 SelectList.propTypes = {
   valueKey: React.PropTypes.string,
   labelKey: React.PropTypes.string,
+  title: React.PropTypes.string,
   value: React.PropTypes.string,
   options: React.PropTypes.array,
   loading: React.PropTypes.func,
