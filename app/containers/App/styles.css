@@ -1,6 +1,7 @@
 /* Global Variables */
 :root {
   background-color: var(--cMain);
+  font-size: 62.5%;
 }
 
 .app {

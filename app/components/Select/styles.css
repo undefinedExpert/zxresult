@@ -1,10 +1,12 @@
+
 :global .Select-control,
 :global .is-open > .Select-control,
 :global .Select-menu-outer,
 :global .Select-option {
-  background-color: var(--cMain);
+  background-color: transparent;
   border-color: var(--cText);
   border-radius: 0;
+  font-size: var(--fsText);
 }
 
 :global .Select-control {
@@ -13,16 +15,30 @@
 }
 
 :global .Select-option {
+  font-size: var(--fsText);
+
   &.is-selected,
   &.is-focused {
-    color: var(--cText);
-    background-color: var(--cSup);
-  }
+     color: var(--cText);
+     background-color: var(--cSup);
+   }
 
   &:hover,
+  &.is-focused,
   &:focus {
-    background-color: var(--cSup);
+     background-color: var(--cSupHover);
   }
+
+  &.is-selected {
+    &:hover,
+    &.is-focused {
+       background-color: var(--cSup);
+    }
+  }
+}
+
+:global .Select-placeholder {
+  font-size: var(--fsText);
 }
 
 :global .has-value.Select--single > .Select-control > .Select-value .Select-value-label,
@@ -32,6 +48,6 @@
 
 .title {
   color: var(--cSup);
-  font-size: 12px;
+  font-size: 1.2rem;
   text-transform: uppercase;
 }

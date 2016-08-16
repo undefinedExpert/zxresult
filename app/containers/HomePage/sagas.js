@@ -23,7 +23,6 @@ export function* getMovie() {
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
   const randomPage = randomizePage(result);
-
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}`;
   const movies = yield call(request, requestUrl);
   console.log(movies);
