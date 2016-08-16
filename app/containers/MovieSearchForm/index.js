@@ -7,9 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styles from './styles.css';
-import { selectFilters } from 'containers/App/selectors';
-import { createStructuredSelector, createSelector } from 'reselect';
-import { mapProps } from './mapProps';
+import { mapDispatch, mapState } from './mapProps';
 import SelectList from 'components/SelectList';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -57,21 +55,10 @@ MovieSearchForm.propTypes = {
   onChangeHandler: React.PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  filters: createSelector(
-    selectFilters(),
-    createStructuredSelector({
-      mood: (state) => state.mood,
-      genre: (state) => state.genre,
-    }),
-  ),
-  ohio: () => 'ohio',
-});
-
-console.log(mapProps);
+const mapStateToProps = mapState();
 
 function mapDispatchToProps(dispatch) {
-  return (mapProps(dispatch));
+  return mapDispatch(dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchForm);

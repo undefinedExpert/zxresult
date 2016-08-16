@@ -1,7 +1,9 @@
 import { push } from 'react-router-redux';
 import { updateFilterGenre, filterFormUpdate } from 'containers/App/actions';
+import { createStructuredSelector, createSelector } from 'reselect';
+import { selectFilters } from 'containers/App/selectors';
 
-function mapProps(dispatch) {
+function mapDispatch(dispatch) {
   return {
     // onChangeMood: (evt) => dispatch(updateFilterMood(evt)),
     onChangeGenre: (value) => dispatch(updateFilterGenre.active.request(value)),
@@ -14,6 +16,21 @@ function mapProps(dispatch) {
     dispatch,
   };
 }
+
+function mapState() {
+  return createStructuredSelector({
+    filters: createSelector(
+      selectFilters(),
+      createStructuredSelector({
+        mood: (state) => state.mood,
+        genre: (state) => state.genre,
+      }),
+    ),
+    ohio: () => 'ohio',
+  });
+}
+
 export {
-  mapProps,
+  mapDispatch,
+  mapState,
 };
