@@ -12,7 +12,7 @@ function randomizePage(result) {
   const chance = new Chance();
   const movieList = result.movies;
   // FIXME: Fix the problem with out-of-max range limit, when the genre: music is set, the max possible page is > 893
-  const maxPage = movieList !== null ? movieList.total_pages : 100;
+  const maxPage = movieList !== null ? movieList.total_pages : 1;
 
   return chance.integer({ min: 0, max: maxPage });
 }
