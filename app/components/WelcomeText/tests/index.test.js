@@ -14,7 +14,7 @@ describe('<WelcomeText />', () => {
     expect(expected).to.not.eql(undefined);
   });
 
-  it('Should contains h1 element', () => {
+  it('Should contains h3 element', () => {
     const expected = renderComponent.find('h3');
     expect(expected).to.not.eql(undefined);
   });

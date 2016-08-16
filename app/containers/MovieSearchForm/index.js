@@ -9,8 +9,7 @@ import { connect } from 'react-redux';
 import styles from './styles.css';
 import { selectFilters } from 'containers/App/selectors';
 import { createStructuredSelector, createSelector } from 'reselect';
-import { push } from 'react-router-redux';
-import { updateFilterGenre, filterFormUpdate } from 'containers/App/actions';
+import { mapProps } from './mapProps';
 import SelectList from 'components/SelectList';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -69,18 +68,10 @@ const mapStateToProps = createStructuredSelector({
   ohio: () => 'ohio',
 });
 
+console.log(mapProps);
+
 function mapDispatchToProps(dispatch) {
-  return {
-    // onChangeMood: (evt) => dispatch(updateFilterMood(evt)),
-    onChangeGenre: (value) => dispatch(updateFilterGenre.active.request(value)),
-    changeRoute: (url) => dispatch(push(url)),
-    filterUpdate: () => dispatch(filterFormUpdate()),
-    getGenreList: () => dispatch(updateFilterGenre.list.request()),
-    onSubmitForm: (evt) => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    },
-    dispatch,
-  };
+  return (mapProps(dispatch));
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchForm);

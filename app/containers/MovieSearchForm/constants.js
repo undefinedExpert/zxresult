@@ -1,5 +1,0 @@
-/*
- *
- * Movie-search-form constants
- *
- */

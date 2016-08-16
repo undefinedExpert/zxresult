@@ -19,20 +19,20 @@
 
   &.is-selected,
   &.is-focused {
-     color: var(--cText);
-     background-color: var(--cSup);
-   }
+    color: var(--cText);
+    background-color: var(--cSup);
+  }
 
   &:hover,
   &.is-focused,
   &:focus {
-     background-color: var(--cSupHover);
+    background-color: var(--cSupHover);
   }
 
   &.is-selected {
     &:hover,
     &.is-focused {
-       background-color: var(--cSup);
+      background-color: var(--cSup);
     }
   }
 }
