@@ -19,7 +19,7 @@ class SelectList extends React.Component {
     const title = item.options.hasOwnProperty('title') ? item.options.title : '';
 
     return (
-      <div key={index}>
+      <div key={index} className={styles.selectItem}>
         <Select
           value={value}
           key={index}

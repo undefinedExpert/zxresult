@@ -10,26 +10,6 @@ function action(type, payload = {}) {
   return { type, ...payload };
 }
 
-// Mood Update Actions
-//
-const moodActive = {
-  request: value => action(CONSTANT.UPDATE_FILTER_MOOD.REQUEST, { value }),
-  success: (value, response) => action(CONSTANT.UPDATE_FILTER_MOOD.SUCCESS, { value, response }),
-  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_MOOD.FAILURE, { value, error }),
-};
-
-const moodList = {
-  request: value => action(CONSTANT.UPDATE_FILTER_MOOD.REQUEST, { value }),
-  success: (value, response) => action(CONSTANT.UPDATE_FILTER_MOOD.SUCCESS, { value, response }),
-  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_MOOD.FAILURE, { value, error }),
-};
-
-export const updateFilterMood = {
-  active: moodActive,
-  list: moodList,
-};
-
-
 // Genre Update Actions
 //
 const genreActive = {
@@ -66,6 +46,25 @@ const decadeList = {
 export const updateFilterDecade = {
   active: decadeActive,
   list: decadeList,
+};
+
+// Trend Update Actions
+//
+const trendActive = {
+  request: value => action(CONSTANT.UPDATE_FILTER_TREND.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_TREND.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_TREND.FAILURE, { value, error }),
+};
+
+const trendList = {
+  request: value => action(CONSTANT.UPDATE_FILTER_TREND.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_TREND.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_TREND.FAILURE, { value, error }),
+};
+
+export const updateFilterTrend = {
+  active: trendActive,
+  list: trendList,
 };
 
 

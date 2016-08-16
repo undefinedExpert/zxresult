@@ -1,5 +1,13 @@
 .form {
   display: flex;
-  justify-content: center;
   color: #fff;
+  justify-content: center;
+  position: relative;
+}
+.filters {
+  display: flex;
+  color: #fff;
+  flex-direction: column;
+  position: relative;
+  max-width: 600px;
 }

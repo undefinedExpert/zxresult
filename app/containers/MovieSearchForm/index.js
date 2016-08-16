@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import styles from './styles.css';
 import { mapDispatch, mapState } from './mapProps';
 import SelectList from 'components/SelectList';
+import Input from 'components/Input';
+import BottomNavigation from 'containers/BottomNavigation';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   // fixme: https://github.com/reactjs/redux/issues/239
@@ -28,20 +30,29 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     this.props.onChangeDecade(value);
   };
 
+  onChangeTrendHandler = (value) => {
+    this.props.onChangeTrend(value);
+  };
+
   render() {
     const {
-      filters: { genre, decade },
+      filters: { genre, decade, trend },
     } = this.props;
     const selectListItems = [
       { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
       { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeDecadeHandler, title: 'Decade' } },
+      { value: trend.active, list: trend.list, options: { onChangeHandler: this.onChangeTrendHandler, title: 'Trend' } },
     ];
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
-          <SelectList
-            items={selectListItems}
-          />
+          <div className={styles.filters} >
+            <Input />
+            <SelectList
+              items={selectListItems}
+            />
+            <BottomNavigation />
+          </div>
         </form>
       </div>
     );

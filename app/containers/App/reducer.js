@@ -10,30 +10,43 @@ import * as CONSTANT from './constants';
 const initialState = fromJS({
   isLogged: true,
   filters: {
-    mood: {
+    sentence: 'ohio',
+    trend: {
       active: {
         id: 28,
-        name: 'Action',
+        name: 'Classical',
       },
-      list: [],
+      list: [
+        {
+          id: 28,
+          name: 'Classical',
+        },
+        {
+          id: 28,
+          name: 'Popular',
+        },
+        {
+          id: 28,
+          name: 'Classical',
+        },
+      ],
     },
-    popularity: 'Classical',
     decade: {
       active: {
-        name: '90s',
+        name: '1990s',
         id: 1990,
       },
       list: [
         {
-          name: '90s',
+          name: '1990s',
           id: 1990,
         },
         {
-          name: '80s',
+          name: '1980s',
           id: 1980,
         },
         {
-          name: '70s',
+          name: '1970s',
           id: 1970,
         },
       ],
@@ -66,12 +79,12 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case CONSTANT.UPDATE_FILTER_MOOD.REQUEST:
-      return state
-        .setIn(['filters', 'mood', 'active'], action.value);
     case CONSTANT.UPDATE_FILTER_DECADE.REQUEST:
       return state
         .setIn(['filters', 'decade', 'active'], action.value);
+    case CONSTANT.UPDATE_FILTER_TREND.REQUEST:
+      return state
+        .setIn(['filters', 'trend', 'active'], action.value);
     case CONSTANT.UPDATE_FILTER_GENRE.REQUEST:
       return state
         .setIn(['filters', 'genre', 'active'], action.value);

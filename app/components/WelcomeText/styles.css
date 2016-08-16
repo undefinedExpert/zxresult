@@ -1,5 +1,6 @@
 .welcomeText {
   margin-top: 25vh;
+  margin-bottom: 3.5vh;
   color: var(--cHeading);
   h1,
   h3 {

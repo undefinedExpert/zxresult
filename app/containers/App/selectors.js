@@ -13,18 +13,18 @@ const filtersDomain = () => createSelector(
 // Attach nested filters state proprieties
 const selectFilters = () => {
   const filterSelector = createStructuredSelector({
-    mood: (state) => state.mood,
     genre: (state) => state.genre,
     decade: (state) => state.decade,
+    trend: (state) => state.decade,
   });
   return createSelector(
     filtersDomain(),
     filterSelector,
     (filtersState) => {
-      const mood = filtersState.mood;
       const genre = filtersState.genre;
       const decade = filtersState.decade;
-      return { mood, genre, decade };
+      const trend = filtersState.trend;
+      return { genre, decade, trend };
     }
   );
 };
@@ -37,7 +37,7 @@ const userDomain = () => createSelector(
 
 const selectUser = () => {
   const filterSelector = createStructuredSelector({
-    mood: (state) => state.username,
+    name: (state) => state.username,
   });
   return createSelector(
     userDomain(),

@@ -5,13 +5,13 @@
  */
 import { createRequestTypes } from 'utils/hooks';
 
-// MOOD CONSTANTS
-const UPDATE_FILTER_MOOD = createRequestTypes('app/App/UPDATE_FILTER_MOOD');
-const UPDATE_FILTER_MOOD_LIST = createRequestTypes('app/App/UPDATE_FILTER_MOOD_LIST');
-
 // DECADE CONSTANTS
 const UPDATE_FILTER_DECADE = createRequestTypes('app/App/UPDATE_FILTER_DECADE');
 const UPDATE_FILTER_DECADE_LIST = createRequestTypes('app/App/UPDATE_FILTER_DECADE_LIST');
+
+// TREND CONSTANTS
+const UPDATE_FILTER_TREND = createRequestTypes('app/App/UPDATE_FILTER_TREND');
+const UPDATE_FILTER_TREND_LIST = createRequestTypes('app/App/UPDATE_FILTER_TREND_LIST');
 
 // GENRE CONSTANTS
 const UPDATE_FILTER_GENRE = createRequestTypes('app/App/UPDATE_FILTER_GENRE');
@@ -27,10 +27,10 @@ const apiUrl = 'http://api.themoviedb.org/3';
 const apiKey = 'api_key=9dee05d48efe51f51b15cc63b1fee3f5';
 
 export {
-  UPDATE_FILTER_MOOD,
-  UPDATE_FILTER_MOOD_LIST,
   UPDATE_FILTER_DECADE,
   UPDATE_FILTER_DECADE_LIST,
+  UPDATE_FILTER_TREND,
+  UPDATE_FILTER_TREND_LIST,
   UPDATE_FILTER_GENRE,
   UPDATE_FILTER_GENRE_LIST,
   RESULT_SET,
