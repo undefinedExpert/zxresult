@@ -1,0 +1,21 @@
+.input {
+  float: left;
+  margin: 0 10px 0 0;
+  :local input {
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid var(--cSup);
+    width: 100%;
+    padding-left: 10px;
+    color: var(--cText);
+    &::placeholder {
+      color: var(--cText);
+  }
+  }
+}
+
+.title {
+  color: var(--cSup);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
