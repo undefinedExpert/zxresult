@@ -31,7 +31,6 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   render() {
     const {
       filters: { genre, decade },
-      filter,
     } = this.props;
     const items = [
       { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
@@ -57,6 +56,7 @@ MovieSearchForm.propTypes = {
   filterFormUpdate: React.PropTypes.func,
   getGenreList: React.PropTypes.func,
   onChangeGenre: React.PropTypes.func,
+  onChangeDecade: React.PropTypes.func,
   filterUpdate: React.PropTypes.func,
   onChangeHandler: React.PropTypes.func,
 };

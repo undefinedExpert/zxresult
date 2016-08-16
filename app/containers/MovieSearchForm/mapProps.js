@@ -28,7 +28,6 @@ function mapState() {
         decade: (state) => state.decade,
       }),
     ),
-    filter: selectFilters(),
     ohio: () => 'ohio',
   });
 }
