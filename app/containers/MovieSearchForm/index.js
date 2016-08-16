@@ -24,18 +24,24 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     this.props.onChangeGenre(value);
   };
 
+  onChangeDecadeHandler = (value) => {
+    this.props.onChangeDecade(value);
+  };
+
   render() {
     const {
-      filters: { genre },
+      filters: { genre, decade },
+      filter,
     } = this.props;
-    const items = [{ value: genre.active, list: genre.list }];
+    const items = [
+      { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
+      { value: decade.active, list: decade.list, options: { title: 'Decade', onChangeHandler: this.onChangeDecadeHandler } },
+    ];
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <SelectList
             items={items}
-            onChangeHandler={this.onChangeGenreHandler}
-            title="Genre"
           />
         </form>
       </div>

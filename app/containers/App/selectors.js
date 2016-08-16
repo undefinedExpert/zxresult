@@ -15,6 +15,7 @@ const selectFilters = () => {
   const filterSelector = createStructuredSelector({
     mood: (state) => state.mood,
     genre: (state) => state.genre,
+    decade: (state) => state.decade,
   });
   return createSelector(
     filtersDomain(),
@@ -22,7 +23,8 @@ const selectFilters = () => {
     (filtersState) => {
       const mood = filtersState.mood;
       const genre = filtersState.genre;
-      return { mood, genre };
+      const decade = filtersState.decade;
+      return { mood, genre, decade };
     }
   );
 };

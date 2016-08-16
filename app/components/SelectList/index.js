@@ -11,9 +11,12 @@ import Select from 'components/Select';
 
 class SelectList extends React.Component {
   renderSelect = (item, index) => {
-    const { onChangeHandler, title } = this.props;
+    const { } = this.props;
+    console.log(item.value);
     const value = item.value === null ? '' : item.value.name;
     const list = item.list;
+    const changeHandler = item.options === {} ? '' : item.options.onChangeHandler;
+    const title = item.options.hasOwnProperty('title') ? item.options.title : '';
 
     return (
       <div key={index}>
@@ -22,7 +25,7 @@ class SelectList extends React.Component {
           key={index}
           isLoading={list <= 0}
           options={list}
-          onChange={onChangeHandler}
+          onChange={changeHandler}
           title={title}
           {...this.props}
         />

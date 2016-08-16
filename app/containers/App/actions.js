@@ -49,6 +49,25 @@ export const updateFilterGenre = {
   list: genreList,
 };
 
+// Decade Update Actions
+//
+const decadeActive = {
+  request: value => action(CONSTANT.UPDATE_FILTER_DECADE.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_DECADE.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_DECADE.FAILURE, { value, error }),
+};
+
+const decadeList = {
+  request: value => action(CONSTANT.UPDATE_FILTER_DECADE.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_DECADE.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_DECADE.FAILURE, { value, error }),
+};
+
+export const updateFilterDecade = {
+  active: decadeActive,
+  list: decadeList,
+};
+
 
 // TEMPORARY FUNCTIONS
 // TODO: Refactor

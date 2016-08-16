@@ -18,7 +18,26 @@ const initialState = fromJS({
       list: [],
     },
     popularity: 'Classical',
-    decade: '90s',
+    decade: {
+      active: {
+        name: '90s',
+        id: 1990,
+      },
+      list: [
+        {
+          name: '90s',
+          id: 1990,
+        },
+        {
+          name: '80s',
+          id: 1980,
+        },
+        {
+          name: '70s',
+          id: 1970,
+        },
+      ],
+    },
     genre: {
       active: {
         id: 28,
@@ -49,7 +68,10 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case CONSTANT.UPDATE_FILTER_MOOD.REQUEST:
       return state
-        .setIn(['filters', 'mood'], action.value);
+        .setIn(['filters', 'mood', 'active'], action.value);
+    case CONSTANT.UPDATE_FILTER_DECADE.REQUEST:
+      return state
+        .setIn(['filters', 'decade', 'active'], action.value);
     case CONSTANT.UPDATE_FILTER_GENRE.REQUEST:
       return state
         .setIn(['filters', 'genre', 'active'], action.value);
