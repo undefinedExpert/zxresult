@@ -32,15 +32,15 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     const {
       filters: { genre, decade },
     } = this.props;
-    const items = [
+    const selectListItems = [
       { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
-      { value: decade.active, list: decade.list, options: { title: 'Decade', onChangeHandler: this.onChangeDecadeHandler } },
+      { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeDecadeHandler, title: 'Decade' } },
     ];
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <SelectList
-            items={items}
+            items={selectListItems}
           />
         </form>
       </div>

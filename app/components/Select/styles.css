@@ -3,7 +3,7 @@
 :global .is-open > .Select-control,
 :global .Select-menu-outer,
 :global .Select-option {
-  background-color: transparent;
+  background-color: var(--cMain);
   border-color: var(--cText);
   border-radius: 0;
   font-size: var(--fsText);
@@ -50,4 +50,8 @@
   color: var(--cSup);
   font-size: 1.2rem;
   text-transform: uppercase;
+}
+
+.select {
+  margin: 10px;
 }
