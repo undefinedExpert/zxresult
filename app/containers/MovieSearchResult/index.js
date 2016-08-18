@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
+import BottomNavigation from 'containers/BottomNavigation';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { filterFormUpdate } from 'containers/App/actions';
@@ -15,10 +16,9 @@ import styles from './styles.css';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log(this.props.result.movie);
     return (
       <div className={styles.result}>
-        <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
+        <BottomNavigation />
         <h1>Title: {this.props.result.movie.original_title}</h1>
         <h2>{this.props.result.movie.overview}</h2>
         <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.movie.poster_path}`} alt="" />

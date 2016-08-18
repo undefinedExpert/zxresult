@@ -78,11 +78,10 @@ export const updateMovieResult = {
 // Update url
 //
 export const updateUrl = {
-  request: (url) => action(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST, { url }),
-  success: (response) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { response }),
-  failure: (error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { error }),
+  request: () => action(CONSTANT.UPDATE_URL.REQUEST, {}),
+  success: (movies, movie, response) => action(CONSTANT.UPDATE_URL.SUCCESS, { response }),
+  failure: (movies, movie, error) => action(CONSTANT.UPDATE_URL.FAILURE, { error }),
 };
-
 
 // TEMPORARY FUNCTIONS
 // TODO: Refactor

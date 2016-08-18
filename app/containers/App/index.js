@@ -15,8 +15,6 @@ import React from 'react';
 
 import styles from './styles.css';
 import Navigation from 'components/Navigation';
-import BottomNavigation from 'containers/BottomNavigation';
-
 
 export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -29,7 +27,6 @@ export default class App extends React.Component { // eslint-disable-line react/
       <div className={styles.app}>
         <Navigation logotype />
         {this.props.children}
-        <BottomNavigation />
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre } from 'containers/App/actions';
 import request from 'utils/request';
 import Chance from 'chance';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 
 function randomizePage(result) {
@@ -16,7 +16,6 @@ function randomizePage(result) {
   return chance.integer({ min: 1, max: maxPage });
 }
 
-
 // Individual exports for testing
 export function* getMovie() {
   const filters = yield select(selectFilters());
@@ -25,8 +24,8 @@ export function* getMovie() {
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;
   const movies = yield call(request, requestUrl);
   if (!movies.err) {
+    yield console.info('Update result');
     yield put(updateMovieResult.success(movies.data, movies.data.results[0]));
-    console.info('Update result');
   }
 }
 
@@ -40,6 +39,12 @@ export function* getGenreList() {
   }
 }
 
+// Individual exports for testing
+export function* getUpdateUrl() {
+  // TODO: Refactor
+  yield put(push('/result'));
+}
+
 /**
  * Watches for FILTER_FORM_UPDATE action and calls handler
  */
@@ -51,20 +56,34 @@ export function* getMovieWatcher() {
 
 export function* getGenresListWatcher() {
   while (yield take(CONSTANT.UPDATE_FILTER_GENRE_LIST.REQUEST)) {
+    // FIXME: There is a bug, hard to explain for now where he came from,
+    // But definitely it touches async of this func, probably this func run before
+    // the result change at store
     yield call(getGenreList);
+  }
+}
+
+export function* getResultChangeWatcher() {
+  // FIXME: Movie result multiple on each 'url, location change'
+  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS)) {
+    yield call(getUpdateUrl);
   }
 }
 
 export function* getData() {
   // Fork watcher so we can continue execution
-  // const moviesWatcher = yield fork(getMovieWatcher);
-  yield fork(getMovieWatcher);
+  const moviesWatcher = yield fork(getMovieWatcher);
+  const updateUrl = yield fork(getResultChangeWatcher);
   const genreListWatcher = yield fork(getGenresListWatcher);
 
   // Suspend execution until location changes
+  // TODO: Change this to custom action, when the user request new 'result' or something like this.
+  // The main reason of that is to not rely on LOCATION_CHANGE event becouse we 'actually' dosen't change the location on the result subpage
+  // we just get new data.
   yield take(LOCATION_CHANGE);
-  // FIXME: fix the problem where the movie cannot be updated anymore
-  // yield cancel(moviesWatcher);
+
+  yield cancel(moviesWatcher);
+  yield cancel(updateUrl);
   yield cancel(genreListWatcher);
 }
 

@@ -20,9 +20,8 @@ const UPDATE_FILTER_GENRE_LIST = createRequestTypes('app/App/UPDATE_FILTER_GENRE
 // RESULT SET
 const UPDATE_MOVIE_RESULT = createRequestTypes('app/App/UPDATE_MOVIE_RESULT');
 
-// CHANGE URL
+// RESULT SET
 const UPDATE_URL = createRequestTypes('app/App/UPDATE_URL');
-
 
 // const GENRE_UPDATE = 'app/App/GENRE_UPDATE';
 const RESULT_SET = 'app/App/RESULT_SET';

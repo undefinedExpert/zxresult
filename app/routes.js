@@ -43,9 +43,26 @@ export default function createRoutes(store) {
       path: '/result',
       name: 'result',
       getComponent(nextState, cb) {
-        System.import('containers/MovieSearchResult')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+        const importModules = Promise.all([
+          // System.import('containers/HomePage/reducer'),
+          System.import('containers/HomePage/sagas'), // TODO: Create custom saga for result page.
+          System.import('containers/MovieSearchResult'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          // Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
+          // injectReducer('global', reducer.default);
+          injectSagas(sagas.default); // Inject the saga
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+        // System.import('containers/MovieSearchResult')
+        //   .then(loadModule(cb))
+        //   .catch(errorLoading);
       },
     }, {
       path: '*',

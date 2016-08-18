@@ -7,21 +7,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
-import { updateMovieResult } from 'containers/App/actions';
+import { updateMovieResult, updateUrl } from 'containers/App/actions';
 import { push } from 'react-router-redux';
 import { createStructuredSelector, createSelector } from 'reselect';
-import { selectResult } from 'containers/App/selectors';
+import { selectResult, selectLocationState } from 'containers/App/selectors';
 
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentDidUpdate(){
-    // let movie = this.props.result.movie;
-    // let fetching = this.props.result.isFetching;
-    // if (movie && !fetching) {
-    //   console.log(movie && !fetching);
-    //   this.routeToResult();
-    // }
-  }
 
   routeToResult = () => {
     this.openRoute('/result');
@@ -55,8 +47,6 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
     return (
       <div>
         {this.fetchFunc()}
-        <Button onClick={this.props.movieUpdate}>Update filters</Button>
-        <Button handleRoute={this.routeToResult}>Search</Button>
         <Button onClick={this.updateAndRoute}>Update filters and route to result when it's done</Button>
       </div>
     );
@@ -66,6 +56,7 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
 BottomNavigation.propTypes = {
   filterUpdate: React.PropTypes.func,
   changeRoute: React.PropTypes.func,
+  isFetching: React.PropTypes.bool,
   movieUpdate: React.PropTypes.func,
   fetching: React.PropTypes.bool,
 };
@@ -79,7 +70,6 @@ const mapStateToProps = createStructuredSelector({
       movies: (state) => state.movies,
     }),
   ),
-
 });
 
 function mapDispatchToProps(dispatch) {
