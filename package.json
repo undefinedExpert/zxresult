@@ -1,16 +1,17 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "zxresult",
+  "version": "0.1.0",
+  "description": "Web application which helps you to find a movie you wish to watch!",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mxstbr/react-boilerplate.git"
+    "url": "git://github.com/eslotwinski/zxresult.git"
   },
   "engines": {
     "npm": ">=3"
   },
-  "author": "Max Stoiber",
-  "license": "MIT",
+  "private": true,
+  "author": "Emanuel Slotwinski",
+  "license": "CC-BY-NC-SA",
   "scripts": {
     "npmcheckversion": "node ./internals/scripts/npmcheckversion.js",
     "preinstall": "npm run npmcheckversion",
