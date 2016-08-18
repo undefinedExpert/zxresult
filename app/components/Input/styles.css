@@ -10,7 +10,7 @@
     color: var(--cText);
     &::placeholder {
       color: var(--cText);
-  }
+    }
   }
 }
 

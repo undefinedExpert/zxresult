@@ -68,6 +68,7 @@ MovieSearchForm.propTypes = {
   getGenreList: React.PropTypes.func,
   onChangeGenre: React.PropTypes.func,
   onChangeDecade: React.PropTypes.func,
+  onChangeTrend: React.PropTypes.func,
   filterUpdate: React.PropTypes.func,
   onChangeHandler: React.PropTypes.func,
 };
