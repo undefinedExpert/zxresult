@@ -22,7 +22,6 @@ function isLoadingRender(boolean) {
 function Button(props) {
   return (
     <div>
-      {isLoadingRender(props.isLoading)}
       <button onClick={props.handleRoute} className={classNames('btn', 'btn-primary', styles.button)} type={props.type} {...props}> {props.children}
       </button>
     </div>

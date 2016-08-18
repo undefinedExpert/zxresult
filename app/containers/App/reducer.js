@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import * as CONSTANT from './constants';
 
 const initialState = fromJS({
@@ -79,6 +80,11 @@ const initialState = fromJS({
 });
 
 function appReducer(state = initialState, action) {
+
+  if (action.type === LOCATION_CHANGE) {
+    console.log('i chuj');
+  }
+
   switch (action.type) {
     case CONSTANT.UPDATE_FILTER_DECADE.REQUEST:
       return state

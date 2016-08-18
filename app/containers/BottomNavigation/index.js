@@ -14,6 +14,15 @@ import { selectResult } from 'containers/App/selectors';
 
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidUpdate(){
+    // let movie = this.props.result.movie;
+    // let fetching = this.props.result.isFetching;
+    // if (movie && !fetching) {
+    //   console.log(movie && !fetching);
+    //   this.routeToResult();
+    // }
+  }
+
   routeToResult = () => {
     this.openRoute('/result');
   };
@@ -25,17 +34,30 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
     if(this.props.result.isFetching) return;
 
     this.props.movieUpdate();
-    if (!this.props.result.isFetching) {
-      this.routeToResult();
+    // Tutaj musimy uruchomic akcje ktora 
+  };
+
+  fetchFunc = () => {
+    if (this.props.result.isFetching) {
+      return (
+        <h4>Loading...</h4>
+      )
     }
   };
+
+  // 1. musze pokazac komunikat ze sie laduje
+  // 2. musze sprawdzic czy dane sa zaladowane
+  //    Trzeba to zrobic na zasadzie wywolania akcji, na poczatky wywolywana jest akcja movieUpdate,
+  //    a potem nalezy wykonac akcje ktora pozwoli nam zmienic route
+  // 3. i jesli sa zaladowane to musze przejsc do rezultatu-
 
   render() {
     return (
       <div>
+        {this.fetchFunc()}
         <Button onClick={this.props.movieUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
-        <Button onClick={this.updateAndRoute} isLoading={this.props.result.isFetching}>Update filters and route to result when it's done</Button>
+        <Button onClick={this.updateAndRoute}>Update filters and route to result when it's done</Button>
       </div>
     );
   }
