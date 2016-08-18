@@ -19,7 +19,7 @@ function isLoadingRender(boolean) {
 }
 
 
-function Button(props) {;
+function Button(props) {
   return (
     <div>
       {isLoadingRender(props.isLoading)}

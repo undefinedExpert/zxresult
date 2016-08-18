@@ -14,10 +14,6 @@ import { selectResult } from 'containers/App/selectors';
 
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount() {
-    // Make xhr call
-    console.log('siemanko will mount');
-  }
   routeToResult = () => {
     this.openRoute('/result');
   };
@@ -26,7 +22,12 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
     this.props.changeRoute(route);
   };
   updateAndRoute = () => {
+    if(this.props.result.isFetching) return;
+
     this.props.movieUpdate();
+    if (!this.props.result.isFetching) {
+      this.routeToResult();
+    }
   };
 
   render() {
@@ -34,7 +35,7 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
       <div>
         <Button onClick={this.props.movieUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
-        <Button onClick={this.updateAndRoute} isLoading={this.props.fetching}>Update filters and route to result when it's done</Button>
+        <Button onClick={this.updateAndRoute} isLoading={this.props.result.isFetching}>Update filters and route to result when it's done</Button>
       </div>
     );
   }
@@ -48,10 +49,15 @@ BottomNavigation.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  fetching: createSelector(
+  result: createSelector(
     selectResult(),
-    (state) => state.isFetching,
+    createStructuredSelector({
+      isFetching: (state) => state.isFetching,
+      movie: (state) => state.movie,
+      movies: (state) => state.movies,
+    }),
   ),
+
 });
 
 function mapDispatchToProps(dispatch) {
