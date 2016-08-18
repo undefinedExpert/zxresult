@@ -1,14 +1,13 @@
 import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
 import { selectFilters, selectResult } from 'containers/App/selectors';
-import { resultSet, updateFilterGenre } from 'containers/App/actions';
+import { updateMovieResult, updateFilterGenre } from 'containers/App/actions';
 import request from 'utils/request';
 import Chance from 'chance';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 
 function randomizePage(result) {
-  console.log(result);
   const chance = new Chance();
   const movieList = result.movies;
   // FIXME: Fix the problem with out-of-max range limit, when the genre: music is set, the max possible page is > 893
@@ -17,18 +16,17 @@ function randomizePage(result) {
   return chance.integer({ min: 1, max: maxPage });
 }
 
+
 // Individual exports for testing
 export function* getMovie() {
-  console.info('sagas run');
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
   const randomPage = randomizePage(result); // http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5&primary_release_date.gte=1990-01-01&primary_release_date.lte=1999-01-01
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;
   const movies = yield call(request, requestUrl);
-  console.log(movies);
   if (!movies.err) {
-    yield put(resultSet(movies.data, movies.data.results[0]));
-    console.log(movies.data.results[0]);
+    yield put(updateMovieResult.success(movies.data, movies.data.results[0]));
+    console.info('Update result');
   }
 }
 
@@ -46,7 +44,7 @@ export function* getGenreList() {
  * Watches for FILTER_FORM_UPDATE action and calls handler
  */
 export function* getMovieWatcher() {
-  while (yield take(CONSTANT.FILTER_FORM_UPDATE)) {
+  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST)) {
     yield call(getMovie);
   }
 }

@@ -10,12 +10,14 @@ import Button from 'components/Button';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { filterFormUpdate } from 'containers/App/actions';
+import styles from './styles.css';
+
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     console.log(this.props.result.movie);
     return (
-      <div>
+      <div className={styles.result}>
         <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
         <h1>Title: {this.props.result.movie.original_title}</h1>
         <h2>{this.props.result.movie.overview}</h2>

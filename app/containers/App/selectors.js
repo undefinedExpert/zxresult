@@ -56,17 +56,19 @@ const resultDomain = () => createSelector(
 );
 
 const selectResult = () => {
-  const filterSelector = createStructuredSelector({
+  const resultSelector = createStructuredSelector({
     movie: (state) => state.movie,
     movies: (state) => state.movies,
+    isFetching: (state) => state.isFetching,
   });
   return createSelector(
     resultDomain(),
-    filterSelector,
-    (filtersState) => {
-      const movie = filtersState.movie;
-      const movies = filtersState.movies;
-      return { movie, movies };
+    resultSelector,
+    (resultState) => {
+      const movie = resultState.movie;
+      const movies = resultState.movies;
+      const isFetching = resultState.isFetching;
+      return { movie, movies, isFetching };
     }
   );
 };

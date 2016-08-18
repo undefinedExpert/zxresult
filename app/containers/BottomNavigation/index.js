@@ -7,11 +7,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
-import { filterFormUpdate } from 'containers/App/actions';
+import { updateMovieResult } from 'containers/App/actions';
 import { push } from 'react-router-redux';
+import { createStructuredSelector, createSelector } from 'reselect';
+import { selectResult } from 'containers/App/selectors';
 
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    // Make xhr call
+    console.log('siemanko will mount');
+  }
   routeToResult = () => {
     this.openRoute('/result');
   };
@@ -19,12 +25,16 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
+  updateAndRoute = () => {
+    this.props.movieUpdate();
+  };
 
   render() {
     return (
       <div>
-        <Button handleRoute={this.props.filterUpdate}>Update filters</Button>
+        <Button onClick={this.props.movieUpdate}>Update filters</Button>
         <Button handleRoute={this.routeToResult}>Search</Button>
+        <Button onClick={this.updateAndRoute} isLoading={this.props.fetching}>Update filters and route to result when it's done</Button>
       </div>
     );
   }
@@ -33,14 +43,23 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
 BottomNavigation.propTypes = {
   filterUpdate: React.PropTypes.func,
   changeRoute: React.PropTypes.func,
+  movieUpdate: React.PropTypes.func,
+  fetching: React.PropTypes.bool,
 };
+
+const mapStateToProps = createStructuredSelector({
+  fetching: createSelector(
+    selectResult(),
+    (state) => state.isFetching,
+  ),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
     changeRoute: (url) => dispatch(push(url)),
-    filterUpdate: () => dispatch(filterFormUpdate()),
+    movieUpdate: () => dispatch(updateMovieResult.request()),
     dispatch,
   };
 }
 // Error with container generator, it generate mapDispatchToProps without the first argument
-export default connect(null, mapDispatchToProps)(BottomNavigation);
+export default connect(mapStateToProps, mapDispatchToProps)(BottomNavigation);

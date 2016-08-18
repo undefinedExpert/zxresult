@@ -12,7 +12,6 @@ import Select from 'components/Select';
 class SelectList extends React.Component {
   renderSelect = (item, index) => {
     // const {} = this.props;
-    console.log(item.value);
     const value = item.value === null ? '' : item.value.name;
     const list = item.list;
     const changeHandler = item.options === {} ? '' : item.options.onChangeHandler;

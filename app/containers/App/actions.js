@@ -67,6 +67,14 @@ export const updateFilterTrend = {
   list: trendList,
 };
 
+// Result set Actions
+//
+export const updateMovieResult = {
+  request: () => action(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST, {}),
+  success: (movies, movie, response) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { movies, movie, response }),
+  failure: (movies, movie, error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { movies, movie, error }),
+};
+
 
 // TEMPORARY FUNCTIONS
 // TODO: Refactor
