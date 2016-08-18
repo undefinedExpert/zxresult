@@ -34,7 +34,7 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
     if(this.props.result.isFetching) return;
 
     this.props.movieUpdate();
-    // Tutaj musimy uruchomic akcje ktora 
+    // Tutaj musimy uruchomic akcje ktora odpowiada za wywolanie zmiany url
   };
 
   fetchFunc = () => {

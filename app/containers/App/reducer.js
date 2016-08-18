@@ -82,6 +82,7 @@ const initialState = fromJS({
 function appReducer(state = initialState, action) {
 
   if (action.type === LOCATION_CHANGE) {
+    // TODO: Fix
     console.log('i chuj');
   }
 
@@ -89,6 +90,9 @@ function appReducer(state = initialState, action) {
     case CONSTANT.UPDATE_FILTER_DECADE.REQUEST:
       return state
         .setIn(['filters', 'decade', 'active'], action.value);
+    case CONSTANT.UPDATE_URL.REQUEST:
+      console.log(state);
+      return state;
     case CONSTANT.UPDATE_FILTER_TREND.REQUEST:
       return state
         .setIn(['filters', 'trend', 'active'], action.value);
