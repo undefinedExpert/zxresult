@@ -64,7 +64,7 @@ const initialState = fromJS({
     movie: null,
     movies: null,
     isFetching: false,
-    maxResults: 0,
+    resultsRange: 0,
   }),
   user: {
     name: 'Emanuel',
@@ -108,6 +108,9 @@ function appReducer(state = initialState, action) {
         .setIn(['result', 'movie'], action.movie)
         .setIn(['result', 'movies'], action.movies)
         .setIn(['result', 'isFetching'], false);
+    case CONSTANT.UPDATE_FILTERS.SUCCESS:
+      return state
+        .setIn(['result', 'resultsRange'], action.resultsRange);
     default:
       return state;
   }

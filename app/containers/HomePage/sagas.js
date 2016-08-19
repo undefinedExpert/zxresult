@@ -1,26 +1,15 @@
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
 import { selectFilters, selectResult } from 'containers/App/selectors';
-import { updateMovieResult, updateFilterGenre } from 'containers/App/actions';
+import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
 import request from 'utils/request';
 import Chance from 'chance';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 
 function randomizePage(result) {
+  const maxPage = result.resultsRange;
   const chance = new Chance();
-  const movieList = result.movies;
-  // FIXME: Fix the problem with out-of-max range limit, when the genre: music is set, the max possible page is > 893
-  // FIXME: Additional problem where the user change the filter(e.g genre) and it's previous value is larger then the max page of current 'range'
-  // This also depend on the randomize max page from this function.
-  // We can simulate this:
-  // 1. search for movie with genre action
-  // 2. move back to main page
-  // 3. Search for movies from documentary genre
-  // 4. the randomize function will generate a number from old range (from a range where the action were active)
-  // 5. if you'll be lucky the issue will occur
-  const maxPage = movieList !== null ? movieList.total_pages : 1;
-
   return chance.integer({ min: 1, max: maxPage });
 }
 
@@ -55,9 +44,26 @@ export function* getGenreList() {
 }
 
 // Individual exports for testing
+export function* getUpdateFilters() {
+  console.log('get update filters')
+  const filters = yield select(selectFilters());
+  const storeResult = yield select(selectResult());
+  const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=1000&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;
+  const result = yield call(request, requestUrl);
+  const maxResults = result.data.total_pages;
+  if (!result.err) {
+    console.log(maxResults);
+    console.log(requestUrl);
+    yield put(updateFilters.success(maxResults));
+  }
+}
+
+
+// Individual exports for testing
 export function* getUpdateUrl() {
-  // TODO: Refactor
+  // TODO: Refactor, turn it on
   yield put(push('/result'));
+  // TEMPORARY OFF
 }
 
 /**
@@ -81,11 +87,18 @@ export function* getResultChangeWatcher() {
   }
 }
 
+export function* getUpdateFiltersWatcher() {
+  while (yield take(CONSTANT.UPDATE_FILTERS.REQUEST)) {
+    yield call(getUpdateFilters);
+  }
+}
+
 export function* getData() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
   const updateUrl = yield fork(getResultChangeWatcher);
   const genreListWatcher = yield fork(getGenresListWatcher);
+  const updateFilterWatcher = yield fork(getUpdateFiltersWatcher);
 
   // Suspend execution until location changes
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
@@ -96,6 +109,7 @@ export function* getData() {
     cancel(moviesWatcher),
     cancel(updateUrl),
     cancel(genreListWatcher),
+    cancel(updateFilterWatcher),
   ]);
 }
 

@@ -24,14 +24,17 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   // genreHandler
   onChangeGenreHandler = (value) => {
     this.props.onChangeGenre(value);
+    this.props.getUpdateFilters();
   };
 
   onChangeDecadeHandler = (value) => {
     this.props.onChangeDecade(value);
+    this.props.getUpdateFilters();
   };
 
   onChangeTrendHandler = (value) => {
     this.props.onChangeTrend(value);
+    this.props.getUpdateFilters();
   };
 
   render() {

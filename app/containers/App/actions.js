@@ -79,23 +79,15 @@ export const updateMovieResult = {
 //
 export const updateUrl = {
   request: () => action(CONSTANT.UPDATE_URL.REQUEST, {}),
-  success: (movies, movie, response) => action(CONSTANT.UPDATE_URL.SUCCESS, { response }),
-  failure: (movies, movie, error) => action(CONSTANT.UPDATE_URL.FAILURE, { error }),
+  success: (response) => action(CONSTANT.UPDATE_URL.SUCCESS, { response }),
+  failure: (error) => action(CONSTANT.UPDATE_URL.FAILURE, { error }),
 };
 
-// TEMPORARY FUNCTIONS
-// TODO: Refactor
-export function filterFormUpdate() {
-  return {
-    type: CONSTANT.FILTER_FORM_UPDATE,
-  };
-}
-
-export function resultSet(movies, single) {
-  return {
-    type: CONSTANT.RESULT_SET,
-    movies,
-    single,
-  };
-}
+// Update url
+//
+export const updateFilters = {
+  request: () => action(CONSTANT.UPDATE_FILTERS.REQUEST, {}),
+  success: (resultsRange) => action(CONSTANT.UPDATE_FILTERS.SUCCESS, { resultsRange }),
+  failure: (error) => action(CONSTANT.UPDATE_FILTERS.FAILURE, { error }),
+};
 

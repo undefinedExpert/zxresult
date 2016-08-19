@@ -20,13 +20,11 @@ const UPDATE_FILTER_GENRE_LIST = createRequestTypes('app/App/UPDATE_FILTER_GENRE
 // RESULT SET
 const UPDATE_MOVIE_RESULT = createRequestTypes('app/App/UPDATE_MOVIE_RESULT');
 
-// RESULT SET
+// Update url SET
 const UPDATE_URL = createRequestTypes('app/App/UPDATE_URL');
 
-// const GENRE_UPDATE = 'app/App/GENRE_UPDATE';
-const RESULT_SET = 'app/App/RESULT_SET';
-const RESULT_SET_ERROR = 'app/App/RESULT_SET_ERROR';
-const FILTER_FORM_UPDATE = 'app/App/FILTER_FORM_UPDATE';
+// Update Result filters
+const UPDATE_FILTERS = createRequestTypes('app/App/UPDATE_FILTERS');
 
 // API
 const apiUrl = 'http://api.themoviedb.org/3';
@@ -41,9 +39,7 @@ export {
   UPDATE_FILTER_GENRE_LIST,
   UPDATE_MOVIE_RESULT,
   UPDATE_URL,
-  RESULT_SET,
-  RESULT_SET_ERROR,
-  FILTER_FORM_UPDATE,
+  UPDATE_FILTERS,
   apiUrl,
   apiKey,
 };

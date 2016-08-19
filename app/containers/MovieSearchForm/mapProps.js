@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import { updateFilterGenre, filterFormUpdate, updateFilterDecade, updateFilterTrend } from 'containers/App/actions';
+import { updateFilterGenre, filterFormUpdate, updateFilterDecade, updateFilterTrend, updateFilters } from 'containers/App/actions';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters } from 'containers/App/selectors';
 
@@ -11,6 +11,7 @@ function mapDispatch(dispatch) {
     changeRoute: (url) => dispatch(push(url)),
     filterUpdate: () => dispatch(filterFormUpdate()),
     getGenreList: () => dispatch(updateFilterGenre.list.request()),
+    getUpdateFilters: () => dispatch(updateFilters.request()),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     },
