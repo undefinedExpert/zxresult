@@ -34,10 +34,14 @@ const initialState = fromJS({
     },
     decade: {
       active: {
-        name: '1990s',
-        id: 1990,
+        name: '2000s',
+        id: 2000,
       },
       list: [
+        {
+          name: '2000s',
+          id: 2000,
+        },
         {
           name: '1990s',
           id: 1990,

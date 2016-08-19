@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
+import ResultImage from 'components/ResultImage';
 import BottomNavigation from 'containers/BottomNavigation';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
@@ -19,14 +20,13 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   render() {
     return (
       <div className={styles.result}>
-        <BottomNavigation />
+        <div className={classNames(styles.gallery, styles.item)}>
+          <ResultImage path={`http://image.tmdb.org/t/p/original/${this.props.result.movie.poster_path}`}  alt=""/>
+        </div>
         <div className={classNames(styles.information, styles.item)}>
           <h1>Title: {this.props.result.movie.original_title}</h1>
           <h2>{this.props.result.movie.overview}</h2>
-        </div>
-
-        <div className={classNames(styles.gallery, styles.item)}>
-          <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.movie.poster_path}`} alt="" />
+          <BottomNavigation />
         </div>
       </div>
     );

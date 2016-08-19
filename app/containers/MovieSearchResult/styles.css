@@ -1,13 +1,28 @@
 @lost flexbox flex;
 
 .result {
-  lost-center: 95%;
-  padding: 15px 0;
+  lost-center: 100%;
+  padding: 0px 0;
   color: #fff;
   .item {
-    lost-column: 1/4;
-    :local img {
-       width: 100%;
-     }
+    lost-column: 1;
    }
+
+  .information {
+    color: red;
+    lost-column: 5/12;
+  }
+
+  .gallery {
+    lost-column: 7/12 0;
+    position: relative;
+    overflow: hidden;
+    max-height: calc(100vh - 50px);
+    height: 100vh;
+    :local img {
+      /*height: 100vh;*/
+      lost-column: 1 0;
+      margin-top: -50%;
+    }
+  }
 }
