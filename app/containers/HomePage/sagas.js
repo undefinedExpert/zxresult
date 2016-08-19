@@ -19,7 +19,6 @@ function randomizePage(result) {
   // 3. Search for movies from documentary genre
   // 4. the randomize function will generate a number from old range (from a range where the action were active)
   // 5. if you'll be lucky the issue will occur
-  
   const maxPage = movieList !== null ? movieList.total_pages : 1;
 
   return chance.integer({ min: 1, max: maxPage });
@@ -72,15 +71,11 @@ export function* getMovieWatcher() {
 
 export function* getGenresListWatcher() {
   while (yield take(CONSTANT.UPDATE_FILTER_GENRE_LIST.REQUEST)) {
-    // FIXME: There is a bug, hard to explain for now where he came from,
-    // But definitely it touches async of this func, probably this func run before
-    // the result change at store
     yield call(getGenreList);
   }
 }
 
 export function* getResultChangeWatcher() {
-  // FIXME: Movie result multiple on each 'url, location change'
   while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS)) {
     yield call(getUpdateUrl);
   }

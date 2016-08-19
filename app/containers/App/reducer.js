@@ -64,6 +64,7 @@ const initialState = fromJS({
     movie: null,
     movies: null,
     isFetching: false,
+    maxResults: 0,
   }),
   user: {
     name: 'Emanuel',
