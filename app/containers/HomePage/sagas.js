@@ -10,6 +10,7 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 function randomizePage(result) {
   const maxPage = result.resultsRange;
   const chance = new Chance();
+  // FIXME: There is an issue with defining a default value, when the user first time come to website.
   return chance.integer({ min: 1, max: maxPage });
 }
 
@@ -45,7 +46,8 @@ export function* getGenreList() {
 
 // Individual exports for testing
 export function* getUpdateFilters() {
-  console.log('get update filters')
+  console.log('get update filters');
+  // TODO: if maxResults value hasn't change return nothing
   const filters = yield select(selectFilters());
   const storeResult = yield select(selectResult());
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=1000&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;

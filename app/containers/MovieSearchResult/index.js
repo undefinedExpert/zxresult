@@ -12,6 +12,7 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { filterFormUpdate } from 'containers/App/actions';
 import styles from './styles.css';
+import classNames from 'classnames';
 
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -19,9 +20,14 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     return (
       <div className={styles.result}>
         <BottomNavigation />
-        <h1>Title: {this.props.result.movie.original_title}</h1>
-        <h2>{this.props.result.movie.overview}</h2>
-        <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.movie.poster_path}`} alt="" />
+        <div className={classNames(styles.information, styles.item)}>
+          <h1>Title: {this.props.result.movie.original_title}</h1>
+          <h2>{this.props.result.movie.overview}</h2>
+        </div>
+
+        <div className={classNames(styles.gallery, styles.item)}>
+          <img src={`http://image.tmdb.org/t/p/w500/${this.props.result.movie.poster_path}`} alt="" />
+        </div>
       </div>
     );
   }

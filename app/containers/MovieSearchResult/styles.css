@@ -1,3 +1,13 @@
+@lost flexbox flex;
+
 .result {
-  color: white;
+  lost-center: 95%;
+  padding: 15px 0;
+  color: #fff;
+  .item {
+    lost-column: 1/4;
+    :local img {
+       width: 100%;
+     }
+   }
 }
