@@ -1,4 +1,4 @@
-import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
+import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre } from 'containers/App/actions';
@@ -11,6 +11,15 @@ function randomizePage(result) {
   const chance = new Chance();
   const movieList = result.movies;
   // FIXME: Fix the problem with out-of-max range limit, when the genre: music is set, the max possible page is > 893
+  // FIXME: Additional problem where the user change the filter(e.g genre) and it's previous value is larger then the max page of current 'range'
+  // This also depend on the randomize max page from this function.
+  // We can simulate this:
+  // 1. search for movie with genre action
+  // 2. move back to main page
+  // 3. Search for movies from documentary genre
+  // 4. the randomize function will generate a number from old range (from a range where the action were active)
+  // 5. if you'll be lucky the issue will occur
+  
   const maxPage = movieList !== null ? movieList.total_pages : 1;
 
   return chance.integer({ min: 1, max: maxPage });
@@ -23,9 +32,16 @@ export function* getMovie() {
   const randomPage = randomizePage(result); // http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5&primary_release_date.gte=1990-01-01&primary_release_date.lte=1999-01-01
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;
   const movies = yield call(request, requestUrl);
-  if (!movies.err) {
+  if (!movies.err && movies.data.results[0]) {
     yield console.info('Update result');
+    yield console.info(movies.data.results[0]);
     yield put(updateMovieResult.success(movies.data, movies.data.results[0]));
+  } else {
+    console.error('---------INFO-------');
+    console.log(requestUrl);
+    console.log(movies);
+    console.error('--------------------');
+    yield put(updateMovieResult.failure(movies.err));
   }
 }
 
@@ -81,10 +97,11 @@ export function* getData() {
   // The main reason of that is to not rely on LOCATION_CHANGE event becouse we 'actually' dosen't change the location on the result subpage
   // we just get new data.
   yield take(LOCATION_CHANGE);
-
-  yield cancel(moviesWatcher);
-  yield cancel(updateUrl);
-  yield cancel(genreListWatcher);
+  yield race([
+    cancel(moviesWatcher),
+    cancel(updateUrl),
+    cancel(genreListWatcher),
+  ]);
 }
 
 /**
