@@ -18,6 +18,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     // Make xhr call
     if (this.props.filters.genre.list <= 0) {
       this.props.getGenreList();
+      this.props.getUpdateFilters();
     }
   }
 
@@ -72,6 +73,7 @@ MovieSearchForm.propTypes = {
   onChangeGenre: React.PropTypes.func,
   onChangeDecade: React.PropTypes.func,
   onChangeTrend: React.PropTypes.func,
+  getUpdateFilters: React.PropTypes.func,
   filterUpdate: React.PropTypes.func,
   onChangeHandler: React.PropTypes.func,
 };

@@ -17,9 +17,9 @@ class ResultImage extends React.Component {
 
 
   imageLoad = (e) => {
+    // TODO: Create scan animation
     console.log(e.target.offsetWidth);
-    debugger;
-  }
+  };
 
   render() {
     const {
@@ -29,8 +29,7 @@ class ResultImage extends React.Component {
     console.log(this.state);
     return (
       <div className={styles.resultImage}>
-        <VelocityComponent animation={{ opacity: this.state.isAnimationBegin ? 1 : 0, onEnd: console.log('ohio') }}
-                           duration={1000}>
+        <VelocityComponent animation={{ opacity: this.state.isAnimationBegin ? 1 : 0 }} duration={1000}>
           <img
             onMouseEnter={this.whenMouseEntered}
             onMouseLeave={this.whenMouseLeft}
@@ -44,6 +43,9 @@ class ResultImage extends React.Component {
   }
 }
 
-ResultImage.propTypes = {};
+ResultImage.propTypes = {
+  path: React.PropTypes.string,
+  alt: React.PropTypes.string,
+};
 
 export default ResultImage;
