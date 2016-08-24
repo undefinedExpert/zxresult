@@ -8,27 +8,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
 import ResultImage from 'components/ResultImage';
+import Section from 'components/Section';
 import BottomNavigation from 'containers/BottomNavigation';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { filterFormUpdate } from 'containers/App/actions';
 import styles from './styles.css';
 import classNames from 'classnames';
+import { truncate } from 'lodash';
 
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={styles.result}>
-        <div className={classNames(styles.gallery, styles.item)}>
+      <section className={styles.result}>
+        <section className={classNames(styles.gallery, styles.item)}>
           <ResultImage path={`http://image.tmdb.org/t/p/original/${this.props.result.movie.poster_path}`}  alt=""/>
-        </div>
-        <div className={classNames(styles.information, styles.item)}>
-          <h1>Title: {this.props.result.movie.original_title}</h1>
-          <h2>{this.props.result.movie.overview}</h2>
-          <BottomNavigation />
-        </div>
-      </div>
+        </section>
+        <article className={styles.information}>
+          <header className={classNames(styles.item, styles.header)}>
+            <h1>Title: {this.props.result.movie.original_title}</h1>
+            <BottomNavigation />
+          </header>
+          <Section className={styles.item} title={'Rate'}>
+            Rate in hearth
+          </Section>
+          <Section className={styles.item} title={'Description'}>
+            <p>
+              {truncate(this.props.result.movie.overview, { length: 140 })}
+            </p>
+          </Section>
+        </article>
+      </section>
     );
   }
 }

@@ -10,7 +10,6 @@
 
   .information {
     color: red;
-    lost-column: 5/12;
   }
 
   .gallery {
@@ -23,6 +22,17 @@
       /*height: 100vh;*/
       min-width: 100%;
       lost-column: 1 0;
+    }
+  }
+}
+
+.information {
+  lost-column: 5/12;
+  .item {
+    float: left;
+    lost-column: 1/2 0;
+    &.header {
+       lost-column: 1;
     }
   }
 }
