@@ -1,24 +1,13 @@
 import { expect } from 'chai';
 import {
   updateFilterGenre,
-  updateFilterMood,
+  updateMovieResult,
   resultSet,
 } from '../actions';
 import * as CONSTANT from './../constants';
 
 
 describe('Application actions', () => {
-  describe('updateFilterMood()', () => {
-    it('Should return type and value properties', () => {
-      const value = 'test';
-      const expected = {
-        type: CONSTANT.UPDATE_FILTER_MOOD.REQUEST,
-        value,
-      };
-      expect(updateFilterMood.active.request(value)).to.eql(expected);
-    });
-  });
-
   describe('updateFilterGenre()', () => {
     it('Should return type and value properties', () => {
       const value = 'test';
@@ -30,16 +19,18 @@ describe('Application actions', () => {
     });
   });
 
-  describe('resultSet()', () => {
+  describe('updateMovieResult()', () => {
     it('Should return type, movie, single properties', () => {
       const movies = [{}, {}];
-      const single = {};
+      const movie = {};
+      const response = {};
       const expected = {
-        type: CONSTANT.RESULT_SET,
+        type: CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS,
         movies,
-        single,
+        movie,
+        response,
       };
-      expect(resultSet(movies, single)).to.eql(expected);
+      expect(updateMovieResult.success(movies, movie, response)).to.eql(expected);
     });
   });
 });

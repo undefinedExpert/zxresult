@@ -9,8 +9,61 @@ describe('<Movie-search-form />', () => {
   let renderComponent;
   const props = {
     filters: {
-      genre: 'test',
+      sentence: 'ohio',
+      trend: {
+        active: {
+          id: 28,
+          name: 'Classical',
+        },
+        list: [
+          {
+            id: 28,
+            name: 'Classical',
+          },
+          {
+            id: 28,
+            name: 'Popular',
+          },
+          {
+            id: 28,
+            name: 'Classical',
+          },
+        ],
+      },
+      decade: {
+        active: {
+          name: '2000s',
+          id: 2000,
+        },
+        list: [
+          {
+            name: '2000s',
+            id: 2000,
+          },
+          {
+            name: '1990s',
+            id: 1990,
+          },
+          {
+            name: '1980s',
+            id: 1980,
+          },
+          {
+            name: '1970s',
+            id: 1970,
+          },
+        ],
+      },
+      genre: {
+        active: {
+          id: 28,
+          name: 'Action',
+        },
+        list: [],
+      },
     },
+    getGenreList: () => {},
+    getUpdateFilters: () => {},
   };
   beforeEach(() => {
     renderComponent = shallow(<MovieSearchForm {...props} />, {});

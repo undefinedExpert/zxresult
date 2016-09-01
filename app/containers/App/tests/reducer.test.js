@@ -3,8 +3,7 @@ import appReducer from '../reducer';
 import { fromJS } from 'immutable';
 import {
   updateFilterGenre,
-  updateFilterMood,
-  resultSet,
+  updateMovieResult,
 } from '../actions';
 
 describe('appReducer', () => {
@@ -13,26 +12,64 @@ describe('appReducer', () => {
     state = fromJS({
       isLogged: true,
       filters: {
-        mood: fromJS({
+        sentence: 'ohio',
+        trend: {
+          active: {
+            id: 28,
+            name: 'Classical',
+          },
+          list: [
+            {
+              id: 28,
+              name: 'Classical',
+            },
+            {
+              id: 28,
+              name: 'Popular',
+            },
+            {
+              id: 28,
+              name: 'Classical',
+            },
+          ],
+        },
+        decade: {
+          active: {
+            name: '2000s',
+            id: 2000,
+          },
+          list: [
+            {
+              name: '2000s',
+              id: 2000,
+            },
+            {
+              name: '1990s',
+              id: 1990,
+            },
+            {
+              name: '1980s',
+              id: 1980,
+            },
+            {
+              name: '1970s',
+              id: 1970,
+            },
+          ],
+        },
+        genre: {
           active: {
             id: 28,
             name: 'Action',
           },
           list: [],
-        }),
-        popularity: 'Classical',
-        decade: '90s',
-        genre: fromJS({
-          active: {
-            id: 28,
-            name: 'Action',
-          },
-          list: [],
-        }),
+        },
       },
       result: fromJS({
         movie: null,
         movies: null,
+        isFetching: false,
+        resultsRange: 0,
       }),
       user: {
         name: 'Emanuel',
@@ -53,25 +90,20 @@ describe('appReducer', () => {
     expect(appReducer(undefined, {})).to.eql(excepted);
   });
 
-  it('should handle the updateFilterMood action', () => {
-    const fixture = 'eslotwinski';
-    const expectedResult = state.setIn(['filters', 'mood'], fixture);
-    expect(appReducer(state, updateFilterMood.active.request(fixture))).to.eql(expectedResult);
-  });
-
   it('should handle the updateFilterGenre action', () => {
     const fixture = 'drama';
     const expectedResult = state.setIn(['filters', 'genre', 'active'], fixture);
     expect(appReducer(state, updateFilterGenre.active.request(fixture))).to.eql(expectedResult);
   });
 
-  it('should handle the resultSet action', () => {
-    const single = {};
-    const multiple = [{}, {}];
+  it('should handle the updateMovieResult action', () => {
+    const movie = {};
+    const movies = [{}, {}];
     const expectedResult = state
-      .setIn(['result', 'movie'], single)
-      .setIn(['result', 'movies'], multiple);
+      .setIn(['result', 'movie'], movie)
+      .setIn(['result', 'movies'], movies)
+      .setIn(['result', 'isFetching'], false);
 
-    expect(appReducer(state, resultSet(multiple, single))).to.eql(expectedResult);
+    expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult);
   });
 });
