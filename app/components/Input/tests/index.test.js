@@ -29,7 +29,7 @@ describe('<Input />', () => {
   });
   it('Should handle onChange event', () => {
     const input = renderComponent.find('input');
-    input.simulate('change', { target: { value: 'new value' } });
-    expect(input.debug()).to.eql(true);
+    input.simulate('change');
+    expect(props.onChange.calledOnce).to.eql(true);
   });
 });
