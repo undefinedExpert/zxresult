@@ -5,7 +5,6 @@
 */
 
 import React from 'react';
-
 import styles from './styles.css';
 
 
@@ -24,7 +23,7 @@ function Input(props) {
   return (
     <div className={styles.input}>
       {inputHeading(props.title)}
-      <input type={props.type || 'text'} placeholder={props.placeholder} onChange={props.onChangeHandler} value={props.value} {...props} />
+      <input type={props.type || 'text'} placeholder={props.placeholder} {...props} />
     </div>
   );
 }

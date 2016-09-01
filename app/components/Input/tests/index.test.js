@@ -11,7 +11,6 @@ describe('<Input />', () => {
     title: 'test',
     type: 'password',
     placeholder: 'test',
-    value: '',
     onChange: sinon.spy(),
   };
   beforeEach(() => {
