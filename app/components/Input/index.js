@@ -24,7 +24,7 @@ function Input(props) {
   return (
     <div className={styles.input}>
       {inputHeading(props.title)}
-      <input type={props.type || 'text'} placeholder={props.placeholder} />
+      <input type={props.type || 'text'} placeholder={props.placeholder} onChange={props.onChangeHandler} value={props.value} {...props} />
     </div>
   );
 }
@@ -33,6 +33,7 @@ Input.propTypes = {
   title: React.PropTypes.string.isRequired,
   placeholder: React.PropTypes.string.isRequired,
   type: React.PropTypes.string,
+  value: React.PropTypes.string,
 };
 
 export default Input;
