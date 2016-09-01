@@ -73,7 +73,8 @@
       "mocha": true
     },
     "rules": {
-      "max-len": 0
+      "max-len": 0,
+      "import/no-unresolved": 0
     },
     "settings": {
       "import/resolver": {
@@ -96,8 +97,7 @@
           ]
         }
       ],
-      "indentation": 2,
-      "import/no-unresolved": 0
+      "indentation": 2
     }
   },
   "dependencies": {

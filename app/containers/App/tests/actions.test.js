@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import {
   updateFilterGenre,
   updateMovieResult,
-  resultSet,
 } from '../actions';
 import * as CONSTANT from './../constants';
 
