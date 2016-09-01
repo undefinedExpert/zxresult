@@ -7,8 +7,6 @@
 import React from 'react';
 import styles from './styles.css';
 
-
-// TODO: Create title heading component
 function inputHeading(title) {
   if (title) {
     return (
@@ -18,7 +16,6 @@ function inputHeading(title) {
   return false;
 }
 
-// TODO: Create requested title for input
 function Input(props) {
   return (
     <div className={styles.input}>
