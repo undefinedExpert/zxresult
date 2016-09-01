@@ -2,11 +2,11 @@
 
 .result {
   lost-center: 100%;
-  padding: 0px 0;
+  padding: 0;
   color: #fff;
   .item {
     lost-column: 1;
-   }
+  }
 
   .information {
     color: red;
@@ -19,7 +19,7 @@
     max-height: calc(100vh - 50px);
     height: 100vh;
     :local img {
-      /*height: 100vh;*/
+      /* height: 100vh; */
       min-width: 100%;
       lost-column: 1 0;
     }
@@ -32,7 +32,7 @@
     float: left;
     lost-column: 1/2 0;
     &.header {
-       lost-column: 1;
+      lost-column: 1;
     }
   }
 }
