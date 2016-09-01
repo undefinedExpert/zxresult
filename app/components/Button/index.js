@@ -8,17 +8,6 @@ import React from 'react';
 import classNames from 'classnames';
 import styles from './styles.css';
 
-
-function isLoadingRender(boolean) {
-  if (boolean) {
-    return (
-      <h6 className={styles.title}>Loading ***</h6>
-    );
-  }
-  return false;
-}
-
-
 function Button(props) {
   return (
     <div>

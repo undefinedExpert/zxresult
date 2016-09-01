@@ -49,7 +49,7 @@ export function* getUpdateFilters() {
   console.log('get update filters');
   // TODO: if maxResults value hasn't change return nothing
   const filters = yield select(selectFilters());
-  const storeResult = yield select(selectResult());
+  // const storeResult = yield select(selectResult());
   const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=1000&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;
   const result = yield call(request, requestUrl);
   const maxResults = result.data.total_pages;

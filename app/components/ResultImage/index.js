@@ -7,7 +7,6 @@
 import React from 'react';
 import styles from './styles.css';
 import { VelocityComponent } from 'velocity-react';
-import { Mixin as tweenStateMixin } from 'react-tween-state';
 
 class ResultImage extends React.Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class ResultImage extends React.Component {
 
   imageLoad = (e) => {
     // TODO: Create scan animation
-    console.log(e.target.offsetWidth);
+    console.log(e.target.offsetHeight);
   };
 
   render() {

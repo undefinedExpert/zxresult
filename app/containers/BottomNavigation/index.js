@@ -7,11 +7,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'components/Button';
-import { updateMovieResult, updateUrl } from 'containers/App/actions';
+import { updateMovieResult } from 'containers/App/actions';
 import { push } from 'react-router-redux';
 import { createStructuredSelector, createSelector } from 'reselect';
-import { selectResult, selectLocationState } from 'containers/App/selectors';
-
+import { selectResult } from 'containers/App/selectors';
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -23,26 +22,22 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
     this.props.changeRoute(route);
   };
   updateAndRoute = () => {
-    if(this.props.result.isFetching) return;
+    if (this.props.result.isFetching) return;
 
     this.props.movieUpdate();
     // Tutaj musimy uruchomic akcje ktora odpowiada za wywolanie zmiany url
   };
 
   fetchFunc = () => {
-    if (this.props.result.isFetching) {
+    const isFetching = this.props.result.isFetching;
+    if (isFetching) {
       return (
         <h4>Loading...</h4>
-      )
+      );
     }
+
+    return null;
   };
-
-  // 1. musze pokazac komunikat ze sie laduje
-  // 2. musze sprawdzic czy dane sa zaladowane
-  //    Trzeba to zrobic na zasadzie wywolania akcji, na poczatky wywolywana jest akcja movieUpdate,
-  //    a potem nalezy wykonac akcje ktora pozwoli nam zmienic route
-  // 3. i jesli sa zaladowane to musze przejsc do rezultatu-
-
   render() {
     return (
       <div>
@@ -59,6 +54,7 @@ BottomNavigation.propTypes = {
   isFetching: React.PropTypes.bool,
   movieUpdate: React.PropTypes.func,
   fetching: React.PropTypes.bool,
+  result: React.PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

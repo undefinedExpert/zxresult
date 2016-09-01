@@ -1,9 +1,9 @@
-import Section from '../index';
+// import Section from '../index';
+//
+// import { expect } from 'chai';
+// import { shallow, render, mount } from 'enzyme';
+// import React from 'react';
 
-import { expect } from 'chai';
-import { shallow, render, mount } from 'enzyme';
-import React from 'react';
-
-describe('<Section />', () => {
-
-});
+// describe('<Section />', () => {
+//
+// });

@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import Button from 'components/Button';
 import ResultImage from 'components/ResultImage';
 import Section from 'components/Section';
 import BottomNavigation from 'containers/BottomNavigation';
@@ -23,7 +22,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     return (
       <section className={styles.result}>
         <section className={classNames(styles.gallery, styles.item)}>
-          <ResultImage path={`http://image.tmdb.org/t/p/original/${this.props.result.movie.poster_path}`}  alt=""/>
+          <ResultImage path={`http://image.tmdb.org/t/p/original/${this.props.result.movie.poster_path}`} alt="" />
         </section>
         <article className={styles.information}>
           <header className={classNames(styles.item, styles.header)}>
