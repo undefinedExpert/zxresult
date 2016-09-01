@@ -30,7 +30,7 @@ function Section(props) {
 
 Section.propTypes = {
   title: React.PropTypes.string,
-  children: React.PropTypes.object,
+  children: React.PropTypes.node.isRequired,
 };
 
 export default Section;

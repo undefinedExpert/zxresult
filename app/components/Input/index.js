@@ -19,13 +19,20 @@ function inputHeading(title) {
   return false;
 }
 
-function Input() {
+// TODO: Create requested title for input
+function Input(props) {
   return (
     <div className={styles.input}>
-      {inputHeading('SENTENCE')}
-      <input type="text" placeholder="ohio" />
+      {inputHeading(props.title)}
+      <input type={props.type || 'text'} placeholder={props.placeholder} />
     </div>
   );
 }
+
+Input.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  placeholder: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string,
+};
 
 export default Input;

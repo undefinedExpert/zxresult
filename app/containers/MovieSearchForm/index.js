@@ -51,7 +51,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <div className={styles.filters} >
-            <Input />
+            <Input type="text" title="Sentence" placeholder="Sentence placeholder" />
             <SelectList
               items={selectListItems}
             />
