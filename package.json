@@ -96,7 +96,8 @@
           ]
         }
       ],
-      "indentation": 2
+      "indentation": 2,
+      "import/no-unresolved": 0
     }
   },
   "dependencies": {
