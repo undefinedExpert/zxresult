@@ -21,7 +21,6 @@ Button.propTypes = {
   type: React.PropTypes.string,
   isLoading: React.PropTypes.bool,
   children: React.PropTypes.node.isRequired,
-  onClick: React.PropTypes.func,
   handleRoute: React.PropTypes.func,
 };
 
