@@ -13,12 +13,12 @@ describe('<HomePage />', () => {
   });
 
   it('Should render Movie-search-form', () => {
-    const excepted = renderedComponent.containsMatchingElement(<MovieSearchForm />);
+    const excepted = renderedComponent.contains(<MovieSearchForm />);
     expect(excepted).to.eql(true);
   });
 
   it('Should render WelcomeText', () => {
-    const excepted = renderedComponent.containsMatchingElement(<WelcomeText />);
+    const excepted = renderedComponent.contains(<WelcomeText />);
     expect(excepted).to.eql(true);
   });
 });

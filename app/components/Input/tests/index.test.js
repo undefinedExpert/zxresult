@@ -17,7 +17,7 @@ describe('<Input />', () => {
     renderComponent = mount(<Input {...props} />, {});
   });
 
-  it('Should render the the props.title', () => {
+  it('Should render the props.title', () => {
     const title = renderComponent.find('h6');
     expect(title.text()).to.eql(props.title);
   });

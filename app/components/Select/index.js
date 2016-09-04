@@ -1,35 +1,40 @@
 /**
-*
-* Select
-*
-*/
+ *
+ * Select
+ *
+ */
 
 import React from 'react';
 import ReactSelect from 'react-select';
 
 import styles from './styles.css';
 
+function Select(props) {
+  const {
+    value,
+    loading,
+    valueKey,
+    labelKey,
+    options,
+    title,
+  } = props;
 
-function inputHeading(title) {
-  if (title) {
+  function inputHeading() {
     return (
       <h6 className={styles.title}>{title}</h6>
     );
   }
-  return false;
-}
 
-function Select(props) {
   return (
     <div className={styles.select}>
-      {inputHeading(props.title)}
+      {props.title ? inputHeading() : null}
       <ReactSelect
-        value={props.value || ''}
-        isLoading={props.loading}
-        valueKey={props.valueKey || 'name'}
-        labelKey={props.labelKey || 'name'}
+        value={value || ''}
+        isLoading={loading}
+        valueKey={valueKey || 'name'}
+        labelKey={labelKey || 'name'}
         autoload={false}
-        options={props.options}
+        options={options}
         {...props}
       />
     </div>
