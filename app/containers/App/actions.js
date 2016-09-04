@@ -83,7 +83,7 @@ export const updateUrl = {
   failure: (error) => action(CONSTANT.UPDATE_URL.FAILURE, { error }),
 };
 
-// Update url
+// Update filters
 //
 export const updateFilters = {
   request: () => action(CONSTANT.UPDATE_FILTERS.REQUEST, {}),
