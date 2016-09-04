@@ -1,25 +1,22 @@
 /**
-*
-* Input
-*
-*/
+ *
+ * Input
+ *
+ */
 
 import React from 'react';
 import styles from './styles.css';
 
-function inputHeading(title) {
-  if (title) {
+function Input(props) {
+  function inputHeading() {
     return (
-      <h6 className={styles.title}>{title}</h6>
+      <h6 className={styles.title}>{props.title}</h6>
     );
   }
-  return false;
-}
 
-function Input(props) {
   return (
     <div className={styles.input}>
-      {inputHeading(props.title)}
+      {props.title ? inputHeading() : null}
       <input type={props.type || 'text'} placeholder={props.placeholder} {...props} />
     </div>
   );
