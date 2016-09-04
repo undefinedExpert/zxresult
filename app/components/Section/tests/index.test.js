@@ -1,9 +1,24 @@
-// import Section from '../index';
-//
-// import { expect } from 'chai';
-// import { shallow, render, mount } from 'enzyme';
-// import React from 'react';
+import Section from '../index';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
+import React from 'react';
 
-// describe('<Section />', () => {
-//
-// });
+describe('<Section />', () => {
+  let renderComponent;
+  const props = {
+    title: 'test',
+  };
+  beforeEach(() => {
+    const childElement = <div id="test"></div>;
+    renderComponent = shallow(<Section {...props}>{childElement}</Section>, {});
+  });
+
+  it('Should render the the props.title', () => {
+    const title = renderComponent.find('h1');
+    expect(title.text()).to.eql(props.title);
+  });
+
+  it('Should contain & render children prop', () => {
+    expect(renderComponent.find('#test')).to.have.length(1);
+  });
+});
