@@ -14,7 +14,6 @@ class ResultImage extends React.Component {
     this.state = { isAnimationBegin: true, top: 0, bottom: 0, imageHeight: 0 };
   }
 
-
   imageLoad = (e) => {
     // TODO: Create scan animation
     console.log(e.target.offsetHeight);
@@ -25,7 +24,6 @@ class ResultImage extends React.Component {
       path,
       alt,
     } = this.props;
-    console.log(this.state);
     return (
       <div className={styles.resultImage}>
         <VelocityComponent animation={{ opacity: this.state.isAnimationBegin ? 1 : 0 }} duration={1000}>
