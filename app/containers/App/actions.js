@@ -38,9 +38,9 @@ const decadeActive = {
 };
 
 const decadeList = {
-  request: value => action(CONSTANT.UPDATE_FILTER_DECADE.REQUEST, { value }),
-  success: (value, response) => action(CONSTANT.UPDATE_FILTER_DECADE.SUCCESS, { value, response }),
-  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_DECADE.FAILURE, { value, error }),
+  request: value => action(CONSTANT.UPDATE_FILTER_DECADE_LIST.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_DECADE_LIST.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_DECADE_LIST.FAILURE, { value, error }),
 };
 
 export const updateFilterDecade = {
@@ -57,9 +57,9 @@ const trendActive = {
 };
 
 const trendList = {
-  request: value => action(CONSTANT.UPDATE_FILTER_TREND.REQUEST, { value }),
-  success: (value, response) => action(CONSTANT.UPDATE_FILTER_TREND.SUCCESS, { value, response }),
-  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_TREND.FAILURE, { value, error }),
+  request: value => action(CONSTANT.UPDATE_FILTER_TREND_LIST.REQUEST, { value }),
+  success: (value, response) => action(CONSTANT.UPDATE_FILTER_TREND_LIST.SUCCESS, { value, response }),
+  failure: (value, error) => action(CONSTANT.UPDATE_FILTER_TREND_LIST.FAILURE, { value, error }),
 };
 
 export const updateFilterTrend = {
