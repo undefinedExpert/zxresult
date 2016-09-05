@@ -6,7 +6,6 @@
 
 import React from 'react';
 import ReactSelect from 'react-select';
-
 import styles from './styles.css';
 
 function Select(props) {
@@ -46,7 +45,7 @@ Select.propTypes = {
   labelKey: React.PropTypes.string,
   value: React.PropTypes.string,
   title: React.PropTypes.string,
-  options: React.PropTypes.array.isRequired,
+  options: React.PropTypes.array,
   loading: React.PropTypes.func,
 };
 export default Select;

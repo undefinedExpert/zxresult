@@ -1,6 +1,6 @@
-import SelectFilter from '../index';
+import Select from '../index';
 import { expect } from 'chai';
-import { shallow, mount, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('<Select />', () => {
@@ -13,7 +13,7 @@ describe('<Select />', () => {
     options: [1, 2, 3],
   };
   beforeEach(() => {
-    renderComponent = shallow(<SelectFilter {...props} />, {});
+    renderComponent = shallow(<Select {...props} />, {});
   });
 
   it('Should render the title', () => {
