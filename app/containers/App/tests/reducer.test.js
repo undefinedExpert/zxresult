@@ -3,7 +3,10 @@ import appReducer from '../reducer';
 import { fromJS } from 'immutable';
 import {
   updateFilterGenre,
+  updateFilterDecade,
+  updateFilterTrend,
   updateMovieResult,
+  updateFilters,
 } from '../actions';
 
 describe('appReducer', () => {
@@ -91,9 +94,27 @@ describe('appReducer', () => {
   });
 
   it('should handle the updateFilterGenre action', () => {
-    const fixture = 'drama';
-    const expectedResult = state.setIn(['filters', 'genre', 'active'], fixture);
-    expect(appReducer(state, updateFilterGenre.active.request(fixture))).to.eql(expectedResult);
+    const fixtureActive = 'drama';
+    const fixtureList = ['drama', 'action', 'horror'];
+    const expectedResult = {
+      active: state.setIn(['filters', 'genre', 'active'], fixtureActive),
+      list: state.setIn(['filters', 'genre', 'list'], fixtureList),
+    };
+
+    expect(appReducer(state, updateFilterGenre.active.request(fixtureActive))).to.eql(expectedResult.active);
+    expect(appReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
+  });
+
+  it('should handle the UPDATE_FILTER_DECADE action', () => {
+    const fixture = '2000s';
+    const expectedResult = state.setIn(['filters', 'decade', 'active'], fixture);
+    expect(appReducer(state, updateFilterDecade.active.request(fixture))).to.eql(expectedResult);
+  });
+
+  it('should handle the UPDATE_FILTER_TREND action', () => {
+    const fixture = 'Classical';
+    const expectedResult = state.setIn(['filters', 'trend', 'active'], fixture);
+    expect(appReducer(state, updateFilterTrend.active.request(fixture))).to.eql(expectedResult);
   });
 
   it('should handle the updateMovieResult action', () => {
@@ -105,5 +126,29 @@ describe('appReducer', () => {
       .setIn(['result', 'isFetching'], false);
 
     expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult);
+  });
+
+  it('should handle the updateMovieResult action', () => {
+    const movie = {};
+    const movies = [{}, {}];
+    const expectedResult = {
+      request: state
+        .setIn(['result', 'isFetching'], true),
+      success: state
+        .setIn(['result', 'movie'], movie)
+        .setIn(['result', 'movies'], movies)
+        .setIn(['result', 'isFetching'], false),
+    };
+
+    expect(appReducer(state, updateMovieResult.request(movies, movie))).to.eql(expectedResult.request);
+    expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult.success);
+  });
+
+  it('should handle the updateFilters action', () => {
+    const fixture = 1;
+    const expectedResult = state
+      .setIn(['result', 'resultsRange'], fixture);
+
+    expect(appReducer(state, updateFilters.success(fixture))).to.eql(expectedResult);
   });
 });
