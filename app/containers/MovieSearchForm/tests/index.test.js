@@ -4,7 +4,7 @@ import SelectList from 'components/SelectList';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-
+// mapStateToProps - https://github.com/reactjs/redux/issues/1534
 describe('<Movie-search-form />', () => {
   let renderComponent;
   const props = {
