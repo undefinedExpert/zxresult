@@ -9,19 +9,15 @@ import styles from './styles.css';
 import classNames from 'classnames';
 
 class Navigation extends React.Component {
-
-  logotype() {
-    if (this.props.logotype) {
-      return (
-        <div id="logotype" className={styles.logotype}>
-          <h3>Logotyp</h3>
-        </div>
-      );
-    }
-    return null;
+  renderLogotype() {
+    return (
+      <div id="logotype" className={styles.logotype}>
+        <h3>Logotyp</h3>
+      </div>
+    );
   }
 
-  links() {
+  renderLinks() {
     return (
       <ul className={styles.links}>
         <li id="loginButton"><a href="#">Log In</a></li>
@@ -35,10 +31,10 @@ class Navigation extends React.Component {
       <div className={styles.navigation}>
         <div className={styles.bar}>
           <div className={classNames(styles.bar__item, styles['bar__item--left'])}>
-            {this.logotype()}
+            {this.logotype ? this.renderLogotype() : null}
           </div>
           <div className={classNames(styles.bar__item, styles['bar__item--right'])}>
-            {this.links()}
+            {this.renderLinks}
           </div>
         </div>
       </div>

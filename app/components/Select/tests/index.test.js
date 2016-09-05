@@ -1,4 +1,5 @@
 import Select from '../index';
+import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -11,6 +12,7 @@ describe('<Select />', () => {
     valueKey: 'name',
     labelKey: 'name',
     options: [1, 2, 3],
+    onChange: sinon.spy(),
   };
   beforeEach(() => {
     renderComponent = shallow(<Select {...props} />, {});
@@ -19,6 +21,12 @@ describe('<Select />', () => {
   it('Should render the title', () => {
     const title = renderComponent.find('h6');
     expect(title.text()).to.eql(props.title);
+  });
+
+  it('Should run onChangeHandler while the select change', () => {
+    const select = renderComponent.find('Select');
+    select.simulate('change');
+    expect(select.prop('onChange').calledOnce).to.eql(true);
   });
 
   // TODO: ReactSelect exist

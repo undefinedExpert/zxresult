@@ -1,6 +1,5 @@
 import SelectList from '../index';
 import sinon from 'sinon';
-
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
