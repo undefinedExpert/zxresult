@@ -37,6 +37,26 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
               {truncate(this.props.result.movie.overview, { length: 140 })}
             </p>
           </Section>
+          <Section className={styles.item} title={'Runtime'}>
+            <p>
+              runtime
+            </p>
+          </Section>
+          <Section className={styles.item} title={'Genres'}>
+            <p>
+              Genres
+            </p>
+          </Section>
+          <Section className={styles.item} title={'Director'}>
+            <p>
+              Director
+            </p>
+          </Section>
+          <Section className={styles.item} title={'Cast'}>
+            <p>
+              Cast
+            </p>
+          </Section>
         </article>
       </section>
     );
