@@ -15,7 +15,7 @@ import { filterFormUpdate } from 'containers/App/actions';
 import styles from './styles.css';
 import classNames from 'classnames';
 import { truncate } from 'lodash';
-
+import { FaBeer } from 'react-icons/lib/fa/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -30,7 +30,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
             <BottomNavigation />
           </header>
           <Section className={styles.item} title={'Rate'}>
-            Rate in hearth
+            <FaBeer />
           </Section>
           <Section className={styles.item} title={'Description'}>
             <p>
