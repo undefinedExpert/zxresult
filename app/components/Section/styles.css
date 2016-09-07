@@ -1,1 +1,8 @@
 /* .section {} */
+
+.title {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  color: var(--cSup);
+  font-weight: 600;
+}

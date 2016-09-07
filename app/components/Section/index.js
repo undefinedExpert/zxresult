@@ -11,7 +11,7 @@ import styles from './styles.css';
 function Section(props) {
   function renderTitle() {
     return (
-      <h1>{props.title}</h1>
+      <h4 className={styles.title}>{props.title}</h4>
     );
   }
 
