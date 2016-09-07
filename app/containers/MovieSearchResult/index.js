@@ -17,6 +17,7 @@ import classNames from 'classnames';
 import { truncate } from 'lodash';
 import { FaBeer } from 'react-icons/lib/fa/';
 
+// test
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
