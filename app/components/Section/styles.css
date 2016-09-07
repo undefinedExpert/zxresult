@@ -1,4 +1,6 @@
-/* .section {} */
+ .section {
+   float: left;
+ }
 
 .title {
   text-transform: uppercase;

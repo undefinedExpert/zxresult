@@ -16,12 +16,10 @@ function Section(props) {
   }
 
   return (
-    <div className={styles.section}>
-      <section {...props}>
-        {props.title ? renderTitle() : null}
-        {props.children}
-      </section>
-    </div>
+    <section {...props}>
+      {props.title ? renderTitle() : null}
+      {props.children}
+    </section>
   );
 }
 
