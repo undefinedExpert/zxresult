@@ -10,7 +10,7 @@ const colors = {
   cMain: '#2E3440',
   cMainHover: 'color(var(--cMain) a(45%))',
   cMainFocus: 'color(var(--cMain) a(45%))',
-  cSup: '#844350', // supplementary color
+  cSup: '#db5461', // supplementary color
   cSupHover: 'color(var(--cSup) a(45%));',
   cSupFocus: 'color(var(--cSup) a(45%));',
   cHeading: '#C0C5CE',
