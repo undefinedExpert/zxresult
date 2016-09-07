@@ -47,32 +47,41 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
           {/* Render rate section*/}
           {movie.vote_average ? this.renderRate(movie.vote_average) : null}
           <Section className={classNames(styles.item, styles.description)} title={'Description'}>
-              {truncate(movie.overview, { length: 140 })}
+            {truncate(movie.overview, { length: 140 })}
           </Section>
-          <Section className={styles.item} title={'Runtime'}>
-            <span><IoClock className={styles.icon} /> 2h 31min</span>
-          </Section>
-          <Section className={styles.item} title={'Genres'}>
-            <ul>
-              <li><span><IoBowtie /> Action</span></li>
-              <li><span><IoBowtie /> Sci-fi</span></li>
-              <li><span><IoBowtie /> Comedy</span></li>
-            </ul>
-          </Section>
-          <Section className={styles.item} title={'Director'}>
-            <div>
+          <div className={styles.item}>
+            <Section className={styles.section} title={'Runtime'}>
+              <span><IoClock className={styles.icon} /> 2h 31min</span>
+            </Section>
+            <Section className={classNames(styles.section, styles.genres)} title={'Genres'}>
+              <ul>
+                <li>
+                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet"/>
+                  <h6>Action</h6>
+                </li>
+                <li>
+                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet"/>
+                  <h6>Sci-fi</h6>
+                </li>
+                <li>
+                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet"/>
+                  <h6>Comedy</h6>
+                </li>
+              </ul>
+            </Section>
+          </div>
+          <div className={styles.item}>
+            <Section className={styles.section} title={'Director'}>
               <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px" alt="Director Name" />
               <h4>Zack Snyder</h4>
               <h4>Known for Man of Steel</h4>
-            </div>
-          </Section>
-          <Section className={styles.item} title={'Cast'}>
-            <div>
+            </Section>
+            <Section className={styles.section} title={'Cast'}>
               <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px" alt="Director Name" />
               <h4>Ben Affleck</h4>
               <h4>As Bruce Wayne/Batman</h4>
-            </div>
-          </Section>
+            </Section>
+          </div>
           <BottomNavigation />
         </article>
       </section>

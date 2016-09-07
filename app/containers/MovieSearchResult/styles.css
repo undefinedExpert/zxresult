@@ -27,18 +27,35 @@
 }
 
 .information {
-  lost-column: 5/12;
+  lost-column: 5/12 0;
   .item {
     float: left;
-    lost-column: 1/2 0;
+    lost-column: 1;
     padding: 15px 0;
-    &.header,
-    &.rate,
-    &.description {
-      lost-column: 1;
+  }
+}
+
+.section {
+  float: left;
+  lost-column: 1/2;
+  &.genres {
+    :local ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
     }
-    &.header {
-      margin-top: 30px;
+    :local li {
+      display: flex;
+      flex-direction: column;
+      margin: 0 12px 0 0;
+      .genreIcon {
+        margin: 0 auto;
+        width: 100%;
+
+      }
+      :local h6 {
+        margin: 0 auto;
+      }
     }
   }
 }
