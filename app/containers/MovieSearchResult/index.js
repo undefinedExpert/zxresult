@@ -14,49 +14,66 @@ import { selectFilters, selectResult } from 'containers/App/selectors';
 import { filterFormUpdate } from 'containers/App/actions';
 import styles from './styles.css';
 import classNames from 'classnames';
-import { truncate } from 'lodash';
-import { FaBeer } from 'react-icons/lib/fa/';
+import { truncate, times } from 'lodash';
+import { IoHeart, IoClock, IoBowtie } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  calcRate = (voteAverage) => (times(voteAverage, () => (
+    <IoHeart className={styles.icon} />
+  )));
+
+  renderRate = (voteAverage) => (
+    <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
+      {this.calcRate(voteAverage / 2)}
+    </Section>
+  );
+
   render() {
+    const {
+      result: {
+        movie,
+      },
+    } = this.props;
+
     return (
       <section className={styles.result}>
         <section className={classNames(styles.gallery, styles.item)}>
-          <ResultImage path={`http://image.tmdb.org/t/p/original/${this.props.result.movie.poster_path}`} alt="" />
+          <ResultImage path={`http://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
         </section>
         <article className={styles.information}>
-          <header className={classNames(styles.item, styles.header)}>
-            <h1>Title: {this.props.result.movie.original_title}</h1>
-            <BottomNavigation />
-          </header>
-          <Section className={styles.item} title={'Rate'}>
-            <FaBeer />
+          <Section className={classNames(styles.item, styles.header)} title={'Title'}>
+            <h1>{movie.original_title} (2016)</h1>
           </Section>
-          <Section className={styles.item} title={'Description'}>
-            <p>
-              {truncate(this.props.result.movie.overview, { length: 140 })}
-            </p>
+          {/* Render rate section*/}
+          {movie.vote_average ? this.renderRate(movie.vote_average) : null}
+          <Section className={classNames(styles.item, styles.description)} title={'Description'}>
+              {truncate(movie.overview, { length: 140 })}
           </Section>
           <Section className={styles.item} title={'Runtime'}>
-            <p>
-              runtime
-            </p>
+            <span><IoClock className={styles.icon} /> 2h 31min</span>
           </Section>
           <Section className={styles.item} title={'Genres'}>
-            <p>
-              Genres
-            </p>
+            <ul>
+              <li><span><IoBowtie /> Action</span></li>
+              <li><span><IoBowtie /> Sci-fi</span></li>
+              <li><span><IoBowtie /> Comedy</span></li>
+            </ul>
           </Section>
           <Section className={styles.item} title={'Director'}>
-            <p>
-              Director
-            </p>
+            <div>
+              <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px" alt="Director Name" />
+              <h4>Zack Snyder</h4>
+              <h4>Known for Man of Steel</h4>
+            </div>
           </Section>
           <Section className={styles.item} title={'Cast'}>
-            <p>
-              Cast
-            </p>
+            <div>
+              <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px" alt="Director Name" />
+              <h4>Ben Affleck</h4>
+              <h4>As Bruce Wayne/Batman</h4>
+            </div>
           </Section>
+          <BottomNavigation />
         </article>
       </section>
     );
