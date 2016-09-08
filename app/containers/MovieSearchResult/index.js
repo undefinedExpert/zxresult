@@ -31,7 +31,6 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     }
     return (
       <div>
-        {voteAverage}
         {renderHearts()}
         {renderHearts('unfilled')}
       </div>
