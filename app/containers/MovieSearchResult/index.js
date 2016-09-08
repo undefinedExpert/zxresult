@@ -18,13 +18,28 @@ import { truncate, times } from 'lodash';
 import { IoHeart, IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  calcRate = (voteAverage) => (times(voteAverage, () => (
-    <IoHeart className={styles.icon} />
-  )));
+  renderHeart = (voteAverage) => {
+    const range = 5;
+    const unfilled = Math.ceil(range - voteAverage);
+    const filled = voteAverage;
+
+    function renderHearts(type) {
+      return (times(type === 'unfilled' ? unfilled : filled, () => (
+        <IoHeart className={type === 'unfilled' ? classNames(styles.icon, styles.unfilled) : styles.icon} />
+      )));
+    }
+    return (
+      <div>
+        {voteAverage}
+        {renderHearts()}
+        {renderHearts('unfilled')}
+      </div>
+    );
+  };
 
   renderRate = (voteAverage) => (
     <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
-      {this.calcRate(voteAverage / 2)}
+      {this.renderHeart(voteAverage / 2)}
     </Section>
   );
 
