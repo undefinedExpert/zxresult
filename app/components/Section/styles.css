@@ -1,6 +1,6 @@
- .section {
-   float: left;
- }
+.section {
+  float: left;
+}
 
 .title {
   text-transform: uppercase;

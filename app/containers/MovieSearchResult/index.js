@@ -15,7 +15,7 @@ import { filterFormUpdate } from 'containers/App/actions';
 import styles from './styles.css';
 import classNames from 'classnames';
 import { truncate, times } from 'lodash';
-import { IoHeart, IoClock, IoBowtie } from 'react-icons/lib/io/';
+import { IoHeart, IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   calcRate = (voteAverage) => (times(voteAverage, () => (
@@ -56,15 +56,15 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
             <Section className={classNames(styles.section, styles.genres)} title={'Genres'}>
               <ul>
                 <li>
-                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet"/>
+                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet" />
                   <h6>Action</h6>
                 </li>
                 <li>
-                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet"/>
+                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet" />
                   <h6>Sci-fi</h6>
                 </li>
                 <li>
-                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet"/>
+                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet" />
                   <h6>Comedy</h6>
                 </li>
               </ul>
