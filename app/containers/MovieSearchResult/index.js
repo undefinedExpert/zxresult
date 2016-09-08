@@ -19,9 +19,9 @@ import { IoHeart, IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   renderHeart = (voteAverage) => {
-    const range = 5;
-    const unfilled = Math.ceil(range - voteAverage);
-    const filled = voteAverage;
+    const voteRange = 5;
+    const filled = Math.round(voteAverage);
+    const unfilled = Math.ceil(voteRange - filled);
 
     function renderHearts(type) {
       return (times(type === 'unfilled' ? unfilled : filled, () => (
