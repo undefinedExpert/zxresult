@@ -68,7 +68,7 @@
     color: transparent;
     :local path {
       stroke: var(--cSup);
-      stroke-width: 2;
+      stroke-width: 3;
     }
   }
 }

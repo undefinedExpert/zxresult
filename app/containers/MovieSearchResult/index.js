@@ -19,8 +19,9 @@ import { IoHeart, IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   renderHeart = (voteAverage) => {
+    const average = voteAverage / 2; // voteAverage contains scale 1-10, so we divide by half to make it 1-5
     const voteRange = 5;
-    const filled = Math.round(voteAverage);
+    const filled = Math.round(average);
     const unfilled = Math.ceil(voteRange - filled);
 
     function renderHearts(type) {
@@ -39,7 +40,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 
   renderRate = (voteAverage) => (
     <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
-      {this.renderHeart(voteAverage / 2)}
+      {this.renderHeart(voteAverage)}
     </Section>
   );
 
