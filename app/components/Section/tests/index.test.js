@@ -14,7 +14,7 @@ describe('<Section />', () => {
   });
 
   it('Should render the props.title', () => {
-    const title = renderComponent.find('h1');
+    const title = renderComponent.find('h4');
     expect(title.text()).to.eql(props.title);
   });
 
