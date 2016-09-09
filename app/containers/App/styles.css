@@ -9,25 +9,28 @@
   background-color: var(--cMain);
 }
 
-
 /*
   Fonts
   Using only TrueType extension,
   support of this extension is: http://caniuse.com/#feat=ttf
 */
-/* Maven Pro*/
+
+/* Maven Pro */
+
 @font-face {
   font-family: Maven;
   src: url('/assets/fonts/Maven_Pro/MavenPro-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
   font-family: Maven;
   src: url('/assets/fonts/Maven_Pro/MavenPro-Medium.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
   font-family: Maven;
   src: url('/assets/fonts/Maven_Pro/MavenPro-Bold.ttf') format('truetype');
@@ -35,25 +38,29 @@
   font-style: normal;
 }
 
-/* Quattrocento Sans*/
+/* Quattrocento Sans */
+
 @font-face {
   font-family: Quattrocento;
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
   font-family: Quattrocento;
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
 }
+
 @font-face {
   font-family: Quattrocento;
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
   font-family: Quattrocento;
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-BoldItalic.ttf') format('truetype');
