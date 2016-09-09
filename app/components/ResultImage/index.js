@@ -26,6 +26,7 @@ class ResultImage extends React.Component {
     } = this.props;
     return (
       <div className={styles.resultImage}>
+        <div className={styles.overlay}></div>
         <VelocityComponent animation={{ opacity: this.state.isAnimationBegin ? 1 : 0 }} duration={1000}>
           <img
             onMouseEnter={this.whenMouseEntered}
@@ -33,6 +34,7 @@ class ResultImage extends React.Component {
             onLoad={this.imageLoad}
             src={path}
             alt={alt}
+            className={styles.image}
           />
         </VelocityComponent>
       </div>

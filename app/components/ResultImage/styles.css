@@ -1,1 +1,9 @@
-/* .resultImage {} */
+ .resultImage {
+   .overlay {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background-color: var(--cMain);
+     opacity: 0.60;
+   }
+ }
