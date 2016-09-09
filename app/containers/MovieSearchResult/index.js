@@ -25,10 +25,11 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     const unfilled = Math.ceil(voteRange - filled);
 
     function renderHearts(type) {
-      return (times(type === 'unfilled' ? unfilled : filled, () => (
-        <IoHeart className={type === 'unfilled' ? classNames(styles.icon, styles.unfilled) : styles.icon} />
+      return (times(type === 'unfilled' ? unfilled : filled, (index) => (
+        <IoHeart key={index} className={type === 'unfilled' ? classNames(styles.icon, styles.unfilled) : styles.icon} />
       )));
     }
+
     return (
       <div>
         {renderHearts()}
@@ -88,12 +89,14 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
           </div>
           <div className={styles.item}>
             <Section className={styles.section} title={'Director'}>
-              <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px" alt="Director Name" />
+              <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px"
+                   alt="Director Name" />
               <h4>Zack Snyder</h4>
               <h4>Known for Man of Steel</h4>
             </Section>
             <Section className={styles.section} title={'Cast'}>
-              <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px" alt="Director Name" />
+              <img src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`} width="130px"
+                   alt="Director Name" />
               <h4>Ben Affleck</h4>
               <h4>As Bruce Wayne/Batman</h4>
             </Section>
