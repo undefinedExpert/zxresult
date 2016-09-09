@@ -40,8 +40,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 
   renderRate = (voteAverage, msg) => (
     <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
-      {voteAverage !== null ? this.renderHeart(voteAverage) : null}
-      {voteAverage === null ? msg : null}
+      {voteAverage !== null ? this.renderHeart(voteAverage) : msg}
     </Section>
   );
 
