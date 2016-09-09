@@ -63,7 +63,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
           {/* Render rate section*/}
           {movie.vote_count ? this.renderRate(movie.vote_average) : this.renderRate(null, 'Rating isn\'t available')}
           <Section className={classNames(styles.item, styles.description)} title={'Description'}>
-            {truncate(movie.overview, { length: 140 })}
+            {truncate(movie.overview, { length: 160 })}
           </Section>
           <div className={styles.item}>
             <Section className={styles.section} title={'Runtime'}>
