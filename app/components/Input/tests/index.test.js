@@ -1,5 +1,5 @@
 import Input from '../index';
-
+import Title from 'components/Title';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import React from 'react';
@@ -18,9 +18,10 @@ describe('<Input />', () => {
   });
 
   it('Should render the props.title', () => {
-    const title = renderComponent.find('h6');
-    expect(title.text()).to.eql(props.title);
+    const title = renderComponent.contains(<Title text={props.title} />);
+    expect(title).to.eql(true);
   });
+
   it('Should handle "placeholder" and "type" attrs with data provided by props', () => {
     const input = renderComponent.find('input');
     expect(input).to.have.attr('placeholder', props.placeholder);

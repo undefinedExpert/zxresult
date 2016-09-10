@@ -6,17 +6,12 @@
 
 import React from 'react';
 import styles from './styles.css';
+import Title from 'components/Title';
 
 function Input(props) {
-  function inputHeading() {
-    return (
-      <h6 className={styles.title}>{props.title}</h6>
-    );
-  }
-
   return (
     <div className={styles.input}>
-      {props.title ? inputHeading() : null}
+      {props.title ? <Title text={props.title} /> : null}
       <input type={props.type || 'text'} placeholder={props.placeholder} {...props} />
     </div>
   );

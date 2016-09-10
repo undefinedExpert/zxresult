@@ -4,7 +4,7 @@
   :local input {
     height: 40px;
     border-radius: 5px;
-    border: 2px solid var(--cSup);
+    border: 2px solid var(--cSupDark);
     width: 100%;
     padding-left: 10px;
     color: var(--cText);

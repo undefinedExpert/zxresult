@@ -49,12 +49,6 @@
   color: var(--cText);
 }
 
-.title {
-  color: var(--cSup);
-  font-size: 1.2rem;
-  text-transform: uppercase;
-}
-
 .select {
   margin: 30px 10px 0 0;
   width: 100%;

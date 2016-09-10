@@ -1,6 +1,7 @@
 .title {
   text-transform: uppercase;
   font-size: 1.4rem;
-  color: var(--cSup);
-  font-weight: 600;
+  color: var(--cSupDark);
+  font-weight: 700;
+  font-family: 'Quattrocento Sans', sans-serif;
 }

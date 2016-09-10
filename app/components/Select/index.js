@@ -7,6 +7,7 @@
 import React from 'react';
 import ReactSelect from 'react-select';
 import styles from './styles.css';
+import Title from 'components/Title';
 
 function Select(props) {
   const {
@@ -18,15 +19,9 @@ function Select(props) {
     title,
   } = props;
 
-  function inputHeading() {
-    return (
-      <h6 className={styles.title}>{title}</h6>
-    );
-  }
-
   return (
     <div className={styles.select}>
-      {props.title ? inputHeading() : null}
+      {title ? <Title text={title} /> : null}
       <ReactSelect
         value={value || ''}
         isLoading={loading}

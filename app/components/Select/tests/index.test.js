@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import Title from 'components/Title';
 
 describe('<Select />', () => {
   let renderComponent;
@@ -18,9 +19,9 @@ describe('<Select />', () => {
     renderComponent = shallow(<Select {...props} />, {});
   });
 
-  it('Should render the title', () => {
-    const title = renderComponent.find('h6');
-    expect(title.text()).to.eql(props.title);
+  it('Should render the props.title', () => {
+    const title = renderComponent.contains(<Title text={props.title} />);
+    expect(title).to.eql(true);
   });
 
   it('Should run onChangeHandler while the select change', () => {
