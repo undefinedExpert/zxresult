@@ -58,7 +58,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
         </section>
         <article className={styles.information}>
           <Section className={classNames(styles.item, styles.header)} title={'Title'}>
-            <h1>{movie.original_title} (2016)</h1>
+            <h1 className={styles.title}>{movie.original_title} <span className={styles.date}>(2016)</span></h1>
           </Section>
           {/* Render rate section*/}
           {movie.vote_count ? this.renderRate(movie.vote_average) : this.renderRate(null, 'Rating isn\'t available')}
