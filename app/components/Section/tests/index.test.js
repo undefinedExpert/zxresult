@@ -15,7 +15,7 @@ describe('<Section />', () => {
   });
 
   it('Should render the props.title', () => {
-    const title = renderComponent.contains(<Title text={props.title} />);
+    const title = renderComponent.contains(<Title text={props.title} theme="light" />);
     expect(title).to.eql(true);
   });
 

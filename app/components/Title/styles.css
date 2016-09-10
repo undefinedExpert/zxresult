@@ -4,4 +4,7 @@
   color: var(--cSupDark);
   font-weight: 700;
   font-family: 'Quattrocento Sans', sans-serif;
+  &.--light {
+    color: var(--cSup);
+  }
 }

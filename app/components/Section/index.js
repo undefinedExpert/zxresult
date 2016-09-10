@@ -10,7 +10,7 @@ import Title from 'components/Title';
 function Section(props) {
   return (
     <section {...props}>
-      {props.title ? <Title text={props.title} /> : null}
+      {props.title ? <Title text={props.title} theme="light" /> : null}
       {props.children}
     </section>
   );
