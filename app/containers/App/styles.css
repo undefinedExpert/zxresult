@@ -18,21 +18,21 @@
 /* Maven Pro */
 
 @font-face {
-  font-family: Maven Pro;
+  font-family: "Maven Pro";
   src: url('/assets/fonts/Maven_Pro/MavenPro-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: Maven Pro;
+  font-family: "Maven Pro";
   src: url('/assets/fonts/Maven_Pro/MavenPro-Medium.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: Maven Pro;
+  font-family: "Maven Pro";
   src: url('/assets/fonts/Maven_Pro/MavenPro-Bold.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
@@ -41,28 +41,28 @@
 /* Quattrocento Sans */
 
 @font-face {
-  font-family: Quattrocento Sans;
+  font-family: "Quattrocento Sans";
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: Quattrocento Sans;
+  font-family: "Quattrocento Sans";
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
-  font-family: Quattrocento Sans;
+  font-family: "Quattrocento Sans";
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: Quattrocento Sans;
+  font-family: "Quattrocento Sans";
   src: url('/assets/fonts/Quattrocento_Sans/QuattrocentoSans-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
