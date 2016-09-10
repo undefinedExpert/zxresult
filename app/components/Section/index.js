@@ -5,19 +5,12 @@
  */
 
 import React from 'react';
-
-import styles from './styles.css';
+import Title from 'components/Title';
 
 function Section(props) {
-  function renderTitle() {
-    return (
-      <h4 className={styles.title}>{props.title}</h4>
-    );
-  }
-
   return (
     <section {...props}>
-      {props.title ? renderTitle() : null}
+      {props.title ? <Title text={props.title} /> : null}
       {props.children}
     </section>
   );

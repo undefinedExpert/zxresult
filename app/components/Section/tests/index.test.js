@@ -2,6 +2,7 @@ import Section from '../index';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import Title from 'components/Title';
 
 describe('<Section />', () => {
   let renderComponent;
@@ -14,8 +15,8 @@ describe('<Section />', () => {
   });
 
   it('Should render the props.title', () => {
-    const title = renderComponent.find('h4');
-    expect(title.text()).to.eql(props.title);
+    const title = renderComponent.contains(<Title text={props.title} />);
+    expect(title).to.eql(true);
   });
 
   it('Should contain & render children prop', () => {
