@@ -13,6 +13,7 @@ const colors = {
   cSup: '#db5461', // supplementary color
   cSupHover: 'color(var(--cSup) a(45%));',
   cSupFocus: 'color(var(--cSup) a(45%));',
+  cSupDark: 'color(var(--cSup) a(50%));',
   cHeading: '#C0C5CE',
   cText: '#7B818B',
 };
