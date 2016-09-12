@@ -1,6 +1,7 @@
 .input {
-  float: left;
-  margin: 0 10px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px 10px 0 0;
   :local input {
     height: 40px;
     border-radius: 5px;
