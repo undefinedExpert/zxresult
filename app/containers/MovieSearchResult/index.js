@@ -88,26 +88,32 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
           </div>
           <div className={styles.item}>
             <Section className={classNames(styles.section, styles['--crew'])} title={'Director'}>
-              <img
-                src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                alt="Director Name"
-              />
+              <div className={styles.image}>
+                <img
+                  src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                  alt="Director Name"
+                />
+              </div>
               <h4>Zack Snyder</h4>
               <h4>Known for Man of Steel</h4>
             </Section>
             <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
-              <img
-                src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                alt="Cast Name"
-              />
+              <div className={styles.image}>
+                <img
+                  src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                  alt="Cast Name"
+                />
+              </div>
               <h4>Ben Affleck</h4>
               <h4>As Bruce Wayne/Batman</h4>
             </Section>
             <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
-              <img
-                src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                alt="Cast Name"
-              />
+              <div className={styles.image}>
+                <img
+                  src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                  alt="Cast Name"
+                />
+              </div>
               <h4>Ben Affleck</h4>
               <h4>As Bruce Wayne/Batman</h4>
             </Section>

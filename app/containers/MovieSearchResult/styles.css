@@ -79,18 +79,24 @@
 
   &.--crew {
      lost-column: 1/3;
+     .image {
      position: relative;
-     :local img {
-       width: 100%;
+       :local img {
+         width: 100%;
+       }
+       &::after {
+         content: '';
+         position: absolute;
+         width: 100%;
+         height: 100%;
+         left: 0;
+         top: 0;
+         background-color: var(--cMain);
+         opacity: 0.5;
+         z-index: 1;
+       }
      }
-     &::before {
-       content: '';
-       position: absolute;
-       background-color: var(--cMain);
-       opacity: 0.4;
-       width: 100%;
-       height: 100%;
-     }
+
    }
 }
 
