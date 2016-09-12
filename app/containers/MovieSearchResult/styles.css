@@ -76,6 +76,22 @@
       }
     }
   }
+
+  &.--crew {
+     lost-column: 1/3;
+     position: relative;
+     :local img {
+       width: 100%;
+     }
+     &::before {
+       content: '';
+       position: absolute;
+       background-color: var(--cMain);
+       opacity: 0.4;
+       width: 100%;
+       height: 100%;
+     }
+   }
 }
 
 .icon {
