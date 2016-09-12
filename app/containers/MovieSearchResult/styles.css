@@ -32,7 +32,7 @@
   .item {
     float: left;
     lost-column: 1;
-    padding: 25px 0 15px 0;
+    padding: 25px 0 15px;
     font-size: 18px;
     font-family: "Quattrocento Sans", sans-serif;
     &.header {
@@ -48,8 +48,8 @@
     }
 
     &.description {
-       font-family: "Maven Pro", sans-serif;
-     }
+      font-family: "Maven Pro", sans-serif;
+    }
   }
 }
 
