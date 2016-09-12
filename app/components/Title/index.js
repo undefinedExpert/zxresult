@@ -18,7 +18,7 @@ function Title(props) {
 }
 
 Title.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: React.PropTypes.node,
   text: React.PropTypes.string,
   theme: React.PropTypes.string,
 };
