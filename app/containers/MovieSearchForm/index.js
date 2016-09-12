@@ -11,6 +11,7 @@ import { mapDispatch, mapState } from './mapProps';
 import SelectList from 'components/SelectList';
 import Input from 'components/Input';
 import BottomNavigation from 'containers/BottomNavigation';
+import classNames from 'classnames';
 
 export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   // fixme: https://github.com/reactjs/redux/issues/239
@@ -41,6 +42,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
   render() {
     const {
       filters: { genre, decade, trend },
+      orientation,
     } = this.props;
     const selectListItems = [
       { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
@@ -50,7 +52,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
-          <div className={styles.filters} >
+          <div className={classNames(styles.filters, styles[orientation])} >
             <Input type="text" title="Sentence" placeholder="Sentence placeholder" />
             <SelectList
               items={selectListItems}
@@ -65,6 +67,7 @@ export class MovieSearchForm extends React.Component { // eslint-disable-line re
 
 MovieSearchForm.propTypes = {
   filters: React.PropTypes.object,
+  orientation: React.PropTypes.string,
   changeRoute: React.PropTypes.func,
   children: React.PropTypes.node,
   onSubmitForm: React.PropTypes.func,

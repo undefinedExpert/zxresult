@@ -11,4 +11,11 @@
   flex-direction: column;
   position: relative;
   max-width: 600px;
+  &.horizontal {
+    max-width: inherit;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+  }
 }
