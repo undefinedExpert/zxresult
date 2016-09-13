@@ -9,6 +9,9 @@ const OfflinePlugin = require('offline-plugin');
 const cssnext = require('postcss-cssnext');
 const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
+const lostCssGrid = require('lost');
+const precss = require('precss');
+const cssConfig = require('../../app/css-config.js');
 
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
@@ -31,13 +34,24 @@ module.exports = require('./webpack.base.babel')({
 
   // In production, we minify our CSS with cssnano
   postcssPlugins: [
-    postcssFocus(),
-    cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
+    postcssFocus(), // Add a :focus to every :hover
+
+    cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+      browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
+      features: {
+        customProperties: {
+          variables: cssConfig,
+        },
+        calc: {
+          mediaQueries: true,
+        },
+      },
     }),
-    postcssReporter({
+    postcssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
     }),
+    lostCssGrid(), // Loads grid
+    precss(),
   ],
   plugins: [
 
