@@ -1,4 +1,8 @@
+$navigationSize: 50px;
+
 .resultImage {
+  max-height: calc(100vh - $navigationSize);
+  min-height: calc(100vh - $navigationSize);
   .overlay {
     position: absolute;
     width: 100%;
