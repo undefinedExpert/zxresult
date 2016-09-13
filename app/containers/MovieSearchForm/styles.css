@@ -11,11 +11,27 @@
   flex-direction: column;
   position: relative;
   max-width: 600px;
+
   &.horizontal {
     max-width: inherit;
     flex-wrap: wrap;
     flex-direction: row;
     justify-items: center;
     align-items: center;
+    justify-content: center;
+    position: absolute;
+    overflow: visible;
+    bottom: 0;
+    background-color: var(--cMain);
+    height: 160px;
+    background-color: #22262e;
+    padding: 0 20px;
+    :global .Select-control {
+      background-color: #22262e;
+    }
+    :global .Select-menu-outer {
+      top: auto;
+      bottom: 100%
+    }
   }
 }
