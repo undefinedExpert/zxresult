@@ -8,7 +8,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ResultImage from 'components/ResultImage';
 import Section from 'components/Section';
-import BottomNavigation from 'containers/BottomNavigation';
 import MovieSearchForm from 'containers/MovieSearchForm';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
@@ -55,8 +54,8 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     return (
       <section className={styles.result}>
         <section className={classNames(styles.gallery, styles.item)}>
-          <MovieSearchForm orientation="horizontal" />
           <ResultImage path={`http://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
+          <MovieSearchForm orientation="horizontal" />
         </section>
         <article className={styles.information}>
           <Section className={classNames(styles.item, styles.header)} title={'Title'}>
@@ -120,7 +119,6 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
               <h4>As Bruce Wayne/Batman</h4>
             </Section>
           </div>
-          <BottomNavigation />
         </article>
       </section>
     );
