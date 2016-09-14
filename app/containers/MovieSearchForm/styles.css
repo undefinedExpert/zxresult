@@ -22,10 +22,8 @@
     position: absolute;
     overflow: visible;
     bottom: 0;
-    background-color: var(--cMain);
-    height: 160px;
     background-color: #22262e;
-    padding: 0 20px;
+    padding: 30px 20px;
     :global .Select-control {
       background-color: #22262e;
     }

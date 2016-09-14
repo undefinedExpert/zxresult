@@ -1,4 +1,5 @@
 @lost flexbox flex;
+$maxHeight: calc(100vh - 50px);
 
 .result {
   lost-center: 100%;
@@ -10,15 +11,15 @@
 
   .information {
     color: var(--cHeading);
-    margin-top: 1.5vh;
   }
 
   .gallery {
     lost-column: 7/12 0;
     position: relative;
     overflow: hidden;
-    max-height: calc(100vh - 50px);
-    height: 100vh;
+    max-height: $maxHeight;
+    height: $maxHeight;
+    background-color: #22262e;
     :local img {
       /* height: 100vh; */
       min-width: 100%;
@@ -29,6 +30,8 @@
 
 .information {
   lost-column: 5/12 0;
+  overflow: auto;
+  max-height: $maxHeight;
   .item {
     float: left;
     lost-column: 1;

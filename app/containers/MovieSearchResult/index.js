@@ -54,9 +54,10 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     return (
       <section className={styles.result}>
         <section className={classNames(styles.gallery, styles.item)}>
-          <ResultImage path={`http://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
+          <ResultImage path={`http://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={`${movie.original_title} poster`} />
           <MovieSearchForm orientation="horizontal" />
         </section>
+
         <article className={styles.information}>
           <Section className={classNames(styles.item, styles.header)} title={'Title'}>
             <h1 className={styles.title}>{movie.original_title} <span className={styles.date}>(2016)</span></h1>

@@ -7,6 +7,7 @@ $navigationSize: 50px;
   background-color: $bg;
   width: 100%;
   height: $navigationSize;
+  z-index: 5;
 }
 
 .bar {

@@ -9,7 +9,7 @@ $navigationSize: 50px;
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--cMain);
+    background-color:  #22262e;
     opacity: 0.6;
   }
   .image {
