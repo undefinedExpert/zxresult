@@ -6,7 +6,6 @@
 
 import React from 'react';
 import styles from './styles.css';
-import { VelocityComponent } from 'velocity-react';
 
 class ResultImage extends React.Component {
   constructor(props) {
@@ -34,7 +33,7 @@ class ResultImage extends React.Component {
           onLoad={this.imageLoad}
           alt={alt}
           className={styles.image}
-          style={{ backgroundImage: 'url(' + path + ')' }}
+          style={{ backgroundImage: `url(${path})` }}
         />
       </div>
     );
