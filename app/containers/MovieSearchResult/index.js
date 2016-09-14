@@ -10,6 +10,7 @@ import ResultImage from 'components/ResultImage';
 import Section from 'components/Section';
 import HeartRate from 'components/HeartRate';
 import Genres from 'components/Genres';
+import SingleCrew from 'components/SingleCrew';
 import MovieSearchForm from 'containers/MovieSearchForm';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectFilters, selectResult } from 'containers/App/selectors';
@@ -20,75 +21,64 @@ import { truncate } from 'lodash';
 import { IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  renderTitle = (title) => (
+    <Section className={classNames(styles.item, styles.header)} title={'Title'}>
+      <h1 className={styles.title}>{title} <span className={styles.date}>(2016)</span></h1>
+    </Section>
+  );
+  renderRate = (voteCount, voteAverage) => (
+    <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
+      {voteCount ?
+        <HeartRate voteAverage={voteAverage} /> :
+        <HeartRate voteAverage={null} msg="Rating isn't available" />}
+    </Section>
+  );
+  renderDescription = (description, limitToNumber) => (
+    <Section className={classNames(styles.item, styles.description)} title={'Description'}>
+      {truncate(description, { length: limitToNumber })}
+    </Section>
+  );
+  renderRuntime = () => (
+    <Section className={classNames(styles.section, styles.runtime)} title={'Runtime'}>
+      <span><IoClock className={styles.icon} size={50} /> 2h 31min</span> </Section>
+  );
+  renderGenres = () => (
+    <Section className={classNames(styles.section, styles.genres)} title={'Genres'}> <Genres /> </Section>
+  );
+  renderCrew = (image) => (
+    <div>
+      <Section className={classNames(styles.section, styles['--crew'])} title={'Director'}>
+        <SingleCrew path={image} alt="" /> </Section>
+      <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
+        <SingleCrew path={image} alt="" /> </Section>
+      <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
+        <SingleCrew path={image} alt="" /> </Section>
+    </div>
+  );
+
   render() {
     const {
       result: {
         movie,
       },
     } = this.props;
-
     return (
       <section className={styles.result}>
         <section className={classNames(styles.gallery, styles.item)}>
           <ResultImage
             path={`http://image.tmdb.org/t/p/original/${movie.poster_path}`}
             alt={`${movie.original_title} poster`}
-          />
-          <MovieSearchForm orientation="horizontal" />
+          /> <MovieSearchForm orientation="horizontal" />
         </section>
 
         <article className={styles.information}>
-          <Section className={classNames(styles.item, styles.header)} title={'Title'}>
-            <h1 className={styles.title}>{movie.original_title} <span className={styles.date}>(2016)</span></h1>
-          </Section>
-          {/* RATE SECTION */}
-          <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
-            {movie.vote_count ? <HeartRate voteAverage={movie.vote_average} /> :
-              <HeartRate voteAverage={null} msg="Rating isn't available" />}
-          </Section>
+          {this.renderTitle(movie.original_title)} {this.renderRate(movie.vote_count, movie.vote_average)} {this.renderDescription(movie.overview, 160)}
 
-          <Section className={classNames(styles.item, styles.description)} title={'Description'}>
-            {truncate(movie.overview, { length: 160 })}
-          </Section>
           <div className={styles.item}>
-            <Section className={classNames(styles.section, styles.runtime)} title={'Runtime'}>
-              <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
-            </Section>
-            <Section className={classNames(styles.section, styles.genres)} title={'Genres'}>
-              <Genres />
-            </Section>
+            {this.renderRuntime()} {this.renderGenres()}
           </div>
           <div className={styles.item}>
-            <Section className={classNames(styles.section, styles['--crew'])} title={'Director'}>
-              <div className={styles.image}>
-                <img
-                  src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                  alt="Director Name"
-                />
-              </div>
-              <h4>Zack Snyder</h4>
-              <h4>Known for Man of Steel</h4>
-            </Section>
-            <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
-              <div className={styles.image}>
-                <img
-                  src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                  alt="Cast Name"
-                />
-              </div>
-              <h4>Ben Affleck</h4>
-              <h4>As Bruce Wayne/Batman</h4>
-            </Section>
-            <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
-              <div className={styles.image}>
-                <img
-                  src={`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                  alt="Cast Name"
-                />
-              </div>
-              <h4>Ben Affleck</h4>
-              <h4>As Bruce Wayne/Batman</h4>
-            </Section>
+            {this.renderCrew(movie.backdrop_path)}
           </div>
         </article>
       </section>
