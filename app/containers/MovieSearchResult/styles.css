@@ -53,12 +53,28 @@ $maxHeight: calc(100vh - 50px);
     &.description {
       font-family: "Maven Pro", sans-serif;
     }
+
+    &.rate {
+      :local .icon {
+        margin: 8px 10px 0 0;
+      }
+    }
   }
 }
 
 .section {
   float: left;
   lost-column: 1/2;
+  &.runtime {
+    :local span {
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      .icon {
+        margin-right: 6px;
+      }
+    }
+  }
   &.genres {
     :local ul {
       list-style: none;
@@ -68,13 +84,13 @@ $maxHeight: calc(100vh - 50px);
     :local li {
       display: flex;
       flex-direction: column;
-      margin: 0 12px 0 0;
+      margin: 0 24px 0 0;
       .genreIcon {
         margin: 0 auto;
         width: 100%;
       }
       :local h6 {
-        margin: 0 auto;
+        margin: 7px auto 0;
       }
     }
   }
@@ -103,8 +119,6 @@ $maxHeight: calc(100vh - 50px);
 
 .icon {
   color: var(--cSup);
-  font-size: 3rem;
-  margin: 8px 10px 0 0;
   &.unfilled {
     color: transparent;
     :local path {

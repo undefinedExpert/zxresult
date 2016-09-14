@@ -27,7 +27,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 
     function renderHearts(type) {
       return (times(type === 'unfilled' ? unfilled : filled, (index) => (
-        <IoHeart key={index} className={type === 'unfilled' ? classNames(styles.icon, styles.unfilled) : styles.icon} />
+        <IoHeart size={32} key={index} className={type === 'unfilled' ? classNames(styles.icon, styles.unfilled) : styles.icon} />
       )));
     }
 
@@ -69,8 +69,8 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
             {truncate(movie.overview, { length: 160 })}
           </Section>
           <div className={styles.item}>
-            <Section className={styles.section} title={'Runtime'}>
-              <span><IoClock className={styles.icon} /> 2h 31min</span>
+            <Section className={classNames(styles.section, styles.runtime)} title={'Runtime'}>
+              <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
             </Section>
             <Section className={classNames(styles.section, styles.genres)} title={'Genres'}>
               <ul>
