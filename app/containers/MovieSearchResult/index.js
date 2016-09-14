@@ -16,6 +16,7 @@ import styles from './styles.css';
 import classNames from 'classnames';
 import { truncate, times } from 'lodash';
 import { IoHeart, IoClock } from 'react-icons/lib/io/';
+import GenreIcons from 'components/GenreIcons';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   renderHeart = (voteAverage) => {
@@ -74,15 +75,15 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
             <Section className={classNames(styles.section, styles.genres)} title={'Genres'}>
               <ul>
                 <li>
-                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet" />
+                  <GenreIcons type="Horror" />
                   <h6>Action</h6>
                 </li>
                 <li>
-                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet" />
+                  <GenreIcons type="SciFi" />
                   <h6>Sci-fi</h6>
                 </li>
                 <li>
-                  <IoClock className={styles.genreIcon} size={40} preserveAspectRatio="xMidYMin meet" />
+                  <GenreIcons type="Comedy" />
                   <h6>Comedy</h6>
                 </li>
               </ul>
