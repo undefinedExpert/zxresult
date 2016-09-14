@@ -106,20 +106,10 @@ const mapStateToProps = createStructuredSelector({
       movie: (state) => state.movie,
     })
   ),
-  filters: createSelector(
-    selectFilters(),
-    createStructuredSelector({
-      mood: (state) => state.mood,
-      genre: (state) => state.genre,
-      genreList: (state) => state.genreList,
-    })
-  ),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    filterUpdate: () => dispatch(filterFormUpdate()),
-  };
+function mapDispatchToProps() {
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchResult);
