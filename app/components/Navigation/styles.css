@@ -1,11 +1,12 @@
 @lost flexbox flex;
 $bg: #22262f;
+$navigationSize: 50px;
 
 .navigation {
   position: relative;
   background-color: $bg;
   width: 100%;
-  height: 50px;
+  height: $navigationSize;
 }
 
 .bar {
