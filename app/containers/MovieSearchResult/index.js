@@ -55,6 +55,15 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
         <SingleCrew path={image} alt="" /> </Section>
     </div>
   );
+  renderImage = (path, alt) => (
+    <ResultImage
+      path={`http://image.tmdb.org/t/p/original/${path}`}
+      alt={alt}
+    />
+  );
+  renderFilters = (orientation) => (
+    <MovieSearchForm orientation="horizontal" />
+  );
 
   render() {
     const {
@@ -65,15 +74,13 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     return (
       <section className={styles.result}>
         <section className={classNames(styles.gallery, styles.item)}>
-          <ResultImage
-            path={`http://image.tmdb.org/t/p/original/${movie.poster_path}`}
-            alt={`${movie.original_title} poster`}
-          /> <MovieSearchForm orientation="horizontal" />
+          {this.renderImage(movie.poster_path, `${movie.original_title} poster`)}
+          {this.renderFilters('horizontal')}
         </section>
-
         <article className={styles.information}>
-          {this.renderTitle(movie.original_title)} {this.renderRate(movie.vote_count, movie.vote_average)} {this.renderDescription(movie.overview, 160)}
-
+          <div className={styles.item}>
+            {this.renderTitle(movie.original_title)} {this.renderRate(movie.vote_count, movie.vote_average)} {this.renderDescription(movie.overview, 160)}
+          </div>
           <div className={styles.item}>
             {this.renderRuntime()} {this.renderGenres()}
           </div>
