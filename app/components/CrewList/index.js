@@ -6,12 +6,14 @@
 
 import React from 'react';
 
-
 function CrewList() {
   return (
-    <div>
+    <div className={styles.image}>
+      crew list
     </div>
   );
 }
+
+CrewList.propTypes = {};
 
 export default CrewList;
