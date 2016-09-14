@@ -1,3 +1,13 @@
 .genres {
-
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  .item {
+    display: flex;
+    flex-direction: column;
+    margin: 0 24px 0 0;
+  }
+  .label {
+    margin: 7px auto 0;
+  }
 }

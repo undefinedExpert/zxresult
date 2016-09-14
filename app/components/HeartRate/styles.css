@@ -1,3 +1,11 @@
 .heartRate {
+  color: var(--cSup);
+}
 
+.unfilled {
+  color: transparent;
+  :local path {
+    stroke: var(--cSup);
+    stroke-width: 3;
+  }
 }
