@@ -62,7 +62,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     />
   );
   renderFilters = (orientation) => (
-    <MovieSearchForm orientation="horizontal" />
+    <MovieSearchForm orientation={orientation} />
   );
 
   render() {
