@@ -3,11 +3,35 @@ $navigationSize: 50px;
 .resultImage {
   max-height: calc(100vh - $navigationSize);
   min-height: calc(100vh - $navigationSize);
+  background-color: #22262e;
+  position: relative;
   .overlay {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: var(--cMain);
     opacity: 0.6;
+  }
+  .image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: 150px;
+    background-size: cover;
+    background-position: 100% 150px;
+    animation: resultImageAnimation 15s infinite ease;
+    animation-delay: 1s;
+  }
+}
+
+@keyframes resultImageAnimation {
+  0% {
+    background-position: 100% 150px;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 100% 150px;
   }
 }

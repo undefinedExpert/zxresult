@@ -24,19 +24,18 @@ class ResultImage extends React.Component {
       path,
       alt,
     } = this.props;
+    console.log(styles);
     return (
       <div className={styles.resultImage}>
         <div className={styles.overlay}></div>
-        <VelocityComponent animation={{ opacity: this.state.isAnimationBegin ? 1 : 0 }} duration={1000}>
-          <img
-            onMouseEnter={this.whenMouseEntered}
-            onMouseLeave={this.whenMouseLeft}
-            onLoad={this.imageLoad}
-            src={path}
-            alt={alt}
-            className={styles.image}
-          />
-        </VelocityComponent>
+        <div
+          onMouseEnter={this.whenMouseEntered}
+          onMouseLeave={this.whenMouseLeft}
+          onLoad={this.imageLoad}
+          alt={alt}
+          className={styles.image}
+          style={{ backgroundImage: 'url(' + path + ')' }}
+        />
       </div>
     );
   }
