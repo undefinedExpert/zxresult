@@ -34,12 +34,13 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   );
   renderDescription = (description, limitToNumber) => (
     <Section className={classNames(styles.item, styles.description)} title={'Description'}>
-      {truncate(description, { length: limitToNumber })}
+      <p>{truncate(description, { length: limitToNumber })}</p>
     </Section>
   );
   renderRuntime = () => (
     <Section className={classNames(styles.section, styles.runtime)} title={'Runtime'}>
-      <span><IoClock className={styles.icon} size={50} /> 2h 31min</span> </Section>
+      <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
+    </Section>
   );
   renderGenres = () => (
     <Section className={classNames(styles.section, styles.genres)} title={'Genres'}> <Genres /> </Section>
