@@ -15,6 +15,7 @@
 
 :global .Select-control {
   min-width: 200px;
+
   @media (max-width: 100em) {
     min-width: 120px;
   }

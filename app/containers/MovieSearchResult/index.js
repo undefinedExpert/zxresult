@@ -13,8 +13,7 @@ import Genres from 'components/Genres';
 import SingleCrew from 'components/SingleCrew';
 import MovieSearchForm from 'containers/MovieSearchForm';
 import { createStructuredSelector, createSelector } from 'reselect';
-import { selectFilters, selectResult } from 'containers/App/selectors';
-import { filterFormUpdate } from 'containers/App/actions';
+import { selectResult } from 'containers/App/selectors';
 import styles from './styles.css';
 import classNames from 'classnames';
 import { truncate } from 'lodash';
@@ -79,7 +78,9 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
         </section>
         <article className={styles.information}>
           <div className={styles.item}>
-            {this.renderTitle(movie.original_title)} {this.renderRate(movie.vote_count, movie.vote_average)} {this.renderDescription(movie.overview, 160)}
+            {this.renderTitle(movie.original_title)}
+            {this.renderRate(movie.vote_count, movie.vote_average)}
+            {this.renderDescription(movie.overview, 160)}
           </div>
           <div className={styles.item}>
             {this.renderRuntime()} {this.renderGenres()}

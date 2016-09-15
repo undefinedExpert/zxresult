@@ -8,7 +8,7 @@ import React from 'react';
 
 function CrewList() {
   return (
-    <div className={styles.image}>
+    <div>
       crew list
     </div>
   );

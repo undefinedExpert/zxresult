@@ -9,6 +9,7 @@ import styles from './styles.css';
 import Icons from './icons/index';
 
 function GenreIcons(props) {
+  console.log(Icons[props.type]);
   return (
     <div className={styles.genreIcons}>
       <img src={Icons[props.type]} alt="icon" />
