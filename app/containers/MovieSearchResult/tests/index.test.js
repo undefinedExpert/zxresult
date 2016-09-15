@@ -6,7 +6,6 @@ import React from 'react';
 import ResultImage from 'components/ResultImage';
 import HeartRate from 'components/HeartRate';
 import Genres from 'components/Genres';
-import SingleCrew from 'components/SingleCrew';
 import { IoClock } from 'react-icons/lib/io/';
 
 describe('<MovieSearchResult />', () => {
