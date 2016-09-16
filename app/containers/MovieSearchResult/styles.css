@@ -63,22 +63,7 @@ $maxHeight: calc(100vh - 50px);
 }
 
 .section {
-  float: left;
-  lost-column: 1/2;
-  &.runtime {
-    :local span {
-      padding: 5px 0;
-      display: flex;
-      align-items: center;
-      .icon {
-        margin-right: 6px;
-      }
-    }
-  }
 
-  &.--crew {
-    lost-column: 1/3;
-  }
 }
 
 .icon {

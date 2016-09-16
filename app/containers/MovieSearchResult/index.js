@@ -38,20 +38,20 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     </Section>
   );
   renderRuntime = () => (
-    <Section className={classNames(styles.section, styles.runtime)} title={'Runtime'}>
+    <Section title={'Runtime'}>
       <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
     </Section>
   );
   renderGenres = () => (
-    <Section className={classNames(styles.section, styles.genres)} title={'Genres'}> <Genres /> </Section>
+    <Genres title={'Genres'} sectionSize={'1/1'} />
   );
   renderCrew = (image) => (
     <div>
-      <Section className={classNames(styles.section, styles['--crew'])} title={'Director'}>
+      <Section title={'Director'}>
         <SingleCrew path={image} alt="" /> </Section>
-      <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
+      <Section title={'Cast'}>
         <SingleCrew path={image} alt="" /> </Section>
-      <Section className={classNames(styles.section, styles['--crew'])} title={'Cast'}>
+      <Section className={classNames(styles['--crew'])} title={'Cast'}>
         <SingleCrew path={image} alt="" /> </Section>
     </div>
   );
@@ -84,7 +84,8 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
             {this.renderDescription(movie.overview, 160)}
           </div>
           <div className={styles.item}>
-            {this.renderRuntime()} {this.renderGenres()}
+            {this.renderRuntime()}
+            {this.renderGenres()}
           </div>
           <div className={styles.item}>
             {this.renderCrew(movie.backdrop_path)}
