@@ -12,9 +12,6 @@
       }
     }
   }
-  :local &.--crew {
-    lost-column: 1/1;
-  }
 
   &.--1-of-1 {
     lost-column: 1/1;

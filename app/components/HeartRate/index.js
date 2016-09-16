@@ -9,6 +9,7 @@ import styles from './styles.css';
 import classNames from 'classnames';
 import { times } from 'lodash';
 import { IoHeart } from 'react-icons/lib/io/';
+import Section from 'components/Section';
 
 class HeartRate extends React.Component {
   renderHeart = (voteAverage) => {
@@ -37,9 +38,9 @@ class HeartRate extends React.Component {
       msg,
     } = this.props;
     return (
-      <div className={styles.heartRate}>
+      <Section size={'1/1'} title={'Rate'} className={styles.heartRate}>
         {voteAverage !== null ? this.renderHeart(voteAverage) : msg}
-      </div>
+      </Section>
     );
   }
 }

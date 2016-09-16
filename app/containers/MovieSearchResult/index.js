@@ -10,7 +10,7 @@ import ResultImage from 'components/ResultImage';
 import Section from 'components/Section';
 import HeartRate from 'components/HeartRate';
 import Genres from 'components/Genres';
-import SingleCrew from 'components/SingleCrew';
+import CrewList from 'components/CrewList';
 import MovieSearchForm from 'containers/MovieSearchForm';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectResult } from 'containers/App/selectors';
@@ -27,9 +27,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   );
   renderRate = (voteCount, voteAverage) => (
     <Section size={'1/1'} title={'Rate'}>
-      {voteCount ?
-        <HeartRate voteAverage={voteAverage} /> :
-        <HeartRate voteAverage={null} msg="Rating isn't available" />}
+
     </Section>
   );
   renderDescription = (description, limitToNumber) => (
@@ -45,16 +43,18 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   renderGenres = () => (
     <Genres title={'Genres'} sectionSize={'1/2'} />
   );
-  renderCrew = (image) => (
-    <div>
-      <Section title={'Director'}>
-        <SingleCrew path={image} alt="" /> </Section>
-      <Section title={'Cast'}>
-        <SingleCrew path={image} alt="" /> </Section>
-      <Section className={classNames(styles['--crew'])} title={'Cast'}>
-        <SingleCrew path={image} alt="" /> </Section>
-    </div>
-  );
+  renderCrew = (image) => {
+    const items = [
+      { image, alt: 'test', title: 'test', sectionSize: '1/3' },
+      { image, alt: 'test', title: 'test', sectionSize: '1/3' },
+      { image, alt: 'test', title: 'test', sectionSize: '1/3' },
+    ];
+    return (
+      <div>
+        <CrewList items={items} />
+      </div>
+    );
+  };
   renderImage = (path, alt) => (
     <ResultImage
       path={`http://image.tmdb.org/t/p/original/${path}`}
@@ -80,12 +80,13 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
         <article className={styles.information}>
           <div className={styles.item}>
             {this.renderTitle(movie.original_title)}
-            {this.renderRate(movie.vote_count, movie.vote_average)}
+            {movie.vote_count ? <HeartRate voteAverage={movie.vote_average} /> : <HeartRate voteAverage={null} msg="Rating isn't available" />}
+
             {this.renderDescription(movie.overview, 160)}
           </div>
           <div className={styles.item}>
             {this.renderRuntime()}
-            {this.renderGenres()}
+            <Genres title={'Genres'} sectionSize={'1/2'} />
           </div>
           <div className={styles.item}>
             {this.renderCrew(movie.backdrop_path)}

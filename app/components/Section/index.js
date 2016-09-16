@@ -14,11 +14,16 @@ function Section(props) {
     title,
     size,
     children,
+    className = '',
   } = props;
   const sectionSize = size ? `--${size.replace(/\//, '-of-')}` : null;
-  console.log(sectionSize);
+  const sectionClassNames = classNames(
+    styles.section,
+    styles[sectionSize],
+    className,
+  );
   return (
-    <section className={classNames(styles.section, styles[sectionSize])}>
+    <section className={sectionClassNames}>
       {title ? <Title text={title} theme="light" /> : null}
       {children}
     </section>
@@ -27,6 +32,8 @@ function Section(props) {
 
 Section.propTypes = {
   title: React.PropTypes.string,
+  size: React.PropTypes.string,
+  className: React.PropTypes.string,
   children: React.PropTypes.node.isRequired,
 };
 
