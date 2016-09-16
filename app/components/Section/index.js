@@ -16,7 +16,7 @@ function Section(props) {
     children,
   } = props;
   const sectionSize = size ? `--${size.replace(/\//, '-of-')}` : null;
-
+  console.log(sectionSize);
   return (
     <section className={classNames(styles.section, styles[sectionSize])}>
       {title ? <Title text={title} theme="light" /> : null}

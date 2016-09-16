@@ -21,29 +21,29 @@ import { IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   renderTitle = (title) => (
-    <Section className={classNames(styles.item, styles.header)} title={'Title'}>
+    <Section size={'1/1'} title={'Title'}>
       <h1 className={styles.title}>{title} <span className={styles.date}>(2016)</span></h1>
     </Section>
   );
   renderRate = (voteCount, voteAverage) => (
-    <Section className={classNames(styles.item, styles.rate)} title={'Rate'}>
+    <Section size={'1/1'} title={'Rate'}>
       {voteCount ?
         <HeartRate voteAverage={voteAverage} /> :
         <HeartRate voteAverage={null} msg="Rating isn't available" />}
     </Section>
   );
   renderDescription = (description, limitToNumber) => (
-    <Section className={classNames(styles.item, styles.description)} title={'Description'}>
+    <Section size={'1/1'} title={'Description'}>
       <p>{truncate(description, { length: limitToNumber })}</p>
     </Section>
   );
   renderRuntime = () => (
-    <Section title={'Runtime'}>
+    <Section title={'Runtime'} size={'1/2'}>
       <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
     </Section>
   );
   renderGenres = () => (
-    <Genres title={'Genres'} sectionSize={'1/1'} />
+    <Genres title={'Genres'} sectionSize={'1/2'} />
   );
   renderCrew = (image) => (
     <div>

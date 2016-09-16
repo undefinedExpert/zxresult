@@ -12,10 +12,10 @@ import Section from 'components/Section';
 function Genres(props) {
   const {
     title,
-    size,
+    sectionSize,
   } = props;
   return (
-    <Section title={title} size={size}>
+    <Section title={title} size={sectionSize}>
       <ul className={styles.genres}>
         <li className={styles.item}>
           <GenreIcons type="Horror" />
