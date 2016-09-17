@@ -14,13 +14,21 @@ import Section from 'components/general/Section';
 class MovieHeartRate extends React.Component {
   renderHearts = (voteAverage) => {
     const voteRange = 5;
-    const average = voteAverage / 2; // voteAverage contains scale 1-10, we divide by half to render 1-5 hearths
+    const average = voteAverage / 2; // voteAverage contains scale 1-10,
+                                     // we divide by half to render 1-5 hearths
     const filled = Math.round(average);
-    const unfilled = Math.ceil(voteRange - filled);
+    const unfilled = Math.ceil(voteRange - filled); // Upscale unfilled hearts number,
+                                                    // because the result might be float type,
+                                                    // and we always want to render 5 hearts both types
 
     function renderMultipleHearts(type) {
+      const className = classNames(
+        styles.icon,
+        type === 'unfilled' ? styles.unfilled : null,
+      );
+      // render multiple hearth icons depending on their type,
       return (times(type === 'unfilled' ? unfilled : filled, (index) => (
-        <IoHeart size={32} key={index} className={type === 'unfilled' ? classNames(styles.heartRate, styles.unfilled) : styles.icon} />
+        <IoHeart size={32} key={index} className={className} />
       )));
     }
     return (
