@@ -1,17 +1,7 @@
 @lost flexbox flex;
 .section {
   float: left;
-  :local &.runtime {
-    :local span {
-      padding: 5px 0;
-      display: flex;
-      align-items: center;
-      .icon {
-        margin-right: 6px;
-      }
-    }
-  }
-
+  margin: 24px 0 8px 0;
   &.--1-of-1 {
     lost-column: 1/1;
   }

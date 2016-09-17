@@ -39,9 +39,10 @@ class MovieHeartRate extends React.Component {
       },
       sectionSize = '1/1',
     } = this.props;
+    const title = 'Rate';
     const errMsg = 'Rating isn\'t available';
     return (
-      <Section size={sectionSize} title={'Rate'} className={styles.heartRate}>
+      <Section size={sectionSize} title={title} className={styles.heartRate}>
         {voteCount ? this.renderHeart(voteAverage) : <p>{errMsg}</p>}
       </Section>
     );

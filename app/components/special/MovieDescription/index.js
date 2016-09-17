@@ -15,9 +15,11 @@ function MovieDescription(props) {
     limit,
     sectionSize = '1/1',
   } = props;
+  const title = 'Description';
+  const errMsg = 'Description isn\'t available';
   return (
-    <Section size={sectionSize} title={'Description'} className={styles.description}>
-      <p>{truncate(description, { length: limit })}</p>
+    <Section size={sectionSize} title={title} className={styles.description}>
+      <p>{description ? truncate(description, { length: limit }) : <p>{errMsg}</p>}</p>
     </Section>
   );
 }

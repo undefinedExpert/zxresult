@@ -20,13 +20,16 @@ function MovieCrewList(props) {
       title,
       sectionSize,
     } = item;
+    const errMsg = `${title} isn't available`;
     return (
-      <Section title={title} size={sectionSize} key={index}> <SingleCrew path={image} alt={alt} /> </Section>
+      <Section title={title} size={sectionSize} key={index}>
+        {title ? <SingleCrew path={image} alt={alt} /> : <p>{errMsg}</p>}
+      </Section>
     );
   }
   return (
     <div>
-      {items.map(renderSingle)}
+      {items.length ? items.map(renderSingle) : null}
     </div>
   );
 }
