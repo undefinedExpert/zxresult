@@ -16,6 +16,7 @@ function Section(props) {
     children,
     className = '',
   } = props;
+  // Transform string e.g 1/2 to --1-of-2 in condition to use appropriate css class
   const sectionSize = size ? `--${size.replace(/\//, '-of-')}` : null;
   const sectionClassNames = classNames(
     styles.section,
