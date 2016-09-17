@@ -11,7 +11,7 @@ import Section from 'components/Section';
 
 function Genres(props) {
   const {
-    sectionSize,
+    sectionSize = '1/2',
   } = props;
   return (
     <Section title={'Genres'} size={sectionSize}>

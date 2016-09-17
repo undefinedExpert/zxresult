@@ -11,7 +11,7 @@ import styles from './styles.css';
 function MovieTitle(props) {
   const {
     movieTitle,
-    sectionSize,
+    sectionSize = '1/1',
   } = props;
   return (
     <Section size={sectionSize} title={'Title'}>

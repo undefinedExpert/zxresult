@@ -13,7 +13,7 @@ function MovieDescription(props) {
   const {
     description,
     limit,
-    sectionSize,
+    sectionSize = '1/1',
   } = props;
   return (
     <Section size={sectionSize} title={'Description'}>

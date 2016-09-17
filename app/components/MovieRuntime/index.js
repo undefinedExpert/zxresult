@@ -11,7 +11,7 @@ import styles from './styles.css';
 
 function MovieRuntime(props) {
   const {
-    sectionSize,
+    sectionSize = '1/2',
   } = props;
   return (
     <Section title={'Runtime'} size={sectionSize}>

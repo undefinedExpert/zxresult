@@ -28,11 +28,11 @@ function MovieArticle(props) {
   };
   return (
     <article className={styles.movieArticle}>
-      <MovieTitle sectionSize={'1/1'} movieTitle={movie.title} />
-      <HeartRate sectionSize="1/1" votes={votes} />
-      <MovieDescription sectionSize="1/1" description={movie.overview} limit={160} />
-      <MovieRuntime sectionSize={'1/2'} />
-      <Genres sectionSize={'1/2'} />
+      <MovieTitle movieTitle={movie.title} />
+      <HeartRate votes={votes} />
+      <MovieDescription description={movie.overview} limit={160} />
+      <MovieRuntime />
+      <Genres />
       <CrewList items={crewItems} />
     </article>
   );
