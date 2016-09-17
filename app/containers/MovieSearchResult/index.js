@@ -11,6 +11,7 @@ import Section from 'components/Section';
 import HeartRate from 'components/HeartRate';
 import Genres from 'components/Genres';
 import CrewList from 'components/CrewList';
+import MovieTitle from 'components/MovieTitle';
 import MovieSearchForm from 'containers/MovieSearchForm';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectResult } from 'containers/App/selectors';
@@ -20,16 +21,10 @@ import { truncate } from 'lodash';
 import { IoClock } from 'react-icons/lib/io/';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  renderTitle = (title) => (
-    <Section size={'1/1'} title={'Title'}>
-      <h1 className={styles.title}>{title} <span className={styles.date}>(2016)</span></h1>
-    </Section>
+  renderTitle = (movieTitle) => (
+    <MovieTitle movieTitle={movieTitle} sectionSize={'1/2'} />
   );
-  renderRate = (voteCount, voteAverage) => (
-    <Section size={'1/1'} title={'Rate'}>
 
-    </Section>
-  );
   renderDescription = (description, limitToNumber) => (
     <Section size={'1/1'} title={'Description'}>
       <p>{truncate(description, { length: limitToNumber })}</p>
@@ -40,9 +35,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
       <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
     </Section>
   );
-  renderGenres = () => (
-    <Genres title={'Genres'} sectionSize={'1/2'} />
-  );
+
   renderCrew = (image) => {
     const items = [
       { image, alt: 'test', title: 'test', sectionSize: '1/3' },
