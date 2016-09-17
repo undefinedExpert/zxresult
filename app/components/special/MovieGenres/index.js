@@ -14,7 +14,7 @@ function MovieGenres(props) {
     sectionSize = '1/2',
   } = props;
   return (
-    <Section title={'MovieGenres'} size={sectionSize}>
+    <Section title={'Genres'} size={sectionSize}>
       <ul className={styles.genres}>
         <li className={styles.item}>
           <GenreIcons type="Horror" />
