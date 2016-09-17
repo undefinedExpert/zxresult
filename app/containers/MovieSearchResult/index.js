@@ -6,13 +6,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import ResultImage from 'components/ResultImage';
 import MovieArticle from 'components/MovieArticle';
-import MovieSearchForm from 'containers/MovieSearchForm';
+import Gallery from 'components/Gallery';
 import { createStructuredSelector, createSelector } from 'reselect';
 import { selectResult } from 'containers/App/selectors';
 import styles from './styles.css';
-import classNames from 'classnames';
 
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -25,10 +23,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
 
     return (
       <section className={styles.result}>
-        <section className={classNames(styles.gallery, styles.item)}>
-          <ResultImage path={`${movie.poster_path}`} alt={`${movie.original_title} poster`} />
-          <MovieSearchForm orientation={'horizontal'} />
-        </section>
+        <Gallery path={movie.poster_path} alt={`${movie.original_title}`} />
         <MovieArticle movie={movie} />
       </section>
     );

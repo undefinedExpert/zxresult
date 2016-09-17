@@ -6,9 +6,9 @@
 
 import React from 'react';
 import styles from './styles.css';
-import HeartRate from 'components/HeartRate';
 import Genres from 'components/Genres';
 import CrewList from 'components/CrewList';
+import HeartRate from 'components/HeartRate';
 import MovieTitle from 'components/MovieTitle';
 import MovieRuntime from 'components/MovieRuntime';
 import MovieDescription from 'components/MovieDescription';
@@ -22,13 +22,14 @@ function MovieArticle(props) {
     { image: movie.backdrop_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
     { image: movie.backdrop_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
   ];
+  const votes = {
+    voteAverage: movie.vote_average,
+    voteCount: movie.vote_average,
+  };
   return (
     <article className={styles.movieArticle}>
       <MovieTitle sectionSize={'1/1'} movieTitle={movie.title} />
-      {movie.vote_count ?
-        <HeartRate sectionSize="1/1" voteAverage={movie.vote_average} /> :
-        <HeartRate sectionSize="1/1" voteAverage={null} msg="Rating isn't available" />
-      }
+      <HeartRate sectionSize="1/1" votes={votes} />
       <MovieDescription sectionSize="1/1" description={movie.overview} limit={160} />
       <MovieRuntime sectionSize={'1/2'} />
       <Genres sectionSize={'1/2'} />

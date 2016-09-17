@@ -13,7 +13,7 @@ function CrewList(props) {
     items,
   } = props;
 
-  function renderSingle(item) {
+  function renderSingle(item, index) {
     const {
       image,
       alt,
@@ -21,7 +21,7 @@ function CrewList(props) {
       sectionSize,
     } = item;
     return (
-      <Section title={title} size={sectionSize}> <SingleCrew path={image} alt={alt} /> </Section>
+      <Section title={title} size={sectionSize} key={index}> <SingleCrew path={image} alt={alt} /> </Section>
     );
   }
   return (
