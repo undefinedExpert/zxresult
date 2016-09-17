@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { truncate } from 'lodash';
-// import styles from './styles.css';
+import styles from './styles.css';
 import Section from 'components/general/Section';
 
 function MovieDescription(props) {
@@ -16,7 +16,7 @@ function MovieDescription(props) {
     sectionSize = '1/1',
   } = props;
   return (
-    <Section size={sectionSize} title={'Description'}>
+    <Section size={sectionSize} title={'Description'} className={styles.description}>
       <p>{truncate(description, { length: limit })}</p>
     </Section>
   );

@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import styles from './styles.css';
 import { connect } from 'react-redux';
 import Gallery from 'components/special/MovieGallery';
 import { selectResult } from 'containers/App/selectors';
@@ -21,7 +20,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
     } = this.props;
 
     return (
-      <section className={styles.result}>
+      <section>
         <Gallery path={movie.poster_path} alt={`${movie.original_title}`} />
         <MovieArticle movie={movie} />
       </section>

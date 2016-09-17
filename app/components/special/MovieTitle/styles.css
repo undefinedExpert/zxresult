@@ -1,3 +1,9 @@
-.movieTitle {
+.title {
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: var(--cHeading);
+}
 
+.date {
+  color: color(var(--cMain) lightness(30%));
 }
