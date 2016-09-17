@@ -1,7 +1,6 @@
 @lost flexbox flex;
 .section {
   float: left;
-  lost-column: 1/2;
   :local &.runtime {
     :local span {
       padding: 5px 0;
