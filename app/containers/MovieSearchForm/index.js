@@ -5,15 +5,15 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
 import styles from './styles.css';
-import { mapDispatch, mapState } from './mapProps';
-import SelectList from 'components/SelectList';
-import Input from 'components/Input';
-import BottomNavigation from 'containers/BottomNavigation';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import Input from 'components/general/Input';
+import { mapDispatch, mapState } from './mapProps';
+import SelectList from 'components/general/SelectList';
+import BottomNavigation from 'containers/BottomNavigation';
 
-export class MovieSearchForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class MovieSearchForm extends React.Component {
   // fixme: https://github.com/reactjs/redux/issues/239
   componentWillMount() {
     // Make xhr call

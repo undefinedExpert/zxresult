@@ -5,13 +5,12 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import MovieArticle from 'components/MovieArticle';
-import Gallery from 'components/Gallery';
-import { createStructuredSelector, createSelector } from 'reselect';
-import { selectResult } from 'containers/App/selectors';
 import styles from './styles.css';
-
+import { connect } from 'react-redux';
+import Gallery from 'components/special/MovieGallery';
+import { selectResult } from 'containers/App/selectors';
+import MovieArticle from 'components/special/MovieArticle';
+import { createStructuredSelector, createSelector } from 'reselect';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

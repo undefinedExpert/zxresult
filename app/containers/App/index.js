@@ -12,16 +12,10 @@
  */
 
 import React from 'react';
-
 import styles from './styles.css';
-import Navigation from 'components/Navigation';
+import Navigation from 'components/special/Navigation';
 
 export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    children: React.PropTypes.node,
-  };
-
   render() {
     return (
       <div className={styles.app}>
@@ -31,3 +25,7 @@ export default class App extends React.Component { // eslint-disable-line react/
     );
   }
 }
+
+App.propTypes = {
+  children: React.PropTypes.node,
+};

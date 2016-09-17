@@ -6,11 +6,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import Button from 'components/Button';
-import { updateMovieResult } from 'containers/App/actions';
 import { push } from 'react-router-redux';
-import { createStructuredSelector, createSelector } from 'reselect';
+import Button from 'components/general/Button';
 import { selectResult } from 'containers/App/selectors';
+import { updateMovieResult } from 'containers/App/actions';
+import { createStructuredSelector, createSelector } from 'reselect';
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
