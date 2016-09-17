@@ -36,9 +36,10 @@ class HeartRate extends React.Component {
     const {
       voteAverage,
       msg,
+      sectionSize,
     } = this.props;
     return (
-      <Section size={'1/1'} title={'Rate'} className={styles.heartRate}>
+      <Section size={sectionSize} title={'Rate'} className={styles.heartRate}>
         {voteAverage !== null ? this.renderHeart(voteAverage) : msg}
       </Section>
     );
@@ -48,6 +49,7 @@ class HeartRate extends React.Component {
 HeartRate.propTypes = {
   voteAverage: React.PropTypes.number,
   msg: React.PropTypes.string,
+  sectionSize: React.PropTypes.string,
 };
 
 export default HeartRate;

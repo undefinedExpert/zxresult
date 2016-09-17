@@ -5,14 +5,27 @@
 */
 
 import React from 'react';
+import Section from 'components/Section';
+// import styles from './styles.css';
+import { truncate } from 'lodash';
 
-import styles from './styles.css';
-
-function MovieDescription() {
+function MovieDescription(props) {
+  const {
+    description,
+    limit,
+    sectionSize,
+  } = props;
   return (
-    <div className={styles.movieDescription}>
-    </div>
+    <Section size={sectionSize} title={'Description'}>
+      <p>{truncate(description, { length: limit })}</p>
+    </Section>
   );
 }
+
+MovieDescription.propTypes = {
+  description: React.PropTypes.string,
+  limit: React.PropTypes.number,
+  sectionSize: React.PropTypes.string,
+};
 
 export default MovieDescription;

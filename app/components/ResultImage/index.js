@@ -33,7 +33,7 @@ class ResultImage extends React.Component {
           onLoad={this.imageLoad}
           alt={alt}
           className={styles.image}
-          style={{ backgroundImage: `url(${path})` }}
+          style={{ backgroundImage: `url(http://image.tmdb.org/t/p/original/${path})` }}
         />
       </div>
     );

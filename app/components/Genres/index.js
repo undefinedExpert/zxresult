@@ -11,11 +11,10 @@ import Section from 'components/Section';
 
 function Genres(props) {
   const {
-    title,
     sectionSize,
   } = props;
   return (
-    <Section title={title} size={sectionSize}>
+    <Section title={'Genres'} size={sectionSize}>
       <ul className={styles.genres}>
         <li className={styles.item}>
           <GenreIcons type="Horror" />
@@ -35,7 +34,7 @@ function Genres(props) {
 }
 
 Genres.propTypes = {
-  genres: React.PropTypes.array,
+  sectionSize: React.PropTypes.string,
 };
 
 export default Genres;
