@@ -3,6 +3,7 @@ import * as CONSTANT from 'containers/App/constants';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
 import request from 'utils/request';
+import { buildUrlParams } from 'utils/helpers';
 import Chance from 'chance';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
@@ -14,22 +15,32 @@ function randomizePage(result) {
   return chance.integer({ min: 1, max: maxPage });
 }
 
-// Individual exports for testing
+// Get movie
 export function* getMovie() {
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
   const randomPage = randomizePage(result); // http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5&primary_release_date.gte=1990-01-01&primary_release_date.lte=1999-01-01
-  const requestUrl = `${CONSTANT.apiUrl}/discover/movie?${CONSTANT.apiKey}&with_genres=${filters.genre.active.id}&page=${randomPage}&primary_release_date.gte=${filters.decade.active.id}-01-01&primary_release_date.lte=${filters.decade.active.id + 9}-01-01`;
+
+  const params = {
+    with_genres: filters.genre.active.id,
+    page: randomPage,
+    'primary_release_date.gte': `${filters.decade.active.id}-01-01`,
+    'primary_release_date.lte': `${filters.decade.active.id + 9}-01-01`,
+  };
+
+  const requestUrl = yield buildUrlParams(params);
   const movies = yield call(request, requestUrl);
+
+
   if (!movies.err && movies.data.results[0]) {
     yield console.info('Update result');
     yield console.info(movies.data.results[0]);
     yield put(updateMovieResult.success(movies.data, movies.data.results[0]));
   } else {
-    console.error('---------INFO-------');
-    console.log(requestUrl);
-    console.log(movies);
-    console.error('--------------------');
+    // console.error('---------INFO-------');
+    // console.log(requestUrl);
+    // console.log(movies);
+    // console.error('--------------------');
     yield put(updateMovieResult.failure(movies.err));
   }
 }
@@ -44,7 +55,7 @@ export function* getGenreList() {
   }
 }
 
-// Individual exports for testing
+// Update filters have make a request to server
 export function* getUpdateFilters() {
   console.log('get update filters');
   // TODO: if maxResults value hasn't change return nothing
@@ -61,8 +72,6 @@ export function* getUpdateFilters() {
   }
 }
 
-
-// Individual exports for testing
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
   yield put(push('/result'));

@@ -30,6 +30,7 @@ export function createRequestTypes(base) {
     return acc;
   }, {});
 }
+
 /**
  * Helper for creating injectors
  */
