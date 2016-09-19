@@ -7,6 +7,7 @@
 import { fromJS } from 'immutable';
 import * as CONSTANT from './constants';
 
+const currentYear = new Date().getFullYear();
 const initialState = fromJS({
   isLogged: true,
   filters: {
@@ -33,25 +34,45 @@ const initialState = fromJS({
     },
     decade: {
       active: {
-        name: '2000s',
-        id: 2000,
+        name: '2010s',
+        rangeMin: '2010-01-01',
+        rangeMax: `${currentYear}-01-01`,
       },
       list: [
         {
+          name: '2010s',
+          rangeMin: '2010-01-01',
+          rangeMax: `${currentYear}-01-01`,
+        },
+        {
           name: '2000s',
-          id: 2000,
+          rangeMin: '2000-01-01',
+          rangeMax: '2009-01-01',
         },
         {
           name: '1990s',
-          id: 1990,
+          rangeMin: '1990-01-01',
+          rangeMax: '1999-01-01',
         },
         {
           name: '1980s',
-          id: 1980,
+          rangeMin: '1980-01-01',
+          rangeMax: '1989-01-01',
         },
         {
           name: '1970s',
-          id: 1970,
+          rangeMin: '1970-01-01',
+          rangeMax: '1979-01-01',
+        },
+        {
+          name: '1960s',
+          rangeMin: '1960-01-01',
+          rangeMax: '1969-01-01',
+        },
+        {
+          name: 'Older',
+          rangeMin: '1900-01-01',
+          rangeMax: '1959-01-01',
         },
       ],
     },

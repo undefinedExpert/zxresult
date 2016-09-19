@@ -17,9 +17,10 @@ function MovieDescription(props) {
   } = props;
   const title = 'Description';
   const errMsg = 'Description isn\'t available';
+  const errMsgReturnedByApi = 'No overview found.';
   return (
     <Section size={sectionSize} title={title} className={styles.description}>
-      <p>{description ? truncate(description, { length: limit }) : <p>{errMsg}</p>}</p>
+      <p>{description !== errMsgReturnedByApi ? truncate(description, { length: limit }) : errMsg}</p>
     </Section>
   );
 }
