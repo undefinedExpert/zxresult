@@ -8,29 +8,22 @@ import { buildUrlFromFilters } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
-export function* getMovie() {
+function* callToApi(endPoint, HigherParams) {
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
+  const prepareParams = yield buildUrlFromFilters(filters, result, endPoint, HigherParams);
+  const data = yield call(request, prepareParams);
+  return data;
+}
 
-  const prepareParams = yield buildUrlFromFilters(filters, result, '/discover/movie');
-
-  // const randomPage = randomizePage(result);
-  // const params = {
-  //   with_genres: filters.genre.active.id,
-  //   page: randomPage,
-  //   'primary_release_date.gte': `${filters.decade.active.rangeMin}`,
-  //   'primary_release_date.lte': `${filters.decade.active.rangeMax}`,
-  // };
-  //
-  // const requestUrl = yield buildUrlParams(params);
-  const movies = yield call(request, prepareParams);
-
-  if (!movies.err && movies.data.results[0]) {
+export function* getMovie() {
+  const movies = yield callToApi('/discover/movie');
+  console.log(movies);
+  try {
     yield console.info('Update result');
-    yield console.info(movies.data.results[0]);
     yield put(updateMovieResult.success(movies.data, movies.data.results[0]));
   }
-  else {
+  catch (error) {
     // console.error('---------INFO-------');
     // console.log(requestUrl);
     // console.log(movies);
@@ -62,15 +55,15 @@ export function* getUpdateFilters() {
     page: latestApiPage, // latest page from api
     'primary_release_date.gte': `${filters.decade.active.rangeMin}`,
     'primary_release_date.lte': `${filters.decade.active.rangeMax}`,
-    'vote_count.gte': 100,
+    'vote_count.gte': 1,
   };
 
   const requestUrl = yield buildUrlParams(params);
   const result = yield call(request, requestUrl);
   const maxResults = result.data.total_pages;
   if (!result.err) {
-    console.log(maxResults);
-    console.log(result.data.total_results);
+    console.log(`Total pages: ${maxResults}`);
+    console.log(`Total Results: ${result.data.total_results}`);
     yield put(updateFilters.success(maxResults));
   }
 }
