@@ -75,7 +75,8 @@
     "rules": {
       "max-len": 0,
       "import/no-unresolved": 0,
-      "camelcase": 2
+      "camelcase": 2,
+      "brace-style": ["error", "stroustrup"]
     },
     "settings": {
       "import/resolver": {
