@@ -17,7 +17,7 @@ function prepareParams(storeParams, result) {
     page: randomPage, // latest page from api
     'primary_release_date.gte': storeParams.decade.active.rangeMin,
     'primary_release_date.lte': storeParams.decade.active.rangeMax,
-    'vote_count.gte': 100, //TODO: trend selector
+    'vote_count.gte': 100, // TODO: trend selector
   };
 }
 
@@ -27,6 +27,7 @@ function assignHigherParams(params, higherParams) {
 
 function validateAndPrepareParams(storeParams, result, higherParams) {
   const params = prepareParams(storeParams, result);
+  // Merge params & higherParams
   assignHigherParams(params, higherParams);
   return params;
 }
