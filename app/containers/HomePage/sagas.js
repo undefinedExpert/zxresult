@@ -4,7 +4,7 @@ import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
 import request from 'utils/request';
 import { buildUrlParams } from 'utils/helpers';
-import { buildParams } from 'mechanisms/searchMovie';
+import { buildUrlFromFilters } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
@@ -12,7 +12,7 @@ export function* getMovie() {
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
 
-  const prepareParams = yield buildParams(filters, result, '/discover/movie');
+  const prepareParams = yield buildUrlFromFilters(filters, result, '/discover/movie');
 
   // const randomPage = randomizePage(result);
   // const params = {
