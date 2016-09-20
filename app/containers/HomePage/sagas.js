@@ -4,7 +4,7 @@ import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
 import request from 'utils/request';
 import { buildUrlParams } from 'utils/helpers';
-import { randomizePage } from 'mechanisms/searchMovie';
+import { buildParams } from 'mechanisms/searchMovie';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
@@ -12,17 +12,18 @@ export function* getMovie() {
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
 
-  const prepareParams = yield buildParams(filters, result);
-  const randomPage = randomizePage(result);
-  const params = {
-    with_genres: filters.genre.active.id,
-    page: randomPage,
-    'primary_release_date.gte': `${filters.decade.active.rangeMin}`,
-    'primary_release_date.lte': `${filters.decade.active.rangeMax}`,
-  };
+  const prepareParams = yield buildParams(filters, result, '/discover/movie');
 
-  const requestUrl = yield buildUrlParams(params);
-  const movies = yield call(request, requestUrl);
+  // const randomPage = randomizePage(result);
+  // const params = {
+  //   with_genres: filters.genre.active.id,
+  //   page: randomPage,
+  //   'primary_release_date.gte': `${filters.decade.active.rangeMin}`,
+  //   'primary_release_date.lte': `${filters.decade.active.rangeMax}`,
+  // };
+  //
+  // const requestUrl = yield buildUrlParams(params);
+  const movies = yield call(request, prepareParams);
 
   if (!movies.err && movies.data.results[0]) {
     yield console.info('Update result');
@@ -61,14 +62,15 @@ export function* getUpdateFilters() {
     page: latestApiPage, // latest page from api
     'primary_release_date.gte': `${filters.decade.active.rangeMin}`,
     'primary_release_date.lte': `${filters.decade.active.rangeMax}`,
+    'vote_count.gte': 100,
   };
 
   const requestUrl = yield buildUrlParams(params);
   const result = yield call(request, requestUrl);
   const maxResults = result.data.total_pages;
   if (!result.err) {
-    // console.log(maxResults);
-    // console.log(requestUrl);
+    console.log(maxResults);
+    console.log(result.data.total_results);
     yield put(updateFilters.success(maxResults));
   }
 }
