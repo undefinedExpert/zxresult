@@ -16,6 +16,7 @@ const selectFilters = () => {
     genre: (state) => state.genre,
     decade: (state) => state.decade,
     trend: (state) => state.decade,
+    range: (state) => state.range,
   });
   return createSelector(
     filtersDomain(),
@@ -24,7 +25,8 @@ const selectFilters = () => {
       const genre = filtersState.genre;
       const decade = filtersState.decade;
       const trend = filtersState.trend;
-      return { genre, decade, trend };
+      const range = filtersState.range;
+      return { genre, decade, trend, range };
     }
   );
 };
@@ -60,7 +62,6 @@ const selectResult = () => {
     movie: (state) => state.movie,
     movies: (state) => state.movies,
     isFetching: (state) => state.isFetching,
-    resultsRange: (state) => state.resultsRange,
   });
   return createSelector(
     resultDomain(),
@@ -69,8 +70,7 @@ const selectResult = () => {
       const movie = resultState.movie;
       const movies = resultState.movies;
       const isFetching = resultState.isFetching;
-      const resultsRange = resultState.resultsRange;
-      return { movie, movies, isFetching, resultsRange };
+      return { movie, movies, isFetching };
     }
   );
 };

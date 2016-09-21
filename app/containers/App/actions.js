@@ -87,7 +87,7 @@ export const updateUrl = {
 //
 export const updateFilters = {
   request: () => action(CONSTANT.UPDATE_FILTERS.REQUEST, {}),
-  success: (resultsRange) => action(CONSTANT.UPDATE_FILTERS.SUCCESS, { resultsRange }),
+  success: (totalPages, totalResults) => action(CONSTANT.UPDATE_FILTERS.SUCCESS, { totalPages, totalResults }),
   failure: (error) => action(CONSTANT.UPDATE_FILTERS.FAILURE, { error }),
 };
 
