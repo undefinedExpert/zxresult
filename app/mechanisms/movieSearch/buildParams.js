@@ -2,17 +2,19 @@ import Chance from 'chance';
 import { apiUrl as url, apiKey } from 'containers/App/constants';
 
 
+// Add each param to url
+function attachParams(params, urlBase) {
+  let newUrl = urlBase;
+  Object.keys(params).forEach((key) => {
+    newUrl += `&${key}=${params[key]}`;
+  });
+  return newUrl;
+}
 
-// It allows to create multi request type actions
+// Build url with params
 export function buildUrlParams(params, endpoint = '/discover/movie') {
   let urlBase = `${url}${endpoint}?${apiKey}`;
-  // Add each param to url
-  function attachParams() {
-    Object.keys(params).forEach((key) => {
-      urlBase += `&${key}=${params[key]}`;
-    });
-  }
-  if (params) attachParams();
+  if (params) urlBase = attachParams(params, urlBase);
   return urlBase;
 }
 

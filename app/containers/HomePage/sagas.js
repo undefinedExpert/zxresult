@@ -18,7 +18,7 @@ function* callToApi(endPoint, HigherParams, withParams = true) {
 export function* getMovie() {
   const called = yield callToApi('/discover/movie');
   try {
-    yield console.info('Update result');
+    yield console.info('Result updated.');
     yield put(updateMovieResult.success(called.data, called.data.results[0]));
   }
   catch (err) {
@@ -94,7 +94,7 @@ export function* getData() {
 
   // Suspend execution until location changes
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
-  // The main reason of that is to not rely on LOCATION_CHANGE event becouse we 'actually' dosen't change the location on the result subpage
+  // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
   // we just get new data.
   yield take(LOCATION_CHANGE);
   yield race([

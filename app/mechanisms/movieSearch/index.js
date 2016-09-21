@@ -5,5 +5,3 @@ export function buildUrlFromFilters(filters, result, endpoint, higherPriorityPar
   const requestUrl = buildUrlParams(setParams, endpoint);
   return requestUrl;
 }
-
-
