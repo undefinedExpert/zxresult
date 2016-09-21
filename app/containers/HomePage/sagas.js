@@ -3,68 +3,52 @@ import * as CONSTANT from 'containers/App/constants';
 import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
 import request from 'utils/request';
-import { buildUrlParams } from 'utils/helpers';
 import { buildUrlFromFilters } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
-function* callToApi(endPoint, HigherParams) {
+function* callToApi(endPoint, HigherParams, withParams = true) {
   const filters = yield select(selectFilters());
   const result = yield select(selectResult());
-  const prepareParams = yield buildUrlFromFilters(filters, result, endPoint, HigherParams);
+  const prepareParams = yield buildUrlFromFilters(filters, result, endPoint, HigherParams, withParams);
   const data = yield call(request, prepareParams);
   return data;
 }
 
 export function* getMovie() {
-  const movies = yield callToApi('/discover/movie');
-  console.log(movies);
+  const called = yield callToApi('/discover/movie');
   try {
     yield console.info('Update result');
-    yield put(updateMovieResult.success(movies.data, movies.data.results[0]));
+    yield put(updateMovieResult.success(called.data, called.data.results[0]));
   }
-  catch (error) {
-    // console.error('---------INFO-------');
-    // console.log(requestUrl);
-    // console.log(movies);
-    // console.error('--------------------');
-    yield put(updateMovieResult.failure(movies.err));
+  catch (err) {
+    yield put(updateMovieResult.failure(called.err));
   }
 }
 
 // Individual exports for testing
 export function* getGenreList() {
-  // const filters = yield select(selectFilters());
-  const requestUrl = `${CONSTANT.apiUrl}/genre/movie/list?${CONSTANT.apiKey}`;
-  const genres = yield call(request, requestUrl);
-  if (!genres.err) {
-    yield put(updateFilterGenre.list.success(genres.data.genres));
+  const called = yield callToApi('/genre/movie/list', {}, false);
+  try {
+    yield put(updateFilterGenre.list.success(called.data.genres));
+  }
+  catch (err) {
+    yield put(updateFilterGenre.list.failure(err));
   }
 }
 
 // Update filters have make a request to server
 export function* getUpdateFilters() {
-  // console.log('get update filters');
-  // TODO: if maxResults value hasn't change return nothing
-  const filters = yield select(selectFilters());
-  const latestApiPage = 1000;
-  // const storeResult = yield select(selectResult());
-  // Fixme: Bug #2 Cannot read property of null (filters.genre.active.id)
-  const params = {
-    with_genres: filters.genre.active.id,
-    page: latestApiPage, // latest page from api
-    'primary_release_date.gte': `${filters.decade.active.rangeMin}`,
-    'primary_release_date.lte': `${filters.decade.active.rangeMax}`,
-    'vote_count.gte': 1,
-  };
-
-  const requestUrl = yield buildUrlParams(params);
-  const result = yield call(request, requestUrl);
-  const maxResults = result.data.total_pages;
-  if (!result.err) {
-    console.log(`Total pages: ${maxResults}`);
-    console.log(`Total Results: ${result.data.total_results}`);
-    yield put(updateFilters.success(maxResults));
+  const called = yield callToApi('/discover/movie', { page: 1000 });
+  const allPages = called.data.total_pages;
+  const allResults = called.data.total_results;
+  try {
+    console.log(`Total pages: ${allPages}`);
+    console.log(`Total Results: ${allResults}`);
+    yield put(updateFilters.success(allResults));
+  }
+  catch (err) {
+    yield put(updateFilters.failure(err));
   }
 }
 
