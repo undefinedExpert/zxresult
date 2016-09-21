@@ -1,36 +1,26 @@
-import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
+import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
-import { selectFilters, selectResult } from 'containers/App/selectors';
 import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
-import request from 'utils/request';
-import { buildUrlFromFilters } from 'mechanisms/movieSearch';
-import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { callToApi } from 'mechanisms/movieSearch';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 // Get movie
-function* callToApi(endPoint, HigherParams, withParams = true) {
-  const filters = yield select(selectFilters());
-  const result = yield select(selectResult());
-  const prepareParams = yield buildUrlFromFilters(filters, result, endPoint, HigherParams, withParams);
-  const data = yield call(request, prepareParams);
-  return data;
-}
-
 export function* getMovie() {
-  const called = yield callToApi('/discover/movie');
+  const { data } = yield callToApi('/discover/movie');
   try {
     yield console.info('Result updated.');
-    yield put(updateMovieResult.success(called.data, called.data.results[0]));
+    yield put(updateMovieResult.success(data, data.results[0]));
   }
   catch (err) {
-    yield put(updateMovieResult.failure(called.err));
+    yield put(updateMovieResult.failure(err));
   }
 }
 
 // Individual exports for testing
 export function* getGenreList() {
-  const called = yield callToApi('/genre/movie/list', {}, false);
+  const { data } = yield callToApi('/genre/movie/list', {}, false);
   try {
-    yield put(updateFilterGenre.list.success(called.data.genres));
+    yield put(updateFilterGenre.list.success(data.genres));
   }
   catch (err) {
     yield put(updateFilterGenre.list.failure(err));
@@ -39,13 +29,13 @@ export function* getGenreList() {
 
 // Update filters have make a request to server
 export function* getUpdateFilters() {
-  const called = yield callToApi('/discover/movie', { page: 1000 });
-  const allPages = called.data.total_pages;
-  const allResults = called.data.total_results;
+  const { data } = yield callToApi('/discover/movie', { page: 1000 });
+  const totalPages = data.total_pages;
+  const totalResults = data.total_results;
   try {
-    console.log(`Total pages: ${allPages}`);
-    console.log(`Total Results: ${allResults}`);
-    yield put(updateFilters.success(allResults));
+    console.log(`Total pages: ${totalPages}`);
+    console.log(`Total Results: ${totalResults}`);
+    yield put(updateFilters.success(totalPages, totalResults));
   }
   catch (err) {
     yield put(updateFilters.failure(err));
