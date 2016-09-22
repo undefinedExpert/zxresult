@@ -91,3 +91,11 @@ export const updateFilters = {
   failure: (error) => action(CONSTANT.UPDATE_FILTERS.FAILURE, { error }),
 };
 
+// Analyse movies
+//
+export const analyseMovies = {
+  request: (movies) => action(CONSTANT.ANALYSE_MOVIE.REQUEST, { movies }),
+  success: (movie, viewed) => action(CONSTANT.ANALYSE_MOVIE.SUCCESS, { movie, viewed }),
+  failure: (error) => action(CONSTANT.ANALYSE_MOVIE.FAILURE, { error }),
+};
+

@@ -1,15 +1,18 @@
-import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
+import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
-import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
+import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies } from 'containers/App/actions';
+import { selectResult } from 'containers/App/selectors';
 import { callToApi } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { orderBy } from 'lodash';
 
 // Get movie
 export function* getMovie() {
   const { data } = yield callToApi('/discover/movie');
   try {
     yield console.info('Result updated.');
-    yield put(updateMovieResult.success(data, data.results[0]));
+    yield put(analyseMovies.request(data));
+    // yield put(updateMovieResult.success(data, data.results[0]));
   }
   catch (err) {
     yield put(updateMovieResult.failure(err));
@@ -40,6 +43,23 @@ export function* getUpdateFilters() {
   catch (err) {
     yield put(updateFilters.failure(err));
   }
+}
+
+export function* getAnalyseMovie() {
+  yield console.log('siemanko');
+  const { movies } = yield select(selectResult());
+  // const sortedResults = movies.results.sort((itemA, itemB) => {
+  //   return itemB.popularity - itemA.popularity;
+  // });
+
+  const sorted = orderBy(movies.results, ['popularity', 'vote_count'], ['desc', 'asc']);
+
+  sorted.forEach((item) => {
+    console.log(item.popularity);
+    console.log(item.vote_count);
+  })
+  debugger;
+  // jak wybrac najlepszy?
 }
 
 export function* getUpdateUrl() {
@@ -75,12 +95,19 @@ export function* getUpdateFiltersWatcher() {
   }
 }
 
+export function* getAnalyseMovieWatcher() {
+  while (yield take(CONSTANT.ANALYSE_MOVIE.REQUEST)) {
+    yield call(getAnalyseMovie);
+  }
+}
+
 export function* getData() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
   const updateUrl = yield fork(getResultChangeWatcher);
   const genreListWatcher = yield fork(getGenresListWatcher);
   const updateFilterWatcher = yield fork(getUpdateFiltersWatcher);
+  const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
 
   // Suspend execution until location changes
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
@@ -92,6 +119,7 @@ export function* getData() {
     cancel(updateUrl),
     cancel(genreListWatcher),
     cancel(updateFilterWatcher),
+    cancel(analyseMovieWatcher),
   ]);
 }
 

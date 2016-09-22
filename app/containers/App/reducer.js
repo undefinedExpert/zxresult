@@ -141,8 +141,10 @@ function appReducer(state = initialState, action) {
     case CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS:
       return state
         .setIn(['result', 'movie'], action.movie)
-        .setIn(['result', 'movies'], action.movies)
         .setIn(['result', 'isFetching'], false);
+    case CONSTANT.ANALYSE_MOVIE.REQUEST:
+      return state
+        .setIn(['result', 'movies'], action.movies);
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)
