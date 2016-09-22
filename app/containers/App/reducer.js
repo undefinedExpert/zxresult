@@ -13,31 +13,45 @@ const initialState = fromJS({
   filters: {
     sentence: 'ohio',
     trend: {
-      active: {
-        id: 28,
-        name: 'Classical',
-      },
+      active: null,
       list: [
         {
-          id: 28,
-          name: 'Classical',
+          name: 'Highly rated',
+          voteRange: {
+            min: 30,
+            max: null,
+          },
+          voteAverage: {
+            min: 7,
+            max: 10,
+          },
         },
         {
-          id: 28,
-          name: 'Popular',
+          name: 'Most Popular',
+          voteRange: {
+            min: 75,
+            max: null,
+          },
+          voteAverage: {
+            min: null,
+            max: null,
+          },
         },
         {
-          id: 28,
-          name: 'Classical',
+          name: 'Underestimated',
+          voteRange: {
+            min: 5,
+            max: 30,
+          },
+          voteAverage: {
+            min: 7,
+            max: 10,
+          },
         },
       ],
     },
     decade: {
-      active: {
-        name: '2010s',
-        rangeMin: '2010-01-01',
-        rangeMax: `${currentYear}-01-01`,
-      },
+      active: null,
       list: [
         {
           name: '2010s',
@@ -77,10 +91,7 @@ const initialState = fromJS({
       ],
     },
     genre: {
-      active: {
-        id: 28,
-        name: 'Action',
-      },
+      active: null,
       list: [],
     },
     range: {
@@ -115,6 +126,9 @@ function appReducer(state = initialState, action) {
     case CONSTANT.UPDATE_FILTER_TREND.REQUEST:
       return state
         .setIn(['filters', 'trend', 'active'], action.value);
+    case CONSTANT.UPDATE_FILTER_TREND_LIST.REQUEST:
+      return state
+        .setIn(['filters', 'trend', 'list'], action.value);
     case CONSTANT.UPDATE_FILTER_GENRE.REQUEST:
       return state
         .setIn(['filters', 'genre', 'active'], action.value);
