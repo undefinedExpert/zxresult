@@ -25,6 +25,7 @@ export function randomizePage(storeParams) {
   return chance.integer({ min: 1, max: maxPage });
 }
 
+// TODO: Refactor
 function prepareParams(storeParams) {
   const randomPage = !storeParams.range.pages ? randomizePage(storeParams) : null;
   const { genre, decade, trend } = storeParams;
@@ -47,7 +48,6 @@ function prepareParams(storeParams) {
   });
   return prepared;
 }
-
 
 function assignHigherParams(params, higherParams) {
   Object.assign(params, higherParams);

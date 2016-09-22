@@ -2,7 +2,7 @@ import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
 import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/App/actions';
 import { callToApi } from 'mechanisms/movieSearch';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
 export function* getMovie() {
