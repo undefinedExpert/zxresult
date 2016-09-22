@@ -7,6 +7,7 @@ function attachParams(params, baseUrl) {
   Object.keys(params).forEach((key) => {
     newUrl += `&${key}=${params[key]}`;
   });
+  console.log(newUrl);
   return newUrl;
 }
 
@@ -19,7 +20,7 @@ export function buildUrlParams(params, endpoint) {
 
 // Randomize page depending on max resultRange
 export function randomizePage(storeParams) {
-  const maxPage = storeParams.range.pages ? storeParams.range.pages : 1;
+  const maxPage = storeParams.range.pages ? storeParams.range.pages > 1000 ? 1000 : storeParams.range.pages : 1;
   const chance = new Chance();
   // FIXME: There is an issue with defining a default value, when the user first time come to website.
   return chance.integer({ min: 1, max: maxPage });
@@ -27,9 +28,8 @@ export function randomizePage(storeParams) {
 
 // TODO: Refactor
 function prepareParams(storeParams) {
-  const randomPage = !storeParams.range.pages ? randomizePage(storeParams) : null;
+  const randomPage = storeParams.range.pages ? randomizePage(storeParams) : null;
   const { genre, decade, trend } = storeParams;
-
   // Define possible query and check if appropriate option exist, so we could use their options
   const prepared = {
     with_genres: genre.active ? genre.active.id : null,

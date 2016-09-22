@@ -52,19 +52,31 @@ export function* getAnalyseMovie() {
   //   return itemB.popularity - itemA.popularity;
   // });
 
-  const sorted = orderBy(movies.results, ['popularity', 'vote_count'], ['desc', 'asc']);
+  const sorted = movies.results.sort((itemA, itemB) => {
+    const minimalVoteCount = 50;
+    return (itemB.vote_count / (itemB.vote_count + minimalVoteCount) * itemB.vote_average + ( minimalVoteCount / (itemB.vote_count+ minimalVoteCount)) * 5) - (itemA.vote_count / (itemA.vote_count+ minimalVoteCount) * itemA.vote_average + (50 / (itemA.vote_count+50)) * 5)
+  });
 
-  sorted.forEach((item) => {
-    console.log(item.popularity);
-    console.log(item.vote_count);
-  })
-  debugger;
+  // sorted.forEach((item) => {
+  //   console.log(item.vote_count);
+  //   console.log(item.vote_average);
+  //   console.log('-----------------');
+  // })
+
+  // debugger;
+  // TODO: next
   // jak wybrac najlepszy?
+  try {
+    yield put(updateMovieResult.success(sorted, sorted[0]));
+  }
+  catch (err) {
+    yield put(updateMovieResult.failure(err));
+  }
 }
 
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  // yield put(push('/result'));
+  yield put(push('/result'));
   // TEMPORARY OFF
 }
 
