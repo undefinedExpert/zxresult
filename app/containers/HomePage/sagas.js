@@ -64,8 +64,6 @@ export function* getAnalyseMovie() {
   // })
 
   // debugger;
-  // TODO: next
-  // jak wybrac najlepszy?
   try {
     yield put(updateMovieResult.success(sorted, sorted[0]));
   }
