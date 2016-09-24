@@ -49,6 +49,16 @@ const initialState = fromJS({
           },
         },
       ],
+      apiParamName: {
+        voteAverage: {
+          min: 'vote_average.gte',
+          max: 'vote_average.lte',
+        },
+        voteCount: {
+          min: 'vote_average.gte',
+          max: 'vote_average.lte',
+        },
+      },
     },
     decade: {
       active: null,
@@ -89,10 +99,17 @@ const initialState = fromJS({
           rangeMax: '1959-01-01',
         },
       ],
+      apiParamName: {
+        date: {
+          min: 'primary_release_date.gte',
+          max: 'primary_release_date.lte',
+        },
+      },
     },
     genre: {
       active: null,
       list: [],
+      apiParamName: 'with_genres',
     },
     range: {
       pages: 0,

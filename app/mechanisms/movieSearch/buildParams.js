@@ -31,55 +31,87 @@ export function randomizePage(storeParams) {
 }
 
 // TODO: Refactor
+function recursivechange(params){
+  (function (obj) { // IIFE so you don't pollute your namespace
+    // define things you can share to save memory
+    var map = Object.create(null);
+    map['true'] = true;
+    map['false'] = false;
+    // the recursive iterator
+    function walker(obj) {
+      var k,
+        has = Object.prototype.hasOwnProperty.bind(obj);
+      for (k in obj) if (has(k)) {
+        switch (typeof obj[k]) {
+          case 'object':
+            walker(obj[k]); break;
+          case 'string':
+            if (obj[k].toLowerCase() in map) obj[k] = map[obj[k].toLowerCase()]
+        }
+      }
+    }
+    // set it running
+    walker(obj);
+  }(params));
+}
+
 function renameParamsToApiKeys(params) {
+//   const loled = mapApiMovieSearchParams;
+//   const cloned = _.clone(mapApiMovieSearchParams);
+//   function z(object){
+//     _.each(object, function(value, key){
+//       if(_.isObject(value)){
+//         z(value);
+//       }else{
+//         debugger;
+//         object[key] = (value === "lol") ? false : value;
+//       }
+//     });
+//   }
+//
+// // z(params);
+// // console.log(params)
+//   debugger;
+
   let paramsContainer = {};
+
   _.each(params, (value, key) => {
     let queryName = key;
+    // zamiast zmieniac nazwy dac odwolanie w redux.
     queryName = mapApiMovieSearchParams[queryName] || queryName;
     paramsContainer[queryName] = value;
   });
   return paramsContainer;
+
 }
 
 
 function defineParams(storeParams) {
   const randomPage = storeParams.range.pages ? randomizePage(storeParams) : null;
   const { genre, decade, trend } = storeParams;
-
   let schema = { storeParams, mapApiMovieSearchParams };
   schema.newly = schema.newly || {};
-  // Object.keys(storeParams)
-  //   .filter( key => param => param.active )
-  //   .reduce( (res, key) => (res[key] = storeParams[key], res), {} );
 
-  Object.keys(storeParams)
-    .filter((key) => storeParams[key].active)
-    .reduce((res, key) => {
-      let value = schema.storeParams[key].active;
-      Object.assign(schema.newly, {[key]: value});
-    }, schema );
 
-  console.log(schema.newly);
-  // debugger;
+  const paramKeys = Object.keys(storeParams).filter((key) => storeParams[key].active);
 
-  return {
-    genre: genre.active ? genre.active.id : null,
-    page: randomPage,
-    rangeMin: decade.active ? decade.active.rangeMin : null,
-    rangeMax: decade.active ? decade.active.rangeMax : null,
-    voteRangeMin: trend.active ? trend.active.voteRange.min : null,
-    voteRangeMax: trend.active ? trend.active.voteRange.max : null,
-    voteAverageMin: trend.active ? trend.active.voteAverage.min : null,
-    voteAverageMax: trend.active ? trend.active.voteAverage.max : null,
-  };
+  _.each(paramKeys, key => {
+    let value = schema.storeParams[key].active;
+    let param = schema.storeParams[key].apiParamName;
+    let parameter = { value, param };
+    Object.assign(schema.newly, { [key]: { value, param } });
+  });
+
+
+
+  return schema.newly;
 }
 
 function prepareParams(storeParams) {
   // Define possible query and check if appropriate option exist, so we could use their options
   const prepared = defineParams(storeParams);
 
-  const renamedParams = renameParamsToApiKeys(prepared);
-  console.log(renamedParams);
+  // const getParams = renameParamsToApiKeys(prepared);
 
   // Remove null keys so they won't be used in our url
   Object.keys(prepared).forEach((key) => {
