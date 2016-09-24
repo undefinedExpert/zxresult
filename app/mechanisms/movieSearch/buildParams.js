@@ -1,5 +1,5 @@
 import Chance from 'chance';
-import { each } from 'lodash';
+import _ from 'lodash';
 import { apiUrl, apiKey } from 'containers/App/constants';
 import { mapApiMovieSearchParams } from './constants';
 
@@ -33,7 +33,7 @@ export function randomizePage(storeParams) {
 // TODO: Refactor
 function renameParamsToApiKeys(params) {
   let paramsContainer = {};
-  each(params, (value, key) => {
+  _.each(params, (value, key) => {
     let queryName = key;
     queryName = mapApiMovieSearchParams[queryName] || queryName;
     paramsContainer[queryName] = value;
@@ -41,12 +41,28 @@ function renameParamsToApiKeys(params) {
   return paramsContainer;
 }
 
-function prepareParams(storeParams) {
-  console.log('store params: ', storeParams);
+
+function defineParams(storeParams) {
   const randomPage = storeParams.range.pages ? randomizePage(storeParams) : null;
   const { genre, decade, trend } = storeParams;
-  // Define possible query and check if appropriate option exist, so we could use their options
-  const prepared = {
+
+  let schema = { storeParams, mapApiMovieSearchParams };
+  schema.newly = schema.newly || {};
+  // Object.keys(storeParams)
+  //   .filter( key => param => param.active )
+  //   .reduce( (res, key) => (res[key] = storeParams[key], res), {} );
+
+  Object.keys(storeParams)
+    .filter((key) => storeParams[key].active)
+    .reduce((res, key) => {
+      let value = schema.storeParams[key].active;
+      Object.assign(schema.newly, {[key]: value});
+    }, schema );
+
+  console.log(schema.newly);
+  // debugger;
+
+  return {
     genre: genre.active ? genre.active.id : null,
     page: randomPage,
     rangeMin: decade.active ? decade.active.rangeMin : null,
@@ -56,6 +72,11 @@ function prepareParams(storeParams) {
     voteAverageMin: trend.active ? trend.active.voteAverage.min : null,
     voteAverageMax: trend.active ? trend.active.voteAverage.max : null,
   };
+}
+
+function prepareParams(storeParams) {
+  // Define possible query and check if appropriate option exist, so we could use their options
+  const prepared = defineParams(storeParams);
 
   const renamedParams = renameParamsToApiKeys(prepared);
   console.log(renamedParams);
