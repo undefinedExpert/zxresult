@@ -1,22 +1,42 @@
 import Chance from 'chance';
 import _ from 'lodash';
 import { apiUrl, apiKey } from 'containers/App/constants';
-import { mapApiMovieSearchParams } from './constants';
 
 // Add each param to url
-function attachParams(params, baseUrl) {
+function rescueParam(parameter, arr = []) {
+  const tempArray = arr;
+  _.each(parameter, (extractedApiParam, key) => {
+    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray); // find nested
+    // push 'extractedApiParam' which seem to be api param, we just have to extract a extractedApiParam for our apiParam
+    else tempArray.push({ [extractedApiParam]: 0 });
+  });
+
+  return tempArray;
+}
+
+function attachParams(filters, baseUrl) {
   let newUrl = baseUrl;
-  Object.keys(params).forEach((key) => {
-    newUrl += `&${key}=${params[key]}`;
+  console.clear();
+
+  // Run for each filter (genre, decade, trend)
+  Object.keys(filters).forEach((key) => {
+    // Extract param
+    let filterParam = filters[key].apiParam;
+    // check if it's an object, and get an arr of each params with their key, value.
+    if (_.isObject(filterParam)) filterParam = rescueParam(filterParam);
+
+    console.log(filters, filterParam);
+    debugger;
+    // newUrl += `&${key}=${params[key]}`;
   });
   console.log(newUrl);
   return newUrl;
 }
 
 // Build url with params
-export function buildUrlParams(params, endpoint) {
+export function buildUrlParams(filters, endpoint) {
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
-  if (params) baseUrl = attachParams(params, baseUrl);
+  if (filters) baseUrl = attachParams(filters, baseUrl);
   return baseUrl;
 }
 
@@ -30,66 +50,11 @@ export function randomizePage(storeParams) {
   return chance.integer({ min: 1, max: maxPage });
 }
 
-// TODO: Refactor
-function recursivechange(params){
-  (function (obj) { // IIFE so you don't pollute your namespace
-    // define things you can share to save memory
-    var map = Object.create(null);
-    map['true'] = true;
-    map['false'] = false;
-    // the recursive iterator
-    function walker(obj) {
-      var k,
-        has = Object.prototype.hasOwnProperty.bind(obj);
-      for (k in obj) if (has(k)) {
-        switch (typeof obj[k]) {
-          case 'object':
-            walker(obj[k]); break;
-          case 'string':
-            if (obj[k].toLowerCase() in map) obj[k] = map[obj[k].toLowerCase()]
-        }
-      }
-    }
-    // set it running
-    walker(obj);
-  }(params));
-}
-
-function renameParamsToApiKeys(params) {
-//   const loled = mapApiMovieSearchParams;
-//   const cloned = _.clone(mapApiMovieSearchParams);
-//   function z(object){
-//     _.each(object, function(value, key){
-//       if(_.isObject(value)){
-//         z(value);
-//       }else{
-//         debugger;
-//         object[key] = (value === "lol") ? false : value;
-//       }
-//     });
-//   }
-//
-// // z(params);
-// // console.log(params)
-//   debugger;
-
-  let paramsContainer = {};
-
-  _.each(params, (value, key) => {
-    let queryName = key;
-    // zamiast zmieniac nazwy dac odwolanie w redux.
-    queryName = mapApiMovieSearchParams[queryName] || queryName;
-    paramsContainer[queryName] = value;
-  });
-  return paramsContainer;
-
-}
-
 
 function defineParams(storeParams) {
   const randomPage = storeParams.range.pages ? randomizePage(storeParams) : null;
   const { genre, decade, trend } = storeParams;
-  let schema = { storeParams, mapApiMovieSearchParams };
+  let schema = { storeParams };
   schema.newly = schema.newly || {};
 
 
@@ -97,9 +62,9 @@ function defineParams(storeParams) {
 
   _.each(paramKeys, key => {
     let value = schema.storeParams[key].active;
-    let param = schema.storeParams[key].apiParamName;
-    let parameter = { value, param };
-    Object.assign(schema.newly, { [key]: { value, param } });
+    let apiParam = schema.storeParams[key].apiParamName;
+
+    Object.assign(schema.newly, { [key]: { value, apiParam } });
   });
 
 
