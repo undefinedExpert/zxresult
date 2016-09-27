@@ -2,18 +2,6 @@ import Chance from 'chance';
 import _ from 'lodash';
 import { apiUrl, apiKey } from 'containers/App/constants';
 
-function finder(obj, key) {
-  if (_.has(obj, key)) // or just (key in obj)
-    return [obj];
-  // or efficient:
-  var res = [];
-  _.forEach(obj, function(v) {
-    if (typeof v == "object" && (v = finder(v, key)).length)
-      res.push.apply(res, v);
-  });
-  return res;
-}
-
 function rescueValue(parameter, reverse, arr = []) {
   const tempArray = arr;
   _.each(parameter, (extractedApiParam, key) => {
@@ -36,15 +24,16 @@ function rescueParam(parameter, reverse, tempObject) {
 }
 
 function attachParams(filters, baseUrl) {
-  let newUrl = baseUrl;
+  let newUrl = `${baseUrl}&page=${filters.page}`;
   console.clear();
+
 
   // Run for each filter (genre, decade, trend)
   Object.keys(filters).forEach((key) => {
+    if (!_.isObject(filters[key])) return;
     // Extract param
-    let filterParam = filters[key].apiParam;
-    let filterValue = filters[key].value;
-    const mappedProps = [];
+    let filterParam = _.cloneDeep(filters[key].apiParam);
+    let filterValue = _.cloneDeep(filters[key].value);
     // REMOVE NAME PROP, it's not required in process of build uri
     if (filterValue) filterValue.name = undefined;
     // check if it's an object, and get an arr of each params with their key, value.
@@ -56,11 +45,10 @@ function attachParams(filters, baseUrl) {
         const propLookForKey = Object.getOwnPropertyNames(item)[0];
         const uriValue = item[propLookForKey];
         const propName = filterParam[propLookForKey];
-        mappedProps.push({ [propName]: uriValue });
+        newUrl += `&${propName}=${uriValue}`;
+        // mappedProps.push({ [propName]: uriValue });
       }
     }
-    console.log(mappedProps);
-    // newUrl += `&${key}=${params[key]}`;
   });
   console.log(newUrl);
   return newUrl;
@@ -68,6 +56,8 @@ function attachParams(filters, baseUrl) {
 
 // Build url with params
 export function buildUrlParams(filters, endpoint) {
+  // TODO: PARAMS for genre (string) and random page generator
+  // const randomPage = storeParams.range.pages ? randomizePage(storeParams) : null;
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
   if (filters) baseUrl = attachParams(filters, baseUrl);
   return baseUrl;
@@ -85,22 +75,15 @@ export function randomizePage(storeParams) {
 
 
 function defineParams(storeParams) {
-  const randomPage = storeParams.range.pages ? randomizePage(storeParams) : null;
-  const { genre, decade, trend } = storeParams;
-  let schema = { storeParams };
+  const paramKeys = Object.keys(storeParams).filter((key) => storeParams[key].active);
+  const schema = { storeParams };
   schema.newly = schema.newly || {};
 
-
-  const paramKeys = Object.keys(storeParams).filter((key) => storeParams[key].active);
-
   _.each(paramKeys, key => {
-    let value = schema.storeParams[key].active;
-    let apiParam = schema.storeParams[key].apiParamName;
-
+    const value = schema.storeParams[key].active;
+    const apiParam = schema.storeParams[key].apiParamName;
     Object.assign(schema.newly, { [key]: { value, apiParam } });
   });
-
-
 
   return schema.newly;
 }
@@ -108,14 +91,10 @@ function defineParams(storeParams) {
 function prepareParams(storeParams) {
   // Define possible query and check if appropriate option exist, so we could use their options
   const prepared = defineParams(storeParams);
-
-  // const getParams = renameParamsToApiKeys(prepared);
-
   // Remove null keys so they won't be used in our url
   Object.keys(prepared).forEach((key) => {
     if (!prepared[key]) delete prepared[key];
   });
-
   return prepared;
 }
 
