@@ -2,26 +2,37 @@ import Chance from 'chance';
 import _ from 'lodash';
 import { apiUrl, apiKey } from 'containers/App/constants';
 
-// Add each param to url
-function rescueValue(parameter, arr = []) {
+function finder(obj, key) {
+  if (_.has(obj, key)) // or just (key in obj)
+    return [obj];
+  // or efficient:
+  var res = [];
+  _.forEach(obj, function(v) {
+    if (typeof v == "object" && (v = finder(v, key)).length)
+      res.push.apply(res, v);
+  });
+  return res;
+}
+
+function rescueValue(parameter, reverse, arr = []) {
   const tempArray = arr;
   _.each(parameter, (extractedApiParam, key) => {
-    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray, parameter); // find nested
+    if (_.isObject(extractedApiParam)) rescueValue(extractedApiParam, reverse, tempArray); // find nested{
     // push 'extractedApiParam' which seem to be api param, we just have to extract a extractedApiParam for our apiParam
-    else tempArray.push({ [extractedApiParam]: key }); // TODO: value for our extractedApiParam
+    else if (extractedApiParam) tempArray.push({ [key]: extractedApiParam }); // TODO: value for our extractedApiParam
   });
   return tempArray;
 }
 
 // Add each param to url
-function rescueParam(parameter, arr = []) {
-  const tempArray = arr;
+function rescueParam(parameter, reverse, tempObject) {
+  const tempObj = tempObject || {};
   _.each(parameter, (extractedApiParam, key) => {
-    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray, parameter); // find nested
+    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, reverse, tempObj); // find nested{
     // push 'extractedApiParam' which seem to be api param, we just have to extract a extractedApiParam for our apiParam
-    else tempArray.push({ [extractedApiParam]: key }); // TODO: value for our extractedApiParam
+    else Object.assign(tempObj, { [key]: extractedApiParam }); // TODO: value for our extractedApiParam
   });
-  return tempArray;
+  return tempObj;
 }
 
 function attachParams(filters, baseUrl) {
@@ -32,10 +43,23 @@ function attachParams(filters, baseUrl) {
   Object.keys(filters).forEach((key) => {
     // Extract param
     let filterParam = filters[key].apiParam;
+    let filterValue = filters[key].value;
+    const mappedProps = [];
+    // REMOVE NAME PROP, it's not required in process of build uri
+    if (filterValue) filterValue.name = undefined;
     // check if it's an object, and get an arr of each params with their key, value.
     if (_.isObject(filterParam)) filterParam = rescueParam(filterParam);
+    if (_.isObject(filterValue)) filterValue = rescueValue(filterValue, true);
 
-    console.log(filters, filterParam);
+    if (filterValue) {
+      for (let item of filterValue) {
+        const propLookForKey = Object.getOwnPropertyNames(item)[0];
+        const uriValue = item[propLookForKey];
+        const propName = filterParam[propLookForKey];
+        mappedProps.push({ [propName]: uriValue });
+      }
+    }
+    console.log(mappedProps);
     // newUrl += `&${key}=${params[key]}`;
   });
   console.log(newUrl);

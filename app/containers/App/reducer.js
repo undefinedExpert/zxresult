@@ -17,47 +17,31 @@ const initialState = fromJS({
       list: [
         {
           name: 'Highly rated',
-          voteCount: {
-            min: 30,
-            max: null,
-          },
-          voteAverage: {
-            min: 7,
-            max: 10,
-          },
+          voteAverageMin: 7,
+          voteAverageMax: 10,
+          voteCountMin: 30,
+          voteCountMax: null,
         },
         {
           name: 'Most Popular',
-          voteCount: {
-            min: 75,
-            max: null,
-          },
-          voteAverage: {
-            min: null,
-            max: null,
-          },
+          voteAverageMin: null,
+          voteAverageMax: null,
+          voteCountMin: 75,
+          voteCountMax: null,
         },
         {
           name: 'Underestimated',
-          voteCount: {
-            min: 5,
-            max: 30,
-          },
-          voteAverage: {
-            min: 7,
-            max: 10,
-          },
+          voteAverageMin: 7,
+          voteAverageMax: 10,
+          voteCountMin: 5,
+          voteCountMax: 30,
         },
       ],
       apiParamName: {
-        voteAverage: {
-          min: 'vote_average.gte',
-          max: 'vote_average.lte',
-        },
-        voteCount: {
-          min: 'vote_count.gte',
-          max: 'vote_count.lte',
-        },
+        voteAverageMin: 'vote_average.gte',
+        voteAverageMax: 'vote_average.lte',
+        voteCountMax: 'vote_count.gte',
+        voteCountMin: 'vote_count.lte',
       },
     },
     decade: {
@@ -65,45 +49,43 @@ const initialState = fromJS({
       list: [
         {
           name: '2010s',
-          rangeMin: '2010-01-01',
-          rangeMax: `${currentYear}-01-01`,
+          dateMin: '2010-01-01',
+          dateMax: `${currentYear}-01-01`,
         },
         {
           name: '2000s',
-          rangeMin: '2000-01-01',
-          rangeMax: '2009-01-01',
+          dateMin: '2000-01-01',
+          dateMax: '2009-01-01',
         },
         {
           name: '1990s',
-          rangeMin: '1990-01-01',
-          rangeMax: '1999-01-01',
+          dateMin: '1990-01-01',
+          dateMax: '1999-01-01',
         },
         {
           name: '1980s',
-          rangeMin: '1980-01-01',
-          rangeMax: '1989-01-01',
+          dateMin: '1980-01-01',
+          dateMax: '1989-01-01',
         },
         {
           name: '1970s',
-          rangeMin: '1970-01-01',
-          rangeMax: '1979-01-01',
+          dateMin: '1970-01-01',
+          dateMax: '1979-01-01',
         },
         {
           name: '1960s',
-          rangeMin: '1960-01-01',
-          rangeMax: '1969-01-01',
+          dateMin: '1960-01-01',
+          dateMax: '1969-01-01',
         },
         {
           name: 'Older',
-          rangeMin: '1900-01-01',
-          rangeMax: '1959-01-01',
+          dateMin: '1900-01-01',
+          dateMax: '1959-01-01',
         },
       ],
       apiParamName: {
-        date: {
-          min: 'primary_release_date.gte',
-          max: 'primary_release_date.lte',
-        },
+        dateMin: 'primary_release_date.gte',
+        dateMax: 'primary_release_date.lte',
       },
     },
     genre: {
