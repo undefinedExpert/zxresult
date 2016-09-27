@@ -8,8 +8,16 @@ function rescueParam(parameter, arr = []) {
   _.each(parameter, (extractedApiParam, key) => {
     if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray); // find nested
     // push 'extractedApiParam' which seem to be api param, we just have to extract a extractedApiParam for our apiParam
-    else tempArray.push({ [extractedApiParam]: 0 });
+    else tempArray.push({ [extractedApiParam]: 0 }); // TODO: value for our extractedApiParam
+    debugger;
   });
+
+  document.querySelectorAll('.yd-grid-02 > span').forEach(function(item){
+    var text = item.innerText;
+    var mystring = text.split(' ')
+    var value = mystring[0]
+    arr.push(value)
+  })
 
   return tempArray;
 }

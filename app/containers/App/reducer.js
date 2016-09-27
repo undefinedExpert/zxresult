@@ -55,8 +55,8 @@ const initialState = fromJS({
           max: 'vote_average.lte',
         },
         voteCount: {
-          min: 'vote_average.gte',
-          max: 'vote_average.lte',
+          min: 'vote_count.gte',
+          max: 'vote_count.lte',
         },
       },
     },
