@@ -3,22 +3,24 @@ import _ from 'lodash';
 import { apiUrl, apiKey } from 'containers/App/constants';
 
 // Add each param to url
+function rescueValue(parameter, arr = []) {
+  const tempArray = arr;
+  _.each(parameter, (extractedApiParam, key) => {
+    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray, parameter); // find nested
+    // push 'extractedApiParam' which seem to be api param, we just have to extract a extractedApiParam for our apiParam
+    else tempArray.push({ [extractedApiParam]: key }); // TODO: value for our extractedApiParam
+  });
+  return tempArray;
+}
+
+// Add each param to url
 function rescueParam(parameter, arr = []) {
   const tempArray = arr;
   _.each(parameter, (extractedApiParam, key) => {
-    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray); // find nested
+    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, tempArray, parameter); // find nested
     // push 'extractedApiParam' which seem to be api param, we just have to extract a extractedApiParam for our apiParam
-    else tempArray.push({ [extractedApiParam]: 0 }); // TODO: value for our extractedApiParam
-    debugger;
+    else tempArray.push({ [extractedApiParam]: key }); // TODO: value for our extractedApiParam
   });
-
-  document.querySelectorAll('.yd-grid-02 > span').forEach(function(item){
-    var text = item.innerText;
-    var mystring = text.split(' ')
-    var value = mystring[0]
-    arr.push(value)
-  })
-
   return tempArray;
 }
 
@@ -34,7 +36,6 @@ function attachParams(filters, baseUrl) {
     if (_.isObject(filterParam)) filterParam = rescueParam(filterParam);
 
     console.log(filters, filterParam);
-    debugger;
     // newUrl += `&${key}=${params[key]}`;
   });
   console.log(newUrl);

@@ -17,7 +17,7 @@ const initialState = fromJS({
       list: [
         {
           name: 'Highly rated',
-          voteRange: {
+          voteCount: {
             min: 30,
             max: null,
           },
@@ -28,7 +28,7 @@ const initialState = fromJS({
         },
         {
           name: 'Most Popular',
-          voteRange: {
+          voteCount: {
             min: 75,
             max: null,
           },
@@ -39,7 +39,7 @@ const initialState = fromJS({
         },
         {
           name: 'Underestimated',
-          voteRange: {
+          voteCount: {
             min: 5,
             max: 30,
           },
