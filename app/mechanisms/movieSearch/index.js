@@ -1,5 +1,6 @@
 import { call, select } from 'redux-saga/effects';
-import { buildUrlParams, validateAndPrepareParams } from './buildParams';
+import { buildUrlParams } from './buildUrl';
+import { validateAndPrepareParams } from './extractParams';
 import { selectFilters } from 'containers/App/selectors';
 import request from 'utils/request';
 

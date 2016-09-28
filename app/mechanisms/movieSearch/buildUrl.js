@@ -54,15 +54,14 @@ export function randomizePage(storeParams, pageLimit) {
   const maxRange = storeParams.range.pages > pageLimit ? pageLimit : storeParams.range.pages;
   const maxPage = storeParams.range.pages ? maxRange : 1;
   const chance = new Chance();
-  // FIXME: There is an issue with defining a default value, when the user first time come to website.
+  // FIXME: There is an issue with defining a default value, when the user first time comes to website.
   return chance.integer({ min: 1, max: maxPage });
 }
 
 // Build URL from params & base
 export function buildUrlParams(filters, endpoint, storeParams) {
   console.clear();
-  // TODO: PARAMS for genre (string) and random page generator
-  // FIXME: move randomizePage function from this function into function responded for preparing 'params' (defineParams())
+  // FIXME: move randomizePage function from this function into function responded for preparing 'params' (./extractParams.js)
   const page = storeParams.range.pages ? randomizePage(storeParams, filters.page) : 1000;
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
   // Attach params if there are any
@@ -73,36 +72,3 @@ export function buildUrlParams(filters, endpoint, storeParams) {
   return baseUrl;
 }
 
-function defineParams(storeParams) {
-  const paramKeys = Object.keys(storeParams).filter((key) => storeParams[key].active);
-  const schema = { storeParams };
-  schema.newly = schema.newly || {};
-
-  _.each(paramKeys, key => {
-    const value = schema.storeParams[key].active;
-    const apiParam = schema.storeParams[key].apiParamName;
-    Object.assign(schema.newly, { [key]: { value, apiParam } });
-  });
-  return schema.newly;
-}
-
-function prepareParams(storeParams) {
-  // Define possible query and check if appropriate option exist, so we could use their options
-  const prepared = defineParams(storeParams);
-  // Remove null keys so they won't be used in our url
-  Object.keys(prepared).forEach((key) => {
-    if (!prepared[key]) delete prepared[key];
-  });
-  return prepared;
-}
-
-function assignHigherParams(params, higherParams) {
-  Object.assign(params, higherParams);
-}
-
-export function validateAndPrepareParams(storeParams, higherParams) {
-  const params = prepareParams(storeParams);
-  // Merge params & higherParams
-  assignHigherParams(params, higherParams);
-  return params;
-}
