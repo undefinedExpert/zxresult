@@ -42,7 +42,6 @@ function attachParams(filters, baseUrl) {
         const propLookForKey = Object.getOwnPropertyNames(item)[0]; // Just one element exist in that objects, we just get it's value
         const uriValue = item[propLookForKey];
         const propName = typeof filterParam === 'string' ? filterParam : filterParam[propLookForKey];
-        debugger;
         newUrl += `&${propName}=${uriValue}`;
       }
     }
