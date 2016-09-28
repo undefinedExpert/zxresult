@@ -39,10 +39,10 @@ function attachParams(filters, baseUrl) {
     // Map both param and value into new object
     if (filterValue) {
       for (const item of filterValue) {
-        debugger;
         const propLookForKey = Object.getOwnPropertyNames(item)[0]; // Just one element exist in that objects, we just get it's value
         const uriValue = item[propLookForKey];
-        const propName = _.isObject(filterParam[propLookForKey]) ? filterParam[propLookForKey] : filterParam;
+        const propName = typeof filterParam === 'string' ? filterParam : filterParam[propLookForKey];
+        debugger;
         newUrl += `&${propName}=${uriValue}`;
       }
     }
@@ -61,6 +61,7 @@ export function randomizePage(storeParams, pageLimit) {
 
 // Build URL from params & base
 export function buildUrlParams(filters, endpoint, storeParams) {
+  console.clear();
   // TODO: PARAMS for genre (string) and random page generator
   // FIXME: move randomizePage function from this function into function responded for preparing 'params' (defineParams())
   const page = storeParams.range.pages ? randomizePage(storeParams, filters.page) : 1000;
