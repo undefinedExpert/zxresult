@@ -46,7 +46,6 @@ export function* getUpdateFilters() {
 }
 
 export function* getAnalyseMovie() {
-  yield console.log('siemanko');
   const { movies } = yield select(selectResult());
   // const sortedResults = movies.results.sort((itemA, itemB) => {
   //   return itemB.popularity - itemA.popularity;

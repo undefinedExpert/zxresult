@@ -33,8 +33,8 @@ const initialState = fromJS({
           name: 'Underestimated',
           voteAverageMin: 7,
           voteAverageMax: 10,
-          voteCountMin: 5,
-          voteCountMax: 30,
+          voteCountMin: 20,
+          voteCountMax: 10,
         },
       ],
       apiParamName: {
