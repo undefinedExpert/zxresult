@@ -39,9 +39,10 @@ function attachParams(filters, baseUrl) {
     // Map both param and value into new object
     if (filterValue) {
       for (const item of filterValue) {
+        debugger;
         const propLookForKey = Object.getOwnPropertyNames(item)[0]; // Just one element exist in that objects, we just get it's value
         const uriValue = item[propLookForKey];
-        const propName = filterParam[propLookForKey];
+        const propName = _.isObject(filterParam[propLookForKey]) ? filterParam[propLookForKey] : filterParam;
         newUrl += `&${propName}=${uriValue}`;
       }
     }
