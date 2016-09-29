@@ -1,4 +1,3 @@
-import Chance from 'chance';
 import _ from 'lodash';
 import { apiUrl, apiKey } from 'containers/App/constants';
 
@@ -53,16 +52,16 @@ function attachParams(filters, baseUrl) {
 
 // Randomize page depending on max resultRange
 export function randomizePage(storeParams) {
-  const maxRange = storeParams.range.pages > 1000 ? 1000 : storeParams.range.pages;
-  const maxPage = storeParams.range.pages ? maxRange : 1;
-  const chance = new Chance();
-  // FIXME: There is an issue with defining a default value, when the user first time comes to website.
-  return chance.integer({ min: 1, max: maxPage });
+  const pages = storeParams.range.pages;
+  const maxRange = pages > 1000 ? 1000 : pages;
+  const maxPage = pages ? maxRange : 1;
+  return _.random(1, maxPage);
 }
 
 // Build URL from params & base
 export function buildUrlParams(filters, endpoint, storeParams) {
   console.clear();
+
   // FIXME: move randomizePage function from this function into function responded for preparing 'params' (./extractParams.js)
   const page = storeParams.range.pages ? randomizePage(storeParams, filters.page) : 1000;
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;

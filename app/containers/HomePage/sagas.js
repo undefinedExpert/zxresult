@@ -3,7 +3,7 @@ import * as CONSTANT from 'containers/App/constants';
 import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
 import { selectResult } from 'containers/App/selectors';
 import { callToApi, processMovieAnalyse } from 'mechanisms/movieSearch';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
 export function* getMovie() {
