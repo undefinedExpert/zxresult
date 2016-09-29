@@ -22,15 +22,17 @@ function rescueParam(parameter, reverse, tempObject) {
   });
   return tempObj;
 }
+
 // Attach parameters to baseUrl from endpoint for each filter with their value
 function attachParams(filters, baseUrl) {
   let newUrl = `${baseUrl}`;
   // Run for each filter (genre, decade, trend)
   Object.keys(filters).forEach((key) => {
-    if (!_.isObject(filters[key])) return;
+    const filter = filters[key];
+    if (!_.isObject(filter)) return;
     // Extract param
-    let filterParam = _.cloneDeep(filters[key].apiParam);
-    let filterValue = _.cloneDeep(filters[key].value);
+    let filterParam = _.cloneDeep(filter.apiParam);
+    let filterValue = _.cloneDeep(filter.value);
     // REMOVE NAME PROP, it's not required in process of build uri
     if (filterValue) filterValue.name = undefined;
     // check if it's an object, and get an arr of each params with their key, value.

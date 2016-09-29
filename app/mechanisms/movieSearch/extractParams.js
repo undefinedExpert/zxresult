@@ -1,7 +1,7 @@
 import { each } from 'lodash';
 
 // Extracts params, their endpoints, values and sets them into single object
-// Which will be used in 'building url' process (./buildUrl.js)
+// it will be used in 'building url' process (./buildUrl.js)
 function defineParams(storeParams) {
   const paramKeys = Object.keys(storeParams).filter((key) => storeParams[key].active);
   const schema = { storeParams };
