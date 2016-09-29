@@ -52,8 +52,8 @@ function attachParams(filters, baseUrl) {
 }
 
 // Randomize page depending on max resultRange
-export function randomizePage(storeParams, pageLimit) {
-  const maxRange = storeParams.range.pages > pageLimit ? pageLimit : storeParams.range.pages;
+export function randomizePage(storeParams) {
+  const maxRange = storeParams.range.pages > 1000 ? 1000 : storeParams.range.pages;
   const maxPage = storeParams.range.pages ? maxRange : 1;
   const chance = new Chance();
   // FIXME: There is an issue with defining a default value, when the user first time comes to website.

@@ -100,7 +100,9 @@ const initialState = fromJS({
   },
   result: fromJS({
     movie: null,
-    movies: null,
+    movies: [],
+    pendingMovies: [],
+    visitedMovies: [],
     isFetching: false,
   }),
   user: {
@@ -144,6 +146,13 @@ function appReducer(state = initialState, action) {
     case CONSTANT.ANALYSE_MOVIE.REQUEST:
       return state
         .setIn(['result', 'movies'], action.movies);
+    case CONSTANT.QUEUE_MOVIES.SUCCESS:
+      return state
+        .setIn(['result', 'pendingMovies'], action.pendingMovies)
+        .setIn(['result', 'isFetching'], false);
+    case CONSTANT.QUEUE_MOVIES.FAILURE:
+      return state
+        .setIn(['result', 'isFetching'], false);
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)

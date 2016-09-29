@@ -99,3 +99,11 @@ export const analyseMovies = {
   failure: (error) => action(CONSTANT.ANALYSE_MOVIE.FAILURE, { error }),
 };
 
+// Queue movies
+//
+export const queueMovies = {
+  request: (movies) => action(CONSTANT.QUEUE_MOVIES.REQUEST, { movies }),
+  success: (pendingMovies) => action(CONSTANT.QUEUE_MOVIES.SUCCESS, { pendingMovies }),
+  failure: (error) => action(CONSTANT.QUEUE_MOVIES.FAILURE, { error }),
+};
+

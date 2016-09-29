@@ -1,10 +1,9 @@
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
-import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies } from 'containers/App/actions';
+import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies } from 'containers/App/actions';
 import { selectResult } from 'containers/App/selectors';
 import { callToApi } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
-import { orderBy } from 'lodash';
 
 // Get movie
 export function* getMovie() {
@@ -46,34 +45,37 @@ export function* getUpdateFilters() {
 }
 
 export function* getAnalyseMovie() {
-  const { movies } = yield select(selectResult());
-  // const sortedResults = movies.results.sort((itemA, itemB) => {
-  //   return itemB.popularity - itemA.popularity;
-  // });
+  const { movies, pendingMovies } = yield select(selectResult());
 
-  const sorted = movies.results.sort((itemA, itemB) => {
+  console.log('pending before limiting: ', pendingMovies)
+  // Add pending movies to queue as well
+  const upcomingResults = movies.results;
+  if (pendingMovies.length > 20) pendingMovies.length -= 15; // 25 - 15 = 10
+
+  // Concat pendingMovies and upcomingMovies
+  const requestedToSort = pendingMovies ? pendingMovies.concat(upcomingResults) : movies;
+
+  console.log('pending after limiting: ', pendingMovies);
+  const sorted = requestedToSort.sort((itemA, itemB) => {
     const minimalVoteCount = 50;
     return (itemB.vote_count / (itemB.vote_count + minimalVoteCount) * itemB.vote_average + ( minimalVoteCount / (itemB.vote_count+ minimalVoteCount)) * 5) - (itemA.vote_count / (itemA.vote_count+ minimalVoteCount) * itemA.vote_average + (50 / (itemA.vote_count+50)) * 5)
   });
 
-  // sorted.forEach((item) => {
-  //   console.log(item.vote_count);
-  //   console.log(item.vote_average);
-  //   console.log('-----------------');
-  // })
-
-  // debugger;
+  // just take 5 first instead of 20
+  sorted.length -= 15;
+  // take best
+  console.log('sorted movies: ', sorted)
   try {
-    yield put(updateMovieResult.success(sorted, sorted[0]));
+    yield put(queueMovies.success(sorted));
   }
   catch (err) {
-    yield put(updateMovieResult.failure(err));
+    yield put(queueMovies.failure(err));
   }
 }
 
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  yield put(push('/result'));
+  // yield put(push('/result'));
   // TEMPORARY OFF
 }
 

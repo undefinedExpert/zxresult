@@ -29,6 +29,9 @@ const UPDATE_FILTERS = createRequestTypes('app/App/UPDATE_FILTERS');
 // Analyse movie results to pick the best
 const ANALYSE_MOVIE = createRequestTypes('app/App/ANALYSE_MOVIE');
 
+// Analyse movie results to pick the best
+const QUEUE_MOVIES = createRequestTypes('app/App/QUEUE_MOVIES');
+
 // API
 const apiUrl = 'http://api.themoviedb.org/3';
 const apiKey = 'api_key=9dee05d48efe51f51b15cc63b1fee3f5';
@@ -44,6 +47,7 @@ export {
   UPDATE_URL,
   UPDATE_FILTERS,
   ANALYSE_MOVIE,
+  QUEUE_MOVIES ,
   apiUrl,
   apiKey,
 };
