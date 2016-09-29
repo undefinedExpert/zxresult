@@ -32,12 +32,10 @@ export function* getGenreList() {
 // Update filters have make a request to server
 export function* getUpdateFilters() {
   const { data } = yield callToApi('/discover/movie', { page: 1000 });
-  const totalPages = data.total_pages;
-  const totalResults = data.total_results;
   try {
-    console.log(`Total pages: ${totalPages}`);
-    console.log(`Total Results: ${totalResults}`);
-    yield put(updateFilters.success(totalPages, totalResults));
+    console.log(`Total pages: ${data.total_pages}`);
+    console.log(`Total Results: ${data.total_results}`);
+    yield put(updateFilters.success(data.total_pages, data.total_results));
   }
   catch (err) {
     yield put(updateFilters.failure(err));
