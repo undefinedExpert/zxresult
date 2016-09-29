@@ -1,6 +1,6 @@
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 import * as CONSTANT from 'containers/App/constants';
-import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies } from 'containers/App/actions';
+import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
 import { selectResult } from 'containers/App/selectors';
 import { callToApi } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
@@ -71,9 +71,20 @@ export function* getAnalyseMovie() {
   }
 }
 
+export function* getUpdateSingleMovie() {
+  const { pendingMovies } = yield select(selectResult());
+  const singlePendingMovie = pendingMovies[0];
+  try {
+    yield put(updateMovieResult.success(singlePendingMovie));
+  }
+  catch (err) {
+    yield put(queueMovies.failure(err));
+  }
+}
+
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  // yield put(push('/result'));
+  yield put(push('/result'));
   // TEMPORARY OFF
 }
 
@@ -110,6 +121,12 @@ export function* getAnalyseMovieWatcher() {
   }
 }
 
+export function* getUpdateSingleMovieWatcher() {
+  while (yield take(CONSTANT.QUEUE_MOVIES.SUCCESS)) {
+    yield call(getUpdateSingleMovie);
+  }
+}
+
 export function* getData() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
@@ -117,6 +134,7 @@ export function* getData() {
   const genreListWatcher = yield fork(getGenresListWatcher);
   const updateFilterWatcher = yield fork(getUpdateFiltersWatcher);
   const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
+  const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
 
   // Suspend execution until location changes
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
@@ -129,6 +147,7 @@ export function* getData() {
     cancel(genreListWatcher),
     cancel(updateFilterWatcher),
     cancel(analyseMovieWatcher),
+    cancel(updateSingleMovieWatcher),
   ]);
 }
 

@@ -71,8 +71,8 @@ export const updateFilterTrend = {
 //
 export const updateMovieResult = {
   request: () => action(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST, {}),
-  success: (movies, movie, response) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { movies, movie, response }),
-  failure: (movies, movie, error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { movies, movie, error }),
+  success: (movie) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { movie }),
+  failure: (error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { error }),
 };
 
 // Update url
@@ -105,5 +105,13 @@ export const queueMovies = {
   request: (movies) => action(CONSTANT.QUEUE_MOVIES.REQUEST, { movies }),
   success: (pendingMovies) => action(CONSTANT.QUEUE_MOVIES.SUCCESS, { pendingMovies }),
   failure: (error) => action(CONSTANT.QUEUE_MOVIES.FAILURE, { error }),
+};
+
+// Queue movies
+//
+export const updateSingleMovie = {
+  request: (updatedMovie) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { updatedMovie }),
+  success: () => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, {}),
+  failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };
 
