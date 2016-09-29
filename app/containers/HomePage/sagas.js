@@ -2,8 +2,8 @@ import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects'
 import * as CONSTANT from 'containers/App/constants';
 import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
 import { selectResult } from 'containers/App/selectors';
-import { callToApi } from 'mechanisms/movieSearch';
-import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { callToApi, processMovieAnalyse } from 'mechanisms/movieSearch';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 // Get movie
 export function* getMovie() {
@@ -11,7 +11,6 @@ export function* getMovie() {
   try {
     yield console.info('Result updated.');
     yield put(analyseMovies.request(data));
-    // yield put(updateMovieResult.success(data, data.results[0]));
   }
   catch (err) {
     yield put(updateMovieResult.failure(err));
@@ -43,28 +42,10 @@ export function* getUpdateFilters() {
 }
 
 export function* getAnalyseMovie() {
-  const { movies, pendingMovies } = yield select(selectResult());
+  const analyzed = yield processMovieAnalyse();
 
-  console.log('pending before limiting: ', pendingMovies)
-  // Add pending movies to queue as well
-  const upcomingResults = movies.results;
-  // if (pendingMovies.length > 20) pendingMovies.length -= 15; // 25 - 15 = 10
-
-  // Concat pendingMovies and upcomingMovies
-  const requestedToSort = pendingMovies ? pendingMovies.concat(upcomingResults) : movies;
-
-  console.log('pending after limiting: ', pendingMovies);
-  const sorted = requestedToSort.sort((itemA, itemB) => {
-    const minimalVoteCount = 50;
-    return (itemB.vote_count / (itemB.vote_count + minimalVoteCount) * itemB.vote_average + ( minimalVoteCount / (itemB.vote_count+ minimalVoteCount)) * 5) - (itemA.vote_count / (itemA.vote_count+ minimalVoteCount) * itemA.vote_average + (50 / (itemA.vote_count+50)) * 5)
-  });
-
-  // just take 5 first instead of 20
-  sorted.length -= 15;
-  // take best
-  console.log('sorted movies: ', sorted)
   try {
-    yield put(queueMovies.success(sorted));
+    yield put(queueMovies.success(analyzed));
   }
   catch (err) {
     yield put(queueMovies.failure(err));
@@ -73,6 +54,7 @@ export function* getAnalyseMovie() {
 
 export function* getUpdateSingleMovie() {
   const { pendingMovies } = yield select(selectResult());
+  // Take 1st element from our pending movies
   const singlePendingMovie = pendingMovies[0];
   try {
     yield put(updateMovieResult.success(singlePendingMovie));
@@ -81,7 +63,7 @@ export function* getUpdateSingleMovie() {
     yield put(queueMovies.failure(err));
   }
 
-  // reduce pending by item
+  // Reduce pending movies by item user just take
   yield pendingMovies.shift();
   try {
     yield put(updateSingleMovie.success(pendingMovies));
@@ -93,7 +75,7 @@ export function* getUpdateSingleMovie() {
 
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  yield put(push('/result'));
+  // yield put(push('/result'));
   // TEMPORARY OFF
 }
 

@@ -159,7 +159,8 @@ function appReducer(state = initialState, action) {
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)
-        .setIn(['filters', 'range', 'results'], action.totalResults);
+        .setIn(['filters', 'range', 'results'], action.totalResults)
+        .setIn(['result', 'pendingMovies'], []);
     default:
       return state;
   }
