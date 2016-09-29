@@ -48,7 +48,7 @@ export function* getAnalyseMovie() {
   console.log('pending before limiting: ', pendingMovies)
   // Add pending movies to queue as well
   const upcomingResults = movies.results;
-  if (pendingMovies.length > 20) pendingMovies.length -= 15; // 25 - 15 = 10
+  // if (pendingMovies.length > 20) pendingMovies.length -= 15; // 25 - 15 = 10
 
   // Concat pendingMovies and upcomingMovies
   const requestedToSort = pendingMovies ? pendingMovies.concat(upcomingResults) : movies;
@@ -79,6 +79,15 @@ export function* getUpdateSingleMovie() {
   }
   catch (err) {
     yield put(queueMovies.failure(err));
+  }
+
+  // reduce pending by item
+  yield pendingMovies.shift();
+  try {
+    yield put(updateSingleMovie.success(pendingMovies));
+  }
+  catch (err) {
+    yield put(updateSingleMovie.failure(err));
   }
 }
 

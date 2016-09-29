@@ -107,10 +107,18 @@ export const queueMovies = {
   failure: (error) => action(CONSTANT.QUEUE_MOVIES.FAILURE, { error }),
 };
 
-// Queue movies
+// updateSingleMovie
 //
 export const updateSingleMovie = {
   request: (updatedMovie) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { updatedMovie }),
+  success: (removeFromPending) => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, { removeFromPending }),
+  failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
+};
+
+// Queue movies
+//
+export const moveToVisitedMovies = {
+  request: (visitedMovie) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { visitedMovie }),
   success: () => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, {}),
   failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };

@@ -153,6 +153,9 @@ function appReducer(state = initialState, action) {
     case CONSTANT.QUEUE_MOVIES.FAILURE:
       return state
         .setIn(['result', 'isFetching'], false);
+    case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:
+      return state
+        .setIn(['result', 'pendingMovies'], action.removeFromPending)
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)
