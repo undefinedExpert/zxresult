@@ -33,7 +33,29 @@ function assignHigherParams(params, higherParams) {
 
 export function validateAndPrepareParams(storeParams, higherParams) {
   const params = prepareParams(storeParams);
+  params.page = storeParams.range.pages ? randomizePage(storeParams) : 1000;
   // Merge params & higherParams
   assignHigherParams(params, higherParams);
   return params;
+}
+
+// Randomize page depending on max resultRange
+export function randomizePage(storeParams) {
+  // Cache all randomized numbers in array, so the randomize function won't select (randomize) then once again
+  // We don't want to do that, cause our application analyse each page and takes 5 best results from it
+  // And if we met same page again the end user might see the same result.
+  const cache = randomizePage.cachedNumbers = randomizePage.cachedNumbers || [];
+  const pages = storeParams.range.pages;
+  const maxRange = pages > 1000 ? 1000 : pages;
+  const maxPage = pages ? maxRange : 1;
+  const randomNumber = _.random(1, maxPage);
+
+  if (cache.indexOf(randomNumber) === -1) {
+    cache.push(randomNumber);
+    console.log(typeof randomNumber);
+
+    return randomNumber;
+  }
+  //TODO: what happens when there is no more results?
+  return null;
 }

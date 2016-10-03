@@ -28,7 +28,7 @@ function attachParams(filters, baseUrl) {
   // Run for each filter (genre, decade, trend)
   Object.keys(filters).forEach((key) => {
     const filter = filters[key];
-    if (!_.isObject(filter)) return;
+
     // Extract param
     let filterParam = _.cloneDeep(filter.apiParam);
     let filterValue = _.cloneDeep(filter.value);
@@ -46,29 +46,22 @@ function attachParams(filters, baseUrl) {
         newUrl += `&${propName}=${uriValue}`;
       }
     }
+    if (typeof filter === 'number') newUrl += `&${key}=${filter}`;
   });
   return newUrl;
-}
-
-// Randomize page depending on max resultRange
-export function randomizePage(storeParams) {
-  const pages = storeParams.range.pages;
-  const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? maxRange : 1;
-  return _.random(1, maxPage);
 }
 
 // Build URL from params & base
 export function buildUrlParams(filters, endpoint, storeParams) {
   console.clear();
-
   // FIXME: move randomizePage function from this function into function responded for preparing 'params' (./extractParams.js)
-  const page = storeParams.range.pages ? randomizePage(storeParams, filters.page) : 1000;
+  // const page = storeParams.range.pages ? randomizePage(storeParams) : 1000;
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
   // Attach params if there are any
   if (filters) baseUrl = attachParams(filters, baseUrl);
-  // Adds page into uri query
-  baseUrl = page ? `${baseUrl}&page=${page}` : baseUrl;
+  // // Adds page into uri query
+  console.log(filters);
+  // baseUrl = page ? `${baseUrl}&page=${page}` : baseUrl;
   console.log(baseUrl);
   return baseUrl;
 }

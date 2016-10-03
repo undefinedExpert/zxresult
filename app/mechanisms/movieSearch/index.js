@@ -26,3 +26,4 @@ export function* processMovieAnalyse() {
   const ranked = rankMovies(upcomingResults, pendingMovies);
   return ranked;
 }
+
