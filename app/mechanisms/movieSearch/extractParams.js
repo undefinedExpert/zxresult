@@ -39,7 +39,7 @@ export function randomizePage(storeParams) {
   const cache = randomizePage.cachedNumbers = randomizePage.cachedNumbers || [];
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? maxRange : 1;
+  const maxPage = pages ? 2 : 1;
   const randomNumber = random(1, maxPage);
   if (cache.indexOf(randomNumber) === -1) {
      cache.push(randomNumber);
@@ -50,13 +50,15 @@ export function randomizePage(storeParams) {
   if (maxPage === cache.length) {
     console.error('user saw all pages');
   }
+
+  // dac znac ze osiagnieto limit?
   return null;
 }
 
 
 export function validateAndPrepareParams(storeParams, higherParams) {
   const params = prepareParams(storeParams);
-  params.page = storeParams.range.pages ? randomizePage(storeParams) : 1000;
+  if (storeParams.range.pages) params.page = randomizePage(storeParams);
   // Merge params & higherParams
   assignHigherParams(params, higherParams);
   return params;

@@ -7,6 +7,8 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
 export function* getMovie() {
+  // sprawdzanie czy zostaly jeszcze jakies nieodwiedzone strony?
+  console.clear();
   const { data } = yield callToApi('/discover/movie');
   try {
     yield console.info('Result updated.');
