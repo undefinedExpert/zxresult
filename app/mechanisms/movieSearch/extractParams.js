@@ -1,4 +1,4 @@
-import { each } from 'lodash';
+import { each, random } from 'lodash';
 
 // Extracts params, their endpoints, values and sets them into single object
 // it will be used in 'building url' process (./buildUrl.js)
@@ -31,14 +31,6 @@ function assignHigherParams(params, higherParams) {
   Object.assign(params, higherParams);
 }
 
-export function validateAndPrepareParams(storeParams, higherParams) {
-  const params = prepareParams(storeParams);
-  params.page = storeParams.range.pages ? randomizePage(storeParams) : 1000;
-  // Merge params & higherParams
-  assignHigherParams(params, higherParams);
-  return params;
-}
-
 // Randomize page depending on max resultRange
 export function randomizePage(storeParams) {
   // Cache all randomized numbers in array, so the randomize function won't select (randomize) then once again
@@ -48,7 +40,7 @@ export function randomizePage(storeParams) {
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
   const maxPage = pages ? maxRange : 1;
-  const randomNumber = _.random(1, maxPage);
+  const randomNumber = random(1, maxPage);
 
   if (cache.indexOf(randomNumber) === -1) {
     cache.push(randomNumber);
@@ -58,4 +50,13 @@ export function randomizePage(storeParams) {
   }
   //TODO: what happens when there is no more results?
   return null;
+}
+
+
+export function validateAndPrepareParams(storeParams, higherParams) {
+  const params = prepareParams(storeParams);
+  params.page = storeParams.range.pages ? randomizePage(storeParams) : 1000;
+  // Merge params & higherParams
+  assignHigherParams(params, higherParams);
+  return params;
 }

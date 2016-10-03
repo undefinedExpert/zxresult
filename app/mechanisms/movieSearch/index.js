@@ -7,7 +7,7 @@ import request from 'utils/request';
 
 export function buildUrlFromFilters(filters, endpoint, higherPriorityParams = {}, withParams) {
   const setParams = withParams ? validateAndPrepareParams(filters, higherPriorityParams) : null;
-  const requestUrl = buildUrlParams(setParams, endpoint, filters);
+  const requestUrl = buildUrlParams(setParams, endpoint);
   return requestUrl;
 }
 

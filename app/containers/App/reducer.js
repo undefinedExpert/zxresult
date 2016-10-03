@@ -94,10 +94,8 @@ const initialState = fromJS({
       apiParamName: 'with_genres',
     },
     range: {
-      visitedPages: [],
       pages: 0,
       results: 0,
-      pagesLeft: 1,
     },
   },
   result: fromJS({

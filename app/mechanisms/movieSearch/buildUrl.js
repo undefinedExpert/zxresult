@@ -52,16 +52,11 @@ function attachParams(filters, baseUrl) {
 }
 
 // Build URL from params & base
-export function buildUrlParams(filters, endpoint, storeParams) {
+export function buildUrlParams(filters, endpoint) {
   console.clear();
-  // FIXME: move randomizePage function from this function into function responded for preparing 'params' (./extractParams.js)
-  // const page = storeParams.range.pages ? randomizePage(storeParams) : 1000;
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
   // Attach params if there are any
   if (filters) baseUrl = attachParams(filters, baseUrl);
-  // // Adds page into uri query
-  console.log(filters);
-  // baseUrl = page ? `${baseUrl}&page=${page}` : baseUrl;
   console.log(baseUrl);
   return baseUrl;
 }
