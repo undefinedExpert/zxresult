@@ -39,10 +39,10 @@ export function randomizePage(storeParams) {
   const cache = randomizePage.cachedNumbers = randomizePage.cachedNumbers || [];
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? 2 : 1;
+  const maxPage = pages ? maxRange : 1;
   const randomNumber = random(1, maxPage);
   if (cache.indexOf(randomNumber) === -1) {
-     cache.push(randomNumber);
+    cache.push(randomNumber);
     return randomNumber;
   }
   // TODO: what happens when there is no more results?
@@ -51,7 +51,6 @@ export function randomizePage(storeParams) {
     console.error('user saw all pages');
   }
 
-  // dac znac ze osiagnieto limit?
   return null;
 }
 
