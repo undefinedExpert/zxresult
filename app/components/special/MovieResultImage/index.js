@@ -16,7 +16,15 @@ class MovieResultImage extends React.Component {
 
   imageLoad = (e) => {
     // TODO: Create scan animation
-    console.log(e.target.offsetHeight);
+    const path = e.target.attributes.src.value;
+    const pathBigger = path.replace(/\w45/g, 'w154');
+    const pathBiggest = path.replace(/\w154/g, 'w780');
+    if (path === pathBigger || path === pathBiggest) {
+      e.target.setAttribute('src', pathBiggest);
+    }
+    if (path === pathBigger) return;
+    e.target.setAttribute('src', pathBigger);
+    // console.log(e.target.offsetHeight);
   };
 
   render() {
@@ -24,7 +32,6 @@ class MovieResultImage extends React.Component {
       path,
       alt,
     } = this.props;
-    console.log(styles);
     return (
       <div className={styles.resultImage}>
         <div className={styles.overlay}></div>
@@ -33,7 +40,7 @@ class MovieResultImage extends React.Component {
             onLoad={this.imageLoad}
             alt={alt}
             className={styles.image}
-            src={`http://image.tmdb.org/t/p/w154/${path}`}
+            src={`http://image.tmdb.org/t/p/w45/${path}`}
           />
         </div>
       </div>
