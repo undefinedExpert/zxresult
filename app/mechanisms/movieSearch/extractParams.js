@@ -41,14 +41,15 @@ export function randomizePage(storeParams) {
   const maxRange = pages > 1000 ? 1000 : pages;
   const maxPage = pages ? maxRange : 1;
   const randomNumber = random(1, maxPage);
-
   if (cache.indexOf(randomNumber) === -1) {
-    cache.push(randomNumber);
-    console.log(typeof randomNumber);
-
+     cache.push(randomNumber);
     return randomNumber;
   }
-  //TODO: what happens when there is no more results?
+  // TODO: what happens when there is no more results?
+  // TODO: How to calc how many left?
+  if (maxPage === cache.length) {
+    console.error('user saw all pages');
+  }
   return null;
 }
 

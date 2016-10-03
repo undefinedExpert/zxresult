@@ -43,7 +43,7 @@ export function* getUpdateFilters() {
 
 export function* getAnalyseMovie() {
   const analyzed = yield processMovieAnalyse();
-
+  // debugger;
   try {
     yield put(queueMovies.success(analyzed));
   }

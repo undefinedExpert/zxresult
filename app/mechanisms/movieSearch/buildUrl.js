@@ -28,6 +28,7 @@ function attachParams(filters, baseUrl) {
   // Run for each filter (genre, decade, trend)
   Object.keys(filters).forEach((key) => {
     const filter = filters[key];
+    if (filter === null) return;
 
     // Extract param
     let filterParam = _.cloneDeep(filter.apiParam);
@@ -53,7 +54,6 @@ function attachParams(filters, baseUrl) {
 
 // Build URL from params & base
 export function buildUrlParams(filters, endpoint) {
-  console.clear();
   let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
   // Attach params if there are any
   if (filters) baseUrl = attachParams(filters, baseUrl);

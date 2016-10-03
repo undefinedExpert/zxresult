@@ -161,6 +161,7 @@ function appReducer(state = initialState, action) {
         .setIn(['filters', 'range', 'pages'], action.totalPages)
         .setIn(['filters', 'range', 'results'], action.totalResults)
         .setIn(['result', 'pendingMovies'], []);
+
     default:
       return state;
   }
