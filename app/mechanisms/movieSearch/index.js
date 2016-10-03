@@ -16,7 +16,6 @@ export function* callToApi(endPoint, HigherParams, withParams = true) {
   const filters = yield select(selectFilters());
   const prepareParams = yield buildUrlFromFilters(filters, endPoint, HigherParams, withParams);
   const data = yield call(request, prepareParams);
-  console.log(data);
   return data;
 }
 

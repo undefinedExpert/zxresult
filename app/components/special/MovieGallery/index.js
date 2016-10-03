@@ -10,6 +10,7 @@ import Section from 'components/general/Section';
 import ResultImage from 'components/special/MovieResultImage';
 import MovieSearchForm from 'containers/MovieSearchForm';
 
+
 function MovieGallery(props) {
   const {
     path,

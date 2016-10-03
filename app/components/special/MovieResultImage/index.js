@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styles from './styles.css';
 
 class MovieResultImage extends React.Component {
@@ -27,14 +28,14 @@ class MovieResultImage extends React.Component {
     return (
       <div className={styles.resultImage}>
         <div className={styles.overlay}></div>
-        <div
-          onMouseEnter={this.whenMouseEntered}
-          onMouseLeave={this.whenMouseLeft}
-          onLoad={this.imageLoad}
-          alt={alt}
-          className={styles.image}
-          style={{ backgroundImage: `url(http://image.tmdb.org/t/p/original/${path})` }}
-        />
+        <div className={styles.imageContainer}>
+          <img
+            onLoad={this.imageLoad}
+            alt={alt}
+            className={styles.image}
+            src={`http://image.tmdb.org/t/p/w154/${path}`}
+          />
+        </div>
       </div>
     );
   }
