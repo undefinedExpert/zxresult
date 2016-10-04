@@ -11,9 +11,9 @@ $maxHeight: calc(100vh - 50px);
   max-height: $maxHeight;
   height: $maxHeight;
   background-color: #22262e;
-  :local img {
-    /* height: 100vh; */
-    min-width: 100%;
-    lost-column: 1 0;
-  }
+  /*:local img {*/
+    /*!* height: 100vh; *!*/
+    /*min-width: 100%;*/
+    /*lost-column: 1 0;*/
+  /*}*/
 }

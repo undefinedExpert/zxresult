@@ -22,7 +22,8 @@ $navigationSize: 50px;
   bottom: 0;
   left: 0;
   overflow: hidden;
-  .image {
+  user-select: none;
+.image {
     position: absolute;
     top: 0;
     left: 50%;
@@ -32,7 +33,10 @@ $navigationSize: 50px;
     max-width: none;
     min-height: 100%;
     min-width: 100%;
+    user-select: none;
+  user-drag: none;
     transform: translate(-50%, 0);
+
     /*animation: resultImageAnimation 15s infinite ease;*/
     /*animation-delay: 1s;*/
   }
