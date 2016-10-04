@@ -102,10 +102,7 @@ const initialState = fromJS({
       },
     },
     genre: {
-      active: {
-        name: 'Action',
-        id: 28,
-      },
+      active: null,
       list: [],
       apiParamName: 'with_genres',
     },
