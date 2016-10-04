@@ -20,12 +20,11 @@ export function* randomizePage(storeParams, higherParams) {
   // We don't want to do that, cause our application analyse each page and takes 5 best results from it
   // And if we met same page again the end user might see the same result.
   // debugger;
-
   if (higherParams.page) return higherParams.page;
   const cache = storeParams.range.pagesCache;
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? 10 : 1;
+  const maxPage = pages ? maxRange : 1;
   let randomNumber = yield generateNumber(1, maxPage);
 
   if (maxPage === cache.length) {
@@ -35,9 +34,8 @@ export function* randomizePage(storeParams, higherParams) {
   while (cache.indexOf(randomNumber) !== -1) {
     yield randomNumber = generateNumber(1, maxPage);
   }
-  // uruchomienie specjalnej akcji ktora popcha nasz numer do store
-  const cachedPages = cache.concat(randomNumber);
-  yield put(cacheRandomizedPage.request(cachedPages));
+  const cached = cache.concat(randomNumber);
+  yield put(cacheRandomizedPage.request(cached));
   return randomNumber;
 }
 

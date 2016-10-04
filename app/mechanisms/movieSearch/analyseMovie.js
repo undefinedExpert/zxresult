@@ -10,7 +10,7 @@ export function rankMovies(upcomingResults, pending) {
   });
 
   // just take 5 first instead of 20
-  sorted.length -= 15;
+  if (sorted.length > 15) sorted.length -= 15;
 
   return sorted;
 }

@@ -166,6 +166,7 @@ function appReducer(state = initialState, action) {
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)
         .setIn(['filters', 'range', 'results'], action.totalResults)
+        .setIn(['filters', 'range', 'pagesCache'], [])
         .setIn(['result', 'noMoreResults'], false)
         .setIn(['result', 'pending'], []);
     case CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST:
