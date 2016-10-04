@@ -44,18 +44,17 @@ export function randomizePage(storeParams) {
   const cache = randomizePage.cachedNumbers = randomizePage.cachedNumbers || [];
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? 2 : 1;
-  const randomNumber = generateNumber(1, maxPage);
-  if (cache.indexOf(randomNumber) === -1) {
-    cache.push(randomNumber);
-    return randomNumber;
-  }
-  // TODO: what happens when there is no more results?
-  // TODO: How to calc how many left?
+  const maxPage = pages ? 10 : 1;
+  let randomNumber = generateNumber(1, maxPage);
   if (maxPage === cache.length) {
     console.error('user saw all pages');
+    return null;
   }
-  return null;
+  while (cache.indexOf(randomNumber) !== -1) {
+    randomNumber = generateNumber(1, maxPage);
+  }
+  cache.push(randomNumber);
+  return randomNumber;
 }
 
 
