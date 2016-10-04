@@ -71,7 +71,7 @@ export const updateFilterTrend = {
 //
 export const updateMovieResult = {
   request: () => action(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST, {}),
-  success: (movie) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { movie }),
+  success: (active) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { active }),
   failure: (error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { error }),
 };
 
@@ -94,31 +94,31 @@ export const updateFilters = {
 // Analyse movies
 //
 export const analyseMovies = {
-  request: (movies) => action(CONSTANT.ANALYSE_MOVIE.REQUEST, { movies }),
-  success: (movie, viewed) => action(CONSTANT.ANALYSE_MOVIE.SUCCESS, { movie, viewed }),
+  request: (notSorted) => action(CONSTANT.ANALYSE_MOVIE.REQUEST, { notSorted }),
+  success: (active, viewed) => action(CONSTANT.ANALYSE_MOVIE.SUCCESS, { active, viewed }),
   failure: (error) => action(CONSTANT.ANALYSE_MOVIE.FAILURE, { error }),
 };
 
 // Queue movies
 //
 export const queueMovies = {
-  request: (movies) => action(CONSTANT.QUEUE_MOVIES.REQUEST, { movies }),
-  success: (pendingMovies) => action(CONSTANT.QUEUE_MOVIES.SUCCESS, { pendingMovies }),
+  request: (notSorted) => action(CONSTANT.QUEUE_MOVIES.REQUEST, { notSorted }),
+  success: (pending) => action(CONSTANT.QUEUE_MOVIES.SUCCESS, { pending }),
   failure: (error) => action(CONSTANT.QUEUE_MOVIES.FAILURE, { error }),
 };
 
 // updateSingleMovie
 //
 export const updateSingleMovie = {
-  request: (updatedMovie) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { updatedMovie }),
-  success: (removeFromPending) => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, { removeFromPending }),
+  request: (active) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { active }),
+  success: (removePending) => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, { removePending }),
   failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };
 
 // Queue movies
 //
 export const moveToVisitedMovies = {
-  request: (visitedMovie) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { visitedMovie }),
+  request: (visited) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { visited }),
   success: () => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, {}),
   failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };

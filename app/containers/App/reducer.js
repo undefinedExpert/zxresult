@@ -99,11 +99,11 @@ const initialState = fromJS({
     },
   },
   result: fromJS({
-    movie: null,
-    movies: [],
+    active: null,
+    notSorted: [], // Freshly downloaded, before moved to pending need to be analysed.
+    pending: [],
+    cache: [],
     noMoreResults: false,
-    pendingMovies: [],
-    visitedMovies: [],
     isFetching: false,
   }),
   user: {
@@ -142,7 +142,7 @@ function appReducer(state = initialState, action) {
         .setIn(['result', 'isFetching'], true);
     case CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS:
       return state
-        .setIn(['result', 'movie'], action.movie)
+        .setIn(['result', 'active'], action.active)
         .setIn(['result', 'isFetching'], false);
     case CONSTANT.UPDATE_MOVIE_RESULT.FAILURE:
       return state
@@ -150,23 +150,23 @@ function appReducer(state = initialState, action) {
         .setIn(['result', 'isFetching'], false);
     case CONSTANT.ANALYSE_MOVIE.REQUEST:
       return state
-        .setIn(['result', 'movies'], action.movies);
+        .setIn(['result', 'notSorted'], action.notSorted);
     case CONSTANT.QUEUE_MOVIES.SUCCESS:
       return state
-        .setIn(['result', 'pendingMovies'], action.pendingMovies)
+        .setIn(['result', 'pending'], action.pending)
         .setIn(['result', 'isFetching'], false);
     case CONSTANT.QUEUE_MOVIES.FAILURE:
       return state
         .setIn(['result', 'isFetching'], false);
     case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
-        .setIn(['result', 'pendingMovies'], action.removeFromPending);
+        .setIn(['result', 'pending'], action.removePending);
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)
         .setIn(['filters', 'range', 'results'], action.totalResults)
         .setIn(['result', 'noMoreResults'], false)
-        .setIn(['result', 'pendingMovies'], []);
+        .setIn(['result', 'pending'], []);
 
     default:
       return state;

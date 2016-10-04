@@ -54,9 +54,9 @@ export function* getAnalyseMovie() {
 }
 
 export function* getUpdateSingleMovie() {
-  const { pendingMovies } = yield select(selectResult());
+  const { pending } = yield select(selectResult());
   // Take 1st element from our pending movies
-  const singlePendingMovie = pendingMovies[0];
+  const singlePendingMovie = pending[0];
   try {
     yield put(updateMovieResult.success(singlePendingMovie));
   }
@@ -65,9 +65,9 @@ export function* getUpdateSingleMovie() {
   }
 
   // Reduce pending movies by item user just take
-  yield pendingMovies.shift();
+  yield pending.shift();
   try {
-    yield put(updateSingleMovie.success(pendingMovies));
+    yield put(updateSingleMovie.success(pending));
   }
   catch (err) {
     yield put(updateSingleMovie.failure(err));

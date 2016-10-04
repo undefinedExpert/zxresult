@@ -17,17 +17,16 @@ export function* callToApi(endPoint, HigherParams, withParams = true) {
   const filters = yield select(selectFilters());
   const prepareParams = yield buildUrlFromFilters(filters, endPoint, HigherParams, withParams);
   const data = yield call(request, prepareParams);
-  console.log(prepareParams)
   if (!prepareParams) return false;
   return data;
 }
 
 export function* processMovieAnalyse() {
-  const { movies, pendingMovies } = yield select(selectResult());
-  const upcomingResults = movies.results;
+  const { notSorted, pending } = yield select(selectResult());
+  const upcomingResults = notSorted.results;
   // Remove worthless movies from pendingList
-  if (pendingMovies.length > 110) pendingMovies.length -= 40; // 105 - 40 = 65
-  const ranked = rankMovies(upcomingResults, pendingMovies);
+  if (pending.length > 110) pending.length -= 40; // 105 - 40 = 65
+  const ranked = rankMovies(upcomingResults, pending);
   return ranked;
 }
 

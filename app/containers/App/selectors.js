@@ -59,24 +59,24 @@ const resultDomain = () => createSelector(
 
 const selectResult = () => {
   const resultSelector = createStructuredSelector({
-    movie: (state) => state.movie,
-    movies: (state) => state.movies,
+    active: (state) => state.active,
+    notSorted: (state) => state.notSorted,
     isFetching: (state) => state.isFetching,
-    pendingMovies: (state) => state.pendingMovies,
-    visitedMovies: (state) => state.visitedMovies,
+    pending: (state) => state.pending,
+    visited: (state) => state.visited,
     noMoreResults: (state) => state.noMoreResults,
   });
   return createSelector(
     resultDomain(),
     resultSelector,
     (resultState) => {
-      const movie = resultState.movie;
-      const movies = resultState.movies;
+      const active = resultState.active;
+      const notSorted = resultState.notSorted;
       const isFetching = resultState.isFetching;
-      const pendingMovies = resultState.pendingMovies;
-      const visitedMovies = resultState.visitedMovies;
+      const pending = resultState.pending;
+      const visited = resultState.visited;
       const noMoreResults = resultState.noMoreResults;
-      return { movie, movies, isFetching, pendingMovies, visitedMovies, noMoreResults };
+      return { active, notSorted, isFetching, pending, visited, noMoreResults };
     }
   );
 };

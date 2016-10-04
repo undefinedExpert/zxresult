@@ -1,7 +1,7 @@
-export function rankMovies(upcomingResults, pendingMovies) {
-  // Concat pendingMovies and upcomingMovies
-  console.log(pendingMovies);
-  const requestedToSort = pendingMovies ? pendingMovies.concat(upcomingResults) : upcomingResults;
+export function rankMovies(upcomingResults, pending) {
+  // Concat pending and upcomingMovies
+  console.log(pending);
+  const requestedToSort = pending ? pending.concat(upcomingResults) : upcomingResults;
 
   // Pick best movies
   const sorted = requestedToSort.sort((itemA, itemB) => {

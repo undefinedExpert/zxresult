@@ -15,14 +15,14 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   render() {
     const {
       result: {
-        movie,
+        active,
       },
     } = this.props;
 
     return (
       <section>
-        <Gallery path={movie.poster_path} alt={`${movie.original_title}`} />
-        <MovieArticle movie={movie} />
+        <Gallery path={active.poster_path} alt={`${active.original_title}`} />
+        <MovieArticle movie={active} />
       </section>
     );
   }
@@ -38,7 +38,7 @@ const mapStateToProps = createStructuredSelector({
   result: createSelector(
     selectResult(),
     createStructuredSelector({
-      movie: (state) => state.movie,
+      active: (state) => state.active,
     })
   ),
 });
