@@ -10,12 +10,12 @@ export function* getMovie() {
   // sprawdzanie czy zostaly jeszcze jakies nieodwiedzone strony?
   // console.clear();
   const { data } = yield callToApi('/discover/movie');
-  try {
+  if (data) {
     yield console.info('Result updated.');
     yield put(analyseMovies.request(data));
   }
-  catch (err) {
-    yield put(updateMovieResult.failure(err));
+  else {
+    yield put(updateMovieResult.failure('no movies'));
   }
 }
 
@@ -45,7 +45,6 @@ export function* getUpdateFilters() {
 
 export function* getAnalyseMovie() {
   const analyzed = yield processMovieAnalyse();
-  // debugger;
   try {
     yield put(queueMovies.success(analyzed));
   }

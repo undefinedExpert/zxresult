@@ -64,6 +64,7 @@ const selectResult = () => {
     isFetching: (state) => state.isFetching,
     pendingMovies: (state) => state.pendingMovies,
     visitedMovies: (state) => state.visitedMovies,
+    noMoreResults: (state) => state.noMoreResults,
   });
   return createSelector(
     resultDomain(),
@@ -74,7 +75,8 @@ const selectResult = () => {
       const isFetching = resultState.isFetching;
       const pendingMovies = resultState.pendingMovies;
       const visitedMovies = resultState.visitedMovies;
-      return { movie, movies, isFetching, pendingMovies, visitedMovies };
+      const noMoreResults = resultState.noMoreResults;
+      return { movie, movies, isFetching, pendingMovies, visitedMovies, noMoreResults };
     }
   );
 };

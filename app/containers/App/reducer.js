@@ -101,6 +101,7 @@ const initialState = fromJS({
   result: fromJS({
     movie: null,
     movies: [],
+    noMoreResults: false,
     pendingMovies: [],
     visitedMovies: [],
     isFetching: false,
@@ -143,6 +144,10 @@ function appReducer(state = initialState, action) {
       return state
         .setIn(['result', 'movie'], action.movie)
         .setIn(['result', 'isFetching'], false);
+    case CONSTANT.UPDATE_MOVIE_RESULT.FAILURE:
+      return state
+        .setIn(['result', 'noMoreResults'], true)
+        .setIn(['result', 'isFetching'], false);
     case CONSTANT.ANALYSE_MOVIE.REQUEST:
       return state
         .setIn(['result', 'movies'], action.movies);
@@ -155,11 +160,12 @@ function appReducer(state = initialState, action) {
         .setIn(['result', 'isFetching'], false);
     case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
-        .setIn(['result', 'pendingMovies'], action.removeFromPending)
+        .setIn(['result', 'pendingMovies'], action.removeFromPending);
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['filters', 'range', 'pages'], action.totalPages)
         .setIn(['filters', 'range', 'results'], action.totalResults)
+        .setIn(['result', 'noMoreResults'], false)
         .setIn(['result', 'pendingMovies'], []);
 
     default:

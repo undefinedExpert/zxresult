@@ -38,10 +38,22 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
 
     return null;
   };
+
+  noMoreResults = () => {
+    const noMoreResults = this.props.result.noMoreResults;
+    if (noMoreResults) {
+      return (
+        <h4>No more results</h4>
+      );
+    }
+
+    return null;
+  };
   render() {
     return (
       <div>
         {this.fetchFunc()}
+        {this.noMoreResults()}
         <Button onClick={this.updateAndRoute}>Update filters and route to result when it's done</Button>
       </div>
     );
@@ -62,6 +74,7 @@ const mapStateToProps = createStructuredSelector({
     selectResult(),
     createStructuredSelector({
       isFetching: (state) => state.isFetching,
+      noMoreResults: (state) => state.noMoreResults,
       movie: (state) => state.movie,
       movies: (state) => state.movies,
     }),

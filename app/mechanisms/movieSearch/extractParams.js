@@ -31,6 +31,11 @@ function assignHigherParams(params, higherParams) {
   Object.assign(params, higherParams);
 }
 
+function generateNumber(min, max) {
+  return random(min, max);
+}
+
+
 // Randomize page depending on max resultRange
 export function randomizePage(storeParams) {
   // Cache all randomized numbers in array, so the randomize function won't select (randomize) then once again
@@ -39,8 +44,8 @@ export function randomizePage(storeParams) {
   const cache = randomizePage.cachedNumbers = randomizePage.cachedNumbers || [];
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? maxRange : 1;
-  const randomNumber = random(1, maxPage);
+  const maxPage = pages ? 2 : 1;
+  const randomNumber = generateNumber(1, maxPage);
   if (cache.indexOf(randomNumber) === -1) {
     cache.push(randomNumber);
     return randomNumber;
@@ -50,7 +55,6 @@ export function randomizePage(storeParams) {
   if (maxPage === cache.length) {
     console.error('user saw all pages');
   }
-
   return null;
 }
 
