@@ -1,5 +1,4 @@
 import { each, random } from 'lodash';
-import { put } from 'redux-saga/effects';
 
 // Extracts params, their endpoints, values and sets them into single object
 // it will be used in 'building url' process (./buildUrl.js)

@@ -60,8 +60,10 @@ export function* detectPending() {
   const { pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
   console.log('pending movies length: ' + pending.length, 'New page: ' + (pending.length < 30 || range.pages === range.pagesCache.length), 'all pages: ' + range.pages, 'Visited pages: ' + range.pagesCache.length);
+  // Check if there are still pages we can iterate
   const isOutOfPages = range.pages === range.pagesCache.length && pending.length > 1;
-  if (isOutOfPages) return true; // and run pending
+  if (isOutOfPages) return true; // and run through pending list
+  // Check is there is more pending 'results' than 30
   return (pending.length > 30);
 }
 

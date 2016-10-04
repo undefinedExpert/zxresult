@@ -13,11 +13,11 @@ export function* getMovie() {
   const { data } = !detected ? yield callToApi('/discover/movie') : false;
 
   if (data) {
-    yield console.info('Result updated.');
+    yield console.info('Page downloaded.');
     yield put(analyseMovies.request(data));
   }
   else if (detected) {
-    yield console.info('Pending updated.');
+    yield console.info('Pending Pushed.');
     yield put(updateSingleMovie.request());
   }
   else {
