@@ -76,7 +76,7 @@ export function* getUpdateSingleMovie() {
 
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  yield put(push('/result'));
+  // yield put(push('/result'));
   // TEMPORARY OFF
 }
 
