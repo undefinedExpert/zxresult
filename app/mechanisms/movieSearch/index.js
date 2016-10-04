@@ -7,7 +7,6 @@ import { cacheRandomizedPage } from 'containers/App/actions';
 import request from 'utils/request';
 
 export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withParams, randomPage) {
-  // console.clear();
   const setParams = yield withParams ? validateAndPrepareParams(filters, higherParams, randomPage) : {};
   const requestUrl = yield buildUrlParams(setParams, endpoint);
   if (!setParams.page && withParams) return null;
@@ -15,12 +14,11 @@ export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withP
 }
 
 // Randomize page depending on max resultRange
-export function* randomizePage(storeParams, higherParams) {
+export function* randomizePage(storeParams) {
   // Cache all randomized numbers in array, so the randomize function won't select (randomize) then once again
   // We don't want to do that, cause our application analyse each page and takes 5 best results from it
   // And if we met same page again the end user might see the same result.
   // debugger;
-  if (higherParams.page) return higherParams.page;
   const cache = storeParams.range.pagesCache;
   const pages = storeParams.range.pages;
   const maxRange = pages > 1000 ? 1000 : pages;
@@ -42,7 +40,7 @@ export function* randomizePage(storeParams, higherParams) {
 export function* callToApi(endPoint, higherParams = {}, withParams = true) {
   const filters = yield select(selectFilters());
   let randomPage;
-  if (withParams) randomPage = yield randomizePage(filters, higherParams);
+  if (withParams && !higherParams.page) randomPage = yield randomizePage(filters, higherParams);
   const prepareParams = yield buildUrlFromFilters(filters, endPoint, higherParams, withParams, randomPage);
   const data = yield call(request, prepareParams);
   if (!prepareParams) return false;
@@ -54,7 +52,12 @@ export function* processMovieAnalyse() {
   const upcomingResults = notSorted.results;
   // Remove worthless movies from pendingList
   if (pending.length > 110) pending.length -= 40; // 105 - 40 = 65
-  const ranked = rankMovies(upcomingResults, pending);
-  return ranked;
+  return rankMovies(upcomingResults, pending);
+}
+
+export function* detectPending() {
+  const { pending } = yield select(selectResult());
+  console.log(pending.length, pending.length === 2);
+  return (pending.length === 2 || pending.length !== 0);
 }
 

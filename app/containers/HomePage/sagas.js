@@ -2,15 +2,21 @@ import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects'
 import * as CONSTANT from 'containers/App/constants';
 import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
 import { selectResult } from 'containers/App/selectors';
-import { callToApi, processMovieAnalyse } from 'mechanisms/movieSearch';
+import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
 export function* getMovie() {
-  // sprawdzanie czy zostaly jeszcze jakies nieodwiedzone strony?
+  //
   // console.clear();
-  const { data } = yield callToApi('/discover/movie');
-  if (data) {
+  const detected = yield detectPending();
+  const { data } = !detected ? yield callToApi('/discover/movie') : false;
+
+  if (detected) {
+    yield console.info('Pending updated.');
+    yield put(updateSingleMovie.request());
+  }
+  else if (data) {
     yield console.info('Result updated.');
     yield put(analyseMovies.request(data));
   }
@@ -56,6 +62,8 @@ export function* getAnalyseMovie() {
 export function* getUpdateSingleMovie() {
   const { pending } = yield select(selectResult());
   // Take 1st element from our pending movies
+  console.log('update single')
+  // debugger;
   const singlePendingMovie = pending[0];
   try {
     yield put(updateMovieResult.success(singlePendingMovie));
@@ -76,7 +84,7 @@ export function* getUpdateSingleMovie() {
 
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  // yield put(push('/result'));
+  yield put(push('/result'));
   // TEMPORARY OFF
 }
 
@@ -114,7 +122,13 @@ export function* getAnalyseMovieWatcher() {
 }
 
 export function* getUpdateSingleMovieWatcher() {
-  while (yield take(CONSTANT.QUEUE_MOVIES.SUCCESS)) {
+  while (yield take(CONSTANT.QUEUE_MOVIES.SUCCESS) || take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
+    yield call(getUpdateSingleMovie);
+  }
+}
+
+export function* getUpdatePendingWatcher() {
+  while (yield take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
     yield call(getUpdateSingleMovie);
   }
 }
@@ -127,6 +141,7 @@ export function* getData() {
   const updateFilterWatcher = yield fork(getUpdateFiltersWatcher);
   const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
   const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
+  const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
 
   // Suspend execution until location changes
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
@@ -140,6 +155,7 @@ export function* getData() {
     cancel(updateFilterWatcher),
     cancel(analyseMovieWatcher),
     cancel(updateSingleMovieWatcher),
+    cancel(updatePendingWatcher),
   ]);
 }
 
