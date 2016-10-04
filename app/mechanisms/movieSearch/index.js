@@ -49,15 +49,19 @@ export function* callToApi(endPoint, higherParams = {}, withParams = true) {
 
 export function* processMovieAnalyse() {
   const { notSorted, pending } = yield select(selectResult());
+  const { range } = yield select(selectFilters());
   const upcomingResults = notSorted.results;
   // Remove worthless movies from pendingList
-  if (pending.length > 110) pending.length -= 40; // 105 - 40 = 65
-  return rankMovies(upcomingResults, pending);
+  // if (pending.length > 110) pending.length -= 40; // 105 - 40 = 65
+  return rankMovies(upcomingResults, pending, range);
 }
 
 export function* detectPending() {
   const { pending } = yield select(selectResult());
-  console.log(pending.length, pending.length === 2);
-  return (pending.length === 2 || pending.length !== 0);
+  const { range } = yield select(selectFilters());
+  console.log('pending movies length: ' + pending.length, 'New page: ' + (pending.length < 30 || range.pages === range.pagesCache.length), 'all pages: ' + range.pages, 'Visited pages: ' + range.pagesCache.length);
+  const isOutOfPages = range.pages === range.pagesCache.length && pending.length > 1;
+  if (isOutOfPages) return true; // and run pending
+  return (pending.length > 30);
 }
 

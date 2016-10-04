@@ -13,13 +13,19 @@ const initialState = fromJS({
   filters: {
     sentence: 'ohio',
     trend: {
-      active: null,
+      active: {
+        name: 'Highly rated',
+        voteAverageMin: 6.5,
+        voteAverageMax: 10,
+        voteCountMin: 70,
+        voteCountMax: null,
+      },
       list: [
         {
           name: 'Highly rated',
-          voteAverageMin: 7,
+          voteAverageMin: 6.5,
           voteAverageMax: 10,
-          voteCountMin: 100,
+          voteCountMin: 70,
           voteCountMax: null,
         },
         {
@@ -96,7 +102,10 @@ const initialState = fromJS({
       },
     },
     genre: {
-      active: null,
+      active: {
+        name: 'Action',
+        id: 28,
+      },
       list: [],
       apiParamName: 'with_genres',
     },

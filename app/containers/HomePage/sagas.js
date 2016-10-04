@@ -12,13 +12,13 @@ export function* getMovie() {
   const detected = yield detectPending();
   const { data } = !detected ? yield callToApi('/discover/movie') : false;
 
-  if (detected) {
-    yield console.info('Pending updated.');
-    yield put(updateSingleMovie.request());
-  }
-  else if (data) {
+  if (data) {
     yield console.info('Result updated.');
     yield put(analyseMovies.request(data));
+  }
+  else if (detected) {
+    yield console.info('Pending updated.');
+    yield put(updateSingleMovie.request());
   }
   else {
     yield put(updateMovieResult.failure('no movies'));
