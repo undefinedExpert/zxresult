@@ -95,6 +95,7 @@ const initialState = fromJS({
     },
     range: {
       pages: 0,
+      pagesCache: [],
       results: 0,
     },
   },
@@ -167,6 +168,9 @@ function appReducer(state = initialState, action) {
         .setIn(['filters', 'range', 'results'], action.totalResults)
         .setIn(['result', 'noMoreResults'], false)
         .setIn(['result', 'pending'], []);
+    case CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST:
+      return state
+        .setIn(['filters', 'range', 'pagesCache'], action.page);
 
     default:
       return state;

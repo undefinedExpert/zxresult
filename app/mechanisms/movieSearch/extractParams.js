@@ -1,4 +1,5 @@
 import { each, random } from 'lodash';
+import { put } from 'redux-saga/effects';
 
 // Extracts params, their endpoints, values and sets them into single object
 // it will be used in 'building url' process (./buildUrl.js)
@@ -31,36 +32,13 @@ function assignHigherParams(params, higherParams) {
   Object.assign(params, higherParams);
 }
 
-function generateNumber(min, max) {
+export function generateNumber(min, max) {
   return random(min, max);
 }
 
-
-// Randomize page depending on max resultRange
-export function randomizePage(storeParams) {
-  // Cache all randomized numbers in array, so the randomize function won't select (randomize) then once again
-  // We don't want to do that, cause our application analyse each page and takes 5 best results from it
-  // And if we met same page again the end user might see the same result.
-  const cache = randomizePage.cachedNumbers = randomizePage.cachedNumbers || [];
-  const pages = storeParams.range.pages;
-  const maxRange = pages > 1000 ? 1000 : pages;
-  const maxPage = pages ? 10 : 1;
-  let randomNumber = generateNumber(1, maxPage);
-  if (maxPage === cache.length) {
-    console.error('user saw all pages');
-    return null;
-  }
-  while (cache.indexOf(randomNumber) !== -1) {
-    randomNumber = generateNumber(1, maxPage);
-  }
-  cache.push(randomNumber);
-  return randomNumber;
-}
-
-
-export function validateAndPrepareParams(storeParams, higherParams) {
+export function validateAndPrepareParams(storeParams, higherParams, randomPage) {
   const params = prepareParams(storeParams);
-  if (storeParams.range.pages) params.page = randomizePage(storeParams);
+  if (storeParams.range.pages) params.page = randomPage;
   // Merge params & higherParams
   assignHigherParams(params, higherParams);
   return params;

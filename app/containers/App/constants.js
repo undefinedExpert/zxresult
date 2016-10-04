@@ -38,6 +38,9 @@ const UPDATE_SINGLE_MOVIE = createRequestTypes('app/App/UPDATE_SINGLE_MOVIE');
 // Analyse movie results to pick the best
 const UPDATE_VISITED_MOVIES = createRequestTypes('app/App/UPDATE_VISITED_MOVIES');
 
+// Cache random page so user won't see it again
+const CACHE_RANDOMIZED_PAGE = createRequestTypes('app/App/CACHE_RANDOMIZED_PAGE');
+
 
 // API
 const apiUrl = 'http://api.themoviedb.org/3';
@@ -57,6 +60,7 @@ export {
   QUEUE_MOVIES,
   UPDATE_SINGLE_MOVIE,
   UPDATE_VISITED_MOVIES,
+  CACHE_RANDOMIZED_PAGE,
   apiUrl,
   apiKey,
 };
