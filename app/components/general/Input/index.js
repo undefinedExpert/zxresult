@@ -11,6 +11,7 @@ import Title from 'components/general/Title';
 
 import styles from './styles.css';
 
+
 /**
  * Input
  * @desc Allows to control each input in the application, input is returned with Title if exist.
