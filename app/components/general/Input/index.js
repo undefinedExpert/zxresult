@@ -1,27 +1,41 @@
 /**
- *
- * Input
- *
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes as ptype } from 'react';
+
 import Title from 'components/general/Title';
 
+import styles from './styles.css';
+
+/**
+ * Input
+ * @desc Allows to control each input in the application, input is returned with Title if exist.
+ * returns packed prop.children with title and appropriate grid size.
+ */
 function Input(props) {
+  const {
+    title,
+    type = 'text',
+    placeholder } = props;
+
+  const cs = styles.input;
   return (
-    <div className={styles.input}>
-      {props.title ? <Title text={props.title} /> : null}
-      <input type={props.type || 'text'} placeholder={props.placeholder} {...props} />
+    <div className={cs}>
+      {title ? <Title text={title} /> : null}
+      <input type={type} placeholder={placeholder} {...props} />
     </div>
   );
 }
 
 Input.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  placeholder: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string,
-  value: React.PropTypes.string,
+  title: ptype.string.isRequired,
+  placeholder: ptype.string.isRequired,
+  type: ptype.string,
+  value: ptype.string,
 };
 
 export default Input;

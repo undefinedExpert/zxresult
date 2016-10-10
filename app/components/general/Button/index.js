@@ -1,27 +1,39 @@
 /**
- *
- * Button
- *
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes as ptype } from 'react';
 import classNames from 'classnames';
 
+import styles from './styles.css';
+
+/**
+ * Button
+ * @desc Default component for each button in app.
+ * returns prepared button.
+ */
 function Button(props) {
+  const {
+    handleRoute,
+    type,
+    children } = props;
+
+  const cs = classNames('btn', 'btn-primary', styles.button);
   return (
-    <div>
-      <button onClick={props.handleRoute} className={classNames('btn', 'btn-primary', styles.button)} type={props.type} {...props}> {props.children}
-      </button>
-    </div>
+    <button onClick={handleRoute} className={cs} type={type} {...props}>
+      {children}
+    </button>
   );
 }
 
 Button.propTypes = {
-  type: React.PropTypes.string,
-  isLoading: React.PropTypes.bool,
-  children: React.PropTypes.node.isRequired,
-  handleRoute: React.PropTypes.func,
+  type: ptype.string,
+  isLoading: ptype.bool,
+  children: ptype.node.isRequired,
+  handleRoute: ptype.func,
 };
 
 export default Button;
