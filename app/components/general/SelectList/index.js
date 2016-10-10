@@ -1,42 +1,62 @@
 /**
- *
- * SelectList
- *
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes as ptype, Component } from 'react';
+
 import Select from 'components/general/Select';
 
-class SelectList extends React.Component {
-  renderSelect = (item, index) => {
-    // const {} = this.props;
-    const value = item.value === null ? '' : item.value.name;
-    const list = item.list;
-    const changeHandler = item.options === {} ? '' : item.options.onChangeHandler;
-    const title = item.options.hasOwnProperty('title') ? item.options.title : '';
+import styles from './styles.css';
 
+
+/**
+ * Default values for our item, we are set default values here in purpose.
+ * to avoid unnecessary complex structure in our Class.
+ */
+const defaultValue = { name: '' };
+const defaultOptions = { title: '', onChangeHandler: () => {} };
+
+
+/**
+ * SelectList
+ * @desc Renders multiple Select components from provided data.
+ * Look at MovieSearchForm Container if you need an example
+ *
+ * returns Select list, each rendered with their own data.
+ *
+ * @method renderSelect - Renders single Select component from data, handles map function.
+ * We are also preparing our Select Component with default data, if they are not provided.
+ */
+class SelectList extends Component {
+  renderSelect = (item, index) => {
+    const {
+      value = defaultValue,
+      list,
+      options = defaultOptions } = item;
+
+    const cs = styles.selectItem;
     return (
-      <div key={index} className={styles.selectItem}>
+      <div key={index} className={cs}>
         <Select
           value={value}
-          key={index}
           isLoading={list <= 0}
           options={list}
-          onChange={changeHandler}
-          title={title}
-          {...this.props}
+          onChange={options.onChangeHandler}
+          title={options.title}
         />
       </div>
     );
   };
-  render() {
-    const {
-      items,
-    } = this.props;
 
+  render() {
+    const { items } = this.props;
+
+    const cs = styles.selectList;
     return (
-      <div className={styles.selectList}>
+      <div className={cs}>
         {items.map(this.renderSelect)}
       </div>
     );
@@ -44,14 +64,15 @@ class SelectList extends React.Component {
 }
 
 SelectList.propTypes = {
-  valueKey: React.PropTypes.string,
-  labelKey: React.PropTypes.string,
-  title: React.PropTypes.string,
-  value: React.PropTypes.string,
-  options: React.PropTypes.array,
-  loading: React.PropTypes.func,
-  items: React.PropTypes.array,
-  onChangeHandler: React.PropTypes.func,
+  title: ptype.string,
+  value: ptype.oneOfType([
+    ptype.string,
+    ptype.object,
+  ]),
+  options: ptype.array,
+  loading: ptype.func,
+  items: ptype.array.isRequired,
+  onChangeHandler: ptype.func,
 };
 
 export default SelectList;
