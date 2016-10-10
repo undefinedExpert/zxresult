@@ -1,4 +1,4 @@
-import { call, select, put, cancel } from 'redux-saga/effects';
+import { call, select, put } from 'redux-saga/effects';
 import { buildUrlParams } from './buildUrl';
 import { validateAndPrepareParams, generateNumber } from './extractParams';
 import { rankMovies } from './analyseMovie';
