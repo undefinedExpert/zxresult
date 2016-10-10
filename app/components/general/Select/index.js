@@ -1,34 +1,41 @@
 /**
- *
- * Select
- *
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes as ptype } from 'react';
 import ReactSelect from 'react-select';
+
 import Title from 'components/general/Title';
 
+import styles from './styles.css';
+
+
+/**
+ * Select
+ * @desc Wraps 3rd party ReactSelect Component in case we would like to remove it someday from app.
+ * We also set some default values if no one is provided
+ *
+ * returns Return select field with title (if set).
+ */
 function Select(props) {
   const {
-    value,
-    loading,
-    valueKey,
-    labelKey,
-    options,
-    title,
-  } = props;
+    value = '',
+    valueKey = 'name',
+    labelKey = 'name',
+    title } = props;
 
+  const cs = styles.select;
   return (
-    <div className={styles.select}>
+    <div className={cs}>
       {title ? <Title text={title} /> : null}
       <ReactSelect
-        value={value || ''}
-        isLoading={loading}
-        valueKey={valueKey || 'name'}
-        labelKey={labelKey || 'name'}
+        value={value}
+        valueKey={valueKey}
+        labelKey={labelKey}
         autoload={false}
-        options={options}
         {...props}
       />
     </div>
@@ -36,11 +43,15 @@ function Select(props) {
 }
 
 Select.propTypes = {
-  valueKey: React.PropTypes.string,
-  labelKey: React.PropTypes.string,
-  value: React.PropTypes.string,
-  title: React.PropTypes.string,
-  options: React.PropTypes.array,
-  loading: React.PropTypes.func,
+  valueKey: ptype.string,
+  labelKey: ptype.string,
+  value: ptype.oneOfType([
+    ptype.string,
+    ptype.object,
+  ]),
+  title: ptype.string,
+  options: ptype.array.isRequired,
+  loading: ptype.func,
 };
+
 export default Select;
