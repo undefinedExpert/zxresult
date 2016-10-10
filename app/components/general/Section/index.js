@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import React, { PropTypes as type } from 'react';
+import React, { PropTypes as ptype } from 'react';
 import classNames from 'classnames';
 
 import { convertToPattern } from 'utils/hooks';
@@ -47,11 +47,11 @@ function Section(props) {
 }
 
 Section.propTypes = {
-  title: type.string,
-  theme: type.string,
-  size: type.string,
-  className: type.string,
-  children: type.node.isRequired,
+  title: ptype.string,
+  theme: ptype.string,
+  size: ptype.string,
+  className: ptype.string,
+  children: ptype.node.isRequired,
 };
 
 export default Section;
