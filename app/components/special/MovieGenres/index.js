@@ -1,18 +1,24 @@
 /**
-*
-* Genres
-*
-*/
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes as ptype } from 'react';
+
 import Section from 'components/general/Section';
 import GenreIcons from 'components/special/MovieGenreIcons';
 
-function MovieGenres(props) {
-  const {
-    sectionSize = '1/2',
-  } = props;
+import styles from './styles.css';
+
+/**
+ * @desc Render Single Select Component, based on it's props.
+ * @param sectionSize - How much space this section will take, default 1/2 but it
+ * might be changed directly in the parent component.
+ * TODO: Make this working, it has to use real data and replace all icons with that from API.
+ */
+function MovieGenres({ sectionSize = '1/2' }) {
   return (
     <Section title={'Genres'} size={sectionSize}>
       <ul className={styles.genres}>
@@ -34,7 +40,7 @@ function MovieGenres(props) {
 }
 
 MovieGenres.propTypes = {
-  sectionSize: React.PropTypes.string,
+  sectionSize: ptype.string,
 };
 
 export default MovieGenres;
