@@ -1,41 +1,57 @@
 /**
- *
- * Section
- *
+ *  Component are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import Title from 'components/general/Title';
-import styles from './styles.css';
+import React, { PropTypes as type } from 'react';
 import classNames from 'classnames';
 
+import { convertToPattern } from 'utils/hooks';
+import Title from 'components/general/Title';
+
+import styles from './styles.css';
+
+
+/**
+ * @desc Transform props.size into appropriate css class name.
+ * props.size = '1/2' -> '1-of-2'
+ */
+const classSizePattern = convertToPattern(/\//, '-of-');
+
+
+/**
+ * Section
+ * @desc allows us to create section with our custom Title and a size (css grid size) class name.
+ * returns packed prop.children with title and appropriate grid size.
+ */
 function Section(props) {
   const {
     title,
     size,
     children,
     className = '',
-  } = props;
-  // Transform string e.g 1/2 to --1-of-2 in condition to use appropriate css class
-  const sectionSize = size ? `--${size.replace(/\//, '-of-')}` : null;
-  const sectionClassNames = classNames(
-    styles.section,
-    styles[sectionSize],
-    className,
-  );
+    theme = 'light' } = props;
+
+  let cssSize;
+  if (size) cssSize = `--${classSizePattern(size)}`;
+
+  const cs = classNames(styles.section, styles[cssSize], className);
   return (
-    <section className={sectionClassNames}>
-      {title ? <Title text={title} theme="light" /> : null}
+    <section className={cs}>
+      {title ? <Title text={title} theme={theme} /> : null}
       {children}
     </section>
   );
 }
 
 Section.propTypes = {
-  title: React.PropTypes.string,
-  size: React.PropTypes.string,
-  className: React.PropTypes.string,
-  children: React.PropTypes.node.isRequired,
+  title: type.string,
+  theme: type.string,
+  size: type.string,
+  className: type.string,
+  children: type.node.isRequired,
 };
 
 export default Section;
