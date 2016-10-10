@@ -1,24 +1,31 @@
 /**
-*
-* GenreIcons
-*
-*/
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
-import React from 'react';
+import React, { PropTypes as ptype } from 'react';
+
 import styles from './styles.css';
 import Icons from './icons/index';
 
-function MovieGenreIcons(props) {
+/**
+ * @desc Render prepared svg icon for our genre.
+ * @param type - What kind of icon we wish to render.
+ */
+function MovieGenreIcons({ type }) {
   // console.log(Icons[props.type]);
+  const cs = styles.genreIcons;
   return (
-    <div className={styles.genreIcons}>
-      <img src={Icons[props.type]} alt="icon" />
+    <div className={cs}>
+      <img src={Icons[type]} alt="icon" />
     </div>
   );
 }
 
 MovieGenreIcons.propTypes = {
-  type: React.PropTypes.string.isRequired,
+  type: ptype.string.isRequired,
 };
 
 export default MovieGenreIcons;
