@@ -21,11 +21,10 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
+
   updateAndRoute = () => {
     if (this.props.result.isFetching) return;
-
     this.props.movieUpdate();
-    // Tutaj musimy uruchomic akcje ktora odpowiada za wywolanie zmiany url
   };
 
   fetchFunc = () => {
@@ -35,7 +34,6 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
         <h4>Loading...</h4>
       );
     }
-
     return null;
   };
 
@@ -46,7 +44,6 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
         <h4>No more results</h4>
       );
     }
-
     return null;
   };
   render() {
