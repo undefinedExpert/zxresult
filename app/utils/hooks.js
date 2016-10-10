@@ -1,4 +1,5 @@
 import createReducer from 'reducers.js';
+import { curry } from 'lodash';
 
 /**
  * Inject an asynchronously loaded reducer
@@ -30,6 +31,10 @@ export function createRequestTypes(base) {
     return acc;
   }, {});
 }
+
+// It converts and replaces by regex pattern
+export const convertToPattern = curry((pattern, replacement, str) => str.replace(pattern, replacement));
+
 
 /**
  * Helper for creating injectors
