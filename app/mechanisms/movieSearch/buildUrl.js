@@ -54,10 +54,22 @@ function attachParams(filters, baseUrl) {
 
 // Build URL from params & base
 export function buildUrlParams(filters, endpoint) {
-  let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
-  // Attach params if there are any
-  if (filters) baseUrl = attachParams(filters, baseUrl);
-  console.log(baseUrl);
-  return baseUrl;
+  try {
+    if (apiUrl && apiKey) {
+      let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
+      // Attach params if there are any
+      if (filters) baseUrl = attachParams(filters, baseUrl);
+      console.log(baseUrl);
+      return baseUrl;
+    }
+    else {
+      throw Error(`apiUrl or apiKey isn't defined: \n apiUrl: ${apiUrl} \n apiKey: ${apiKey}`);
+    }
+
+  }
+  catch (e) {
+    throw new Error(`Couldn't handle buildUrlParams: ${e}`);
+  }
+
 }
 

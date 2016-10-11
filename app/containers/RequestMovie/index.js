@@ -8,8 +8,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Button from 'components/general/Button';
-import { selectResult } from 'containers/App/selectors';
-import { updateMovieResult } from 'containers/App/actions';
+import { selectResult } from './selectors';
+import { updateMovieResult } from './actions';
 import { createStructuredSelector, createSelector } from 'reselect';
 
 export class RequestMovie extends React.Component { // eslint-disable-line react/prefer-stateless-function

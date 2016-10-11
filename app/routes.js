@@ -23,7 +23,7 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         // We import what we want
         const importModules = Promise.all([
-          System.import('containers/HomePage/sagas'),
+          System.import('containers/RequestMovie/sagas'),
           System.import('containers/MovieSearchForm/sagas'),
           System.import('containers/HomePage'),
         ]);
@@ -31,9 +31,9 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         // Params matches the order in our Promise.all func
-        importModules.then(([appSagas, searchFormSagas, component]) => {
+        importModules.then(([requestMovieSagas, searchFormSagas, component]) => {
           // injectReducer('global', reducer.default);
-          injectSagas(appSagas.default); // Inject the general app sagas
+          injectSagas(requestMovieSagas.default); // Inject the general app sagas
           injectSagas(searchFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);
