@@ -1,16 +1,12 @@
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 import { ANALYSE_MOVIE, QUEUE_MOVIES, UPDATE_SINGLE_MOVIE, UPDATE_MOVIE_RESULT } from 'containers/App/constants';
-import { UPDATE_FILTERS } from 'containers/MovieSearchForm/constants';
-import { analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
-import { updateMovieResult, updateFilters } from 'containers/MovieSearchForm/actions';
+import { analyseMovies, queueMovies, updateSingleMovie, updateMovieResult } from 'containers/App/actions';
 import { selectResult } from 'containers/App/selectors';
 import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 // Get movie
 export function* getMovie() {
-  //
-  // console.clear();
   const detected = yield detectPending();
   const { data } = !detected ? yield callToApi('/discover/movie') : false;
 
@@ -24,21 +20,6 @@ export function* getMovie() {
   }
   else {
     yield put(updateMovieResult.failure('no movies'));
-  }
-}
-
-
-
-// Update filters have make a request to server
-export function* getUpdateFilters() {
-  const { data } = yield callToApi('/discover/movie', { page: 1000 });
-  try {
-    console.log(`Total pages: ${data.total_pages}`);
-    console.log(`Total Results: ${data.total_results}`);
-    yield put(updateFilters.success(data.total_pages, data.total_results));
-  }
-  catch (err) {
-    yield put(updateFilters.failure(err));
   }
 }
 
@@ -96,12 +77,6 @@ export function* getResultChangeWatcher() {
   }
 }
 
-export function* getUpdateFiltersWatcher() {
-  while (yield take(UPDATE_FILTERS.REQUEST)) {
-    yield call(getUpdateFilters);
-  }
-}
-
 export function* getAnalyseMovieWatcher() {
   while (yield take(ANALYSE_MOVIE.REQUEST)) {
     yield call(getAnalyseMovie);
@@ -124,7 +99,6 @@ export function* getData() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
   const updateUrl = yield fork(getResultChangeWatcher);
-  const updateFilterWatcher = yield fork(getUpdateFiltersWatcher);
   const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
   const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
   const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
@@ -137,7 +111,6 @@ export function* getData() {
   yield race([
     cancel(moviesWatcher),
     cancel(updateUrl),
-    cancel(updateFilterWatcher),
     cancel(analyseMovieWatcher),
     cancel(updateSingleMovieWatcher),
     cancel(updatePendingWatcher),
