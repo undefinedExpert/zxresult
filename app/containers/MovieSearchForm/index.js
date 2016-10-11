@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import Input from 'components/general/Input';
 import { mapDispatch, mapState } from './mapProps';
 import SelectList from 'components/general/SelectList';
-import BottomNavigation from 'containers/BottomNavigation';
+import RequestMovie from 'containers/RequestMovie';
 
 export class MovieSearchForm extends React.Component {
   // fixme: https://github.com/reactjs/redux/issues/239
@@ -59,7 +59,7 @@ export class MovieSearchForm extends React.Component {
             <SelectList
               items={selectListItems}
             />
-            <BottomNavigation />
+            <RequestMovie />
           </div>
         </form>
       </div>

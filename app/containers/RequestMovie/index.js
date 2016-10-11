@@ -12,7 +12,7 @@ import { selectResult } from 'containers/App/selectors';
 import { updateMovieResult } from 'containers/App/actions';
 import { createStructuredSelector, createSelector } from 'reselect';
 
-export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class RequestMovie extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   openRoute = (route) => {
     this.props.changeRoute(route);
@@ -53,7 +53,7 @@ export class BottomNavigation extends React.Component { // eslint-disable-line r
   }
 }
 
-BottomNavigation.propTypes = {
+RequestMovie.propTypes = {
   filterUpdate: React.PropTypes.func,
   changeRoute: React.PropTypes.func,
   isFetching: React.PropTypes.bool,
@@ -82,4 +82,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 // Error with container generator, it generate mapDispatchToProps without the first argument
-export default connect(mapStateToProps, mapDispatchToProps)(BottomNavigation);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestMovie);
