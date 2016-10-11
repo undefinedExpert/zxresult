@@ -6,25 +6,17 @@ const resultDomain = () => state => state.get('result').toJS();
 
 const selectResult = () => {
   const resultSelector = createStructuredSelector({
-    active: (state) => state.active,
-    notSorted: (state) => state.notSorted,
-    isFetching: (state) => state.isFetching,
-    pending: (state) => state.pending,
-    visited: (state) => state.visited,
-    noMoreResults: (state) => state.noMoreResults,
+    active: ({ active }) => active,
+    pending: ({ pending }) => pending,
+    visited: ({ visited }) => visited,
+    notSorted: ({ notSorted }) => notSorted,
+    isFetching: ({ isFetching }) => isFetching,
+    noMoreResults: ({ noMoreResults }) => noMoreResults,
   });
   return createSelector(
     resultDomain(),
     resultSelector,
-    (resultState) => {
-      const active = resultState.active;
-      const notSorted = resultState.notSorted;
-      const isFetching = resultState.isFetching;
-      const pending = resultState.pending;
-      const visited = resultState.visited;
-      const noMoreResults = resultState.noMoreResults;
-      return { active, notSorted, isFetching, pending, visited, noMoreResults };
-    }
+    ({ active, notSorted, isFetching, pending, visited, noMoreResults }) => ({ active, notSorted, isFetching, pending, visited, noMoreResults }),
   );
 };
 
