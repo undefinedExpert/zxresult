@@ -22,21 +22,6 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case CONSTANT.UPDATE_FILTER_DECADE.REQUEST:
-      return state
-        .setIn(['filters', 'decade', 'active'], action.value);
-    case CONSTANT.UPDATE_FILTER_TREND.REQUEST:
-      return state
-        .setIn(['filters', 'trend', 'active'], action.value);
-    case CONSTANT.UPDATE_FILTER_TREND_LIST.REQUEST:
-      return state
-        .setIn(['filters', 'trend', 'list'], action.value);
-    case CONSTANT.UPDATE_FILTER_GENRE.REQUEST:
-      return state
-        .setIn(['filters', 'genre', 'active'], action.value);
-    case CONSTANT.UPDATE_FILTER_GENRE_LIST.SUCCESS:
-      return state
-        .setIn(['filters', 'genre', 'list'], action.value);
     case CONSTANT.UPDATE_MOVIE_RESULT.REQUEST:
       return state
         .setIn(['result', 'isFetching'], true);
@@ -61,17 +46,6 @@ function appReducer(state = initialState, action) {
     case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
         .setIn(['result', 'pending'], action.removePending);
-    case CONSTANT.UPDATE_FILTERS.SUCCESS:
-      return state
-        .setIn(['filters', 'range', 'pages'], action.totalPages)
-        .setIn(['filters', 'range', 'results'], action.totalResults)
-        .setIn(['filters', 'range', 'pagesCache'], [])
-        .setIn(['result', 'noMoreResults'], false)
-        .setIn(['result', 'pending'], []);
-    case CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST:
-      return state
-        .setIn(['filters', 'range', 'pagesCache'], action.page);
-
     default:
       return state;
   }
