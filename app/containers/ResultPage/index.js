@@ -1,6 +1,6 @@
 /*
  *
- * MovieSearchResult
+ * ResultPage
  *
  */
 
@@ -11,7 +11,7 @@ import { selectResult } from 'containers/RequestMovie/selectors';
 import MovieArticle from 'components/special/MovieArticle';
 import { createStructuredSelector, createSelector } from 'reselect';
 
-export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class ResultPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
       active
@@ -26,7 +26,7 @@ export class MovieSearchResult extends React.Component { // eslint-disable-line 
   }
 }
 
-MovieSearchResult.propTypes = {
+ResultPage.propTypes = {
   filterUpdate: React.PropTypes.func,
   filters: React.PropTypes.object,
   result: React.PropTypes.object,
@@ -43,4 +43,4 @@ function mapDispatchToProps() {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchResult);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultPage);

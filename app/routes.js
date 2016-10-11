@@ -50,7 +50,7 @@ export default function createRoutes(store) {
         const importModules = Promise.all([
           System.import('containers/RequestMovie/sagas'),
           System.import('containers/FilterForm/sagas'),
-          System.import('containers/MovieSearchResult'),
+          System.import('containers/ResultPage'),
         ]);
 
         const renderRoute = loadModule(cb);
