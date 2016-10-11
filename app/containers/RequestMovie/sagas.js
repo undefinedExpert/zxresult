@@ -107,7 +107,7 @@ export function* getData() {
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
   // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
   // we just get new data.
-  yield take(LOCATION_CHANGE);
+  yield take(UPDATE_SINGLE_MOVIE.SUCCESS);
   yield race([
     cancel(moviesWatcher),
     cancel(updateUrl),

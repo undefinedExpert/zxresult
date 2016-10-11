@@ -18,7 +18,7 @@ export function* getGenreList() {
 }
 
 // Update filters have make a request to server
-export function* getUpdateFilters() {
+export function* handleUpdateFilters() {
   const { data } = yield callToApi('/discover/movie', { page: 1000 });
   try {
     console.log(`Total pages: ${data.total_pages}`);
@@ -36,7 +36,7 @@ export function* getUpdateFilters() {
 
 export function* getUpdateFiltersWatcher() {
   while (yield take(CONSTANT.UPDATE_FILTERS.REQUEST)) {
-    yield call(getUpdateFilters);
+    yield call(handleUpdateFilters);
   }
 }
 
@@ -50,10 +50,18 @@ export function* getGenresListWatcher() {
 // EXPORT
 
 export function* getMovieSagas() {
-  yield [
-    fork(getGenresListWatcher),
-    fork(getUpdateFiltersWatcher),
-  ];
+  const getGenresList = yield fork(getGenresListWatcher);
+  const getUpdateFilters = yield fork(getUpdateFiltersWatcher);
+
+  // Suspend execution until location changes
+  // TODO: Change this to custom action, when the user request new 'result' or something like this.
+  // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
+  // we just get new data.
+  yield take(LOCATION_CHANGE);
+  yield race([
+    cancel(getUpdateFilters),
+    cancel(getGenresList),
+  ]);
 }
 
 export default [

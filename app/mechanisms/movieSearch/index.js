@@ -2,9 +2,9 @@ import { call, select, put } from 'redux-saga/effects';
 import { buildUrlParams } from './buildUrl';
 import { validateAndPrepareParams, generateNumber } from './extractParams';
 import { rankMovies } from './analyseMovie';
-import { selectResult } from 'containers/App/selectors';
+import { selectResult } from 'containers/RequestMovie/selectors';
 import { selectFilters } from 'containers/MovieSearchForm/selectors';
-import { cacheRandomizedPage } from 'containers/App/actions';
+import { cacheRandomizedPage } from 'containers/RequestMovie/actions';
 import request from 'utils/request';
 
 export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withParams, randomPage) {
@@ -26,14 +26,16 @@ export function* randomizePage(storeParams) {
   const maxPage = pages ? maxRange : 1;
   let randomNumber = yield generateNumber(1, maxPage);
 
+
   if (maxPage === cache.length) {
-    console.error('user saw all pages');
+    console.info('user saw all pages');
     return null;
   }
   while (cache.indexOf(randomNumber) !== -1) {
     yield randomNumber = generateNumber(1, maxPage);
   }
-  const cached = cache.concat(randomNumber);
+
+  const cached = yield cache.concat(randomNumber);
   yield put(cacheRandomizedPage.request(cached));
   return randomNumber;
 }
@@ -60,7 +62,7 @@ export function* processMovieAnalyse() {
 export function* detectPending() {
   const { pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
-  console.log('pending movies length: ' + pending.length, 'New page: ' + (pending.length < 30 || range.pages === range.pagesCache.length), 'all pages: ' + range.pages, 'Visited pages: ' + range.pagesCache.length);
+  console.log('pending movies length: ' + pending.length, 'New page: ' + (range.pages === range.pagesCache.length || pending.length < 30 ), 'all pages: ' + range.pages, 'Visited pages: ' + range.pagesCache.length);
   // Check if there are still pages we can iterate
   const isOutOfPages = range.pages === range.pagesCache.length && pending.length > 1;
   if (isOutOfPages) return true; // and run through pending list

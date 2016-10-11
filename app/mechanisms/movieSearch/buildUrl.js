@@ -65,11 +65,9 @@ export function buildUrlParams(filters, endpoint) {
     else {
       throw Error(`apiUrl or apiKey isn't defined: \n apiUrl: ${apiUrl} \n apiKey: ${apiKey}`);
     }
-
   }
   catch (e) {
     throw new Error(`Couldn't handle buildUrlParams: ${e}`);
   }
-
 }
 

@@ -2,7 +2,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 
 // Select result
-const resultDomain = () => state => state.get('result');
+const resultDomain = () => state => state.get('result').toJS();
 
 const selectResult = () => {
   const resultSelector = createStructuredSelector({

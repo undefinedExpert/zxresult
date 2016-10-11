@@ -7,16 +7,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Gallery from 'components/special/MovieGallery';
-import { selectResult } from 'containers/App/selectors';
+import { selectResult } from 'containers/RequestMovie/selectors';
 import MovieArticle from 'components/special/MovieArticle';
 import { createStructuredSelector, createSelector } from 'reselect';
 
 export class MovieSearchResult extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
-      result: {
-        active,
-      },
+      active
     } = this.props;
 
     return (
@@ -34,14 +32,12 @@ MovieSearchResult.propTypes = {
   result: React.PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-  result: createSelector(
-    selectResult(),
-    createStructuredSelector({
-      active: (state) => state.active,
-    })
-  ),
-});
+const mapStateToProps = createSelector(
+  selectResult(),
+  createStructuredSelector({
+    active: (state) => state.active,
+  })
+);
 
 function mapDispatchToProps() {
   return {};

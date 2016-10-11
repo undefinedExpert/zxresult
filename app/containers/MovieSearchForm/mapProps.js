@@ -18,6 +18,9 @@ function mapDispatch(dispatch) {
     onChangeTrend: (value) => dispatch(updateFilterTrend.active.request(value)),
     getGenreList: () => dispatch(updateFilterGenre.list.request()),
     getUpdateFilters: () => dispatch(updateFilters.request()),
+    onSubmitForm: (evt) => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    },
     dispatch,
   };
 }

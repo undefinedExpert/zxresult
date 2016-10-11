@@ -46,18 +46,20 @@ export default function createRoutes(store) {
       path: '/result',
       name: 'result',
       getComponent(nextState, cb) {
+        // We import what we want
         const importModules = Promise.all([
-          // System.import('containers/HomePage/reducer'),
-          System.import('containers/HomePage/sagas'), // TODO: Create custom saga for result page.
+          System.import('containers/RequestMovie/sagas'),
+          System.import('containers/MovieSearchForm/sagas'),
           System.import('containers/MovieSearchResult'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([sagas, component]) => {
-          // Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
+        // Params matches the order in our Promise.all func
+        importModules.then(([requestMovieSagas, searchFormSagas, component]) => {
           // injectReducer('global', reducer.default);
-          injectSagas(sagas.default); // Inject the saga
+          injectSagas(requestMovieSagas.default); // Inject the general app sagas
+          injectSagas(searchFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);
         });

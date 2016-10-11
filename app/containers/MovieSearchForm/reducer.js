@@ -2,7 +2,7 @@
 
 import { fromJS } from 'immutable';
 import * as CONSTANT from './constants';
-// import { CACHE_RANDOMIZED_PAGE } from 'containers/App/constants';
+import { CACHE_RANDOMIZED_PAGE } from 'containers/RequestMovie/constants';
 
 const currentYear = new Date().getFullYear();
 const initialState = fromJS({
@@ -130,12 +130,10 @@ function searchFormReducer(state = initialState, action) {
       return state
         .setIn(['range', 'pages'], action.totalPages)
         .setIn(['range', 'results'], action.totalResults)
-        .setIn(['range', 'pagesCache'], []);
-        // .setIn(['result', 'noMoreResults'], false)
-        // .setIn(['result', 'pending'], []);
-    // case CACHE_RANDOMIZED_PAGE.REQUEST:
-    //   return state
-    //     .setIn(['range', 'pagesCache'], action.page);
+        .setIn(['range', 'pagesCache'], fromJS([]));
+    case CACHE_RANDOMIZED_PAGE.REQUEST:
+      return state
+        .setIn(['range', 'pagesCache'], action.page);
     default:
       return state;
   }
