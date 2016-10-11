@@ -1,5 +1,5 @@
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
-import { ANALYSE_MOVIE, QUEUE_MOVIES, UPDATE_SINGLE_MOVIE, UPDATE_MOVIE_RESULT } from './constants';
+import * as CONSTANT from './constants';
 import { analyseMovies, queueMovies, updateSingleMovie, updateMovieResult } from './actions';
 import { selectResult } from './selectors';
 import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
@@ -35,9 +35,7 @@ export function* getAnalyseMovie() {
 
 export function* getUpdateSingleMovie() {
   const { pending } = yield select(selectResult());
-  // Take 1st element from our pending movies
-  console.log('update single')
-  // debugger;
+
   const singlePendingMovie = pending[0];
   try {
     yield put(updateMovieResult.success(singlePendingMovie));
@@ -46,10 +44,11 @@ export function* getUpdateSingleMovie() {
     yield put(queueMovies.failure(err));
   }
 
+
   // Reduce pending movies by item user just take
-  yield pending.shift();
+  const newPending = yield pending.slice(1);
   try {
-    yield put(updateSingleMovie.success(pending));
+    yield put(updateSingleMovie.success(newPending));
   }
   catch (err) {
     yield put(updateSingleMovie.failure(err));
@@ -66,31 +65,31 @@ export function* getUpdateUrl() {
  * Watches for FILTER_FORM_UPDATE action and calls handler
  */
 export function* getMovieWatcher() {
-  while (yield take(UPDATE_MOVIE_RESULT.REQUEST)) {
+  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST)) {
     yield call(getMovie);
   }
 }
 
 export function* getResultChangeWatcher() {
-  while (yield take(UPDATE_MOVIE_RESULT.SUCCESS)) {
+  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS)) {
     yield call(getUpdateUrl);
   }
 }
 
 export function* getAnalyseMovieWatcher() {
-  while (yield take(ANALYSE_MOVIE.REQUEST)) {
+  while (yield take(CONSTANT.ANALYSE_MOVIE.REQUEST)) {
     yield call(getAnalyseMovie);
   }
 }
 
 export function* getUpdateSingleMovieWatcher() {
-  while (yield take(QUEUE_MOVIES.SUCCESS)) {
+  while (yield take(CONSTANT.QUEUE_MOVIES.SUCCESS)) {
     yield call(getUpdateSingleMovie);
   }
 }
 
 export function* getUpdatePendingWatcher() {
-  while (yield take(UPDATE_SINGLE_MOVIE.REQUEST)) {
+  while (yield take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
     yield call(getUpdateSingleMovie);
   }
 }
@@ -107,7 +106,7 @@ export function* getData() {
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
   // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
   // we just get new data.
-  yield take(UPDATE_SINGLE_MOVIE.SUCCESS);
+  yield take(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS);
   yield race([
     cancel(moviesWatcher),
     cancel(updateUrl),

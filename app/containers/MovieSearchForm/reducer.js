@@ -1,8 +1,8 @@
-// TODO: paste filter reducer, actions, constants, selectors for our filters.
+// TODO: find a way to use CONSTANT variable across app without conflicts
 
 import { fromJS } from 'immutable';
 import * as CONSTANT from './constants';
-import { CACHE_RANDOMIZED_PAGE } from 'containers/RequestMovie/constants';
+
 
 const currentYear = new Date().getFullYear();
 const initialState = fromJS({
@@ -131,7 +131,7 @@ function searchFormReducer(state = initialState, action) {
         .setIn(['range', 'pages'], action.totalPages)
         .setIn(['range', 'results'], action.totalResults)
         .setIn(['range', 'pagesCache'], fromJS([]));
-    case CACHE_RANDOMIZED_PAGE.REQUEST:
+    case CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST:
       return state
         .setIn(['range', 'pagesCache'], action.page);
     default:

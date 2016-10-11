@@ -57,11 +57,3 @@ export const moveToVisitedMovies = {
   success: () => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, {}),
   failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };
-
-// Queue movies
-//
-export const cacheRandomizedPage = {
-  request: (page) => action(CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST, { page }),
-  success: () => action(CONSTANT.CACHE_RANDOMIZED_PAGE.SUCCESS, {}),
-  failure: (error) => action(CONSTANT.CACHE_RANDOMIZED_PAGE.FAILURE, { error }),
-};

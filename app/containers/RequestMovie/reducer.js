@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import * as CONSTANT from './constants';
 import { UPDATE_FILTERS } from 'containers/MovieSearchForm/constants';
 
@@ -43,7 +43,7 @@ function resultReducer(state = initialState, action) {
         .setIn(['isFetching'], false);
     case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
-        .setIn(['pending'], action.removePending);
+        .setIn(['pending'], fromJS(action.removePending));
     case UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['noMoreResults'], false)

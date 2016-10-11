@@ -23,9 +23,6 @@ const UPDATE_SINGLE_MOVIE = createRequestTypes('app/RequestMovie/UPDATE_SINGLE_M
 // Analyse movie results to pick the best
 const UPDATE_VISITED_MOVIES = createRequestTypes('app/RequestMovie/UPDATE_VISITED_MOVIES');
 
-// Cache random page so user won't see it again
-const CACHE_RANDOMIZED_PAGE = createRequestTypes('app/RequestMovie/CACHE_RANDOMIZED_PAGE');
-
 export {
   UPDATE_MOVIE_RESULT,
   UPDATE_URL,
@@ -33,5 +30,4 @@ export {
   QUEUE_MOVIES,
   UPDATE_SINGLE_MOVIE,
   UPDATE_VISITED_MOVIES,
-  CACHE_RANDOMIZED_PAGE,
 };

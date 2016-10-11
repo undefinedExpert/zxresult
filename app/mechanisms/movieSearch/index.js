@@ -4,7 +4,7 @@ import { validateAndPrepareParams, generateNumber } from './extractParams';
 import { rankMovies } from './analyseMovie';
 import { selectResult } from 'containers/RequestMovie/selectors';
 import { selectFilters } from 'containers/MovieSearchForm/selectors';
-import { cacheRandomizedPage } from 'containers/RequestMovie/actions';
+import { cacheRandomizedPage } from 'containers/MovieSearchForm/actions';
 import request from 'utils/request';
 
 export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withParams, randomPage) {

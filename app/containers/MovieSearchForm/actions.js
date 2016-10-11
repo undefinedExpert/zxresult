@@ -69,3 +69,11 @@ export const updateFilters = {
   success: (totalPages, totalResults) => action(CONSTANT.UPDATE_FILTERS.SUCCESS, { totalPages, totalResults }),
   failure: (error) => action(CONSTANT.UPDATE_FILTERS.FAILURE, { error }),
 };
+
+// Cache randomized pages
+//
+export const cacheRandomizedPage = {
+  request: (page) => action(CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST, { page }),
+  success: () => action(CONSTANT.CACHE_RANDOMIZED_PAGE.SUCCESS, {}),
+  failure: (error) => action(CONSTANT.CACHE_RANDOMIZED_PAGE.FAILURE, { error }),
+};
