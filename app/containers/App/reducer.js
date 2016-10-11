@@ -7,111 +7,9 @@
 import { fromJS } from 'immutable';
 import * as CONSTANT from './constants';
 
-const currentYear = new Date().getFullYear();
+
 const initialState = fromJS({
   isLogged: true,
-  filters: {
-    sentence: 'ohio',
-    trend: {
-      active: {
-        name: 'Highly rated',
-        voteAverageMin: 6.5,
-        voteAverageMax: 10,
-        voteCountMin: 70,
-        voteCountMax: null,
-      },
-      list: [
-        {
-          name: 'Highly rated',
-          voteAverageMin: 6.5,
-          voteAverageMax: 10,
-          voteCountMin: 70,
-          voteCountMax: null,
-        },
-        {
-          name: 'Popular',
-          voteAverageMin: null,
-          voteAverageMax: null,
-          voteCountMin: 300,
-          voteCountMax: null,
-        },
-        {
-          name: 'Most Popular',
-          voteAverageMin: null,
-          voteAverageMax: null,
-          voteCountMin: 700,
-          voteCountMax: null,
-        },
-        {
-          name: 'Underestimated',
-          voteAverageMin: 7,
-          voteAverageMax: 10,
-          voteCountMin: 50,
-          voteCountMax: 200,
-        },
-      ],
-      apiParamName: {
-        voteAverageMin: 'vote_average.gte',
-        voteAverageMax: 'vote_average.lte',
-        voteCountMax: 'vote_count.lte',
-        voteCountMin: 'vote_count.gte',
-      },
-    },
-    decade: {
-      active: null,
-      list: [
-        {
-          name: '2010s',
-          dateMin: '2010-01-01',
-          dateMax: `${currentYear}-01-01`,
-        },
-        {
-          name: '2000s',
-          dateMin: '2000-01-01',
-          dateMax: '2009-01-01',
-        },
-        {
-          name: '1990s',
-          dateMin: '1990-01-01',
-          dateMax: '1999-01-01',
-        },
-        {
-          name: '1980s',
-          dateMin: '1980-01-01',
-          dateMax: '1989-01-01',
-        },
-        {
-          name: '1970s',
-          dateMin: '1970-01-01',
-          dateMax: '1979-01-01',
-        },
-        {
-          name: '1960s',
-          dateMin: '1960-01-01',
-          dateMax: '1969-01-01',
-        },
-        {
-          name: 'Older',
-          dateMin: '1900-01-01',
-          dateMax: '1959-01-01',
-        },
-      ],
-      apiParamName: {
-        dateMin: 'primary_release_date.gte',
-        dateMax: 'primary_release_date.lte',
-      },
-    },
-    genre: {
-      active: null,
-      list: [],
-      apiParamName: 'with_genres',
-    },
-    range: {
-      pages: 0,
-      pagesCache: [],
-      results: 0,
-    },
-  },
   result: fromJS({
     active: null,
     notSorted: [], // Freshly downloaded, before moved to pending need to be analysed.
@@ -120,18 +18,6 @@ const initialState = fromJS({
     noMoreResults: false,
     isFetching: false,
   }),
-  user: {
-    name: 'Emanuel',
-    avatar: 'https://avatars0.githubusercontent.com/u/5350669?v=3&s=460',
-    watchList: [
-      {
-        name: 'Titanic',
-        decade: '90s',
-        rating: 86,
-        popularity: 90,
-      },
-    ],
-  },
 });
 
 function appReducer(state = initialState, action) {
