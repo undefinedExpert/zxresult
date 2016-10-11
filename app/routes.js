@@ -21,21 +21,24 @@ export default function createRoutes(store) {
       path: '/',
       name: 'home',
       getComponent(nextState, cb) {
+        // We import what we want
         const importModules = Promise.all([
-          // System.import('containers/HomePage/reducer'),
           System.import('containers/HomePage/sagas'),
+          System.import('containers/MovieSearchForm/sagas'),
           System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([sagas, component]) => {
-          // Tworzymy nowy kontener dla naszego stanu o nazwie 'home'
+        // Params matches the order in our Promise.all func
+        importModules.then(([appSagas, searchFormSagas, component]) => {
           // injectReducer('global', reducer.default);
-          injectSagas(sagas.default); // Inject the saga
+          injectSagas(appSagas.default); // Inject the general app sagas
+          injectSagas(searchFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);
         });
+
 
         importModules.catch(errorLoading);
       },
