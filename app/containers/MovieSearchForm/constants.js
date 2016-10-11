@@ -19,9 +19,6 @@ const UPDATE_FILTER_GENRE_LIST = createRequestTypes('app/App/UPDATE_FILTER_GENRE
 // Update Result filters
 const UPDATE_FILTERS = createRequestTypes('app/App/UPDATE_FILTERS');
 
-// Cache random page so user won't see it again
-const CACHE_RANDOMIZED_PAGE = createRequestTypes('app/App/CACHE_RANDOMIZED_PAGE');
-
 export {
   UPDATE_FILTER_DECADE,
   UPDATE_FILTER_DECADE_LIST,
@@ -30,6 +27,5 @@ export {
   UPDATE_FILTER_GENRE,
   UPDATE_FILTER_GENRE_LIST,
   UPDATE_FILTERS,
-  CACHE_RANDOMIZED_PAGE,
 };
 
