@@ -25,6 +25,7 @@ export function* getMovie() {
 
 export function* getAnalyseMovie() {
   const analyzed = yield processMovieAnalyse();
+
   try {
     yield put(queueMovies.success(analyzed));
   }
@@ -44,7 +45,6 @@ export function* getUpdateSingleMovie() {
     yield put(queueMovies.failure(err));
   }
 
-
   // Reduce pending movies by item user just take
   const newPending = yield pending.slice(1);
   try {
@@ -61,9 +61,11 @@ export function* getUpdateUrl() {
   // TEMPORARY OFF
 }
 
+
 /**
  * Watches for FILTER_FORM_UPDATE action and calls handler
  */
+
 export function* getMovieWatcher() {
   while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST)) {
     yield call(getMovie);
@@ -94,6 +96,7 @@ export function* getUpdatePendingWatcher() {
   }
 }
 
+
 export function* getData() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
@@ -102,10 +105,7 @@ export function* getData() {
   const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
   const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
 
-  // Suspend execution until location changes
-  // TODO: Change this to custom action, when the user request new 'result' or something like this.
-  // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
-  // we just get new data.
+  // Suspend execution until CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS
   yield take(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS);
   yield race([
     cancel(moviesWatcher),
