@@ -15,7 +15,7 @@ const selectFilters = () => {
   return createSelector(
     filtersDomain(),
     filterSelector,
-    ({ genre, decade, trend, range }) => ({ genre, decade, trend, range })
+    ({ genre, trend, range, decade }) => ({ genre, trend, range, decade })
   );
 };
 
