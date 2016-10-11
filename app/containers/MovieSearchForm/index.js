@@ -17,7 +17,7 @@ export class MovieSearchForm extends React.Component {
   // fixme: https://github.com/reactjs/redux/issues/239
   componentWillMount() {
     // Make xhr call
-    if (this.props.filters.genre.list <= 0) {
+    if (this.props.genre.list <= 0) {
       this.props.getGenreList();
       this.props.getUpdateFilters();
     }
@@ -41,7 +41,9 @@ export class MovieSearchForm extends React.Component {
 
   render() {
     const {
-      filters: { genre, decade, trend },
+      genre,
+      decade,
+      trend,
       orientation,
     } = this.props;
     const selectListItems = [
@@ -77,7 +79,6 @@ MovieSearchForm.propTypes = {
   onChangeDecade: React.PropTypes.func,
   onChangeTrend: React.PropTypes.func,
   getUpdateFilters: React.PropTypes.func,
-  filterUpdate: React.PropTypes.func,
   onChangeHandler: React.PropTypes.func,
 };
 

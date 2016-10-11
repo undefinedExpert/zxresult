@@ -1,6 +1,8 @@
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
-import * as CONSTANT from 'containers/App/constants';
-import { updateMovieResult, updateFilterGenre, updateFilters, analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
+import { ANALYSE_MOVIE, QUEUE_MOVIES, UPDATE_SINGLE_MOVIE, UPDATE_MOVIE_RESULT } from 'containers/App/constants';
+import { UPDATE_FILTERS, UPDATE_FILTER_GENRE_LIST } from 'containers/MovieSearchForm/constants';
+import { analyseMovies, queueMovies, updateSingleMovie } from 'containers/App/actions';
+import { updateMovieResult, updateFilterGenre, updateFilters } from 'containers/MovieSearchForm/actions';
 import { selectResult } from 'containers/App/selectors';
 import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
@@ -92,43 +94,43 @@ export function* getUpdateUrl() {
  * Watches for FILTER_FORM_UPDATE action and calls handler
  */
 export function* getMovieWatcher() {
-  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST)) {
+  while (yield take(UPDATE_MOVIE_RESULT.REQUEST)) {
     yield call(getMovie);
   }
 }
 
 export function* getGenresListWatcher() {
-  while (yield take(CONSTANT.UPDATE_FILTER_GENRE_LIST.REQUEST)) {
+  while (yield take(UPDATE_FILTER_GENRE_LIST.REQUEST)) {
     yield call(getGenreList);
   }
 }
 
 export function* getResultChangeWatcher() {
-  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS)) {
+  while (yield take(UPDATE_MOVIE_RESULT.SUCCESS)) {
     yield call(getUpdateUrl);
   }
 }
 
 export function* getUpdateFiltersWatcher() {
-  while (yield take(CONSTANT.UPDATE_FILTERS.REQUEST)) {
+  while (yield take(UPDATE_FILTERS.REQUEST)) {
     yield call(getUpdateFilters);
   }
 }
 
 export function* getAnalyseMovieWatcher() {
-  while (yield take(CONSTANT.ANALYSE_MOVIE.REQUEST)) {
+  while (yield take(ANALYSE_MOVIE.REQUEST)) {
     yield call(getAnalyseMovie);
   }
 }
 
 export function* getUpdateSingleMovieWatcher() {
-  while (yield take(CONSTANT.QUEUE_MOVIES.SUCCESS) || take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
+  while (yield take(QUEUE_MOVIES.SUCCESS)) {
     yield call(getUpdateSingleMovie);
   }
 }
 
 export function* getUpdatePendingWatcher() {
-  while (yield take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
+  while (yield take(UPDATE_SINGLE_MOVIE.REQUEST)) {
     yield call(getUpdateSingleMovie);
   }
 }

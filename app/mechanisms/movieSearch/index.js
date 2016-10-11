@@ -2,7 +2,8 @@ import { call, select, put } from 'redux-saga/effects';
 import { buildUrlParams } from './buildUrl';
 import { validateAndPrepareParams, generateNumber } from './extractParams';
 import { rankMovies } from './analyseMovie';
-import { selectFilters, selectResult } from 'containers/App/selectors';
+import { selectResult } from 'containers/App/selectors';
+import { selectFilters } from 'containers/MovieSearchForm/selectors';
 import { cacheRandomizedPage } from 'containers/App/actions';
 import request from 'utils/request';
 
