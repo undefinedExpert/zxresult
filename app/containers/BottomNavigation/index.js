@@ -14,10 +14,6 @@ import { createStructuredSelector, createSelector } from 'reselect';
 
 export class BottomNavigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-  routeToResult = () => {
-    this.openRoute('/result');
-  };
-
   openRoute = (route) => {
     this.props.changeRoute(route);
   };

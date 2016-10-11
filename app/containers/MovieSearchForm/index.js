@@ -44,8 +44,8 @@ export class MovieSearchForm extends React.Component {
       genre,
       decade,
       trend,
-      orientation,
-    } = this.props;
+      orientation } = this.props;
+
     const selectListItems = [
       { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
       { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeDecadeHandler, title: 'Decade' } },
