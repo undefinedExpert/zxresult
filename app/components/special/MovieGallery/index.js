@@ -9,7 +9,7 @@ import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
 import ResultImage from 'components/special/MovieResultImage';
-import MovieSearchForm from 'containers/MovieSearchForm';
+import FilterForm from 'containers/FilterForm';
 
 import styles from './styles.css';
 
@@ -32,7 +32,7 @@ function MovieGallery(props) {
   return (
     <Section className={cs}>
       <ResultImage path={path} alt={altMsg} />
-      <MovieSearchForm orientation={orientation} />
+      <FilterForm orientation={orientation} />
     </Section>
   );
 }

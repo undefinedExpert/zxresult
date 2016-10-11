@@ -4,9 +4,9 @@
  *
  */
 
-import { fromJS, List } from 'immutable';
+import { fromJS } from 'immutable';
 import * as CONSTANT from './constants';
-import { UPDATE_FILTERS } from 'containers/MovieSearchForm/constants';
+import { UPDATE_FILTERS } from 'containers/FilterForm/constants';
 
 
 const initialState = fromJS({

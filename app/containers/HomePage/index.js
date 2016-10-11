@@ -7,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import MovieSearchForm from 'containers/MovieSearchForm';
+import FilterForm from 'containers/FilterForm';
 import WelcomeText from 'components/special/WelcomeText';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -15,7 +15,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
     return (
       <div>
         <WelcomeText />
-        <MovieSearchForm />
+        <FilterForm />
         {this.props.children}
       </div>
     );

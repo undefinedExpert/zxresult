@@ -24,17 +24,17 @@ export default function createRoutes(store) {
         // We import what we want
         const importModules = Promise.all([
           System.import('containers/RequestMovie/sagas'),
-          System.import('containers/MovieSearchForm/sagas'),
+          System.import('containers/FilterForm/sagas'),
           System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         // Params matches the order in our Promise.all func
-        importModules.then(([requestMovieSagas, searchFormSagas, component]) => {
+        importModules.then(([requestMovieSagas, filterFormSagas, component]) => {
           // injectReducer('global', reducer.default);
           injectSagas(requestMovieSagas.default); // Inject the general app sagas
-          injectSagas(searchFormSagas.default); // inject sagas specified for MovieSearchForm container
+          injectSagas(filterFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);
         });
@@ -49,17 +49,17 @@ export default function createRoutes(store) {
         // We import what we want
         const importModules = Promise.all([
           System.import('containers/RequestMovie/sagas'),
-          System.import('containers/MovieSearchForm/sagas'),
+          System.import('containers/FilterForm/sagas'),
           System.import('containers/MovieSearchResult'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         // Params matches the order in our Promise.all func
-        importModules.then(([requestMovieSagas, searchFormSagas, component]) => {
+        importModules.then(([requestMovieSagas, filterFormSagas, component]) => {
           // injectReducer('global', reducer.default);
           injectSagas(requestMovieSagas.default); // Inject the general app sagas
-          injectSagas(searchFormSagas.default); // inject sagas specified for MovieSearchForm container
+          injectSagas(filterFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);
         });

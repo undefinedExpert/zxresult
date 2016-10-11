@@ -3,8 +3,8 @@ import { buildUrlParams } from './buildUrl';
 import { validateAndPrepareParams, generateNumber } from './extractParams';
 import { rankMovies } from './analyseMovie';
 import { selectResult } from 'containers/RequestMovie/selectors';
-import { selectFilters } from 'containers/MovieSearchForm/selectors';
-import { cacheRandomizedPage } from 'containers/MovieSearchForm/actions';
+import { selectFilters } from 'containers/FilterForm/selectors';
+import { cacheRandomizedPage } from 'containers/FilterForm/actions';
 import request from 'utils/request';
 
 export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withParams, randomPage) {

@@ -20,7 +20,7 @@ import { mapDispatch, mapState } from './mapProps';
 
 
 /**
- * MovieSearchForm
+ * FilterForm
  * @desc Creates filters form, where user is able to get results with data he set. Each time when some filter change,
  * it will dispatch an action and get possible range of results with current set of filters.
  *
@@ -30,7 +30,7 @@ import { mapDispatch, mapState } from './mapProps';
  *
  * @attr orientation - Handles horizontal, vertical orientation of this form by applying appropriate css class.
  */
-export class MovieSearchForm extends Component {
+export class FilterForm extends Component {
   componentWillMount() {
     // Get Genre list (by dispatching an action)
     const genreList = this.props.genre.list;
@@ -80,7 +80,7 @@ export class MovieSearchForm extends Component {
   }
 }
 
-MovieSearchForm.propTypes = {
+FilterForm.propTypes = {
   genre: ptype.object,
   decade: ptype.object,
   trend: ptype.object,
@@ -97,4 +97,4 @@ const mapStateToProps = mapState();
 
 const mapDispatchToProps = (dispatch) => mapDispatch(dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchForm);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterForm);

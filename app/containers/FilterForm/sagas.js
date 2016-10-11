@@ -1,13 +1,12 @@
 import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
 import { updateFilterGenre, updateFilters } from './actions';
 import { callToApi } from 'mechanisms/movieSearch';
-import * as CONSTANT from 'containers/MovieSearchForm/constants';
+import * as CONSTANT from 'containers/FilterForm/constants';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 
 // Individual exports for testing
 export function* getGenreList() {
-  console.log('saga ran')
   const { data } = yield callToApi('/genre/movie/list', {}, false);
   try {
     yield put(updateFilterGenre.list.success(data.genres));

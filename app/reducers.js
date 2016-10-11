@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import resultReducer from 'containers/RequestMovie/reducer';
-import searchFormReducer from 'containers/MovieSearchForm/reducer';
+import filterFormReducer from 'containers/FilterForm/reducer';
 
 /*
  * routeReducer
@@ -47,7 +47,7 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     result: resultReducer,
-    filters: searchFormReducer,
+    filters: filterFormReducer,
     ...asyncReducers,
   });
 }
