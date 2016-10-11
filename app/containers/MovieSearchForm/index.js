@@ -34,7 +34,7 @@ export class MovieSearchForm extends Component {
   componentWillMount() {
     // Get Genre list (by dispatching an action)
     const genreList = this.props.genre.list;
-    if (genreList) {
+    if (genreList <= 0) {
       this.props.getGenreList();
       this.props.getUpdateFilters();
     }
@@ -50,6 +50,7 @@ export class MovieSearchForm extends Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
+    this.props.onSubmitForm();
   };
 
   render() {
