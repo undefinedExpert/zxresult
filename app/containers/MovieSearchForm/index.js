@@ -1,25 +1,40 @@
-/*
- *
- * MovieSearchForm
- *
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes as ptype, Component } from 'react';
+
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { capitalize } from 'lodash';
-import Input from 'components/general/Input';
-import { mapDispatch, mapState } from './mapProps';
-import SelectList from 'components/general/SelectList';
-import RequestMovie from 'containers/RequestMovie';
 
-export class MovieSearchForm extends React.Component {
-  // fixme: https://github.com/reactjs/redux/issues/239
+import Input from 'components/general/Input';
+import RequestMovie from 'containers/RequestMovie';
+import SelectList from 'components/general/SelectList';
+
+import styles from './styles.css';
+import { mapDispatch, mapState } from './mapProps';
+
+
+/**
+ * MovieSearchForm
+ * @desc Creates filters form, where user is able to get results with data he set. Each time when some filter change,
+ * it will dispatch an action and get possible range of results with current set of filters.
+ *
+ * @method componentWillMount - Get genre list directly from API.
+ * @method onChangeSelectHandler - Dispatch an appropriate action when specific selector will change it's value.
+ * @method onSubmitHandler - Prevent from sending form & refresh the page
+ *
+ * @attr orientation - Handles horizontal, vertical orientation of this form by applying appropriate css class.
+ */
+export class MovieSearchForm extends Component {
   componentWillMount() {
     // Get Genre list (by dispatching an action)
     const genreList = this.props.genre.list;
-    if (genreList <= 0) {
+    if (genreList) {
       this.props.getGenreList();
       this.props.getUpdateFilters();
     }
@@ -31,6 +46,10 @@ export class MovieSearchForm extends React.Component {
       this.props[which](value);
       this.props.getUpdateFilters();
     };
+  };
+
+  onSubmitHandler = (e) => {
+    e.preventDefault();
   };
 
   render() {
@@ -48,7 +67,7 @@ export class MovieSearchForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.props.onSubmitForm} className={styles.form}>
+        <form onSubmit={this.onSubmitHandler} className={styles.form}>
           <div className={classNames(styles.filters, styles[orientation])} >
             <Input type="text" title="Sentence" placeholder="Sentence placeholder" />
             <SelectList items={selectListItems} />
@@ -61,26 +80,20 @@ export class MovieSearchForm extends React.Component {
 }
 
 MovieSearchForm.propTypes = {
-  genre: React.PropTypes.object,
-  decade: React.PropTypes.object,
-  trend: React.PropTypes.object,
-  orientation: React.PropTypes.string,
-  changeRoute: React.PropTypes.func,
-  children: React.PropTypes.node,
-  onSubmitForm: React.PropTypes.func,
-  filterFormUpdate: React.PropTypes.func,
-  getGenreList: React.PropTypes.func,
-  onChangeGenre: React.PropTypes.func,
-  onChangeDecade: React.PropTypes.func,
-  onChangeTrend: React.PropTypes.func,
-  getUpdateFilters: React.PropTypes.func,
-  onChangeHandler: React.PropTypes.func,
+  genre: ptype.object,
+  decade: ptype.object,
+  trend: ptype.object,
+  orientation: ptype.string,
+  onSubmitForm: ptype.func,
+  getGenreList: ptype.func,
+  onChangeGenre: ptype.func,
+  onChangeTrend: ptype.func,
+  onChangeDecade: ptype.func,
+  getUpdateFilters: ptype.func,
 };
 
 const mapStateToProps = mapState();
 
-function mapDispatchToProps(dispatch) {
-  return mapDispatch(dispatch);
-}
+const mapDispatchToProps = (dispatch) => mapDispatch(dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSearchForm);
