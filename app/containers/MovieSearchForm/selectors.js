@@ -1,4 +1,3 @@
-// todo: split app selectors
 import { createSelector, createStructuredSelector } from 'reselect';
 
 

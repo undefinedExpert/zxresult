@@ -8,6 +8,7 @@ import React from 'react';
 import styles from './styles.css';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { capitalize } from 'lodash';
 import Input from 'components/general/Input';
 import { mapDispatch, mapState } from './mapProps';
 import SelectList from 'components/general/SelectList';
@@ -16,27 +17,20 @@ import RequestMovie from 'containers/RequestMovie';
 export class MovieSearchForm extends React.Component {
   // fixme: https://github.com/reactjs/redux/issues/239
   componentWillMount() {
-    // Make xhr call
-    if (this.props.genre.list <= 0) {
+    // Get Genre list (by dispatching an action)
+    const genreList = this.props.genre.list;
+    if (genreList <= 0) {
       this.props.getGenreList();
       this.props.getUpdateFilters();
     }
   }
 
-  // genreHandler
-  onChangeGenreHandler = (value) => {
-    this.props.onChangeGenre(value);
-    this.props.getUpdateFilters();
-  };
-
-  onChangeDecadeHandler = (value) => {
-    this.props.onChangeDecade(value);
-    this.props.getUpdateFilters();
-  };
-
-  onChangeTrendHandler = (value) => {
-    this.props.onChangeTrend(value);
-    this.props.getUpdateFilters();
+  onChangeSelectHandler = (type) => {
+    const which = `onChange${capitalize(type)}`;
+    return (value) => {
+      this.props[which](value);
+      this.props.getUpdateFilters();
+    };
   };
 
   render() {
@@ -47,18 +41,17 @@ export class MovieSearchForm extends React.Component {
       orientation } = this.props;
 
     const selectListItems = [
-      { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeGenreHandler, title: 'Genre' } },
-      { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeDecadeHandler, title: 'Decade' } },
-      { value: trend.active, list: trend.list, options: { onChangeHandler: this.onChangeTrendHandler, title: 'Trend' } },
+      { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeSelectHandler('Genre'), title: 'Genres' } },
+      { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeSelectHandler('Decade'), title: 'Decade' } },
+      { value: trend.active, list: trend.list, options: { onChangeHandler: this.onChangeSelectHandler('Trend'), title: 'Trend' } },
     ];
+
     return (
       <div>
         <form onSubmit={this.props.onSubmitForm} className={styles.form}>
           <div className={classNames(styles.filters, styles[orientation])} >
             <Input type="text" title="Sentence" placeholder="Sentence placeholder" />
-            <SelectList
-              items={selectListItems}
-            />
+            <SelectList items={selectListItems} />
             <RequestMovie />
           </div>
         </form>
@@ -68,7 +61,9 @@ export class MovieSearchForm extends React.Component {
 }
 
 MovieSearchForm.propTypes = {
-  filters: React.PropTypes.object,
+  genre: React.PropTypes.object,
+  decade: React.PropTypes.object,
+  trend: React.PropTypes.object,
   orientation: React.PropTypes.string,
   changeRoute: React.PropTypes.func,
   children: React.PropTypes.node,

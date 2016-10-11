@@ -69,4 +69,3 @@ export const updateFilters = {
   success: (totalPages, totalResults) => action(CONSTANT.UPDATE_FILTERS.SUCCESS, { totalPages, totalResults }),
   failure: (error) => action(CONSTANT.UPDATE_FILTERS.FAILURE, { error }),
 };
-
