@@ -8,9 +8,9 @@ const filtersDomain = () => state => state.get('filters').toJS();
 const selectFilters = () => {
   const filterSelector = createStructuredSelector({
     genre: ({ genre }) => genre,
-    decade: ({ decade }) => decade,
     trend: ({ trend }) => trend,
     range: ({ range }) => range,
+    decade: ({ decade }) => decade,
   });
   return createSelector(
     filtersDomain(),
