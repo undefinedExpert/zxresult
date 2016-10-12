@@ -35,6 +35,10 @@ export function createRequestTypes(base) {
 // It converts and replaces by regex pattern
 export const convertToPattern = curry((pattern, replacement, str) => str.replace(pattern, replacement));
 
+// Helps in action creation process
+export function action(type, payload = {}) {
+  return { type, ...payload };
+}
 
 /**
  * Helper for creating injectors
