@@ -24,16 +24,16 @@ describe('Application actions', () => {
     it('Should call actions from genreActive - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_FILTER_GENRE.REQUEST,
+          type: CONSTANT.FILTER_GENRE.REQUEST,
           value,
         },
         success: {
-          type: CONSTANT.UPDATE_FILTER_GENRE.SUCCESS,
+          type: CONSTANT.FILTER_GENRE.SUCCESS,
           value,
           response,
         },
         failure: {
-          type: CONSTANT.UPDATE_FILTER_GENRE.FAILURE,
+          type: CONSTANT.FILTER_GENRE.FAILURE,
           value,
           error,
         },
@@ -47,15 +47,15 @@ describe('Application actions', () => {
     it('Should call actions from genreList - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_FILTER_GENRE_LIST.REQUEST,
+          type: CONSTANT.FILTER_GENRE_LIST.REQUEST,
         },
         success: {
-          type: CONSTANT.UPDATE_FILTER_GENRE_LIST.SUCCESS,
+          type: CONSTANT.FILTER_GENRE_LIST.SUCCESS,
           value,
           response,
         },
         failure: {
-          type: CONSTANT.UPDATE_FILTER_GENRE_LIST.FAILURE,
+          type: CONSTANT.FILTER_GENRE_LIST.FAILURE,
           value,
           error,
         },
@@ -80,16 +80,16 @@ describe('Application actions', () => {
     it('Should call actions from decadeActive - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_FILTER_DECADE.REQUEST,
+          type: CONSTANT.FILTER_DECADE.REQUEST,
           value,
         },
         success: {
-          type: CONSTANT.UPDATE_FILTER_DECADE.SUCCESS,
+          type: CONSTANT.FILTER_DECADE.SUCCESS,
           value,
           response,
         },
         failure: {
-          type: CONSTANT.UPDATE_FILTER_DECADE.FAILURE,
+          type: CONSTANT.FILTER_DECADE.FAILURE,
           value,
           error,
         },
@@ -103,16 +103,16 @@ describe('Application actions', () => {
     it('Should call actions from decadeList - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_FILTER_DECADE_LIST.REQUEST,
+          type: CONSTANT.FILTER_DECADE_LIST.REQUEST,
           value,
         },
         success: {
-          type: CONSTANT.UPDATE_FILTER_DECADE_LIST.SUCCESS,
+          type: CONSTANT.FILTER_DECADE_LIST.SUCCESS,
           value,
           response,
         },
         failure: {
-          type: CONSTANT.UPDATE_FILTER_DECADE_LIST.FAILURE,
+          type: CONSTANT.FILTER_DECADE_LIST.FAILURE,
           value,
           error,
         },
@@ -137,16 +137,16 @@ describe('Application actions', () => {
     it('Should call actions from trendActive - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_FILTER_TREND.REQUEST,
+          type: CONSTANT.FILTER_TREND.REQUEST,
           value,
         },
         success: {
-          type: CONSTANT.UPDATE_FILTER_TREND.SUCCESS,
+          type: CONSTANT.FILTER_TREND.SUCCESS,
           value,
           response,
         },
         failure: {
-          type: CONSTANT.UPDATE_FILTER_TREND.FAILURE,
+          type: CONSTANT.FILTER_TREND.FAILURE,
           value,
           error,
         },
@@ -160,16 +160,16 @@ describe('Application actions', () => {
     it('Should call actions from trendList - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_FILTER_TREND_LIST.REQUEST,
+          type: CONSTANT.FILTER_TREND_LIST.REQUEST,
           value,
         },
         success: {
-          type: CONSTANT.UPDATE_FILTER_TREND_LIST.SUCCESS,
+          type: CONSTANT.FILTER_TREND_LIST.SUCCESS,
           value,
           response,
         },
         failure: {
-          type: CONSTANT.UPDATE_FILTER_TREND_LIST.FAILURE,
+          type: CONSTANT.FILTER_TREND_LIST.FAILURE,
           value,
           error,
         },

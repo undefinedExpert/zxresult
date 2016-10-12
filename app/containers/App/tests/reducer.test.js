@@ -105,13 +105,13 @@ describe('appReducer', () => {
     expect(appReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
   });
 
-  it('should handle the UPDATE_FILTER_DECADE action', () => {
+  it('should handle the FILTER_DECADE action', () => {
     const fixture = '2000s';
     const expectedResult = state.setIn(['filters', 'decade', 'active'], fixture);
     expect(appReducer(state, updateFilterDecade.active.request(fixture))).to.eql(expectedResult);
   });
 
-  it('should handle the UPDATE_FILTER_TREND action', () => {
+  it('should handle the FILTER_TREND action', () => {
     const fixture = 'Classical';
     const expectedResult = state.setIn(['filters', 'trend', 'active'], fixture);
     expect(appReducer(state, updateFilterTrend.active.request(fixture))).to.eql(expectedResult);

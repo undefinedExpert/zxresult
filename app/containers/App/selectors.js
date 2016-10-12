@@ -1,9 +1,13 @@
 /**
- * Other specific selectors
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-
-// selectLocationState expects a plain JS object for the routing state
+/**
+ * @desc Selects plain JS Object route state
+ */
 const selectLocationState = () => {
   let prevRoutingState;
   let prevRoutingStateJS;
