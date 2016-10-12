@@ -5,8 +5,9 @@
  *  3. Module
  */
 
-import createReducer from 'reducers.js';
 import { curry } from 'lodash';
+
+import createReducer from 'reducers.js';
 
 
 /**
