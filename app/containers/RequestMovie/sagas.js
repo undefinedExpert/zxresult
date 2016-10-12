@@ -1,11 +1,24 @@
-import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
-import * as CONSTANT from './constants';
-import { analyseMovies, queueMovies, updateSingleMovie, updateMovieResult } from './actions';
-import { selectResult } from './selectors';
-import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
-import { LOCATION_CHANGE, push } from 'react-router-redux';
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
-// Get movie
+import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
+
+import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
+
+import * as CONSTANT from './constants';
+import { selectResult } from './selectors';
+import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
+
+
+/**
+ * @desc Detects if user will get movies from pending list,
+ * or we call to an API for a 20 fresh results.
+ */
 export function* getMovie() {
   const detected = yield detectPending();
   const { data } = !detected ? yield callToApi('/discover/movie') : false;
@@ -23,18 +36,25 @@ export function* getMovie() {
   }
 }
 
+
+/**
+ * @desc Analyse & rank movies
+ */
 export function* getAnalyseMovie() {
   const analyzed = yield processMovieAnalyse();
-
   try {
-    yield put(queueMovies.success(analyzed));
+    yield put(analyseMovies.success(analyzed));
   }
   catch (err) {
-    yield put(queueMovies.failure(err));
+    yield put(analyseMovies.failure(err));
   }
 }
 
-export function* getUpdateSingleMovie() {
+
+/**
+ * @desc Push single result into user, removes it from pending list.
+ */
+export function* pushSingleResult() {
   const { pending } = yield select(selectResult());
 
   const singlePendingMovie = pending[0];
@@ -42,7 +62,7 @@ export function* getUpdateSingleMovie() {
     yield put(updateMovieResult.success(singlePendingMovie));
   }
   catch (err) {
-    yield put(queueMovies.failure(err));
+    yield put(updateMovieResult.failure(err));
   }
 
   // Reduce pending movies by item user just take
@@ -55,6 +75,10 @@ export function* getUpdateSingleMovie() {
   }
 }
 
+
+/**
+ * @desc Move user into result sub-page when result is set
+ */
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
   yield put(push('/result'));
@@ -62,9 +86,24 @@ export function* getUpdateUrl() {
 }
 
 
-/**
- * Watches for FILTER_FORM_UPDATE action and calls handler
- */
+// \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \
+
+//   _______ _______ _______ _______ _______ _______ _______ _______
+//   |\     /|\     /|\     /|\     /|\     /|\     /|\     /|\     /|
+//   | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ |
+//   | |   | | |   | | |   | | |   | | |   | | |   | | |   | | |   | |
+//   | |W  | | |A  | | |T  | | |C  | | |H  | | |E  | | |R  | | |S  | |
+//   | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ |
+//   |/_____\|/_____\|/_____\|/_____\|/_____\|/_____\|/_____\|/_____\|
+
+//    ──▒▒▒▒▒─────▒▒▒▒▒─────▒▒▒▒▒─────▒▒▒▒▒─────▒▒▒▒▒──────▄████▄─────
+//    ─▒─▄▒─▄▒───▒─▄▒─▄▒───▒─▄▒─▄▒───▒─▄▒─▄▒───▒─▄▒─▄▒────███▄█▀──────
+//    ─▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▐████──█──█──
+//    ─▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒────█████▄──────
+//    ─▒─▒─▒─▒───▒─▒─▒─▒───▒─▒─▒─▒───▒─▒─▒─▒───▒─▒─▒─▒─────▀████▀─────
+
+// \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \
+
 
 export function* getMovieWatcher() {
   while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST)) {
@@ -85,14 +124,14 @@ export function* getAnalyseMovieWatcher() {
 }
 
 export function* getUpdateSingleMovieWatcher() {
-  while (yield take(CONSTANT.QUEUE_MOVIES.SUCCESS)) {
-    yield call(getUpdateSingleMovie);
+  while (yield take(CONSTANT.ANALYSE_MOVIE.SUCCESS)) {
+    yield call(pushSingleResult);
   }
 }
 
 export function* getUpdatePendingWatcher() {
   while (yield take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
-    yield call(getUpdateSingleMovie);
+    yield call(pushSingleResult);
   }
 }
 

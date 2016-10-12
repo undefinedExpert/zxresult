@@ -34,11 +34,11 @@ function resultReducer(state = initialState, action) {
     case CONSTANT.ANALYSE_MOVIE.REQUEST:
       return state
         .setIn(['notSorted'], action.notSorted);
-    case CONSTANT.QUEUE_MOVIES.SUCCESS:
+    case CONSTANT.ANALYSE_MOVIE.SUCCESS:
       return state
         .setIn(['pending'], action.pending)
         .setIn(['isFetching'], false);
-    case CONSTANT.QUEUE_MOVIES.FAILURE:
+    case CONSTANT.ANALYSE_MOVIE.FAILURE:
       return state
         .setIn(['isFetching'], false);
     case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:

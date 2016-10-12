@@ -1,59 +1,46 @@
-/*
- *
- * Movie-search-form actions
- *
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
+
+import { action } from 'utils/hooks';
 
 import * as CONSTANT from './constants';
 
-function action(type, payload = {}) {
-  return { type, ...payload };
-}
 
-// Result set Actions
-//
+/**
+ * @desc Those actions handles:
+ * - Fetches movie
+ * - Pushes url
+ * - Handles isFetching boolean
+ */
 export const updateMovieResult = {
   request: () => action(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST, {}),
   success: (active) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { active }),
   failure: (error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { error }),
 };
 
-// Update url
-//
-export const updateUrl = {
-  request: () => action(CONSTANT.UPDATE_URL.REQUEST, {}),
-  success: (response) => action(CONSTANT.UPDATE_URL.SUCCESS, { response }),
-  failure: (error) => action(CONSTANT.UPDATE_URL.FAILURE, { error }),
-};
 
-// Analyse movies
-//
+/**
+ * @desc Those actions handles:
+ * - Analyse & rank movies, after process moves notSorted to pending list.
+ */
 export const analyseMovies = {
   request: (notSorted) => action(CONSTANT.ANALYSE_MOVIE.REQUEST, { notSorted }),
-  success: (active, viewed) => action(CONSTANT.ANALYSE_MOVIE.SUCCESS, { active, viewed }),
+  success: (pending) => action(CONSTANT.ANALYSE_MOVIE.SUCCESS, { pending }),
   failure: (error) => action(CONSTANT.ANALYSE_MOVIE.FAILURE, { error }),
 };
 
-// Queue movies
-//
-export const queueMovies = {
-  request: (notSorted) => action(CONSTANT.QUEUE_MOVIES.REQUEST, { notSorted }),
-  success: (pending) => action(CONSTANT.QUEUE_MOVIES.SUCCESS, { pending }),
-  failure: (error) => action(CONSTANT.QUEUE_MOVIES.FAILURE, { error }),
-};
 
-// updateSingleMovie
-//
+/**
+ * @desc Those actions handles:
+ * - Update movie result with 1st from pending list
+ * - After push removes it from pending list
+ */
 export const updateSingleMovie = {
   request: (active) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { active }),
   success: (removePending) => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, { removePending }),
-  failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
-};
-
-// Queue movies
-//
-export const moveToVisitedMovies = {
-  request: (visited) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { visited }),
-  success: () => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, {}),
   failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };
