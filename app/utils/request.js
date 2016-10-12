@@ -1,4 +1,12 @@
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
+
 import 'whatwg-fetch';
+
 
 /**
  * Parses the JSON returned by a network request
@@ -10,6 +18,7 @@ import 'whatwg-fetch';
 function parseJSON(response) {
   return response.json();
 }
+
 
 /**
  * Checks if a network request came back fine, and throws an error if not
@@ -27,6 +36,7 @@ function checkStatus(response) {
   error.response = response;
   throw error;
 }
+
 
 /**
  * Requests a URL, returning a promise
