@@ -1,10 +1,21 @@
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
+
 import { createSelector, createStructuredSelector } from 'reselect';
 
-
+/**
+ * @desc Selects filter from store
+ */
 const filtersDomain = () => state => state.get('filters').toJS();
 
 
-// Attach nested filters state proprieties
+/**
+ * @desc Picks all filters
+ */
 const selectFilters = () => {
   const filterSelector = createStructuredSelector({
     genre: ({ genre }) => genre,

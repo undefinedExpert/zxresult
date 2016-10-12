@@ -1,11 +1,22 @@
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
+
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
-import { updateFilterGenre, updateFilters } from './actions';
+
 import { callToApi } from 'mechanisms/movieSearch';
 import * as CONSTANT from 'containers/FilterForm/constants';
-import { LOCATION_CHANGE } from 'react-router-redux';
+
+import { updateFilterGenre, updateFilters } from './actions';
 
 
-// Individual exports for testing
+/**
+ * @desc Gets current genre list from API using xhr request
+ */
 export function* getGenreList() {
   const { data } = yield callToApi('/genre/movie/list', {}, false);
   try {
@@ -16,12 +27,14 @@ export function* getGenreList() {
   }
 }
 
-// Update filters have make a request to server
+
+/**
+ * @desc Updates filters and current range of using API call,
+ * 1000 page is mostly empty that's why we hardcoded it to call only on that page
+ */
 export function* handleUpdateFilters() {
   const { data } = yield callToApi('/discover/movie', { page: 1000 });
   try {
-    console.log(`Total pages: ${data.total_pages}`);
-    console.log(`Total Results: ${data.total_results}`);
     yield put(updateFilters.success(data.total_pages, data.total_results));
   }
   catch (err) {
@@ -29,9 +42,25 @@ export function* handleUpdateFilters() {
   }
 }
 
-/*
-* WATCHERS
-* */
+
+// \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \
+
+//   _______ _______ _______ _______ _______ _______ _______ _______
+//   |\     /|\     /|\     /|\     /|\     /|\     /|\     /|\     /|
+//   | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ |
+//   | |   | | |   | | |   | | |   | | |   | | |   | | |   | | |   | |
+//   | |W  | | |A  | | |T  | | |C  | | |H  | | |E  | | |R  | | |S  | |
+//   | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ |
+//   |/_____\|/_____\|/_____\|/_____\|/_____\|/_____\|/_____\|/_____\|
+
+//    ──▒▒▒▒▒─────▒▒▒▒▒─────▒▒▒▒▒─────▒▒▒▒▒─────▒▒▒▒▒──────▄████▄─────
+//    ─▒─▄▒─▄▒───▒─▄▒─▄▒───▒─▄▒─▄▒───▒─▄▒─▄▒───▒─▄▒─▄▒────███▄█▀──────
+//    ─▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▐████──█──█──
+//    ─▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒───▒▒▒▒▒▒▒────█████▄──────
+//    ─▒─▒─▒─▒───▒─▒─▒─▒───▒─▒─▒─▒───▒─▒─▒─▒───▒─▒─▒─▒─────▀████▀─────
+
+// \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \
+
 
 export function* getUpdateFiltersWatcher() {
   while (yield take(CONSTANT.UPDATE_FILTERS.REQUEST)) {
@@ -40,13 +69,11 @@ export function* getUpdateFiltersWatcher() {
 }
 
 export function* getGenresListWatcher() {
-  while (yield take(CONSTANT.UPDATE_FILTER_GENRE_LIST.REQUEST)) {
+  while (yield take(CONSTANT.FILTER_GENRE_LIST.REQUEST)) {
     yield call(getGenreList);
   }
 }
 
-
-// EXPORT
 
 export function* getMovieSagas() {
   const getGenresList = yield fork(getGenresListWatcher);

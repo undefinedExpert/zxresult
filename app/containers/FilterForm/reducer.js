@@ -1,6 +1,12 @@
-// TODO: find a way to use CONSTANT variable across app without conflicts
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
 import { fromJS } from 'immutable';
+
 import * as CONSTANT from './constants';
 
 
@@ -111,19 +117,19 @@ const initialState = fromJS({
 
 function searchFormReducer(state = initialState, action) {
   switch (action.type) {
-    case CONSTANT.UPDATE_FILTER_DECADE.REQUEST:
+    case CONSTANT.FILTER_DECADE.REQUEST:
       return state
         .setIn(['decade', 'active'], action.value);
-    case CONSTANT.UPDATE_FILTER_TREND.REQUEST:
+    case CONSTANT.FILTER_TREND.REQUEST:
       return state
         .setIn(['trend', 'active'], action.value);
-    case CONSTANT.UPDATE_FILTER_TREND_LIST.REQUEST:
+    case CONSTANT.FILTER_TREND_LIST.REQUEST:
       return state
         .setIn(['trend', 'list'], action.value);
-    case CONSTANT.UPDATE_FILTER_GENRE.REQUEST:
+    case CONSTANT.FILTER_GENRE.REQUEST:
       return state
         .setIn(['genre', 'active'], action.value);
-    case CONSTANT.UPDATE_FILTER_GENRE_LIST.SUCCESS:
+    case CONSTANT.FILTER_GENRE_LIST.SUCCESS:
       return state
         .setIn(['genre', 'list'], action.value);
     case CONSTANT.UPDATE_FILTERS.SUCCESS:
