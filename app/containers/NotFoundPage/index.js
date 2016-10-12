@@ -9,10 +9,9 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 
-export default class NotFound extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
+export default class NotFound extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <h1>Page Not Found</h1>

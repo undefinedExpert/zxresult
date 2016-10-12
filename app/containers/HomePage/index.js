@@ -1,37 +1,31 @@
-/*
- *
- * HomePage
- *
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { Component } from 'react';
+
 import FilterForm from 'containers/FilterForm';
 import WelcomeText from 'components/special/WelcomeText';
 
-export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+/**
+ * HomePage
+ * @desc User landing page.
+ */
+class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
         <WelcomeText />
         <FilterForm />
-        {this.props.children}
       </div>
     );
   }
 }
-HomePage.propTypes = {
-  filters: React.PropTypes.object,
-  children: React.PropTypes.node,
-};
 
-const mapStateToProps = createStructuredSelector({});
+HomePage.propTypes = {};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default HomePage;
