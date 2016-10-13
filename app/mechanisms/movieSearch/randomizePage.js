@@ -15,7 +15,7 @@ import { cacheRandomizedPage } from 'containers/FilterForm/actions';
 
 const pickRandom = (collection, cache) => {
   // TODO: Because of our filterDomain -> filter selector returns the JS version of an object (immutable .toJS)
-  // We revoke that process in this function, remove that at future.
+  // We've to revoke that process in this function, fix that at future.
   console.log(cache);
   let whatLeft = cache === null ? cache : fromJS(cache);
   // check oldCollection were initialized
@@ -53,6 +53,7 @@ const pickRandom = (collection, cache) => {
 
 // Randomize page depending on max resultRange
 export default function* randomizePage({ range }) {
+  console.time("random");
   // Cache all randomized numbers in array, so the randomize function won't select (randomize) then once again
   // We don't want to do that, cause our application analyse each page and takes 5 best results from it
   // And if we met same page again the end user might see the same result.
@@ -69,5 +70,6 @@ export default function* randomizePage({ range }) {
   if (picked === null) return null;
 
   yield put(cacheRandomizedPage.request(picked.cache));
+  console.timeEnd("random");
   return picked.number;
 }

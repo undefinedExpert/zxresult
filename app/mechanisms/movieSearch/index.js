@@ -49,8 +49,6 @@ export function* detectPending() {
 
   const cacheLength = range.pagesCache !== null ? range.pagesCache.length : undefined;
 
-  debugger;
-
   console.log('pending movies length: ' + pending.length, 'New page: ' + (range.pages === cacheLength || pending.length < 30 ), 'all pages: ' + range.pages, 'Visited pages: ' + cacheLength);
   // Check if there are still pages we can iterate
 
