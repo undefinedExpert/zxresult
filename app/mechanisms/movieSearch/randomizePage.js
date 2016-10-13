@@ -36,12 +36,14 @@ const pickRandom = (collectionSize, cache) => {
   }
 
   if (typeof pickRandom.preFilled === 'undefined') {
-    pickRandom.preFilled = fromJS(numRange(collectionSize));
+    pickRandom.preFilled = fromJS(numRange(1000));
   }
 
   if (pickRandom.oldCollectionSize !== collectionSize || whatLeft === null) {
+    const currentRange = pickRandom.preFilled.setSize(collectionSize);
     pickRandom.oldCollectionSize = collectionSize;
-    whatLeft = pickRandom.preFilled.sortBy(() => Math.random());
+
+    whatLeft = currentRange.sortBy(() => Math.random());
   }
 
   const maxRange = whatLeft.size > 1000 ? 1000 : whatLeft.size;
@@ -58,7 +60,7 @@ const pickRandom = (collectionSize, cache) => {
 
 /**
  * randomizePage
- * @desc Takes random page number from our potential range of values (cache). After pick, updates collection as cache
+ * @desc Takes random page number from our potential range of values (cache). After pick, updates collection
  * @param {Object} range - Filter selector, allows us to determine what is the cache and collection size
  *
  * - if picked is null then there is no more pages to review so we return null
