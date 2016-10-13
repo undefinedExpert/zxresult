@@ -58,7 +58,7 @@ const pickRandom = (collectionSize, cache) => {
 
 /**
  * randomizePage
- * @desc Random single page from our potential range values. Store updated collection in store as cache.
+ * @desc Takes random page number from our potential range of values (cache). After pick, updates collection as cache
  * @param {Object} range - Filter selector, allows us to determine what is the cache and collection size
  *
  * - if picked is null then there is no more pages to review so we return null
