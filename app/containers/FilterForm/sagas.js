@@ -15,6 +15,7 @@ import { updateFilterGenre, updateFilters } from './actions';
 
 
 /**
+ * getGenreList
  * @desc Gets current genre list from API using xhr request
  */
 export function* getGenreList() {
@@ -29,6 +30,7 @@ export function* getGenreList() {
 
 
 /**
+ * handleUpdateFilters
  * @desc Updates filters and current range of using API call,
  * 1000 page is mostly empty that's why we hardcoded it to call only on that page
  */

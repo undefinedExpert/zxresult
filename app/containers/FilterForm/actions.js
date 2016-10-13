@@ -11,6 +11,7 @@ import * as CONSTANT from './constants';
 
 
 /**
+ * genreActive, genreList
  * @desc Those actions handles:
  * - setting as active
  * - setting list
@@ -34,6 +35,7 @@ export const updateFilterGenre = {
 
 
 /**
+ * decadeActive, decadeList
  * @desc Those actions handles:
  * - Get list
  * - Set active
@@ -56,6 +58,7 @@ export const updateFilterDecade = {
 };
 
 /**
+ * trendActive, trendList
  * @desc Those actions handles:
  * - Get list
  * - Set active
@@ -79,6 +82,7 @@ export const updateFilterTrend = {
 
 
 /**
+ * updateFilters
  * @desc This action handles:
  * - Get list
  * - Resets values: cached pages, pending list
@@ -91,6 +95,7 @@ export const updateFilters = {
 };
 
 /**
+ * cacheRandomizedPage
  * @desc This action handles:
  * - Caches random page, so user won't see it once again
  */

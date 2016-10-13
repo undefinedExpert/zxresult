@@ -13,6 +13,7 @@ import styles from './styles.css';
 
 
 /**
+ * renderSelect
  * @desc Render Single Select Component, based on it's props.
  * @param item - Data for our select field
  * @param index - Used as React key
@@ -45,6 +46,7 @@ const renderSelect = (item, index) => {
 
 
 /**
+ * renderSelects
  * @desc Map Single Select
  * @param items - Set of Select data.
  */

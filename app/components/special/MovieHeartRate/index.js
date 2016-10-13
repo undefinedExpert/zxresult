@@ -16,6 +16,7 @@ import styles from './styles.css';
 
 
 /**
+ * renderSingleHeart
  * @desc Renders our single hearth.
  * @param index - Used as React key
  * @param type - Hearts contains 2 types: filled, unfilled. We have to choose which one will be used.
@@ -27,6 +28,7 @@ const renderSingleHeart = (index, type) => {
 
 
 /**
+ * renderMultipleHearts
  * @desc Render all required hearths both types. There is always 5 hearts to render.
  * @param range - How many hearths will render
  * @param average - What is the vote average, it is used to detect how many 'filled' hearts we wish to render
@@ -44,6 +46,7 @@ const renderMultipleHearts = (range, average) => {
 
 
 /**
+ * renderHearts
  * @desc Render all required hearths both types. There is always 5 hearts to render.
  * @param voteAverage - What is the vote average
  */

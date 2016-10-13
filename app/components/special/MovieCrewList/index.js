@@ -11,6 +11,7 @@ import Section from 'components/general/Section';
 import SingleCrew from 'components/special/MovieSingleCrew';
 
 /**
+ * renderSingle
  * @desc Render Single Crew Component packed with section basing on provided data.
  */
 const renderSingle = (item, index) => {

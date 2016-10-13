@@ -11,6 +11,7 @@ import styles from './styles.css';
 import Icons from './icons/index';
 
 /**
+ * MovieGenreIcons
  * @desc Render prepared svg icon for our genre.
  * @param type - What kind of icon we wish to render.
  */

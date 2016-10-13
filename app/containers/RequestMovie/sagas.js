@@ -16,6 +16,7 @@ import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
 
 
 /**
+ * getMovie
  * @desc Detects if user will get movies from pending list,
  * or we call to an API for a 20 fresh results.
  */
@@ -38,6 +39,7 @@ export function* getMovie() {
 
 
 /**
+ * getAnalyseMovie
  * @desc Analyse & rank movies
  */
 export function* getAnalyseMovie() {
@@ -52,6 +54,7 @@ export function* getAnalyseMovie() {
 
 
 /**
+ * pushSingleResult
  * @desc Push single result into user, removes it from pending list.
  */
 export function* pushSingleResult() {
@@ -77,6 +80,7 @@ export function* pushSingleResult() {
 
 
 /**
+ * getUpdateUrl
  * @desc Move user into result sub-page when result is set
  */
 export function* getUpdateUrl() {

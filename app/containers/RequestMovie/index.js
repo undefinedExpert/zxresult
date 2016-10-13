@@ -1,22 +1,26 @@
-/*
- *
- * BottomNavigation
- *
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
 
-import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import Button from 'components/general/Button';
-import { selectResult } from './selectors';
-import { updateMovieResult } from './actions';
+import React, { PropTypes as ptype, Component } from 'react';
 import { createStructuredSelector, createSelector } from 'reselect';
 
-export class RequestMovie extends React.Component { // eslint-disable-line react/prefer-stateless-function
+import Button from 'components/general/Button';
 
-  openRoute = (route) => {
-    this.props.changeRoute(route);
-  };
+import { selectResult } from './selectors';
+import { updateMovieResult } from './actions';
+
+
+/**
+ * RequestMovie
+ * @desc Button which handles getting movies processes chain
+ * TODO: Refactor
+ */
+export class RequestMovie extends Component { // eslint-disable-line react/prefer-stateless-function
 
   updateAndRoute = () => {
     if (this.props.result.isFetching) return;
@@ -54,12 +58,10 @@ export class RequestMovie extends React.Component { // eslint-disable-line react
 }
 
 RequestMovie.propTypes = {
-  filterUpdate: React.PropTypes.func,
-  changeRoute: React.PropTypes.func,
-  isFetching: React.PropTypes.bool,
-  movieUpdate: React.PropTypes.func,
-  fetching: React.PropTypes.bool,
-  result: React.PropTypes.object,
+  isFetching: ptype.bool,
+  movieUpdate: ptype.func,
+  fetching: ptype.bool,
+  result: ptype.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -76,10 +78,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeRoute: (url) => dispatch(push(url)),
     movieUpdate: () => dispatch(updateMovieResult.request()),
     dispatch,
   };
 }
-// Error with container generator, it generate mapDispatchToProps without the first argument
 export default connect(mapStateToProps, mapDispatchToProps)(RequestMovie);

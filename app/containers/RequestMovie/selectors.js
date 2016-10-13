@@ -8,12 +8,14 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 
 /**
+ * resultDomain
  * @desc Selects result from store
  */
 const resultDomain = () => state => state.get('result').toJS();
 
 
 /**
+ * selectResult
  * @desc Picks all result information.
  */
 const selectResult = () => {

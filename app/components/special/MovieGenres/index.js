@@ -13,6 +13,7 @@ import GenreIcons from 'components/special/MovieGenreIcons';
 import styles from './styles.css';
 
 /**
+ * MovieGenres
  * @desc Render Single Select Component, based on it's props.
  * @param sectionSize - How much space this section will take, default 1/2 but it
  * might be changed directly in the parent component.

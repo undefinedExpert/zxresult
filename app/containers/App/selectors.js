@@ -6,6 +6,7 @@
  */
 
 /**
+ * selectLocationState
  * @desc Selects plain JS Object route state
  */
 const selectLocationState = () => {
