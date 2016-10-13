@@ -14,7 +14,7 @@ const filtersDomain = () => state => state.get('filters').toJS();
 
 
 /**
- * @desc Picks all filters
+ * @desc Picks all filters from filter
  */
 const selectFilters = () => {
   const filterSelector = createStructuredSelector({

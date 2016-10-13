@@ -1,4 +1,4 @@
-import { each, random } from 'lodash';
+import { each } from 'lodash';
 
 // Extracts params, their endpoints, values and sets them into single object
 // it will be used in 'building url' process (./buildUrl.js)
@@ -31,9 +31,7 @@ function assignHigherParams(params, higherParams) {
   Object.assign(params, higherParams);
 }
 
-export function generateNumber(min, max) {
-  return random(min, max);
-}
+
 
 export function validateAndPrepareParams(storeParams, higherParams, randomPage) {
   const params = prepareParams(storeParams);

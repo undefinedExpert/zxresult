@@ -109,7 +109,7 @@ const initialState = fromJS({
   }),
   range: fromJS({
     pages: 0,
-    pagesCache: fromJS([]),
+    pagesCache: null,
     results: 0,
   }),
 });
@@ -136,7 +136,7 @@ function searchFormReducer(state = initialState, action) {
       return state
         .setIn(['range', 'pages'], action.totalPages)
         .setIn(['range', 'results'], action.totalResults)
-        .setIn(['range', 'pagesCache'], fromJS([]));
+        .setIn(['range', 'pagesCache'], null);
     case CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST:
       return state
         .setIn(['range', 'pagesCache'], action.page);
