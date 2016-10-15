@@ -72,7 +72,7 @@ const pickRandom = (collectionSize, cache) => {
  */
 export default function* randomizePage({ range }) {
   const cache = range.pagesCache;
-  const collectionSize = 2;
+  const collectionSize = range.pages;
 
   const picked = yield pickRandom(collectionSize, cache);
   if (picked === null) return null;
