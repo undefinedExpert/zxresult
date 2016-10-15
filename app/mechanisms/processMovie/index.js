@@ -47,8 +47,8 @@ export function* detectPending() {
   console.info(`What is the new page: ${(range.pages === cacheLength || pending.length < 30)}`);
   console.info(`All pages: ${range.pages}`, `Visited pages: ${cacheLength}`);
 
-  debugger
-  if (cacheLength === 0 && pending.length > 1) return true;
+
+  if (cacheLength === 0 && pending.length >= 1) return true;
 
   // Check is there is more pending 'results' than 30
   return (pending.length > 30);

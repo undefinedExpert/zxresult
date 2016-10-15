@@ -22,14 +22,13 @@ import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
  */
 export function* getMovie() {
   const detected = yield detectPending();
-  const { data } = !detected ? yield callApi('/discover/movie') : false;
-
-  if (data) {
+  const { data } = yield callApi('/discover/movie');
+  console.log(detected);
+  if (!detected) {
     yield console.info('Page downloaded.');
-    debugger
     yield put(analyseMovies.request(data.results));
   }
-  else if (detected) {
+  else if (!detected) {
     yield console.info('Pending Pushed.');
     yield put(updateSingleMovie.request());
   }
