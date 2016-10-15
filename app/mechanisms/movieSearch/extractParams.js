@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import { each, omitBy, isNil, pick } from 'lodash';
+import _, { each, omit, omitBy, isNil, pick, remove } from 'lodash';
 
 
 /**
@@ -16,13 +16,14 @@ import { each, omitBy, isNil, pick } from 'lodash';
  *
  * @return {object} - Return value and it's ref as an object
  */
-const cleanNull = (active, apiRef) => {
-  const activeMinusNull = omitBy(active, isNil);
+const cleanBy = (active, apiRef) => {
+  const activeMinusNull = omit(active, 'name');
+  const activeMinusNullMinusName = omitBy(activeMinusNull, isNil);
 
-  const activeKeys = Object.keys(activeMinusNull);
+  const activeKeys = Object.keys(activeMinusNullMinusName);
   const cleanedByActive = pick(apiRef, activeKeys);
 
-  return { value: activeMinusNull, ref: cleanedByActive };
+  return { value: activeMinusNullMinusName, ref: cleanedByActive };
 };
 
 
@@ -43,9 +44,7 @@ const iterateWithCleaner = (iterated, whatValues) => {
       active,
       apiRef } = whatValues[key];
 
-    const cleaned = cleanNull(active, apiRef);
-
-    if (cleaned.value.name) cleaned.value.name = undefined;
+    const cleaned = cleanBy(active, apiRef);
 
     Object.assign(wrapper, { [key]: cleaned });
   });

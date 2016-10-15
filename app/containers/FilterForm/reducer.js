@@ -14,7 +14,13 @@ const currentYear = new Date().getFullYear();
 const initialState = fromJS({
   sentence: 'ohio',
   trend: fromJS({
-    active: null,
+    active: fromJS({
+      name: 'Popular',
+      voteAverageMin: null,
+      voteAverageMax: null,
+      voteCountMin: 300,
+      voteCountMax: null,
+    }),
     list: fromJS([
       fromJS({
         name: 'Highly rated',
@@ -53,11 +59,7 @@ const initialState = fromJS({
     }),
   }),
   decade: fromJS({
-    active: fromJS({
-      name: '2010s',
-      dateMin: '2010-01-01',
-      dateMax: `${currentYear}-01-01`,
-    }),
+    active: fromJS(null),
     list: fromJS([
       fromJS({
         name: '2010s',
@@ -101,7 +103,7 @@ const initialState = fromJS({
     }),
   }),
   genre: fromJS({
-    active: fromJS(null),
+    active: null,
     list: fromJS([]),
     apiRef: fromJS({
       id: 'with_genres',

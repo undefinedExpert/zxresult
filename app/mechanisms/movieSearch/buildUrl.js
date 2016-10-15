@@ -1,82 +1,50 @@
 import _ from 'lodash';
+import { stringify } from 'query-string';
 import { apiUrl, apiKey } from 'containers/App/constants';
 
-// Looks for value of param, checks all nested objects and gets array of filters values (highly connected with rescueParam)
-function rescueValue(parameter, reverse, arr = []) {
-  const tempArray = arr;
-  _.each(parameter, (valueForApiCall, key) => {
-    if (_.isObject(valueForApiCall)) rescueValue(valueForApiCall, reverse, tempArray); // find nested objects
-    // push 'valueForApiCall' which is value for api param.
-    else if (valueForApiCall) tempArray.push({ [key]: valueForApiCall });
-  });
-  return tempArray;
-}
+function pairValueAndRef(filter, key) {
+  const paramsContainer = [];
 
-// Looks for param, checks all nested objects and assigns an object which contain that specific filter endpoint (api uri name, check reducer for more info)
-function rescueParam(parameter, reverse, tempObject) {
-  const tempObj = tempObject || {};
-  _.each(parameter, (extractedApiParam, key) => {
-    if (_.isObject(extractedApiParam)) rescueParam(extractedApiParam, reverse, tempObj); // find nested{
-    else Object.assign(tempObj, { [key]: extractedApiParam });
-  });
-  return tempObj;
-}
+  if (_.isObject(filter)) {
+    const filterValue = _.map(filter.value, (value, prop) => ({ [filter.ref[prop]]: value }));
+    filterValue.forEach((item) => paramsContainer.push(item));
+  }
 
-function pairValueAndRef() {
+  if (_.isNumber(filter)) {
+    paramsContainer.push({ [key]: filter });
+  }
 
-
-  return {}
+  return paramsContainer;
 }
 
 // Attach parameters to baseUrl from endpoint for each filter with their value
-function attachParams(filters, baseUrl) {
-  let newUrl = `${baseUrl}`;
+function attachParams(filters) {
+  const pairedParams = [];
+  if (_.isEmpty(filters)) return pairedParams;
+
   // Run for each filter (genre, decade, trend)
-  Object.keys(filters).forEach((key) => {
+  _.keys(filters).forEach((key) => {
     const filter = filters[key];
-    if (filter === null) return;
+    const pairedValues = pairValueAndRef(filter, key);
 
-
-    // get an arr of each params with their key, value.
-    let filterParam = rescueParam(filter.ref);
-    let filterValue = rescueValue(filter.value, true);
-
-    // Map both param and value into new object
-    if (filterValue) {
-      for (const item of filterValue) {
-        const propLookForKey = Object.getOwnPropertyNames(item)[0]; // Just one element exist in that objects, we just get it's value
-        const uriValue = item[propLookForKey];
-        const propName = typeof filterParam === 'string' ? filterParam : filterParam[propLookForKey];
-        newUrl += `&${propName}=${uriValue}`;
-      }
-    }
-    if (typeof filter === 'number') newUrl += `&${key}=${filter}`;
+    pairedParams.push(...pairedValues);
   });
-  return newUrl;
+
+  return pairedParams;
 }
 
 // Build URL from params & base
 export function buildUrl(filters, endpoint) {
-  try {
-    if (apiUrl && apiKey) {
-      let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
-      // Attach params if there are any
-      if (filters) {
-        baseUrl = attachParams(filters, baseUrl);
-      }
+  if (!apiUrl || !apiKey) throw Error(`apiUrl or apiKey isn't defined: \n apiUrl: ${apiUrl} \n apiKey: ${apiKey}`);
 
-      if (endpoint === "/discover/movie") {
-        console.clear();
-        console.log('test:', baseUrl === "http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5&primary_release_date.gte=2010-01-01&primary_release_date.lte=2016-01-01&page=1000", baseUrl.replace("http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5", ''))
-      }
-      return baseUrl;
-    }
-    else {
-      throw Error(`apiUrl or apiKey isn't defined: \n apiUrl: ${apiUrl} \n apiKey: ${apiKey}`);
-    }
+  const baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
+
+  let query;
+  if (filters) {
+    const params = attachParams(filters);
+    query = params.map(item => stringify(item)).join('&');
   }
-  catch (e) {
-    throw new Error(`Couldn't handle buildUrlParams: ${e}`);
-  }
+
+  return `${baseUrl}&${query}`;
 }
 
