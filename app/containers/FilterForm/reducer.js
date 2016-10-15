@@ -99,7 +99,9 @@ const initialState = fromJS({
   genre: fromJS({
     active: fromJS(null),
     list: fromJS([]),
-    apiParamName: 'with_genres',
+    apiParamName: fromJS({
+      id: 'with_genres',
+    }),
   }),
   range: fromJS({
     pages: 0,

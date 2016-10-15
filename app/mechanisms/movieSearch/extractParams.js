@@ -1,4 +1,4 @@
-import _, { each, omitBy, isNil } from 'lodash';
+import _, { each, omitBy, isNil, isString } from 'lodash';
 
 
 const cleanNull = (active, apiRef) => {
@@ -22,6 +22,7 @@ function defineParams(storeParams) {
     const apiRef = storeParams[key].apiParamName;
 
     const cleaned = cleanNull(active, apiRef);
+    debugger;
 
     Object.assign(container, { [key]: cleaned });
   });
@@ -37,7 +38,6 @@ function assignHigherParams(params, higherParams) {
 export function validateAndPrepareParams(storeParams, higherParams, randomPage) {
   const params = defineParams(storeParams);
 
-  debugger;
   // detect if we need random page
   if (storeParams.range.pages) params.page = randomPage;
 
