@@ -60,7 +60,7 @@ export function* detectPending() {
   console.log('pending movies length: ' + pending.length, 'New page: ' + (range.pages === cacheLength || pending.length < 30 ), 'all pages: ' + range.pages, 'Visited pages: ' + cacheLength);
   // Check if there are still pages we can iterate
 
-  const isOutOfPages = cacheLength === 0 && pending.length > 1;
+  const isOutOfPages = cacheLength === 0 && pending.length >= 1;
   if (isOutOfPages) return true; // and run through pending list
   // Check is there is more pending 'results' than 30
   return (pending.length > 30);
