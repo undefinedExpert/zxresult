@@ -38,18 +38,13 @@ export function* detectPending() {
   const { pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
 
-  let cacheLength;
-  if (range.pagesCache !== null) {
-    cacheLength = range.pagesCache.length;
-  }
+  const cacheLength = range.pagesCache !== null ? range.pagesCache.length : undefined;
 
-  console.info(`pending movies length: ${pending.length}`);
-  console.info(`What is the new page: ${(range.pages === cacheLength || pending.length < 30)}`);
-  console.info(`All pages: ${range.pages}`, `Visited pages: ${cacheLength}`);
+  console.log('pending movies length: ' + pending.length, 'New page: ' + (range.pages === cacheLength || pending.length < 30 ), 'all pages: ' + range.pages, 'Visited pages: ' + cacheLength);
+  // Check if there are still pages we can iterate
 
-
-  if (cacheLength === 0 && pending.length >= 1) return true;
-
+  const isOutOfPages = cacheLength === 0 && pending.length > 1;
+  if (isOutOfPages) return true; // and run through pending list
   // Check is there is more pending 'results' than 30
   return (pending.length > 30);
 }
