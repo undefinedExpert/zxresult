@@ -26,7 +26,7 @@ export function* getMovie() {
 
   if (data) {
     yield console.info('Page downloaded.');
-    yield put(analyseMovies.request(data));
+    yield put(analyseMovies.request(data.results));
   }
   else if (detected) {
     yield console.info('Pending Pushed.');

@@ -53,7 +53,7 @@ function attachParams(filters, baseUrl) {
 }
 
 // Build URL from params & base
-export function buildUrlParams(filters, endpoint) {
+export function buildUrl(filters, endpoint) {
   try {
     if (apiUrl && apiKey) {
       let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;

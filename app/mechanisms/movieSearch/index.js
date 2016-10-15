@@ -13,42 +13,67 @@ import { selectResult } from 'containers/RequestMovie/selectors';
 
 import randomizePage from './randomizePage';
 import { rankMovies } from './analyseMovie';
-import { buildUrlParams } from './buildUrl';
-import { validateAndPrepareParams, generateNumber } from './extractParams';
+import { buildUrl } from './buildUrl';
+import { validateAndPrepareParams } from './extractParams';
 
 
-export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withParams, randomPage) {
-
-  const setParams = yield withParams ? validateAndPrepareParams(filters, higherParams, randomPage) : {};
-
-  const requestUrl = yield buildUrlParams(setParams, endpoint);
-
+/**
+ * extractParams
+ * @desc Randomize single, unique number from collection.
+ * - if we need params
+ * - if we want params but there is no page set (getting genre list example)
+ */
+export function* buildParams(filters, higherParams = {}, withParams, randomPage) {
+  let setParams = {};
+  if (withParams) {
+    setParams = validateAndPrepareParams(filters, higherParams, randomPage);
+  }
 
   if (!setParams.page && withParams) return null;
 
-  return requestUrl;
+  return setParams;
 }
 
 
+/**
+ * callToApi
+ * @desc Makes API request from current filters options (if withParams set true). It provides an easy way of building final API url
+ * which then is used in our call.
+ *
+ * @param {string} endPoint - What is the endpoint of our API
+ * @param {object} higherParams - Does we need to set 'hardcoded' param?
+ * @param {boolean} withParams - does this call need params?
+ *
+ * - if we need randomPage
+ */
 export function* callToApi(endPoint, higherParams = {}, withParams = true) {
   const filters = yield select(selectFilters());
+
   let randomPage;
-  if (withParams && !higherParams.page) randomPage = yield randomizePage(filters, higherParams);
-  const prepareParams = yield buildUrlFromFilters(filters, endPoint, higherParams, withParams, randomPage);
-  const data = yield call(request, prepareParams);
-  if (!prepareParams) return false;
+  if (withParams) {
+    randomPage = yield randomizePage(filters);
+  }
+
+  const params = yield buildParams(filters, higherParams, withParams, randomPage);
+  const url = yield buildUrl(params, endPoint);
+
+  const data = yield call(request, url);
 
   return data;
 }
 
 
+/**
+ * processMovieAnalyse
+ * @desc Ranks our movies in condition of selecting best upcoming result
+ *
+ * - if we need randomPage
+ */
 export function* processMovieAnalyse() {
   const { notSorted, pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
-  const upcomingResults = notSorted.results;
-  // Remove worthless movies from pendingList
-  // if (pending.length > 110) pending.length -= 40; // 105 - 40 = 65
-  return rankMovies(upcomingResults, pending, range);
+  debugger;
+  return rankMovies(notSorted, pending, range);
 }
 
 export function* detectPending() {

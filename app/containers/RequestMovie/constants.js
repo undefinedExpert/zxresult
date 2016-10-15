@@ -1,8 +1,10 @@
-/*
- *
- * Movie-search-form constants
- *
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
  */
+
 import { createRequestTypes } from 'utils/hooks';
 
 // RESULT SET
