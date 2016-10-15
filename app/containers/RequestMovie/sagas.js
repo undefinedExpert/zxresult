@@ -86,7 +86,6 @@ export function* pushSingleResult() {
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
   yield put(push('/result'));
-  // TEMPORARY OFF
 }
 
 

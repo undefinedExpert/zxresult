@@ -8,6 +8,14 @@
 import { each, omitBy, isNil, pick } from 'lodash';
 
 
+/**
+ * cleanNull
+ * @desc Removes empty values (trashes) from our upcoming params.
+ * @param {object} active - Object we will test in the condition of contain null values.
+ * @param {object} apiRef - Remove the same properties from our object
+ *
+ * @return {object} - Return value and it's ref as an object
+ */
 const cleanNull = (active, apiRef) => {
   const activeMinusNull = omitBy(active, isNil);
 
@@ -17,39 +25,64 @@ const cleanNull = (active, apiRef) => {
   return { value: activeMinusNull, ref: cleanedByActive };
 };
 
-// Extracts params, their endpoints, values and sets them into single object
-// it will be used in 'building url' process (./buildUrl.js)
-function defineParams(storeParams) {
-  const paramKeys = Object.keys(storeParams);
-  const activeParams = paramKeys.filter((key) => storeParams[key].active);
-  const container = Object.create(null);
 
-  each(activeParams, key => {
+/**
+ * iterateWithCleaner
+ * @desc Iterates through an object, clean no needed values.
+ * @param {object} iterated - objects key we will iterate
+ * @param {object} whatValues - what values we wish to clean out
+ *
+ * @return {object} - contains set of params.
+ */
+const iterateWithCleaner = (iterated, whatValues) => {
+  const wrapper = Object.create(null);
+  each(iterated, key => {
     const {
       active,
-      apiRef } = storeParams[key];
+      apiRef } = whatValues[key];
 
     const cleaned = cleanNull(active, apiRef);
 
-    Object.assign(container, { [key]: cleaned });
+    Object.assign(wrapper, { [key]: cleaned });
   });
+
+  return wrapper;
+};
+
+
+/**
+ * defineParams
+ * @desc Extract values and it's API refs.
+ * @param {object} filters - extraction object
+ *
+ * @return {object} - returns all cleaned filters wrapped in container
+ */
+function defineParams(filters) {
+  const paramKeys = Object.keys(filters);
+  const activeParams = paramKeys.filter((key) => filters[key].active);
+  const container = iterateWithCleaner(activeParams, filters);
 
   return container;
 }
 
-// Assign params, values defined directly in sagas
-function assignHigherParams(params, higherParams) {
-  Object.assign(params, higherParams);
-}
 
-export function validateAndPrepareParams(storeParams, higherParams, randomPage) {
-  const params = defineParams(storeParams);
+/**
+ * validateAndPrepareParams
+ * @desc Verify our params, clean null values and take only active filters. Assign hardcoded higherParams
+ * They allow us to define a hardcoded value (eg. page)
+ *
+ * @param {object} filters - Contains our params
+ * @param {object} higherParams - Higher params set directly in sagas
+ * @param {object} randomPage - Page we'll get
+ */
+export function validateAndPrepareParams(filters, higherParams, randomPage) {
+  const params = defineParams(filters);
 
-  // detect if we need random page
-  if (storeParams.range.pages) params.page = randomPage;
+  // detect if we even need random page
+  if (filters.range.pages) params.page = randomPage;
 
   // Merge params & higherParams
-  assignHigherParams(params, higherParams);
+  Object.assign(params, higherParams);
 
   return params;
 }
