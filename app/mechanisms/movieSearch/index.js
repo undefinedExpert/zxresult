@@ -23,7 +23,7 @@ import { constructParams } from './extractParams';
  * - if we need params
  * - if we want params but there is no page set (getting genre list example)
  */
-export function* buildParams(filters, higherParams = {}, withParams, randomPage) {
+function* buildParams(filters, higherParams = {}, withParams, randomPage) {
   let setParams = {};
   if (withParams) {
     setParams = constructParams(filters, higherParams, randomPage);

@@ -53,7 +53,11 @@ const initialState = fromJS({
     }),
   }),
   decade: fromJS({
-    active: fromJS(null),
+    active: fromJS({
+      name: '2010s',
+      dateMin: '2010-01-01',
+      dateMax: `${currentYear}-01-01`,
+    }),
     list: fromJS([
       fromJS({
         name: '2010s',

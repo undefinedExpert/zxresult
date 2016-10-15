@@ -32,6 +32,8 @@ const cleanNull = (active, apiRef) => {
  * @param {object} iterated - objects key we will iterate
  * @param {object} whatValues - what values we wish to clean out
  *
+ * - if name exist, remove it.
+ *
  * @return {object} - contains set of params.
  */
 const iterateWithCleaner = (iterated, whatValues) => {
@@ -42,6 +44,8 @@ const iterateWithCleaner = (iterated, whatValues) => {
       apiRef } = whatValues[key];
 
     const cleaned = cleanNull(active, apiRef);
+
+    if (cleaned.value.name) cleaned.value.name = undefined;
 
     Object.assign(wrapper, { [key]: cleaned });
   });

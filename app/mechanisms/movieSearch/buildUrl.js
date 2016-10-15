@@ -22,6 +22,12 @@ function rescueParam(parameter, reverse, tempObject) {
   return tempObj;
 }
 
+function pairValueAndRef() {
+
+
+  return {}
+}
+
 // Attach parameters to baseUrl from endpoint for each filter with their value
 function attachParams(filters, baseUrl) {
   let newUrl = `${baseUrl}`;
@@ -30,14 +36,11 @@ function attachParams(filters, baseUrl) {
     const filter = filters[key];
     if (filter === null) return;
 
-    // Extract param
-    let filterParam = _.cloneDeep(filter.ref);
-    let filterValue = _.cloneDeep(filter.value);
-    // REMOVE NAME PROP, it's not required in process of build uri
-    if (filterValue) filterValue.name = undefined;
-    // check if it's an object, and get an arr of each params with their key, value.
-    if (_.isObject(filterParam)) filterParam = rescueParam(filterParam);
-    if (_.isObject(filterValue)) filterValue = rescueValue(filterValue, true);
+
+    // get an arr of each params with their key, value.
+    let filterParam = rescueParam(filter.ref);
+    let filterValue = rescueValue(filter.value, true);
+
     // Map both param and value into new object
     if (filterValue) {
       for (const item of filterValue) {
@@ -58,8 +61,14 @@ export function buildUrl(filters, endpoint) {
     if (apiUrl && apiKey) {
       let baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
       // Attach params if there are any
-      if (filters) baseUrl = attachParams(filters, baseUrl);
-      console.log(baseUrl);
+      if (filters) {
+        baseUrl = attachParams(filters, baseUrl);
+      }
+
+      if (endpoint === "/discover/movie") {
+        console.clear();
+        console.log('test:', baseUrl === "http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5&primary_release_date.gte=2010-01-01&primary_release_date.lte=2016-01-01&page=1000", baseUrl.replace("http://api.themoviedb.org/3/discover/movie?api_key=9dee05d48efe51f51b15cc63b1fee3f5", ''))
+      }
       return baseUrl;
     }
     else {
