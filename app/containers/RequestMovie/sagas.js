@@ -85,7 +85,7 @@ export function* pushSingleResult() {
  */
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  yield put(push('/result'));
+  // yield put(push('/result'));
   // TEMPORARY OFF
 }
 
@@ -149,7 +149,7 @@ export function* getData() {
   const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
 
   // Suspend execution until CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS
-  yield take(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS);
+  yield take(LOCATION_CHANGE);
   yield race([
     cancel(moviesWatcher),
     cancel(updateUrl),
