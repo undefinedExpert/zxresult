@@ -75,7 +75,7 @@ function defineParams(filters) {
  * @param {object} higherParams - Higher params set directly in sagas
  * @param {object} randomPage - Page we'll get
  */
-export function validateAndPrepareParams(filters, higherParams, randomPage) {
+export function constructParams(filters, higherParams, randomPage) {
   const params = defineParams(filters);
 
   // detect if we even need random page

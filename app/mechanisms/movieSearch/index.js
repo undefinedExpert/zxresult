@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import { call, select, put } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 
 import request from 'utils/request';
 import { selectFilters } from 'containers/FilterForm/selectors';
@@ -14,7 +14,7 @@ import { selectResult } from 'containers/RequestMovie/selectors';
 import randomizePage from './randomizePage';
 import { rankMovies } from './analyseMovie';
 import { buildUrl } from './buildUrl';
-import { validateAndPrepareParams } from './extractParams';
+import { constructParams } from './extractParams';
 
 
 /**
@@ -26,7 +26,7 @@ import { validateAndPrepareParams } from './extractParams';
 export function* buildParams(filters, higherParams = {}, withParams, randomPage) {
   let setParams = {};
   if (withParams) {
-    setParams = validateAndPrepareParams(filters, higherParams, randomPage);
+    setParams = constructParams(filters, higherParams, randomPage);
   }
 
   if (!setParams.page && withParams) return null;
@@ -50,43 +50,51 @@ export function* callToApi(endPoint, higherParams = {}, withParams = true) {
   const filters = yield select(selectFilters());
 
   let randomPage;
-  if (withParams) {
-    randomPage = yield randomizePage(filters);
-  }
+  if (withParams) randomPage = yield randomizePage(filters);
 
   const params = yield buildParams(filters, higherParams, withParams, randomPage);
   const url = yield buildUrl(params, endPoint);
 
-  const data = yield call(request, url);
-
-  return data;
+  return yield call(request, url);
 }
 
 
 /**
  * processMovieAnalyse
  * @desc Ranks our movies in condition of selecting best upcoming result
- *
- * - if we need randomPage
  */
 export function* processMovieAnalyse() {
   const { notSorted, pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
-  debugger;
+
   return rankMovies(notSorted, pending, range);
 }
 
+
+/**
+ * detectPending
+ * @desc Detect if we need to download new page or push pending
+ *
+ * - if pagesCache contains values
+ * - if there is no more pages and we still got some items in our pending list
+ * - if we need download new page or not (if length of pending is smaller then 30 then yes we need)
+ * // TODO: remove debugging information
+ */
 export function* detectPending() {
   const { pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
 
-  const cacheLength = range.pagesCache !== null ? range.pagesCache.length : undefined;
+  let cacheLength;
+  if (range.pagesCache !== null) {
+    cacheLength = range.pagesCache.length;
+  }
 
-  console.log('pending movies length: ' + pending.length, 'New page: ' + (range.pages === cacheLength || pending.length < 30 ), 'all pages: ' + range.pages, 'Visited pages: ' + cacheLength);
-  // Check if there are still pages we can iterate
+  console.info(`pending movies length: ${pending.length}`);
+  console.info(`What is the new page: ${(range.pages === cacheLength || pending.length < 30)}`);
+  console.info(`All pages: ${range.pages}`, `Visited pages: ${cacheLength}`);
 
-  const isOutOfPages = cacheLength === 0 && pending.length >= 1;
-  if (isOutOfPages) return true; // and run through pending list
+  if (cacheLength === 0 && pending.length >= 1) return true;
+
   // Check is there is more pending 'results' than 30
   return (pending.length > 30);
 }
