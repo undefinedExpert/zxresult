@@ -18,11 +18,17 @@ import { validateAndPrepareParams, generateNumber } from './extractParams';
 
 
 export function* buildUrlFromFilters(filters, endpoint, higherParams = {}, withParams, randomPage) {
+
   const setParams = yield withParams ? validateAndPrepareParams(filters, higherParams, randomPage) : {};
+
   const requestUrl = yield buildUrlParams(setParams, endpoint);
+
+
   if (!setParams.page && withParams) return null;
+
   return requestUrl;
 }
+
 
 export function* callToApi(endPoint, higherParams = {}, withParams = true) {
   const filters = yield select(selectFilters());
@@ -31,8 +37,10 @@ export function* callToApi(endPoint, higherParams = {}, withParams = true) {
   const prepareParams = yield buildUrlFromFilters(filters, endPoint, higherParams, withParams, randomPage);
   const data = yield call(request, prepareParams);
   if (!prepareParams) return false;
+
   return data;
 }
+
 
 export function* processMovieAnalyse() {
   const { notSorted, pending } = yield select(selectResult());

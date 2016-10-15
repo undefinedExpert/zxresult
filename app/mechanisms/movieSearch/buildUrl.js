@@ -31,7 +31,7 @@ function attachParams(filters, baseUrl) {
     if (filter === null) return;
 
     // Extract param
-    let filterParam = _.cloneDeep(filter.apiParam);
+    let filterParam = _.cloneDeep(filter.ref);
     let filterValue = _.cloneDeep(filter.value);
     // REMOVE NAME PROP, it's not required in process of build uri
     if (filterValue) filterValue.name = undefined;

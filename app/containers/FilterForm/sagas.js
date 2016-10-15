@@ -37,6 +37,7 @@ export function* getGenreList() {
 export function* handleUpdateFilters() {
   const { data } = yield callToApi('/discover/movie', { page: 1000 });
   try {
+    console.log(`\nTotal pages: ${data.total_pages}`, '\n', `Total results: ${data.total_results}`)
     yield put(updateFilters.success(data.total_pages, data.total_results));
   }
   catch (err) {

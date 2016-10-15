@@ -14,13 +14,7 @@ const currentYear = new Date().getFullYear();
 const initialState = fromJS({
   sentence: 'ohio',
   trend: fromJS({
-    active: fromJS({
-      name: 'Highly rated',
-      voteAverageMin: 6.5,
-      voteAverageMax: 10,
-      voteCountMin: 70,
-      voteCountMax: null,
-    }),
+    active: null,
     list: fromJS([
       fromJS({
         name: 'Highly rated',

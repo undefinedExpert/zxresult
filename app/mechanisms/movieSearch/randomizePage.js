@@ -15,7 +15,7 @@ import { cacheRandomizedPage } from 'containers/FilterForm/actions';
 /**
  * pickRandom
  * @desc Randomize single, unique number from collection.
- * Creates preFilled array, makes copy of it with a shuffle. Returns random element and removes it from our collection so we can
+ * Creates preFilled array, makes a copy of it with a shuffle. Returns random element and removes it from our collection so we can
  * push updated collection into our cache.
  *
  * @param {number} collectionSize - Current range of pages, basing on filters

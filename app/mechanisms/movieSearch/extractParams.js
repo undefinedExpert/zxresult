@@ -1,29 +1,32 @@
-import { each } from 'lodash';
+import _, { each, omitBy, isNil } from 'lodash';
+
+
+const cleanNull = (active, apiRef) => {
+  const activeMinusNull = omitBy(active, isNil);
+
+  const activeKeys = Object.keys(activeMinusNull);
+  const cleanedByActive = _.pick(apiRef, activeKeys);
+
+  return { value: activeMinusNull, ref: cleanedByActive };
+};
 
 // Extracts params, their endpoints, values and sets them into single object
 // it will be used in 'building url' process (./buildUrl.js)
 function defineParams(storeParams) {
-  const paramKeys = Object.keys(storeParams).filter((key) => storeParams[key].active);
-  const schema = { storeParams };
-  schema.storeContainer = schema.storeContainer || {};
+  const paramKeys = Object.keys(storeParams);
+  const activeParams = paramKeys.filter((key) => storeParams[key].active);
+  const container = Object.create(null);
 
-  each(paramKeys, key => {
-    const value = schema.storeParams[key].active;
-    const apiParam = schema.storeParams[key].apiParamName;
-    Object.assign(schema.storeContainer, { [key]: { value, apiParam } });
-  });
-  return schema.storeContainer;
-}
+  each(activeParams, key => {
+    const active = storeParams[key].active;
+    const apiRef = storeParams[key].apiParamName;
 
-// Remove all null parameters (we don't want to loop for empty objects)
-function prepareParams(storeParams) {
-  // Define possible query and check if appropriate option exist, so we could use their options
-  const prepared = defineParams(storeParams);
-  // Remove null keys so they won't be used in our url
-  Object.keys(prepared).forEach((key) => {
-    if (!prepared[key]) delete prepared[key];
+    const cleaned = cleanNull(active, apiRef);
+
+    Object.assign(container, { [key]: cleaned });
   });
-  return prepared;
+
+  return container;
 }
 
 // Assign params, values defined directly in sagas
@@ -31,12 +34,15 @@ function assignHigherParams(params, higherParams) {
   Object.assign(params, higherParams);
 }
 
-
-
 export function validateAndPrepareParams(storeParams, higherParams, randomPage) {
-  const params = prepareParams(storeParams);
+  const params = defineParams(storeParams);
+
+  debugger;
+  // detect if we need random page
   if (storeParams.range.pages) params.page = randomPage;
+
   // Merge params & higherParams
   assignHigherParams(params, higherParams);
+
   return params;
 }
