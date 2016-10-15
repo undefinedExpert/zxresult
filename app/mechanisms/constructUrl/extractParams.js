@@ -78,7 +78,7 @@ function defineParams(filters) {
  * @param {object} higherParams - Higher params set directly in sagas
  * @param {object} randomPage - Page we'll get
  */
-export function constructParams(filters, higherParams, randomPage) {
+function constructParams(filters, higherParams, randomPage) {
   const params = defineParams(filters);
 
   // detect if we even need random page
@@ -88,4 +88,21 @@ export function constructParams(filters, higherParams, randomPage) {
   Object.assign(params, higherParams);
 
   return params;
+}
+
+/**
+ * extractParams
+ * @desc Randomize single, unique number from collection.
+ * - if we need params
+ * - if we want params but there is no page set (getting genre list example)
+ */
+export function* buildParams(filters, higherParams = {}, withParams, randomPage) {
+  let setParams = {};
+  if (withParams) {
+    setParams = constructParams(filters, higherParams, randomPage);
+  }
+
+  if (!setParams.page && withParams) return null;
+
+  return setParams;
 }

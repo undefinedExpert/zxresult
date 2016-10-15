@@ -8,7 +8,7 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
 
-import { callToApi } from 'mechanisms/movieSearch';
+import { callApi } from 'mechanisms/index';
 import * as CONSTANT from 'containers/FilterForm/constants';
 
 import { updateFilterGenre, updateFilters } from './actions';
@@ -19,7 +19,7 @@ import { updateFilterGenre, updateFilters } from './actions';
  * @desc Gets current genre list from API using xhr request
  */
 export function* getGenreList() {
-  const { data } = yield callToApi('/genre/movie/list', {}, false);
+  const { data } = yield callApi('/genre/movie/list', {}, false);
   try {
     yield put(updateFilterGenre.list.success(data.genres));
   }
@@ -35,7 +35,7 @@ export function* getGenreList() {
  * 1000 page is mostly empty that's why we hardcoded it to call only on that page
  */
 export function* handleUpdateFilters() {
-  const { data } = yield callToApi('/discover/movie', { page: 1000 });
+  const { data } = yield callApi('/discover/movie', { page: 1000 });
   try {
     console.log(`\nTotal pages: ${data.total_pages}`, '\n', `Total results: ${data.total_results}`)
     yield put(updateFilters.success(data.total_pages, data.total_results));

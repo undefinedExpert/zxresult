@@ -8,7 +8,7 @@
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
 
-import { callToApi, processMovieAnalyse, detectPending } from 'mechanisms/movieSearch';
+import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
 
 import * as CONSTANT from './constants';
 import { selectResult } from './selectors';
@@ -22,10 +22,11 @@ import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
  */
 export function* getMovie() {
   const detected = yield detectPending();
-  const { data } = !detected ? yield callToApi('/discover/movie') : false;
+  const { data } = !detected ? yield callApi('/discover/movie') : false;
 
   if (data) {
     yield console.info('Page downloaded.');
+    debugger
     yield put(analyseMovies.request(data.results));
   }
   else if (detected) {
@@ -43,7 +44,7 @@ export function* getMovie() {
  * @desc Analyse & rank movies
  */
 export function* getAnalyseMovie() {
-  const analyzed = yield processMovieAnalyse();
+  const analyzed = yield movieAnalyse();
   try {
     yield put(analyseMovies.success(analyzed));
   }
@@ -85,7 +86,7 @@ export function* pushSingleResult() {
  */
 export function* getUpdateUrl() {
   // TODO: Refactor, turn it on
-  yield put(push('/result'));
+  // yield put(push('/result'));
 }
 
 
