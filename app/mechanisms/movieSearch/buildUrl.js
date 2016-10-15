@@ -1,8 +1,30 @@
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
+
+
 import _ from 'lodash';
 import { stringify } from 'query-string';
+
 import { apiUrl, apiKey } from 'containers/App/constants';
 
-function pairValueAndRef(filter, key) {
+
+/**
+ * pairValueAndRef
+ * @desc Pairs our values with they api references
+ *
+ * @param {Object|number} filter - Current filter on which we will operate
+ * @param {Array|null} ref - api reference
+ *
+ * - if it's an object, map each value with it's api ref key from our filter
+ * - if it's a number
+ *
+ * @return {Array}
+ */
+function pairValueAndRef(filter, ref) {
   const paramsContainer = [];
 
   if (_.isObject(filter)) {
@@ -11,21 +33,26 @@ function pairValueAndRef(filter, key) {
   }
 
   if (_.isNumber(filter)) {
-    paramsContainer.push({ [key]: filter });
+    paramsContainer.push({ [ref]: filter });
   }
 
   return paramsContainer;
 }
 
-// Attach parameters to baseUrl from endpoint for each filter with their value
+
+/**
+ * attachParams
+ * @desc Pairs our values with they api references
+ * @param {Object} filters
+ *
+ * @return {Object} - paired filters with they api refs
+ */
 function attachParams(filters) {
   const pairedParams = [];
-  if (_.isEmpty(filters)) return pairedParams;
 
-  // Run for each filter (genre, decade, trend)
-  _.keys(filters).forEach((key) => {
-    const filter = filters[key];
-    const pairedValues = pairValueAndRef(filter, key);
+  _.keys(filters).forEach((ref) => {
+    const filter = filters[ref];
+    const pairedValues = pairValueAndRef(filter, ref);
 
     pairedParams.push(...pairedValues);
   });
@@ -33,14 +60,26 @@ function attachParams(filters) {
   return pairedParams;
 }
 
-// Build URL from params & base
+
+/**
+ * buildUrl
+ * @desc Constructs final url basing on filters - if set - and endpoint
+ *
+ * @param {Object} filters
+ * @param {String} endpoint - Url endpoint we wish to reach
+ *
+ * - handle apiUrl && apiKey potential errors.
+ * - if there is no filters
+ *
+ * @return {String} - Constructed URL
+ */
 export function buildUrl(filters, endpoint) {
   if (!apiUrl || !apiKey) throw Error(`apiUrl or apiKey isn't defined: \n apiUrl: ${apiUrl} \n apiKey: ${apiKey}`);
 
   const baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
 
-  let query;
-  if (filters) {
+  let query = '';
+  if (!_.isEmpty(filters)) {
     const params = attachParams(filters);
     query = params.map(item => stringify(item)).join('&');
   }
