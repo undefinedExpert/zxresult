@@ -45,7 +45,7 @@ const initialState = fromJS({
         voteCountMax: 200,
       }),
     ]),
-    apiParamName: fromJS({
+    apiRef: fromJS({
       voteAverageMin: 'vote_average.gte',
       voteAverageMax: 'vote_average.lte',
       voteCountMax: 'vote_count.lte',
@@ -91,7 +91,7 @@ const initialState = fromJS({
         dateMax: '1959-01-01',
       }),
     ]),
-    apiParamName: fromJS({
+    apiRef: fromJS({
       dateMin: 'primary_release_date.gte',
       dateMax: 'primary_release_date.lte',
     }),
@@ -99,7 +99,7 @@ const initialState = fromJS({
   genre: fromJS({
     active: fromJS(null),
     list: fromJS([]),
-    apiParamName: fromJS({
+    apiRef: fromJS({
       id: 'with_genres',
     }),
   }),

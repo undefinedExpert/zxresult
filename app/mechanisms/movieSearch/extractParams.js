@@ -1,4 +1,4 @@
-import _, { each, omitBy, isNil, isString } from 'lodash';
+import _, { each, omitBy, isNil } from 'lodash';
 
 
 const cleanNull = (active, apiRef) => {
@@ -18,11 +18,11 @@ function defineParams(storeParams) {
   const container = Object.create(null);
 
   each(activeParams, key => {
-    const active = storeParams[key].active;
-    const apiRef = storeParams[key].apiParamName;
+    const {
+      active,
+      apiRef } = storeParams[key];
 
     const cleaned = cleanNull(active, apiRef);
-    debugger;
 
     Object.assign(container, { [key]: cleaned });
   });
