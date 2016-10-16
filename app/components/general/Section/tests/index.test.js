@@ -18,7 +18,7 @@ describe('<Section />', () => {
   let renderComponent;
   const props = {
     title: 'test',
-    children: [<div id="test"></div>],
+    children: <div id="test"></div>,
   };
   beforeEach(() => {
     renderComponent = shallow(<Section {...props}>{props.children}</Section>, {});
