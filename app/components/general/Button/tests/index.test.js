@@ -18,7 +18,7 @@ describe('<Button />', () => {
   const props = {
     type: 'submit',
     isLoading: true,
-    children: ['test', 'test2'],
+    children: ['test', <div id="test"></div>],
     onClick: sinon.spy(),
     handleRoute: () => {},
   };
@@ -31,7 +31,7 @@ describe('<Button />', () => {
   });
 
   it('Should contain children prop', () => {
-    expect(renderComponent.children().length === props.children.length).to.eql(true);
+    expect(renderComponent.children()).to.have.length(2);
   });
 
   it('Should handle the click event', () => {
