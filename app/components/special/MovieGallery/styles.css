@@ -1,8 +1,10 @@
 @lost flexbox flex;
+
 $maxHeight: calc(100vh - 50px);
 
 .gallery {
   lost-column: 7/12 0;
+
   /* fixme: Problem with margins and PostCSS Inheritance, temporary fix is !important */
   margin-top: 0 !important;
   margin-bottom: 0 !important;
@@ -11,9 +13,4 @@ $maxHeight: calc(100vh - 50px);
   max-height: $maxHeight;
   height: $maxHeight;
   background-color: #22262e;
-  /*:local img {*/
-    /*!* height: 100vh; *!*/
-    /*min-width: 100%;*/
-    /*lost-column: 1 0;*/
-  /*}*/
 }

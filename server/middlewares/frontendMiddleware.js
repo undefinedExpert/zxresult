@@ -49,7 +49,8 @@ module.exports = (options) => {
 
   if (isProd) {
     addProdMiddlewares(app, options);
-  } else {
+  }
+  else {
     addDevMiddlewares(app, options);
   }
 

@@ -1,4 +1,5 @@
 $maxHeight: calc(100vh - 50px);
+
 .movieArticle {
   lost-column: 5/12 0;
   overflow: auto;

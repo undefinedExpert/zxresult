@@ -39,7 +39,8 @@ app.listen(port, (err) => {
 
       logger.appStarted(port, url);
     });
-  } else {
+  }
+  else {
     logger.appStarted(port);
   }
 });

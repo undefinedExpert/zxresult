@@ -9,7 +9,8 @@ function reducerExists(comp) {
   try {
     fs.accessSync(`app/containers/${comp}/reducer.js`, fs.F_OK);
     return true;
-  } catch (e) {
+  }
+  catch (e) {
     return false;
   }
 }
@@ -52,7 +53,8 @@ module.exports = {
         pattern: /(\s{\n\s{0,}path: '\*',)/g,
         templateFile: './route/routeWithReducer.hbs',
       });
-    } else {
+    }
+    else {
       actions.push({
         type: 'modify',
         path: '../../app/routes.js',
