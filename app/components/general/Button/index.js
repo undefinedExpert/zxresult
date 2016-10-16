@@ -33,7 +33,10 @@ function Button(props) {
 Button.propTypes = {
   type: ptype.string,
   isLoading: ptype.bool,
-  children: ptype.node.isRequired,
+  children: ptype.oneOfType([
+    ptype.arrayOf(ptype.node),
+    ptype.node,
+  ]),
   handleRoute: ptype.func,
 };
 

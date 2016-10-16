@@ -1,28 +1,37 @@
-import Button from '../index';
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
+import Button from '../index';
+
+
 describe('<Button />', () => {
   let renderComponent;
   const props = {
     type: 'submit',
     isLoading: true,
-    children: [],
+    children: ['test', 'test2'],
     onClick: sinon.spy(),
     handleRoute: () => {},
   };
   beforeEach(() => {
     renderComponent = shallow(<Button {...props} />, {});
   });
+
   it('Should return a button', () => {
     expect(renderComponent).to.not.eql(undefined);
   });
 
   it('Should contain children prop', () => {
-    expect(renderComponent).to.not.eql(undefined);
+    expect(renderComponent.children().length === props.children.length).to.eql(true);
   });
 
   it('Should handle the click event', () => {
