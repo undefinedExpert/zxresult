@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import _, { each, omit, omitBy, isNil, pick, remove } from 'lodash';
+import { each, omit, omitBy, isNil, pick } from 'lodash';
 
 
 /**

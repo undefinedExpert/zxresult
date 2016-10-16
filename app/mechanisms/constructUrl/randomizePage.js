@@ -5,9 +5,9 @@
  *  3. Module
  */
 
-import { range as numRange } from 'lodash';
-import { put } from 'redux-saga/effects';
 import { fromJS } from 'immutable';
+import { put } from 'redux-saga/effects';
+import { range as numRange } from 'lodash';
 
 import { cacheRandomizedPage } from 'containers/FilterForm/actions';
 

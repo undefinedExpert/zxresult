@@ -1,16 +1,37 @@
-export function rankMovies(upcomingResults, pending, range) {
+/**
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
+
+/**
+ * rankItem
+ * @desc Rank movie with this mathematical model: (g / (g+m)) *s + (m / (g+m)) * S
+ * s - vote average for this movie
+ * g - vote count for this movie
+ * m - minimal vote counts
+ * S - average of all movies
+ */
+const rankItem = (item) => {
+  const minimalVoteCount = 100;
+  return (item.vote_count / (item.vote_count + minimalVoteCount) * item.vote_average + (minimalVoteCount / (item.vote_count + minimalVoteCount)) * 9);
+};
+
+
+/**
+ * rankMovies
+ * @desc Ranks and moves notSorted movies into pending list,
+ * removes the weakest 10 movies from each call if we contain at least 10 pages
+ */
+export function rankMovies(notSorted, pending, range) {
   // Concat pending and upcomingMovies
-  const requestedToSort = pending ? pending.concat(upcomingResults) : upcomingResults;
+  const requestedToSort = pending ? pending.concat(notSorted) : notSorted;
 
-  // Pick best movies
-  const sorted = requestedToSort.sort((itemA, itemB) => {
-    const minimalVoteCount = 100;
-    return (itemB.vote_count / (itemB.vote_count + minimalVoteCount) * itemB.vote_average + ( minimalVoteCount / (itemB.vote_count + minimalVoteCount)) * 5) - (itemA.vote_count / (itemA.vote_count + minimalVoteCount) * itemA.vote_average + (50 / (itemA.vote_count + 50)) * 5)
-  });
+  const sorted = requestedToSort.sort((itemA, itemB) => rankItem(itemA) - rankItem(itemB));
 
-  const isEnoughtPages = (range.pages - range.pagesCache.length) > 10;
-  // just take 10 first instead of 20
-  if (sorted.length > 10 && isEnoughtPages) sorted.length -= 10;
+  const isEnoughPages = (range.pages - range.pagesCache.length) > 10;
+  if (sorted.length > 10 && isEnoughPages) sorted.length -= 10;
 
   return sorted;
 }
