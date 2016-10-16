@@ -28,24 +28,34 @@ export function* processMovieAnalyse() {
  * detectPending
  * @desc Detect if we need to download new page or push pending
  *
- * - if pagesCache contains values
- * - if there is no more pages and we still got some items in our pending list
- * - if we need download new page or not (if length of pending is smaller then 30 then yes we need)
- * // TODO: remove debugging information
+ * - if our cache is in initial state then we download page (check todo)
+ * - if we have cache values - page to download - and our pending list is bigger then 0 but smaller then 30 we download page
+ * - if we don't contain page we decide to push items from pending list until last item
+ * - return null, cause we don't have any movie left.
+ *
+ * TODO: Make something when there is no cache, and we does not contain any 'page' to download
+ * TODO: remove debugging information
  */
 export function* detectPending() {
-  console.clear();
   const { pending } = yield select(selectResult());
   const { range } = yield select(selectFilters());
 
-  const cacheLength = range.pagesCache !== null ? range.pagesCache.length : undefined;
+  if (range.pagesCache === null) {
+    return false;
+  }
 
-  console.log('pending movies length: ' + pending.length, 'New page: ' + (range.pages === cacheLength || pending.length < 30 ), 'all pages: ' + range.pages, 'Visited pages: ' + cacheLength);
-  // Check if there are still pages we can iterate
+  const cacheLength = range.pagesCache.length;
+  console.info(`pending movies length: ${pending.length}`);
+  console.info(`What is the new page: ${(range.pages === cacheLength || pending.length < 30)}`);
+  console.info(`All pages: ${range.pages}`, `Visited pages: ${cacheLength}`);
 
-  const isOutOfPages = cacheLength === 0 && pending.length > 1;
-  if (isOutOfPages) return true; // and run through pending list
-  // Check is there is more pending 'results' than 30
-  return (pending.length > 30);
+  if (cacheLength > 0 && pending.length < 30) {
+    return false;
+  }
+  else if (pending.length >= 1) {
+    return true;
+  }
+
+  return null;
 }
 

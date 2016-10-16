@@ -59,7 +59,11 @@ const initialState = fromJS({
     }),
   }),
   decade: fromJS({
-    active: fromJS(null),
+    active: fromJS({
+      name: '1970s',
+      dateMin: '1970-01-01',
+      dateMax: '1979-01-01',
+    }),
     list: fromJS([
       fromJS({
         name: '2010s',
@@ -103,7 +107,10 @@ const initialState = fromJS({
     }),
   }),
   genre: fromJS({
-    active: null,
+    active: fromJS({
+      id: 16,
+      name: 'Animation',
+    }),
     list: fromJS([]),
     apiRef: fromJS({
       id: 'with_genres',
