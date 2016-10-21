@@ -8,7 +8,7 @@
 import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
-import SingleCrew from 'components/special/MovieSingleCrew';
+import MovieSingleCrew from 'components/special/MovieSingleCrew';
 
 /**
  * renderSingle
@@ -24,7 +24,7 @@ const renderSingle = (item, index) => {
   const errMsg = `${title} isn't available`;
   return (
     <Section title={title} size={sectionSize} key={index}>
-      {title ? <SingleCrew path={image} alt={alt} /> : <p>{errMsg}</p>}
+      {title ? <MovieSingleCrew path={image} alt={alt} /> : <p>{errMsg}</p>}
     </Section>
   );
 };
