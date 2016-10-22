@@ -27,7 +27,7 @@ function MovieSingleCrew({ path, alt }) {
         />
       </div>
       <h4>Ben Affleck</h4>
-      <h4>As Bruce Wayne/Batman</h4>
+      <h5>As Bruce Wayne/Batman</h5>
     </div>
   );
 }

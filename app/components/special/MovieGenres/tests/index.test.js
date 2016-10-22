@@ -9,13 +9,13 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-import Genres from '../index';
+import MovieGenres from '../index';
 
 
-describe('<Genres />', () => {
+describe('<MovieGenres />', () => {
   let renderComponent;
   beforeEach(() => {
-    renderComponent = mount(<Genres />, {});
+    renderComponent = mount(<MovieGenres />, {});
   });
 
   it('Should contain 3 GenreIcons components', () => {

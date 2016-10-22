@@ -21,9 +21,9 @@ import styles from './styles.css';
  * @param index - Used as React key
  * @param type - Hearts contains 2 types: filled, unfilled. We have to choose which one will be used.
  */
-const renderSingleHeart = (index, type) => {
+export const renderSingleHeart = (index, type) => {
   const cs = classNames(styles.icon, styles[type]);
-  return <IoHeart size={32} key={index} className={cs} />;
+  return <IoHeart size={32} key={index} className={cs} type={type} />;
 };
 
 
@@ -33,7 +33,7 @@ const renderSingleHeart = (index, type) => {
  * @param range - How many hearths will render
  * @param average - What is the vote average, it is used to detect how many 'filled' hearts we wish to render
  */
-const renderMultipleHearts = (range, average) => {
+export const renderMultipleHearts = (range, average) => {
   const numOfFilled = Math.round(average);
   const numOfUnfilled = Math.ceil(range - numOfFilled);
   return (
@@ -50,7 +50,7 @@ const renderMultipleHearts = (range, average) => {
  * @desc Render all required hearths both types. There is always 5 hearts to render.
  * @param voteAverage - What is the vote average
  */
-const renderHearts = (voteAverage) => {
+export const renderHearts = (voteAverage) => {
   const range = 5;
   const average = voteAverage / 2; // voteAverage is in 1-10 scale, we divide by half to render 1-5 hearths
   return (

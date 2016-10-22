@@ -13,7 +13,7 @@ import MovieGallery from '../index';
 
 
 // TODO: We should mount Gallery component instead of shallow
-describe('<Gallery />', () => {
+describe('<MovieGallery />', () => {
   let renderComponent;
   const props = {
     path: '/s1EBTUtrX4tKuawlapyDLig3sF9.jpg',

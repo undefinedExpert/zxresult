@@ -9,16 +9,16 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import GenreIcons from '../index';
+import MovieGenreIcons from '../index';
 
 
-describe('<GenreIcons />', () => {
+describe('<MovieGenreIcons />', () => {
   let renderComponent;
   const props = {
     type: 'Horror',
   };
   beforeEach(() => {
-    renderComponent = shallow(<GenreIcons {...props} />, {});
+    renderComponent = shallow(<MovieGenreIcons {...props} />, {});
   });
 
   it('Should render icon with appropriate type', () => {
