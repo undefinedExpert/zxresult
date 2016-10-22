@@ -29,7 +29,7 @@ describe('<Title />', () => {
   it('should render children when there is no text provided', () => {
     const fixture = 'test';
     renderComponent = shallow(<Title>{fixture}</Title>);
-    const excepted = renderComponent.find('h4').text(fixture);
-    expect(excepted).to.eql(fixture);
+    const expected = renderComponent.find('h4').text(fixture);
+    expect(expected).to.eql(fixture);
   });
 });

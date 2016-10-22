@@ -62,13 +62,13 @@ describe('<MovieArticle />', () => {
 
   it('Should contain & render all related to movie components', () => {
     components.forEach((item => {
-      const excepted = renderComponent.containsMatchingElement(item);
-      expect(excepted).to.eql(true);
+      const expected = renderComponent.containsMatchingElement(item);
+      expect(expected).to.eql(true);
     }));
   });
 
   it('Movie should always be provided', () => {
-    const excepted = mount(<MovieArticle {...props} />, {});
-    expect(excepted.props().movie).to.not.eql(undefined);
+    const expected = mount(<MovieArticle {...props} />, {});
+    expect(expected.props().movie).to.not.eql(undefined);
   });
 });

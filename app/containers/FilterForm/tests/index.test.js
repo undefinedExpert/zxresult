@@ -70,8 +70,8 @@
 //   });
 //
 //   it('It should contain SelectList Component', () => {
-//     const excepted = renderComponent.containsMatchingElement(<SelectList />);
-//     expect(excepted).to.eql(true);
+//     const expected = renderComponent.containsMatchingElement(<SelectList />);
+//     expect(expected).to.eql(true);
 //   });
 //
 //   // It should render decade, sentence, type select inputs

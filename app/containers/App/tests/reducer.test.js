@@ -89,8 +89,8 @@
 //     });
 //   });
 //   it('returns the initial state', () => {
-//     const excepted = state;
-//     expect(appReducer(undefined, {})).to.eql(excepted);
+//     const expected = state;
+//     expect(appReducer(undefined, {})).to.eql(expected);
 //   });
 //
 //   it('should handle the updateFilterGenre action', () => {

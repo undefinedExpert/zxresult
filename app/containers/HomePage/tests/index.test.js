@@ -13,12 +13,12 @@
 //   });
 //
 //   it('Should render Movie-search-form', () => {
-//     const excepted = renderedComponent.contains(<MovieSearchForm />);
-//     expect(excepted).to.eql(true);
+//     const expected = renderedComponent.contains(<MovieSearchForm />);
+//     expect(expected).to.eql(true);
 //   });
 //
 //   it('Should render WelcomeText', () => {
-//     const excepted = renderedComponent.contains(<WelcomeText />);
-//     expect(excepted).to.eql(true);
+//     const expected = renderedComponent.contains(<WelcomeText />);
+//     expect(expected).to.eql(true);
 //   });
 // });
