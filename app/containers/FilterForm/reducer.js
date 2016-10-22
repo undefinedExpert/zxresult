@@ -124,7 +124,7 @@ const initialState = fromJS({
 });
 
 
-function searchFormReducer(state = initialState, action) {
+function filterFormReducer(state = initialState, action) {
   switch (action.type) {
     case CONSTANT.FILTER_DECADE.REQUEST:
       return state
@@ -154,4 +154,4 @@ function searchFormReducer(state = initialState, action) {
   }
 }
 
-export default searchFormReducer;
+export default filterFormReducer;
