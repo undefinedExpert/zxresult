@@ -5,11 +5,12 @@
  *  3. Module
  */
 
-import { expect } from 'chai';
-import { shallow, render, mount } from 'enzyme';
 import React from 'react';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 
 import MovieDescription from '../index';
+
 
 describe('<MovieDescription />', () => {
   let renderComponent;
@@ -18,21 +19,24 @@ describe('<MovieDescription />', () => {
     limit: 30,
   };
   beforeEach(() => {
-    renderComponent = mount(<MovieDescription {...props} />, {});
+    renderComponent = shallow(<MovieDescription {...props} />, {});
   });
 
   it('Should trim the text with the length of props.limit', () => {
-    const expected = renderComponent.find('p')
-    expect(expected.debug()).to.eql(false);
+    const expected = renderComponent.find('p').text();
+    expect(expected).to.have.length(props.limit);
   });
-  
+
   it('Should contain error msh when "No overview found." message appears', () => {
-  
+    const errorMsgReturnedByApi = 'No overview found.';
+    const errMsg = 'Description isn\'t available';
+    renderComponent = shallow(<MovieDescription description={errorMsgReturnedByApi} />, {});
+
+    const expected = renderComponent.find('p').text();
+    expect(expected).to.eql(errMsg);
   });
 
   it('Should reveal the content when description is clicked', () => {
-
+    // TODO: make this working
   });
-
-
 });

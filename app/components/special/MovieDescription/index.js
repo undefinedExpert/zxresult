@@ -17,6 +17,7 @@ import styles from './styles.css';
  * MovieDescription
  * @desc Check if movie description exist, truncate it if yes, or display appropriate errMsh
  * TODO: Ability to show full description (when user clicks on it)
+ * TODO: Refactor error handling, it should not depend on returned message, instead use api call status
  */
 function MovieDescription(props) {
   const {
