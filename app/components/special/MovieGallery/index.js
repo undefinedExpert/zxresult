@@ -19,6 +19,7 @@ import styles from './styles.css';
  * @desc Render Gallery and filters.
  * TODO: Rename MovieGallery
  * TODO: Working Gallery, not just single image.
+ * TODO: remove FilterForm container from this Component
  */
 function MovieGallery(props) {
   const {
