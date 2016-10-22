@@ -20,7 +20,7 @@ function MovieGenreIcons({ type }) {
   const cs = styles.genreIcons;
   return (
     <div className={cs}>
-      <img src={Icons[type]} alt="icon" />
+      <img src={Icons[type]} alt={`${type} icon`} />
     </div>
   );
 }
