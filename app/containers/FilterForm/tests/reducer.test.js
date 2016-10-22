@@ -9,19 +9,18 @@ import { expect } from 'chai';
 import { fromJS } from 'immutable';
 
 import filterFormReducer from '../reducer';
-// import {
-//   updateFilterGenre,
-//   updateFilterDecade,
-//   updateFilterTrend,
-//   updateFilters,
-//   cacheRandomizedPage,
-// } from '../actions';
+import {
+  updateFilterGenre,
+  updateFilterDecade,
+  updateFilterTrend,
+  updateFilters,
+  cacheRandomizedPage } from '../actions';
 
 
 describe('filterFormReducer', () => {
   let state;
+  const currentYear = new Date().getFullYear();
   beforeEach(() => {
-    const currentYear = new Date().getFullYear();
     state = fromJS({
       sentence: 'ohio',
       trend: fromJS({
@@ -136,21 +135,25 @@ describe('filterFormReducer', () => {
   });
 
   it('returns the initial state', () => {
-    const excepted = state;
-    expect(filterFormReducer(undefined, { type: null })).to.eql(excepted);
+    expect(filterFormReducer(undefined, { type: null })).to.eql(state);
   });
 
-  // it('should handle the updateFilterGenre action', () => {
-  //   const fixtureActive = 'drama';
-  //   const fixtureList = ['drama', 'action', 'horror'];
-  //   const expectedResult = {
-  //     active: state.setIn(['filters', 'genre', 'active'], fixtureActive),
-  //     list: state.setIn(['filters', 'genre', 'list'], fixtureList),
-  //   };
-  //
-  //   expect(appReducer(state, updateFilterGenre.active.request(fixtureActive))).to.eql(expectedResult.active);
-  //   expect(appReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
-  // });
+  it('should handle the updateFilterGenre action', () => {
+    const fixtureActive = 'drama';
+    const fixtureList = ['drama', 'action', 'horror'];
+    const expectedResult = {
+      active: state.setIn(['genre', 'active'], fixtureActive),
+      list: state.setIn(['genre', 'list'], fixtureList),
+    };
+
+    const active = filterFormReducer(state, updateFilterGenre.active.request(fixtureActive));
+
+    console.log('\n', updateFilterGenre.active.request(fixtureActive), '\n');
+    console.log('\n', expectedResult.active.toJS().genre.active, '\n');
+
+    expect(active).to.eql(expectedResult.active);
+    // expect(filterFormReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
+  });
   //
   // it('should handle the UPDATE_FILTER_DECADE action', () => {
   //   const fixture = '2000s';
