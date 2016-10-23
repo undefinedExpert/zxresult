@@ -13,10 +13,10 @@ import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
+import RequestMovie from 'containers/RequestMovie';
 import configureStore from '../../../store';
 
 import { FilterForm } from '../index';
-
 
 // mapStateToProps - https://github.com/reactjs/redux/issues/1534
 describe('<FilterForm />', () => {
@@ -94,12 +94,50 @@ describe('<FilterForm />', () => {
       ).shallow();
   });
 
-  it('It should contain SelectList Component', () => {
+  it('Should contain SelectList Component', () => {
     const expected = renderComponent.find('SelectList');
     expect(expected).to.have.length(1);
   });
 
-  // It should render decade, sentence, type select inputs
-  // It should render search button
-});
+  it('Should contain appropriate SelectList items: genre, decade, trend', () => {
+    const expected = renderComponent.find('SelectList').prop('items');
+    expect(expected).to.have.length(3);
+  });
 
+  it('Should contain Input, Sentence filter', () => {
+    const expected = renderComponent.find('Input');
+    expect(expected).to.have.length(1);
+  });
+
+  it('Should contain RequestMovie', () => {
+    const expected = renderComponent.contains(<RequestMovie />);
+    expect(expected).to.eql(true);
+  });
+
+  it('Should call appropriate filter handler using method onChangeSelectHandler', () => {
+    // const onChangeGenre = sinon.spy();
+    // const getUpdateFilters = sinon.spy();
+    // const onChangeSelectHandler = (type) => {
+    //   return (value) => {
+    //     onChangeGenre();
+    //     getUpdateFilters();
+    //   };
+    // }
+
+    // renderComponent = mount(
+    //   <Provider store={store}>
+    //     <FilterForm {...props} />
+    //   </Provider>
+    // );
+    // const Select = renderComponent.find('Select').first().find('input');
+    //
+    // expect(Select.debug()).to.eql('Changed');
+
+
+    // const button = renderedComponent.find('button');
+    // button.simulate('click');
+    //
+    // expect(onChangeGenreSpy).toHaveBeenCalled();
+    // expect(getUpdateFiltersSpy).toHaveBeenCalled();
+  });
+});
