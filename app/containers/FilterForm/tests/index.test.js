@@ -5,7 +5,6 @@
  *  3. Module
  */
 
-import sinon from 'sinon';
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
@@ -19,6 +18,7 @@ import configureStore from '../../../store';
 import { FilterForm } from '../index';
 
 // mapStateToProps - https://github.com/reactjs/redux/issues/1534
+// TODO: Handle FilterForm methods
 describe('<FilterForm />', () => {
   let renderComponent;
   let store;
@@ -112,32 +112,5 @@ describe('<FilterForm />', () => {
   it('Should contain RequestMovie', () => {
     const expected = renderComponent.contains(<RequestMovie />);
     expect(expected).to.eql(true);
-  });
-
-  it('Should call appropriate filter handler using method onChangeSelectHandler', () => {
-    // const onChangeGenre = sinon.spy();
-    // const getUpdateFilters = sinon.spy();
-    // const onChangeSelectHandler = (type) => {
-    //   return (value) => {
-    //     onChangeGenre();
-    //     getUpdateFilters();
-    //   };
-    // }
-
-    // renderComponent = mount(
-    //   <Provider store={store}>
-    //     <FilterForm {...props} />
-    //   </Provider>
-    // );
-    // const Select = renderComponent.find('Select').first().find('input');
-    //
-    // expect(Select.debug()).to.eql('Changed');
-
-
-    // const button = renderedComponent.find('button');
-    // button.simulate('click');
-    //
-    // expect(onChangeGenreSpy).toHaveBeenCalled();
-    // expect(getUpdateFiltersSpy).toHaveBeenCalled();
   });
 });
