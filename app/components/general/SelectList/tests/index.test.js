@@ -18,8 +18,8 @@ describe('<SelectList />', () => {
   const props = {
     items: [
       { value: 'test1', list: [], options: { onChangeHandler: sinon.spy(), title: 'Test1' } },
-      { value: 'test2', list: [], options: { onChangeHandler: () => {}, title: 'Test2' } },
-      { value: 'test3', list: [], options: { onChangeHandler: () => {}, title: 'Test3' } },
+      { value: 'test2', list: [], options: { onChangeHandler: sinon.spy(), title: 'Test2' } },
+      { value: 'test3', list: [], options: { onChangeHandler: sinon.spy(), title: 'Test3' } },
     ],
   };
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('<SelectList />', () => {
   });
 
   it('Should run onChangeHandler while the select change', () => {
-    const select = renderComponent.find('Select[title="Test1"]');
+    const select = renderComponent.find('Select').first();
     select.simulate('change');
     expect(select.prop('onChange').calledOnce).to.eql(true);
   });

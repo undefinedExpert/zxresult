@@ -10,7 +10,6 @@ import { fromJS } from 'immutable';
 import {
   FILTER_DECADE,
   FILTER_TREND,
-  FILTER_TREND_LIST,
   FILTER_GENRE,
   FILTER_GENRE_LIST,
   UPDATE_FILTERS,
@@ -139,9 +138,6 @@ function filterFormReducer(state = initialState, action) {
     case FILTER_TREND.REQUEST:
       return state
         .setIn(['trend', 'active'], action.value);
-    case FILTER_TREND_LIST.REQUEST:
-      return state
-        .setIn(['trend', 'list'], action.value);
     case FILTER_GENRE.REQUEST:
       return state
         .setIn(['genre', 'active'], action.value);
@@ -155,7 +151,7 @@ function filterFormReducer(state = initialState, action) {
         .setIn(['range', 'pagesCache'], null);
     case CACHE_RANDOMIZED_PAGE.REQUEST:
       return state
-        .setIn(['range', 'pagesCache'], action.page);
+        .setIn(['range', 'pagesCache'], action.pagesLeft);
     default:
       return state;
   }

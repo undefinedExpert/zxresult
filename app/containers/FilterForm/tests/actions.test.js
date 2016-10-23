@@ -220,7 +220,7 @@ describe('FilterForm Actions', () => {
   });
 
   describe('cacheRandomizedPage()', () => {
-    let page;
+    let pagesLeft;
     let error;
     beforeEach(() => {
       error = 'error';
@@ -230,7 +230,7 @@ describe('FilterForm Actions', () => {
       const expected = {
         request: {
           type: CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST,
-          page,
+          pagesLeft,
         },
         success: {
           type: CONSTANT.CACHE_RANDOMIZED_PAGE.SUCCESS,
@@ -241,7 +241,7 @@ describe('FilterForm Actions', () => {
         },
       };
 
-      expect(cacheRandomizedPage.request(page)).to.eql(expected.request);
+      expect(cacheRandomizedPage.request(pagesLeft)).to.eql(expected.request);
       expect(cacheRandomizedPage.success()).to.eql(expected.success);
       expect(cacheRandomizedPage.failure(error)).to.eql(expected.failure);
     });

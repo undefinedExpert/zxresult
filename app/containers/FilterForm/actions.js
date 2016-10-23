@@ -108,7 +108,7 @@ export const updateFilters = {
  * - Caches random page, so user won't see it once again
  */
 export const cacheRandomizedPage = {
-  request: (page) => action(CACHE_RANDOMIZED_PAGE.REQUEST, { page }),
+  request: (pagesLeft) => action(CACHE_RANDOMIZED_PAGE.REQUEST, { pagesLeft }),
   success: () => action(CACHE_RANDOMIZED_PAGE.SUCCESS, {}),
   failure: (error) => action(CACHE_RANDOMIZED_PAGE.FAILURE, { error }),
 };

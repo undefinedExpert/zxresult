@@ -24,7 +24,7 @@ const initialState = fromJS({
   isFetching: false,
 });
 
-function resultReducer(state = initialState, action) {
+function requestMovieReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_MOVIE_RESULT.REQUEST:
       return state
@@ -59,4 +59,4 @@ function resultReducer(state = initialState, action) {
   }
 }
 
-export default resultReducer;
+export default requestMovieReducer;

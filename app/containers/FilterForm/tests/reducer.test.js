@@ -8,9 +8,13 @@
 import { expect } from 'chai';
 import { fromJS } from 'immutable';
 
-import filterFormReducer from '../reducer';
 import {
-  updateFilterGenre } from '../actions';
+  updateFilterGenre,
+  updateFilterDecade,
+  updateFilterTrend,
+  updateFilters,
+  cacheRandomizedPage } from '../actions';
+import filterFormReducer from '../reducer';
 
 
 describe('filterFormReducer', () => {
@@ -134,7 +138,21 @@ describe('filterFormReducer', () => {
     expect(filterFormReducer(undefined, {})).to.eql(state);
   });
 
-  it('should handle the updateFilterGenre action', () => {
+  it('should handle the FILTER_DECADE.REQUEST', () => {
+    const fixture = '2000s';
+
+    const expectedResult = state.setIn(['decade', 'active'], fixture);
+    expect(filterFormReducer(state, updateFilterDecade.active.request(fixture))).to.eql(expectedResult);
+  });
+
+  it('should handle the FILTER_TREND.REQUEST', () => {
+    const fixture = 'Popular';
+
+    const expectedResult = state.setIn(['trend', 'active'], fixture);
+    expect(filterFormReducer(state, updateFilterTrend.active.request(fixture))).to.eql(expectedResult);
+  });
+
+  it('should handle the FILTER_GENRE.REQUEST && FILTER_GENRE_LIST.SUCCESS', () => {
     const fixtureActive = 'drama';
     const fixtureList = ['drama', 'action', 'horror'];
     const expectedResult = {
@@ -143,55 +161,30 @@ describe('filterFormReducer', () => {
     };
 
     const active = filterFormReducer(state, updateFilterGenre.active.request(fixtureActive));
-
     expect(active).to.eql(expectedResult.active);
-    expect(filterFormReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
+
+    const list = filterFormReducer(state, updateFilterGenre.list.success(fixtureList));
+    expect(list).to.eql(expectedResult.list);
   });
-  //
-  // it('should handle the UPDATE_FILTER_DECADE action', () => {
-  //   const fixture = '2000s';
-  //   const expectedResult = state.setIn(['filters', 'decade', 'active'], fixture);
-  //   expect(appReducer(state, updateFilterDecade.active.request(fixture))).to.eql(expectedResult);
-  // });
-  //
-  // it('should handle the UPDATE_FILTER_TREND action', () => {
-  //   const fixture = 'Classical';
-  //   const expectedResult = state.setIn(['filters', 'trend', 'active'], fixture);
-  //   expect(appReducer(state, updateFilterTrend.active.request(fixture))).to.eql(expectedResult);
-  // });
-  //
-  // it('should handle the updateMovieResult action', () => {
-  //   const movie = {};
-  //   const movies = [{}, {}];
-  //   const expectedResult = state
-  //     .setIn(['result', 'movie'], movie)
-  //     .setIn(['result', 'movies'], movies)
-  //     .setIn(['result', 'isFetching'], false);
-  //
-  //   expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult);
-  // });
-  //
-  // it('should handle the updateMovieResult action', () => {
-  //   const movie = {};
-  //   const movies = [{}, {}];
-  //   const expectedResult = {
-  //     request: state
-  //       .setIn(['result', 'isFetching'], true),
-  //     success: state
-  //       .setIn(['result', 'movie'], movie)
-  //       .setIn(['result', 'movies'], movies)
-  //       .setIn(['result', 'isFetching'], false),
-  //   };
-  //
-  //   expect(appReducer(state, updateMovieResult.request(movies, movie))).to.eql(expectedResult.request);
-  //   expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult.success);
-  // });
-  //
-  // it('should handle the updateFilters action', () => {
-  //   const fixture = 1;
-  //   const expectedResult = state
-  //     .setIn(['result', 'resultsRange'], fixture);
-  //
-  //   expect(appReducer(state, updateFilters.success(fixture))).to.eql(expectedResult);
-  // });
+
+  it('Should handle the UPDATE_FILTERS.SUCCESS', () => {
+    const fixturePages = 5;
+    const fixtureResults = 80;
+
+    const expectedResult = state
+      .setIn(['range', 'pages'], fixturePages)
+      .setIn(['range', 'results'], fixtureResults)
+      .setIn(['range', 'pagesCache'], null);
+
+    expect(filterFormReducer(state, updateFilters.success(fixturePages, fixtureResults))).to.eql(expectedResult);
+  });
+
+  it('Should handle the CACHE_RANDOMIZED_PAGE.REQUEST', () => {
+    const fixturePagesLeft = [1, 3, 4, 5];
+
+    const expectedResult = state
+      .setIn(['range', 'pagesCache'], fixturePagesLeft);
+
+    expect(filterFormReducer(state, cacheRandomizedPage.request(fixturePagesLeft))).to.eql(expectedResult);
+  });
 });
