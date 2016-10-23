@@ -131,7 +131,7 @@ describe('filterFormReducer', () => {
   });
 
   it('returns the initial state', () => {
-    expect(filterFormReducer(undefined, { type: null })).to.eql(state);
+    expect(filterFormReducer(undefined, {})).to.eql(state);
   });
 
   it('should handle the updateFilterGenre action', () => {
@@ -144,11 +144,8 @@ describe('filterFormReducer', () => {
 
     const active = filterFormReducer(state, updateFilterGenre.active.request(fixtureActive));
 
-    console.log('\n', updateFilterGenre.active.request(fixtureActive), '\n');
-    console.log('\n', expectedResult.active.toJS().genre.active, '\n');
-
     expect(active).to.eql(expectedResult.active);
-    // expect(filterFormReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
+    expect(filterFormReducer(state, updateFilterGenre.list.success(fixtureList))).to.eql(expectedResult.list);
   });
   //
   // it('should handle the UPDATE_FILTER_DECADE action', () => {

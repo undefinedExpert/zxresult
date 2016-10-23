@@ -17,7 +17,6 @@ import {
   CACHE_RANDOMIZED_PAGE } from './constants';
 
 
-
 const currentYear = new Date().getFullYear();
 const initialState = fromJS({
   sentence: 'ohio',

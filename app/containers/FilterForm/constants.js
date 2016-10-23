@@ -7,7 +7,6 @@
 
 import { createRequestTypes } from 'utils/hooks';
 
-
 const FILTER_DECADE = createRequestTypes('app/FilterForm/FILTER_DECADE');
 const FILTER_DECADE_LIST = createRequestTypes('app/FilterForm/FILTER_DECADE_LIST');
 
