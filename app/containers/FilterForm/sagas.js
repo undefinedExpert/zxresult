@@ -9,9 +9,9 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
-import * as CONSTANT from 'containers/FilterForm/constants';
 
 import { updateFilterGenre, updateFilters } from './actions';
+import { FILTER_GENRE_LIST, UPDATE_FILTERS } from './constants';
 
 
 /**
@@ -66,13 +66,13 @@ export function* handleUpdateFilters() {
 
 
 export function* getUpdateFiltersWatcher() {
-  while (yield take(CONSTANT.UPDATE_FILTERS.REQUEST)) {
+  while (yield take(UPDATE_FILTERS.REQUEST)) {
     yield call(handleUpdateFilters);
   }
 }
 
 export function* getGenresListWatcher() {
-  while (yield take(CONSTANT.FILTER_GENRE_LIST.REQUEST)) {
+  while (yield take(FILTER_GENRE_LIST.REQUEST)) {
     yield call(getGenreList);
   }
 }

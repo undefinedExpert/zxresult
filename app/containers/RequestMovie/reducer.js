@@ -9,7 +9,10 @@ import { fromJS } from 'immutable';
 
 import { UPDATE_FILTERS } from 'containers/FilterForm/constants';
 
-import * as CONSTANT from './constants';
+import {
+  UPDATE_MOVIE_RESULT,
+  ANALYSE_MOVIE,
+  UPDATE_SINGLE_MOVIE } from './constants';
 
 
 const initialState = fromJS({
@@ -23,28 +26,28 @@ const initialState = fromJS({
 
 function resultReducer(state = initialState, action) {
   switch (action.type) {
-    case CONSTANT.UPDATE_MOVIE_RESULT.REQUEST:
+    case UPDATE_MOVIE_RESULT.REQUEST:
       return state
         .setIn(['isFetching'], true);
-    case CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS:
+    case UPDATE_MOVIE_RESULT.SUCCESS:
       return state
         .setIn(['active'], action.active)
         .setIn(['isFetching'], false);
-    case CONSTANT.UPDATE_MOVIE_RESULT.FAILURE:
+    case UPDATE_MOVIE_RESULT.FAILURE:
       return state
         .setIn(['noMoreResults'], true)
         .setIn(['isFetching'], false);
-    case CONSTANT.ANALYSE_MOVIE.REQUEST:
+    case ANALYSE_MOVIE.REQUEST:
       return state
         .setIn(['notSorted'], action.notSorted);
-    case CONSTANT.ANALYSE_MOVIE.SUCCESS:
+    case ANALYSE_MOVIE.SUCCESS:
       return state
         .setIn(['pending'], action.pending)
         .setIn(['isFetching'], false);
-    case CONSTANT.ANALYSE_MOVIE.FAILURE:
+    case ANALYSE_MOVIE.FAILURE:
       return state
         .setIn(['isFetching'], false);
-    case CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS:
+    case UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
         .setIn(['pending'], fromJS(action.removePending));
     case UPDATE_FILTERS.SUCCESS:

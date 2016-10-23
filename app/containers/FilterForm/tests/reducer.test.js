@@ -10,11 +10,7 @@ import { fromJS } from 'immutable';
 
 import filterFormReducer from '../reducer';
 import {
-  updateFilterGenre,
-  updateFilterDecade,
-  updateFilterTrend,
-  updateFilters,
-  cacheRandomizedPage } from '../actions';
+  updateFilterGenre } from '../actions';
 
 
 describe('filterFormReducer', () => {

@@ -10,7 +10,10 @@ import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects'
 
 import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
 
-import * as CONSTANT from './constants';
+import {
+  UPDATE_MOVIE_RESULT,
+  ANALYSE_MOVIE,
+  UPDATE_SINGLE_MOVIE } from './constants';
 import { selectResult } from './selectors';
 import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
 
@@ -109,31 +112,31 @@ export function* getUpdateUrl() {
 
 
 export function* getMovieWatcher() {
-  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST)) {
+  while (yield take(UPDATE_MOVIE_RESULT.REQUEST)) {
     yield call(getMovie);
   }
 }
 
 export function* getResultChangeWatcher() {
-  while (yield take(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS)) {
+  while (yield take(UPDATE_MOVIE_RESULT.SUCCESS)) {
     yield call(getUpdateUrl);
   }
 }
 
 export function* getAnalyseMovieWatcher() {
-  while (yield take(CONSTANT.ANALYSE_MOVIE.REQUEST)) {
+  while (yield take(ANALYSE_MOVIE.REQUEST)) {
     yield call(getAnalyseMovie);
   }
 }
 
 export function* getUpdateSingleMovieWatcher() {
-  while (yield take(CONSTANT.ANALYSE_MOVIE.SUCCESS)) {
+  while (yield take(ANALYSE_MOVIE.SUCCESS)) {
     yield call(pushSingleResult);
   }
 }
 
 export function* getUpdatePendingWatcher() {
-  while (yield take(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST)) {
+  while (yield take(UPDATE_SINGLE_MOVIE.REQUEST)) {
     yield call(pushSingleResult);
   }
 }
@@ -147,7 +150,7 @@ export function* getData() {
   const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
   const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
 
-  // Suspend execution until CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS
+  // Suspend execution until UPDATE_SINGLE_MOVIE.SUCCESS
   yield take(LOCATION_CHANGE);
   yield race([
     cancel(moviesWatcher),

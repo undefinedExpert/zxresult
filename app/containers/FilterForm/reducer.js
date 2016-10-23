@@ -7,7 +7,15 @@
 
 import { fromJS } from 'immutable';
 
-import * as CONSTANT from './constants';
+import {
+  FILTER_DECADE,
+  FILTER_TREND,
+  FILTER_TREND_LIST,
+  FILTER_GENRE,
+  FILTER_GENRE_LIST,
+  UPDATE_FILTERS,
+  CACHE_RANDOMIZED_PAGE } from './constants';
+
 
 
 const currentYear = new Date().getFullYear();
@@ -126,27 +134,27 @@ const initialState = fromJS({
 
 function filterFormReducer(state = initialState, action) {
   switch (action.type) {
-    case CONSTANT.FILTER_DECADE.REQUEST:
+    case FILTER_DECADE.REQUEST:
       return state
         .setIn(['decade', 'active'], action.value);
-    case CONSTANT.FILTER_TREND.REQUEST:
+    case FILTER_TREND.REQUEST:
       return state
         .setIn(['trend', 'active'], action.value);
-    case CONSTANT.FILTER_TREND_LIST.REQUEST:
+    case FILTER_TREND_LIST.REQUEST:
       return state
         .setIn(['trend', 'list'], action.value);
-    case CONSTANT.FILTER_GENRE.REQUEST:
+    case FILTER_GENRE.REQUEST:
       return state
         .setIn(['genre', 'active'], action.value);
-    case CONSTANT.FILTER_GENRE_LIST.SUCCESS:
+    case FILTER_GENRE_LIST.SUCCESS:
       return state
         .setIn(['genre', 'list'], action.value);
-    case CONSTANT.UPDATE_FILTERS.SUCCESS:
+    case UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['range', 'pages'], action.totalPages)
         .setIn(['range', 'results'], action.totalResults)
         .setIn(['range', 'pagesCache'], null);
-    case CONSTANT.CACHE_RANDOMIZED_PAGE.REQUEST:
+    case CACHE_RANDOMIZED_PAGE.REQUEST:
       return state
         .setIn(['range', 'pagesCache'], action.page);
     default:

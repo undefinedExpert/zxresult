@@ -7,7 +7,10 @@
 
 import { action } from 'utils/hooks';
 
-import * as CONSTANT from './constants';
+import {
+  UPDATE_MOVIE_RESULT,
+  ANALYSE_MOVIE,
+  UPDATE_SINGLE_MOVIE } from './constants';
 
 
 /**
@@ -17,9 +20,9 @@ import * as CONSTANT from './constants';
  * - Handles isFetching boolean
  */
 export const updateMovieResult = {
-  request: () => action(CONSTANT.UPDATE_MOVIE_RESULT.REQUEST, {}),
-  success: (active) => action(CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS, { active }),
-  failure: (error) => action(CONSTANT.UPDATE_MOVIE_RESULT.FAILURE, { error }),
+  request: () => action(UPDATE_MOVIE_RESULT.REQUEST, {}),
+  success: (active) => action(UPDATE_MOVIE_RESULT.SUCCESS, { active }),
+  failure: (error) => action(UPDATE_MOVIE_RESULT.FAILURE, { error }),
 };
 
 
@@ -28,9 +31,9 @@ export const updateMovieResult = {
  * - Analyse & rank movies, after process moves notSorted to pending list.
  */
 export const analyseMovies = {
-  request: (notSorted) => action(CONSTANT.ANALYSE_MOVIE.REQUEST, { notSorted }),
-  success: (pending) => action(CONSTANT.ANALYSE_MOVIE.SUCCESS, { pending }),
-  failure: (error) => action(CONSTANT.ANALYSE_MOVIE.FAILURE, { error }),
+  request: (notSorted) => action(ANALYSE_MOVIE.REQUEST, { notSorted }),
+  success: (pending) => action(ANALYSE_MOVIE.SUCCESS, { pending }),
+  failure: (error) => action(ANALYSE_MOVIE.FAILURE, { error }),
 };
 
 
@@ -40,7 +43,7 @@ export const analyseMovies = {
  * - After push removes it from pending list
  */
 export const updateSingleMovie = {
-  request: (active) => action(CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST, { active }),
-  success: (removePending) => action(CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS, { removePending }),
-  failure: (error) => action(CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE, { error }),
+  request: (active) => action(UPDATE_SINGLE_MOVIE.REQUEST, { active }),
+  success: (removePending) => action(UPDATE_SINGLE_MOVIE.SUCCESS, { removePending }),
+  failure: (error) => action(UPDATE_SINGLE_MOVIE.FAILURE, { error }),
 };
