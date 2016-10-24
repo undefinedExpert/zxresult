@@ -15,4 +15,7 @@ before_install:
 notifications:
   email:
     on_failure: change
+addons:
+    code_climate:
+        repo_token: a074dec0de24969db85c1b95c7872288bddd7bb19d2a87a7d71243c85f4ea4c0
 after_success: 'npm run coveralls'
