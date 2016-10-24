@@ -1,0 +1,42 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript:
+          mass_threshold: 200
+    exclude_paths:
+    - "**.test.js"
+  eslint:
+    enabled: true
+    config:
+      config: .eslintrc.js
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - TODO
+      - BUG
+  markdownlint:
+    enabled: false
+  nodesecurity:
+    enabled: false
+  requiresafe:
+    enabled: false
+  scss-lint:
+    enabled: false
+  shellcheck:
+    enabled: true
+ratings:
+  paths:
+  - "**.inc"
+  - "**.es6"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+exclude_paths:
+- node_modules/
+- .codeclimate.yml
+- .idea/
+- app/assets/

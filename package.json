@@ -29,7 +29,7 @@
     "clean": "shjs ./internals/scripts/clean.js",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "npm run lint:js && npm run lint:css",
-    "lint:js": "eslint . --ignore-path .gitignore --ignore-pattern internals/scripts",
+    "lint:js": "eslint . --ignore-path .gitignore --ignore-pattern internals/scripts -c .eslintrc.js ",
     "lint:css": "stylelint ./app/**/*.css",
     "lint:staged": "lint-staged",
     "pretest": "npm run lint",
@@ -76,10 +76,7 @@
       "max-len": 0,
       "import/no-unresolved": 0,
       "camelcase": 2,
-      "brace-style": [
-        "error",
-        "stroustrup"
-      ]
+      "brace-style": 0
     },
     "settings": {
       "import/resolver": {
