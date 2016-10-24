@@ -40,4 +40,5 @@ exclude_paths:
 - .codeclimate.yml
 - .idea/
 - app/assets/
+- internals/
 - .eslintrc.js
