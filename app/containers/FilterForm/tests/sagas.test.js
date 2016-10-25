@@ -3,15 +3,14 @@
  */
 
 import { expect } from 'chai';
-// import { takeLatest } from 'redux-saga';
-// import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put, take } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
+import { call, put, take, fork, cancel, race } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
 
 import { updateFilterGenre, updateFilters } from '../actions';
 import { FILTER_GENRE_LIST, UPDATE_FILTERS } from '../constants';
-import { getGenreList, handleUpdateFilters, getUpdateFiltersWatcher, getGenresListWatcher } from '../sagas';
+import { getGenreList, handleUpdateFilters, getUpdateFiltersWatcher, getGenresListWatcher, getMovieSagas } from '../sagas';
 
 
 describe('FilterForm saga handlers', () => {
@@ -113,5 +112,46 @@ describe('FilterForm saga watchers', () => {
       const operationCall = call(handleUpdateFilters);
       expect(taskCall).to.be.eql(operationCall);
     });
+  });
+});
+
+describe('getMovieSagas Saga', () => {
+  const movieSagas = getMovieSagas();
+  let forkedGetGenresList;
+  let forkedGetUpdateFilters;
+
+  it('should asynchronously fork getGenresListWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getGenresListWatcher);
+    forkedGetGenresList = operation;
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork getUpdateFiltersWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getUpdateFiltersWatcher);
+    forkedGetUpdateFilters = operation;
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should yield until LOCATION_CHANGE action', () => {
+    const task = movieSagas.next();
+    const operation = take(LOCATION_CHANGE);
+
+    expect(task.value).to.be.eql(operation);
+  });
+  //
+  it('should finally race() with cancel() the forked getGenresListWatcher && getUpdateFiltersWatcher saga', () => {
+    // const forkedOperations = forked.forEach((item) => cancel.bind(undefined, item));
+    function* githubDataSagaCancellable() {
+      // reuse open fork for more integrated approach
+      forkDescriptor = githubDataSaga.next(put(LOCATION_CHANGE));
+      const task = movieSagas.next();
+      const operation = race([cancel(forkedGetGenresList), cancel(forkedGetUpdateFilters)]);
+
+      expect(task).to.be.eql('test');
+    }
   });
 });
