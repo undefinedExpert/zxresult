@@ -142,16 +142,4 @@ describe('getMovieSagas Saga', () => {
 
     expect(task.value).to.be.eql(operation);
   });
-  //
-  it('should finally race() with cancel() the forked getGenresListWatcher && getUpdateFiltersWatcher saga', () => {
-    // const forkedOperations = forked.forEach((item) => cancel.bind(undefined, item));
-    function* githubDataSagaCancellable() {
-      // reuse open fork for more integrated approach
-      forkDescriptor = githubDataSaga.next(put(LOCATION_CHANGE));
-      const task = movieSagas.next();
-      const operation = race([cancel(forkedGetGenresList), cancel(forkedGetUpdateFilters)]);
-
-      expect(task).to.be.eql('test');
-    }
-  });
 });
