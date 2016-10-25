@@ -4,7 +4,7 @@
 
 import { expect } from 'chai';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put, take, fork, cancel, race } from 'redux-saga/effects';
+import { call, put, take, fork } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
 
@@ -117,13 +117,10 @@ describe('FilterForm saga watchers', () => {
 
 describe('getMovieSagas Saga', () => {
   const movieSagas = getMovieSagas();
-  let forkedGetGenresList;
-  let forkedGetUpdateFilters;
 
   it('should asynchronously fork getGenresListWatcher saga', () => {
     const task = movieSagas.next();
     const operation = fork(getGenresListWatcher);
-    forkedGetGenresList = operation;
 
     expect(task.value).to.be.eql(operation);
   });
@@ -131,7 +128,6 @@ describe('getMovieSagas Saga', () => {
   it('should asynchronously fork getUpdateFiltersWatcher saga', () => {
     const task = movieSagas.next();
     const operation = fork(getUpdateFiltersWatcher);
-    forkedGetUpdateFilters = operation;
 
     expect(task.value).to.be.eql(operation);
   });
