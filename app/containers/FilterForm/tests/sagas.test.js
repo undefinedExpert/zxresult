@@ -5,46 +5,113 @@
 import { expect } from 'chai';
 // import { takeLatest } from 'redux-saga';
 // import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
 
-import { updateFilterGenre } from '../actions';
-import { getGenreList } from '../sagas';
+import { updateFilterGenre, updateFilters } from '../actions';
+import { FILTER_GENRE_LIST, UPDATE_FILTERS } from '../constants';
+import { getGenreList, handleUpdateFilters, getUpdateFiltersWatcher, getGenresListWatcher } from '../sagas';
 
-describe('getGenreList Saga', () => {
-  let generator;
-  beforeEach(() => {
-    generator = getGenreList();
 
-    const task = generator.next().value;
-    const operation = call(callApi, '/genre/movie/list', {}, false);
-    expect(task).to.eql(operation);
+describe('FilterForm saga handlers', () => {
+  describe('getGenreList Saga', () => {
+    let generator;
+    beforeEach(() => {
+      generator = getGenreList();
+
+      const task = generator.next().value;
+      const operation = call(callApi, '/genre/movie/list', {}, false);
+      expect(task).to.eql(operation);
+    });
+
+    it('Should handle success action', () => {
+      const result = {
+        data: {
+          genres: [
+            {
+              name: 'Sample genre',
+            },
+            {
+              name: 'Sample genre',
+            },
+          ],
+        },
+      };
+      const task = generator.next(result).value;
+      const operation = put(updateFilterGenre.list.success(result.data.genres));
+
+      expect(task).to.eql(operation);
+    });
+
+    it('Should handle error action', () => {
+      const error = new Error;
+      const operation = put(updateFilterGenre.list.failure(error));
+
+      expect(generator.next(error).value).to.be.eql(operation);
+    });
   });
 
-  it('Should handle success action', () => {
-    const result = {
-      data: {
-        genres: [
-          {
-            name: 'Sample genre',
-          },
-          {
-            name: 'Sample genre',
-          },
-        ],
-      },
-    };
-    const task = generator.next(result).value;
-    const operation = put(updateFilterGenre.list.success(result.data.genres));
+  describe('handleUpdateFilters Saga', () => {
+    let generator;
+    beforeEach(() => {
+      generator = handleUpdateFilters();
 
-    expect(task).to.eql(operation);
+      const task = generator.next().value;
+      const operation = call(callApi, '/discover/movie', { page: 1000 });
+      expect(task).to.eql(operation);
+    });
+
+    it('Should handle success action', () => {
+      const result = {
+        data: {
+          total_pages: 5,
+          total_results: 10,
+        },
+      };
+      const task = generator.next(result).value;
+      const operation = put(updateFilters.success(result.data.total_pages, result.data.total_results));
+
+      expect(task).to.eql(operation);
+    });
+
+    it('Should handle error action', () => {
+      const error = new Error;
+      const operation = put(updateFilters.failure(error));
+
+      expect(generator.next(error).value).to.be.eql(operation);
+    });
+  });
+});
+
+describe('FilterForm saga watchers', () => {
+  describe('getGenreList Watcher', () => {
+    const generator = getGenresListWatcher();
+    const constant = FILTER_GENRE_LIST.REQUEST;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(getGenreList);
+      expect(taskCall).to.be.eql(operationCall);
+    });
   });
 
-  it('Should handle error action', () => {
-    const error = new Error;
-    const operation = put(updateFilterGenre.list.failure(error));
+  describe('handleUpdateFilters Watcher', () => {
+    const generator = getUpdateFiltersWatcher();
+    const constant = UPDATE_FILTERS.REQUEST;
 
-    expect(generator.next(error).value).to.be.eql(operation);
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(handleUpdateFilters);
+      expect(taskCall).to.be.eql(operationCall);
+    });
   });
 });
