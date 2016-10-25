@@ -5,8 +5,8 @@
  *  3. Module
  */
 
-import { fromJS } from 'immutable';
 import { expect } from 'chai';
+import { fromJS } from 'immutable';
 
 import { selectLocationState } from './../selectors';
 

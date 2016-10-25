@@ -19,7 +19,7 @@ import { FILTER_GENRE_LIST, UPDATE_FILTERS } from './constants';
  * @desc Gets current genre list from API using xhr request
  */
 export function* getGenreList() {
-  const { data } = yield callApi('/genre/movie/list', {}, false);
+  const { data } = yield call(callApi, '/genre/movie/list', {}, false);
   try {
     yield put(updateFilterGenre.list.success(data.genres));
   }

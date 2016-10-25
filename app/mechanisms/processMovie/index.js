@@ -33,7 +33,7 @@ export function* processMovieAnalyse() {
  * - if we don't contain page we decide to push items from pending list until last item
  * - return null, cause we don't have any movie left.
  *
- * TODO: Make something when there is no cache, and we does not contain any 'page' to download
+ * TODO: Make something when there is no cache, and we do not contain any 'page' to download
  * TODO: remove debugging information
  */
 export function* detectPending() {
