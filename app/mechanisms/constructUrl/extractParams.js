@@ -17,13 +17,13 @@ import { each, omit, omitBy, isNil, pick } from 'lodash';
  * @return {object} - Return value and it's ref as an object
  */
 const cleanBy = (active, apiRef) => {
-  const activeMinusNull = omit(active, 'name');
-  const activeMinusNullMinusName = omitBy(activeMinusNull, isNil);
+  const activeMinusName = omit(active, 'name');
+  const activeMinusNameMinusNull = omitBy(activeMinusName, isNil);
 
-  const activeKeys = Object.keys(activeMinusNullMinusName);
+  const activeKeys = Object.keys(activeMinusNameMinusNull);
   const cleanedByActive = pick(apiRef, activeKeys);
 
-  return { value: activeMinusNullMinusName, ref: cleanedByActive };
+  return { value: activeMinusNameMinusNull, ref: cleanedByActive };
 };
 
 
