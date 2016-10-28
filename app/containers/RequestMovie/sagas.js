@@ -143,7 +143,7 @@ export function* getUpdatePendingWatcher() {
 }
 
 
-export function* getData() {
+export function* getRequestSagas() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
   const updateUrl = yield fork(getResultChangeWatcher);
@@ -168,5 +168,5 @@ export function* getData() {
 
 // Bootstrap sagas
 export default [
-  getData,
+  getRequestSagas,
 ];

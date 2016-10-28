@@ -6,18 +6,34 @@
  */
 
 import { expect } from 'chai';
-// import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put, select } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
+import { call, put, select, take, fork } from 'redux-saga/effects';
 
 import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
 
 import { analyseMovies, updateSingleMovie, updateMovieResult } from '../actions';
 
+import {
+  UPDATE_MOVIE_RESULT,
+  ANALYSE_MOVIE,
+  UPDATE_SINGLE_MOVIE,
+} from '../constants';
+import {
+  getMovie,
+  getAnalyseMovie,
+  pushSingleResult,
+  getUpdateUrl,
+  getMovieWatcher,
+  getResultChangeWatcher,
+  getAnalyseMovieWatcher,
+  getUpdateSingleMovieWatcher,
+  getUpdatePendingWatcher,
+  getRequestSagas,
+} from '../sagas';
 import { selectResult } from '../selectors';
-import { getMovie, getAnalyseMovie, pushSingleResult } from '../sagas';
 
 
-describe('FilterForm saga handlers', () => {
+describe('RequestMovie saga handlers', () => {
   describe('getMovie Saga', () => {
     let globalGenerator;
 
@@ -79,7 +95,6 @@ describe('FilterForm saga handlers', () => {
       // FIXME: create test for handling error
     });
   });
-
   describe('pushSingleResult Saga', () => {
     let generator;
 
@@ -112,3 +127,128 @@ describe('FilterForm saga handlers', () => {
     });
   });
 });
+
+describe('RequestMovie saga watchers', () => {
+  describe('getMovieWatcher Watcher', () => {
+    const generator = getMovieWatcher();
+    const constant = UPDATE_MOVIE_RESULT.REQUEST;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(getMovie);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+  describe('getResultChangeWatcher Watcher', () => {
+    const generator = getResultChangeWatcher();
+    const constant = UPDATE_MOVIE_RESULT.SUCCESS;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(getUpdateUrl);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+  describe('getAnalyseMovieWatcher Watcher', () => {
+    const generator = getAnalyseMovieWatcher();
+    const constant = ANALYSE_MOVIE.REQUEST;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(getAnalyseMovie);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+  describe('getUpdateSingleMovieWatcher Watcher', () => {
+    const generator = getUpdateSingleMovieWatcher();
+    const constant = ANALYSE_MOVIE.SUCCESS;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(pushSingleResult);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+  describe('getUpdatePendingWatcher Watcher', () => {
+    const generator = getUpdatePendingWatcher();
+    const constant = UPDATE_SINGLE_MOVIE.REQUEST;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(pushSingleResult);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+});
+
+describe('getMovieSagas Saga', () => {
+  const movieSagas = getRequestSagas();
+
+  it('should asynchronously fork moviesWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getMovieWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork updateUrl saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getResultChangeWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork analyseMovieWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getAnalyseMovieWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork getUpdateSingleMovieWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getUpdateSingleMovieWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork getUpdatePendingWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getUpdatePendingWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should yield until LOCATION_CHANGE action', () => {
+    const task = movieSagas.next();
+    const operation = take(LOCATION_CHANGE);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('Should race and cancel forks', () => {
+    // TODO: Make a working test
+    console.warn('TODO');
+  });
+});
+
