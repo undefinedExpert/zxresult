@@ -33,12 +33,12 @@ export function* getGenreList() {
  * handleUpdateFilters
  * @desc Updates filters and current range of using API call,
  * 1000 page is mostly empty that's why we hardcoded it to call only on that page
- * @TODO: Remove log, it appears in tests logs
+ * @TODO: Remove log, it appears in tests results
  */
 export function* handleUpdateFilters() {
   const { data } = yield call(callApi, '/discover/movie', { page: 1000 });
   try {
-    console.log(`\nTotal pages: ${data.total_pages}`, '\n', `Total results: ${data.total_results}`);
+    // console.log(`\nTotal pages: ${data.total_pages}`, '\n', `Total results: ${data.total_results}`);
     yield put(updateFilters.success(data.total_pages, data.total_results));
   }
   catch (err) {
@@ -83,7 +83,7 @@ export function* getMovieSagas() {
   const getGenresList = yield fork(getGenresListWatcher);
   const getUpdateFilters = yield fork(getUpdateFiltersWatcher);
 
-  // Suspend execution until location changes
+  // Suspend execution until location change
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
   // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
   // we just get new data.

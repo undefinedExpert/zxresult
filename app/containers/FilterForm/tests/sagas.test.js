@@ -138,4 +138,9 @@ describe('getMovieSagas Saga', () => {
 
     expect(task.value).to.be.eql(operation);
   });
+
+  it('Should race and cancel getUpdateFilters & getGenresList watchers', () => {
+    // TODO: Make a working test
+    console.warn('TODO');
+  });
 });

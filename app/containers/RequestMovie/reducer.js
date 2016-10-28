@@ -10,8 +10,8 @@ import { fromJS } from 'immutable';
 import { UPDATE_FILTERS } from 'containers/FilterForm/constants';
 
 import {
-  UPDATE_MOVIE_RESULT,
   ANALYSE_MOVIE,
+  UPDATE_MOVIE_RESULT,
   UPDATE_SINGLE_MOVIE } from './constants';
 
 
