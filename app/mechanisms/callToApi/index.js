@@ -23,7 +23,7 @@ import constructUrl from 'mechanisms/constructUrl';
  * - if we need randomPage
  */
 export default function* callToApi(endPoint, higherParams = {}, withParams) {
-  const url = yield constructUrl(endPoint, higherParams, withParams);
+  const url = yield call(constructUrl, endPoint, higherParams, withParams);
 
-  return yield call(request, url);
+  yield call(request, url);
 }
