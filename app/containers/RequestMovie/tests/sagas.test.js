@@ -82,12 +82,29 @@ describe('FilterForm saga handlers', () => {
 
   describe('pushSingleResult Saga', () => {
     let generator;
-    it('Should handle success action', () => {
+
+
+    it('Should select pending list, take first element, push it to the result and remove it from pending list, finally update the store with new pending list', () => {
       generator = pushSingleResult();
 
-      const task = generator.next().value;
-      const operation = select(selectResult());
-      expect(task).expectEqual(operation);
+      const taskSelect = generator.next().value;
+      const operationSelect = select(selectResult());
+      expect(taskSelect).expectEqual(operationSelect);
+
+      const pending = [{}, {}];
+      const singlePending = pending[0];
+      const taskPut = generator.next({ pending }).value;
+      const operationPut = put(updateMovieResult.success(singlePending));
+      expect(taskPut).to.be.eql(operationPut);
+
+      const taskRemove = generator.next().value;
+      const operationRemove = call(pending.slice, 1);
+      expect(taskRemove).to.be.eql(operationRemove);
+
+      const newPending = pending.slice(1);
+      const taskUpdatePending = generator.next(newPending).value;
+      const operationUpdatePending = put(updateSingleMovie.success(newPending));
+      expect(taskUpdatePending).to.be.eql(operationUpdatePending);
     });
 
     it('Should handle error action', () => {
