@@ -23,12 +23,12 @@ import { updateMovieResult } from './actions';
 export class RequestMovie extends Component { // eslint-disable-line react/prefer-stateless-function
 
   updateAndRoute = () => {
-    if (this.props.result.isFetching) return;
+    if (this.props.isFetching) return;
     this.props.movieUpdate();
   };
 
   fetchFunc = () => {
-    const isFetching = this.props.result.isFetching;
+    const isFetching = this.props.isFetching;
     if (isFetching) {
       return (
         <h4>Loading...</h4>
@@ -38,7 +38,7 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
   };
 
   noMoreResults = () => {
-    const noMoreResults = this.props.result.noMoreResults;
+    const noMoreResults = this.props.noMoreResults;
     if (noMoreResults) {
       return (
         <h4>No more results</h4>
@@ -64,17 +64,15 @@ RequestMovie.propTypes = {
   result: ptype.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-  result: createSelector(
-    selectResult(),
-    createStructuredSelector({
-      isFetching: (state) => state.isFetching,
-      noMoreResults: (state) => state.noMoreResults,
-      movie: (state) => state.movie,
-      movies: (state) => state.movies,
-    }),
-  ),
-});
+const mapStateToProps = createSelector(
+  selectResult(),
+  createStructuredSelector({
+    isFetching: ({ isFetching }) => isFetching,
+    noMoreResults: ({ noMoreResults }) => noMoreResults,
+    movie: ({ movie }) => movie,
+    movies: ({ movies }) => movies,
+  }),
+);
 
 function mapDispatchToProps(dispatch) {
   return {
