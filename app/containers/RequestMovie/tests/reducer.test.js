@@ -5,171 +5,99 @@
  *  3. Module
  */
 
-// import { expect } from 'chai';
-// import { fromJS } from 'immutable';
-//
-// import {
-//   updateFilterGenre,
-//   updateFilterDecade,
-//   updateFilterTrend,
-//   updateFilters,
-//   cacheRandomizedPage } from '../actions';
-// import filterFormReducer from '../reducer';
+import { expect } from 'chai';
+import { fromJS } from 'immutable';
+
+import { updateFilters } from 'containers/FilterForm/actions';
+
+import {
+  analyseMovies,
+  updateMovieResult,
+  updateSingleMovie } from '../actions';
+import requestMovieReducer from '../reducer';
 
 
 describe('requestMovieReducer', () => {
-  // let state;
-  // const currentYear = new Date().getFullYear();
-  // beforeEach(() => {
-  //   state = fromJS({
-  //     sentence: 'ohio',
-  //     trend: fromJS({
-  //       active: fromJS({
-  //         name: 'Popular',
-  //         voteAverageMin: null,
-  //         voteAverageMax: null,
-  //         voteCountMin: 300,
-  //         voteCountMax: null,
-  //       }),
-  //       list: fromJS([
-  //         fromJS({
-  //           name: 'Highly rated',
-  //           voteAverageMin: 6.5,
-  //           voteAverageMax: 10,
-  //           voteCountMin: 70,
-  //           voteCountMax: null,
-  //         }),
-  //         fromJS({
-  //           name: 'Popular',
-  //           voteAverageMin: null,
-  //           voteAverageMax: null,
-  //           voteCountMin: 300,
-  //           voteCountMax: null,
-  //         }),
-  //         fromJS({
-  //           name: 'Most Popular',
-  //           voteAverageMin: null,
-  //           voteAverageMax: null,
-  //           voteCountMin: 700,
-  //           voteCountMax: null,
-  //         }),
-  //         fromJS({
-  //           name: 'Underestimated',
-  //           voteAverageMin: 7,
-  //           voteAverageMax: 10,
-  //           voteCountMin: 50,
-  //           voteCountMax: 200,
-  //         }),
-  //       ]),
-  //       apiRef: fromJS({
-  //         voteAverageMin: 'vote_average.gte',
-  //         voteAverageMax: 'vote_average.lte',
-  //         voteCountMax: 'vote_count.lte',
-  //         voteCountMin: 'vote_count.gte',
-  //       }),
-  //     }),
-  //     decade: fromJS({
-  //       active: fromJS({
-  //         name: '1970s',
-  //         dateMin: '1970-01-01',
-  //         dateMax: '1979-01-01',
-  //       }),
-  //       list: fromJS([
-  //         fromJS({
-  //           name: '2010s',
-  //           dateMin: '2010-01-01',
-  //           dateMax: `${currentYear}-01-01`,
-  //         }),
-  //         fromJS({
-  //           name: '2000s',
-  //           dateMin: '2000-01-01',
-  //           dateMax: '2009-01-01',
-  //         }),
-  //         fromJS({
-  //           name: '1990s',
-  //           dateMin: '1990-01-01',
-  //           dateMax: '1999-01-01',
-  //         }),
-  //         fromJS({
-  //           name: '1980s',
-  //           dateMin: '1980-01-01',
-  //           dateMax: '1989-01-01',
-  //         }),
-  //         fromJS({
-  //           name: '1970s',
-  //           dateMin: '1970-01-01',
-  //           dateMax: '1979-01-01',
-  //         }),
-  //         fromJS({
-  //           name: '1960s',
-  //           dateMin: '1960-01-01',
-  //           dateMax: '1969-01-01',
-  //         }),
-  //         fromJS({
-  //           name: 'Older',
-  //           dateMin: '1900-01-01',
-  //           dateMax: '1959-01-01',
-  //         }),
-  //       ]),
-  //       apiRef: fromJS({
-  //         dateMin: 'primary_release_date.gte',
-  //         dateMax: 'primary_release_date.lte',
-  //       }),
-  //     }),
-  //     genre: fromJS({
-  //       active: fromJS({
-  //         id: 16,
-  //         name: 'Animation',
-  //       }),
-  //       list: fromJS([]),
-  //       apiRef: fromJS({
-  //         id: 'with_genres',
-  //       }),
-  //     }),
-  //     range: fromJS({
-  //       pages: 0,
-  //       pagesCache: null,
-  //       results: 0,
-  //     }),
-  //   });
-  // });
+  let state;
+  beforeEach(() => {
+    state = fromJS({
+      active: fromJS(null),
+      notSorted: fromJS([]), // Freshly downloaded, before moved to pending need to be analysed.
+      pending: fromJS([]),
+      cache: fromJS([]),
+      noMoreResults: false,
+      isFetching: false,
+    });
+  });
 
-  // it('returns the initial state', () => {
-  //   expect(filterFormReducer(undefined, {})).to.eql(state);
-  // });
+  it('returns the initial state', () => {
+    expect(requestMovieReducer(undefined, {})).to.eql(state);
+  });
 
-  // it('should handle the updateMovieResult action', () => {
-  //   const movie = {};
-  //   const movies = [{}, {}];
-  //   const expectedResult = state
-  //     .setIn(['result', 'movie'], movie)
-  //     .setIn(['result', 'movies'], movies)
-  //     .setIn(['result', 'isFetching'], false);
-  //
-  //   expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult);
-  // });
-  //
-  // it('should handle the updateMovieResult action', () => {
-  //   const movie = {};
-  //   const movies = [{}, {}];
-  //   const expectedResult = {
-  //     request: state
-  //       .setIn(['result', 'isFetching'], true),
-  //     success: state
-  //       .setIn(['result', 'movie'], movie)
-  //       .setIn(['result', 'movies'], movies)
-  //       .setIn(['result', 'isFetching'], false),
-  //   };
-  //
-  //   expect(appReducer(state, updateMovieResult.request(movies, movie))).to.eql(expectedResult.request);
-  //   expect(appReducer(state, updateMovieResult.success(movies, movie))).to.eql(expectedResult.success);
-  // });
-  //
-  // it('should handle the updateFilters action', () => {
-  //   const fixture = 1;
-  //   const expectedResult = state
-  //     .setIn(['result', 'resultsRange'], fixture);
-  //
-  //   expect(appReducer(state, updateFilters.success(fixture))).to.eql(expectedResult);
-  // });
+  it('should handle the UPDATE_MOVIE_RESULT.REQUEST', () => {
+    const fixture = true;
+    const expected = state.setIn(['isFetching'], fixture);
+    expect(requestMovieReducer(state, updateMovieResult.request(fixture))).to.eql(expected);
+  });
+
+  it('should handle the UPDATE_MOVIE_RESULT.SUCCESS', () => {
+    const fixtureActive = fromJS({});
+    const fixtureIsFetching = false;
+
+    const expected = state
+      .setIn(['active'], fixtureActive)
+      .setIn(['isFetching'], fixtureIsFetching);
+    expect(requestMovieReducer(state, updateMovieResult.success(fixtureActive))).to.eql(expected);
+  });
+
+  it('should handle the UPDATE_MOVIE_RESULT.FAILURE', () => {
+    const fixtureNoMoreResults = true;
+    const fixtureIsFetching = false;
+
+    const expected = state
+      .setIn(['noMoreResults'], fixtureNoMoreResults)
+      .setIn(['isFetching'], fixtureIsFetching);
+    expect(requestMovieReducer(state, updateMovieResult.failure())).to.eql(expected);
+  });
+
+  it('should handle the ANALYSE_MOVIE.REQUEST', () => {
+    const fixture = fromJS([]);
+
+    const expected = state.setIn(['notSorted'], fixture);
+    expect(requestMovieReducer(state, analyseMovies.request(fixture))).to.eql(expected);
+  });
+
+  it('should handle the ANALYSE_MOVIE.SUCCESS', () => {
+    const fixturePending = fromJS([]);
+    const fixtureIsFetching = false;
+
+    const expected = state
+      .setIn(['pending'], fixturePending)
+      .setIn(['isFetching'], fixtureIsFetching);
+    expect(requestMovieReducer(state, analyseMovies.success(fixturePending))).to.eql(expected);
+  });
+
+  it('should handle the ANALYSE_MOVIE.FAILURE', () => {
+    const fixture = false;
+
+    const expected = state.setIn(['isFetching'], fixture);
+    expect(requestMovieReducer(state, analyseMovies.failure(fixture))).to.eql(expected);
+  });
+
+  it('should handle the UPDATE_SINGLE_MOVIE.SUCCESS', () => {
+    const fixture = fromJS([]);
+
+    const expected = state.setIn(['pending'], fixture);
+    expect(requestMovieReducer(state, updateSingleMovie.success(fixture))).to.eql(expected);
+  });
+
+  it('should handle the UPDATE_FILTERS.SUCCESS', () => {
+    const fixtureNoMoreResults = false;
+    const fixturePending = fromJS([]);
+
+    const expected = state
+      .setIn(['noMoreResults'], fixtureNoMoreResults)
+      .setIn(['pending'], fixturePending);
+    expect(requestMovieReducer(state, updateFilters.success())).to.eql(expected);
+  });
 });

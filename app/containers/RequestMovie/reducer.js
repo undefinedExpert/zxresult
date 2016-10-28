@@ -31,7 +31,7 @@ function requestMovieReducer(state = initialState, action) {
         .setIn(['isFetching'], true);
     case UPDATE_MOVIE_RESULT.SUCCESS:
       return state
-        .setIn(['active'], action.active)
+        .setIn(['active'], fromJS(action.active))
         .setIn(['isFetching'], false);
     case UPDATE_MOVIE_RESULT.FAILURE:
       return state
@@ -39,7 +39,7 @@ function requestMovieReducer(state = initialState, action) {
         .setIn(['isFetching'], false);
     case ANALYSE_MOVIE.REQUEST:
       return state
-        .setIn(['notSorted'], action.notSorted);
+        .setIn(['notSorted'], fromJS(action.notSorted));
     case ANALYSE_MOVIE.SUCCESS:
       return state
         .setIn(['pending'], action.pending)
