@@ -6,19 +6,22 @@
  */
 
 import { expect } from 'chai';
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put, take, fork } from 'redux-saga/effects';
+// import { LOCATION_CHANGE } from 'react-router-redux';
+import { call, put, select } from 'redux-saga/effects';
 
-import { detectPending, callApi } from 'mechanisms/index';
+import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
 
 import { analyseMovies, updateSingleMovie, updateMovieResult } from '../actions';
 
-import { getMovie } from '../sagas';
+import { selectResult } from '../selectors';
+import { getMovie, getAnalyseMovie, pushSingleResult } from '../sagas';
 
 
 describe('FilterForm saga handlers', () => {
   describe('getMovie Saga', () => {
     let globalGenerator;
+
+    // detectPending might return false, true, null
     beforeEach(() => {
       globalGenerator = getMovie();
       const taskPending = globalGenerator.next().value;
@@ -53,6 +56,42 @@ describe('FilterForm saga handlers', () => {
       const taskPushPending = generator.next(null).value;
       const operationPushPending = put(updateMovieResult.failure('no movies'));
       expect(taskPushPending).to.be.eql(operationPushPending);
+    });
+  });
+  describe('getAnalyseMovie Saga', () => {
+    let generator;
+    beforeEach(() => {
+      generator = getAnalyseMovie();
+
+      const taskAnalyse = generator.next().value;
+      const operationAnalyse = call(movieAnalyse);
+      expect(taskAnalyse).to.eql(operationAnalyse);
+    });
+
+    it('Should handle success action', () => {
+      const analyzed = [];
+      const task = generator.next(analyzed).value;
+      const operation = put(analyseMovies.success(analyzed));
+      expect(task).to.be.eql(operation);
+    });
+
+    it('Should handle error action', () => {
+      // FIXME: create test for handling error
+    });
+  });
+
+  describe('pushSingleResult Saga', () => {
+    let generator;
+    it('Should handle success action', () => {
+      generator = pushSingleResult();
+
+      const task = generator.next().value;
+      const operation = select(selectResult());
+      expect(task).expectEqual(operation);
+    });
+
+    it('Should handle error action', () => {
+      // FIXME: create test for handling error
     });
   });
 });

@@ -5,8 +5,9 @@ import 'babel-polyfill';
 import sinon from 'sinon';
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-
+import { expectEqual } from './chai-expectEqual';
 chai.use(chaiEnzyme());
+chai.use(expectEqual);
 
 global.chai = chai;
 global.sinon = sinon;

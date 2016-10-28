@@ -48,12 +48,12 @@ export function* getMovie() {
  * @desc Analyse & rank movies
  */
 export function* getAnalyseMovie() {
-  const analyzed = yield movieAnalyse();
+  const analyzed = yield call(movieAnalyse);
   try {
     yield put(analyseMovies.success(analyzed));
   }
-  catch (err) {
-    yield put(analyseMovies.failure(err));
+  catch (error) {
+    yield put(analyseMovies.failure(error));
   }
 }
 
