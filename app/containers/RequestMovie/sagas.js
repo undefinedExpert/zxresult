@@ -74,7 +74,7 @@ export function* pushSingleResult() {
   }
 
   // Reduce pending movies by item user just take
-  const newPending = yield call(pending.slice, 1);
+  const newPending = pending.slice(1);
   try {
     yield put(updateSingleMovie.success(newPending));
   }
