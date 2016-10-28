@@ -22,17 +22,19 @@ import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
  * getMovie
  * @desc Detects if user will get movies from pending list,
  * or we call to an API for a 20 fresh results.
+ * TODO: Remove detectPending into separate mechanism "Getting movie"
+ * TODO: Refactor error handling
  */
 export function* getMovie() {
-  const detected = yield detectPending();
-  const { data } = detected === false ? yield callApi('/discover/movie') : false;
+  const detected = yield call(detectPending);
+  const { data } = detected === false ? yield call(callApi, '/discover/movie') : false;
 
   if (data) {
-    yield console.info('Page downloaded.');
+    console.info('Page downloaded.');
     yield put(analyseMovies.request(data.results));
   }
   else if (detected === true) {
-    yield console.info('Pending Pushed.');
+    console.info('Pending Pushed.');
     yield put(updateSingleMovie.request());
   }
   else {
@@ -87,7 +89,6 @@ export function* pushSingleResult() {
  * @desc Move user into result sub-page when result is set
  */
 export function* getUpdateUrl() {
-  // TODO: Refactor, turn it on
   yield put(push('/result'));
 }
 
