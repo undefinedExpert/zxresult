@@ -36,7 +36,20 @@ describe('<RequestMovie />', () => {
     ).shallow();
   });
 
-  it('Should contain SelectList Component', () => {
-    expect(renderComponent.debug()).to.have.length(1);
+  it('Should contain Button', () => {
+    const expected = renderComponent.find('Button');
+    expect(expected).to.have.length(1);
+  });
+
+  it('Should render "loading" message', () => {
+    const modifiedComponent = renderComponent.setProps({ isFetching: true });
+    const expected = modifiedComponent.contains(<h4>Loading...</h4>);
+    expect(expected).to.eql(true);
+  });
+
+  it('Should render "no more results" message', () => {
+    const modifiedComponent = renderComponent.setProps({ noMoreResults: true });
+    const expected = modifiedComponent.contains(<h4>No more results</h4>);
+    expect(expected).to.eql(true);
   });
 });

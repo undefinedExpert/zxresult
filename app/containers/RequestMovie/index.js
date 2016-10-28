@@ -7,12 +7,10 @@
 
 import { connect } from 'react-redux';
 import React, { PropTypes as ptype, Component } from 'react';
-import { createStructuredSelector, createSelector } from 'reselect';
 
 import Button from 'components/general/Button';
 
-import { selectResult } from './selectors';
-import { updateMovieResult } from './actions';
+import { mapDispatch, mapState } from './mapProps';
 
 
 /**
@@ -60,24 +58,11 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
 RequestMovie.propTypes = {
   isFetching: ptype.bool,
   movieUpdate: ptype.func,
-  fetching: ptype.bool,
-  result: ptype.object,
+  noMoreResults: ptype.bool,
 };
 
-const mapStateToProps = createSelector(
-  selectResult(),
-  createStructuredSelector({
-    isFetching: ({ isFetching }) => isFetching,
-    noMoreResults: ({ noMoreResults }) => noMoreResults,
-    movie: ({ movie }) => movie,
-    movies: ({ movies }) => movies,
-  }),
-);
+const mapStateToProps = mapState();
 
-function mapDispatchToProps(dispatch) {
-  return {
-    movieUpdate: () => dispatch(updateMovieResult.request()),
-    dispatch,
-  };
-}
+const mapDispatchToProps = (dispatch) => mapDispatch(dispatch);
+
 export default connect(mapStateToProps, mapDispatchToProps)(RequestMovie);
