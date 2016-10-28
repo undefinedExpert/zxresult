@@ -33,5 +33,3 @@ describe('callToApi Mechanism', () => {
     expect(task).to.be.eql(operation);
   });
 });
-
-
