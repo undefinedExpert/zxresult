@@ -25,5 +25,5 @@ import constructUrl from 'mechanisms/constructUrl';
 export default function* callToApi(endPoint, higherParams = {}, withParams) {
   const url = yield call(constructUrl, endPoint, higherParams, withParams);
 
-  yield call(request, url);
+  return yield call(request, url);
 }
