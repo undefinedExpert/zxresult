@@ -24,7 +24,7 @@ describe('buildUrl', () => {
     };
     const result = {
       ref: {
-        id: 'with_genres'
+        id: 'with_genres',
       },
       value: {
         id: 16,

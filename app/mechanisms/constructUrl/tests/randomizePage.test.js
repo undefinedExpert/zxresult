@@ -21,7 +21,6 @@ describe('randomizePage', () => {
     const cache = null;
 
     it('should return null when whatLeft exist, but it\'s size is == 0', () => {
-
       const result = fn(fixtureCollectionSize, []);
       expect(result).to.be.eql(null);
     });
@@ -50,7 +49,6 @@ describe('randomizePage', () => {
     });
 
     it('should update oldCollection size when change occur', () => {
-
       // initializing collection size and cache
       const initialRun = fn(fixtureCollectionSize, cache);
       const initialCollectionSize = fn.oldCollectionSize;
