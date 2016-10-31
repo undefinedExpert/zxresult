@@ -9,14 +9,14 @@ import { each, omit, omitBy, isNil, pick } from 'lodash';
 
 
 /**
- * cleanNull
+ * cleanBy
  * @desc Removes empty values (trashes) from our upcoming params.
  * @param {object} active - Object we will test in the condition of contain null values.
  * @param {object} apiRef - Remove the same properties from our object
  *
  * @return {object} - Return value and it's ref as an object
  */
-const cleanBy = (active, apiRef) => {
+export const cleanBy = (active, apiRef) => {
   const activeMinusName = omit(active, 'name');
   const activeMinusNameMinusNull = omitBy(activeMinusName, isNil);
 
@@ -29,15 +29,13 @@ const cleanBy = (active, apiRef) => {
 
 /**
  * iterateWithCleaner
- * @desc Iterates through an object, clean no needed values.
+ * @desc Iterates through an object, removes no needed values.
  * @param {object} iterated - objects key we will iterate
  * @param {object} whatValues - what values we wish to clean out
  *
- * - if name exist, remove it.
- *
- * @return {object} - contains set of params.
+ * @return {object} wrapper - contains paired params.
  */
-const iterateWithCleaner = (iterated, whatValues) => {
+export const iterateWithCleaner = (iterated, whatValues) => {
   const wrapper = Object.create(null);
   each(iterated, key => {
     const {
@@ -60,7 +58,7 @@ const iterateWithCleaner = (iterated, whatValues) => {
  *
  * @return {object} - returns all cleaned filters wrapped in container
  */
-function defineParams(filters) {
+export function defineParams(filters) {
   const paramKeys = Object.keys(filters);
   const activeParams = paramKeys.filter((key) => filters[key].active);
   const container = iterateWithCleaner(activeParams, filters);
@@ -77,11 +75,11 @@ function defineParams(filters) {
  * @param {object} filters - Contains our params
  * @param {object} higherParams - Higher params set directly in sagas
  * @param {object} randomPage - Page we'll get
+ *
+ * - if we even need random page
  */
-function constructParams(filters, higherParams, randomPage) {
+export function constructParams(filters, higherParams, randomPage) {
   const params = defineParams(filters);
-
-  // detect if we even need random page
   if (filters.range.pages) params.page = randomPage;
 
   // Merge params & higherParams
@@ -94,15 +92,12 @@ function constructParams(filters, higherParams, randomPage) {
  * extractParams
  * @desc Randomize single, unique number from collection.
  * - if we need params
- * - if we want params but there is no page set (getting genre list example)
  */
-export function* buildParams(filters, higherParams = {}, withParams, randomPage) {
+export function buildParams(filters, higherParams = {}, withParams, randomPage) {
   let setParams = {};
   if (withParams) {
     setParams = constructParams(filters, higherParams, randomPage);
   }
-
-  if (!setParams.page && withParams) return null;
 
   return setParams;
 }

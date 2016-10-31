@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import { selectFilters } from 'containers/FilterForm/selectors';
 
@@ -27,10 +27,10 @@ export default function* constructUrl(endPoint, higherParams = {}, withParams = 
   const filters = yield select(selectFilters());
 
   let randomPage;
-  if (withParams) randomPage = yield randomizePage(filters);
+  if (withParams) randomPage = yield call(randomizePage, filters);
 
-  const params = yield buildParams(filters, higherParams, withParams, randomPage);
-  const url = yield buildUrl(params, endPoint);
+  const params = yield call(buildParams, filters, higherParams, withParams, randomPage);
+  const url = yield call(buildUrl, params, endPoint);
 
   return url;
 }

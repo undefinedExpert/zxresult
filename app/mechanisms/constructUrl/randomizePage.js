@@ -18,6 +18,7 @@ import { cacheRandomizedPage } from 'containers/FilterForm/actions';
  * Creates preFilled array, makes a copy of it with a shuffle. Returns random element and removes it from our collection so we can
  * push updated collection into our cache.
  *
+ * TODO: Refactor this func to be a generator.
  * @param {Number} collectionSize - Current range of pages, basing on filters
  * @param {Array|null} cache - What pages we still can pick
  *
@@ -26,8 +27,9 @@ import { cacheRandomizedPage } from 'containers/FilterForm/actions';
  * - if preFilled array not exist
  * - if collection size > 1000
  * - if filters update occur
+ *
  */
-const pickRandom = (collectionSize, cache) => {
+export const pickRandom = (collectionSize, cache) => {
   // TODO: Because of our filterDomain -> filter selector returns the JS version of an object (immutable .toJS)
   // We've to revoke that process in this function, fix that at future.
   let whatLeft = cache === null ? cache : fromJS(cache);
@@ -44,7 +46,7 @@ const pickRandom = (collectionSize, cache) => {
   }
 
   if (collectionSize > 1000) {
-    limitedSize = 1000;
+    limitedSize = 999;
   }
 
   if (pickRandom.oldCollectionSize !== collectionSize || whatLeft === null) {
@@ -75,7 +77,7 @@ export default function* randomizePage({ range }) {
   const collectionSize = range.pages;
 
   const picked = yield pickRandom(collectionSize, cache);
-  if (picked === null) return null;
+  if (picked === null) yield null;
 
   yield put(cacheRandomizedPage.request(picked.cache));
 

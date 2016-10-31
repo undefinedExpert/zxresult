@@ -24,7 +24,7 @@ import { apiUrl, apiKey } from 'containers/App/constants';
  *
  * @return {Array}
  */
-function pairValueAndRef(filter, ref) {
+export function pairValueAndRef(filter, ref) {
   const paramsContainer = [];
 
   if (_.isObject(filter)) {
@@ -41,13 +41,13 @@ function pairValueAndRef(filter, ref) {
 
 
 /**
- * attachParams
+ * pairParams
  * @desc Pairs our values with they api references
  * @param {Object} filters
  *
  * @return {Object} - paired filters with they api refs
  */
-function attachParams(filters) {
+export function pairParams(filters) {
   const pairedParams = [];
 
   _.keys(filters).forEach((ref) => {
@@ -71,6 +71,7 @@ function attachParams(filters) {
  * - handle apiUrl && apiKey potential errors.
  * - if there is no filters
  *
+ * TODO: move ApiUrl and apiKey error handler from this function
  * @return {String} - Constructed URL
  */
 export function buildUrl(filters, endpoint) {
@@ -78,12 +79,13 @@ export function buildUrl(filters, endpoint) {
 
   const baseUrl = `${apiUrl}${endpoint}?${apiKey}`;
 
-  let query = '';
   if (!_.isEmpty(filters)) {
-    const params = attachParams(filters);
-    query = params.map(item => stringify(item)).join('&');
+    const params = pairParams(filters);
+    const query = params.map(item => stringify(item)).join('&');
+
+    return `${baseUrl}&${query}`;
   }
 
-  return `${baseUrl}&${query}`;
+  return `${baseUrl}`;
 }
 
