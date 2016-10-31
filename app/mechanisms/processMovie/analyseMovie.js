@@ -13,9 +13,10 @@
  * m - minimal vote counts
  * S - average of all movies
  */
-const rankItem = (item) => {
+export const rankItem = (item) => {
   const minimalVoteCount = 100;
-  return (item.vote_count / (item.vote_count + minimalVoteCount) * item.vote_average + (minimalVoteCount / (item.vote_count + minimalVoteCount)) * 9);
+  const globalVoteAverage = 6;
+  return (item.vote_count / (item.vote_count + minimalVoteCount) * item.vote_average + (minimalVoteCount / (item.vote_count + minimalVoteCount)) * globalVoteAverage);
 };
 
 
@@ -23,6 +24,10 @@ const rankItem = (item) => {
  * rankMovies
  * @desc Ranks and moves notSorted movies into pending list,
  * removes the weakest 10 movies from each call if we contain at least 10 pages
+
+ * @param {Array} notSorted - Movies freshly downloaded from page using xhr, they need to be conncated & sorted with pending
+ * @param {Array} pending - Cache of movies user has downloaded and sorted
+ * @param {Object} range - selector which is used to determinate how many results / pages we got
  */
 export function rankMovies(notSorted, pending, range) {
   // Concat pending and upcomingMovies
