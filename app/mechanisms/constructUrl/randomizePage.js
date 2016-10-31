@@ -69,7 +69,7 @@ export const pickRandom = (collectionSize, cache) => {
  * randomizePage
  * @desc Takes random page number from our potential range of values (cache). After pick, updates collection
  * @param {Object} range - Filter selector, allows us to determine what is the cache and collection size
- *
+ * TODO: This func should work like DetectPending, move return state from generator
  * - if picked is null then there is no more pages to review so we return null
  */
 export default function* randomizePage({ range }) {
@@ -77,7 +77,7 @@ export default function* randomizePage({ range }) {
   const collectionSize = range.pages;
 
   const picked = yield pickRandom(collectionSize, cache);
-  if (picked === null) yield null;
+  if (picked === null) return null;
 
   yield put(cacheRandomizedPage.request(picked.cache));
 
