@@ -6,7 +6,8 @@
  */
 
 import callApi from 'mechanisms/callToApi';
-import { processMovieAnalyse as movieAnalyse, detectPending } from 'mechanisms/processMovie';
+import { processMovieAnalyse as movieAnalyse } from 'mechanisms/processMovie';
+import { detectPending } from 'mechanisms/detectPending';
 
 
 /**
