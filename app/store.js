@@ -8,7 +8,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware({ logger: () => {} });
 const devtools = window.devToolsExtension || (() => noop => noop);
 
 export default function configureStore(initialState = {}, history) {
