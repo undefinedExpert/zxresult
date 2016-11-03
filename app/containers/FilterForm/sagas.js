@@ -6,7 +6,7 @@
  */
 
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { take, call, put, cancel, fork, race } from 'redux-saga/effects';
+import { take, call, put, cancel, fork } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
 

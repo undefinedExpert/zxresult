@@ -6,7 +6,7 @@
  */
 
 import { LOCATION_CHANGE, push } from 'react-router-redux';
-import { take, call, select, put, cancel, fork, race } from 'redux-saga/effects';
+import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
 
 import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
 
