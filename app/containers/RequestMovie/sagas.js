@@ -153,13 +153,11 @@ export function* getRequestSagas() {
 
   // Suspend execution until UPDATE_SINGLE_MOVIE.SUCCESS
   yield take(LOCATION_CHANGE);
-  yield race([
-    cancel(moviesWatcher),
-    cancel(updateUrl),
-    cancel(analyseMovieWatcher),
-    cancel(updateSingleMovieWatcher),
-    cancel(updatePendingWatcher),
-  ]);
+  yield cancel(moviesWatcher);
+  yield cancel(updateUrl);
+  yield cancel(analyseMovieWatcher);
+  yield cancel(updateSingleMovieWatcher);
+  yield cancel(updatePendingWatcher);
 }
 
 /**

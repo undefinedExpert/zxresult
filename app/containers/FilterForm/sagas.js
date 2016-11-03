@@ -88,10 +88,8 @@ export function* getMovieSagas() {
   // The main reason of that is to not rely on LOCATION_CHANGE event because we 'actually' dose not change the location on the result sub-page
   // we just get new data.
   yield take(LOCATION_CHANGE);
-  yield race([
-    cancel(getUpdateFilters),
-    cancel(getGenresList),
-  ]);
+  yield cancel(getUpdateFilters);
+  yield cancel(getGenresList);
 }
 
 export default [
