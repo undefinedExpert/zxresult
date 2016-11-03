@@ -1,11 +1,17 @@
-import {
-  select{{ properCase name }},
-} from '../selectors';
-import { fromJS } from 'immutable';
+/**
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
+*/
+
 import { expect } from 'chai';
+import { fromJS } from 'immutable';
+
+import { select{{ properCase name }} } from '../selectors';
+
 
 const selector = select{{ properCase name}}();
-
 describe('select{{ properCase name }}', () => {
 
 });

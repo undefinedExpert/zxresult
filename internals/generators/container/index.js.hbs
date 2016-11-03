@@ -1,11 +1,13 @@
-/*
- *
- * {{ properCase name }}
- *
- */
+/**
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
+*/
 
-import React from 'react';
 import { connect } from 'react-redux';
+import React, { PropTypes as ptype, Component } from 'react';
+
 {{#if wantActionsAndReducer}}
 import select{{properCase name}} from './selectors';
 {{/if}}
@@ -26,6 +28,8 @@ export class {{ properCase name }} extends React.Component { // eslint-disable-l
     );
   }
 }
+
+{{ properCase name }}.propTypes = {};
 
 {{#if wantActionsAndReducer}}
 const mapStateToProps = select{{properCase name}}();

@@ -1,19 +1,23 @@
+/**
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
+*/
 import { createSelector } from 'reselect';
 
+
 /**
- * Direct selector to the {{ camelCase name }} state domain
- */
+* {{ camelCase name }}
+* @desc TODO: description for {{ camelCase name }}
+*/
 const select{{ properCase name }}Domain = () => state => state.get('{{ camelCase name }}');
 
-/**
- * Other specific selectors
- */
-
 
 /**
- * Default selector used by {{ properCase name }}
- */
-
+* {{ camelCase name }}
+* @desc TODO: description for {{ camelCase name }}
+*/
 const select{{ properCase name }} = () => createSelector(
   select{{ properCase name }}Domain(),
     ( substate ) => {

@@ -1,14 +1,13 @@
-/*
- *
- * {{ properCase name }} actions
- *
- */
+/**
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
+*/
 
-import * as CONSTANT from './constants';
+import { action } from 'utils/hooks';
 
-function action(type, payload = {}) {
-  return { type, ...payload };
-}
+import { DEFAULT_ACTION } from './constants';
 
 export const defaultAction = {
   request: value => action(CONSTANT.DEFAULT_ACTION.REQUEST, {}),

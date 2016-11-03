@@ -1,6 +1,15 @@
+/**
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
+*/
+
 import { expect } from 'chai';
-import {{ camelCase name }}Reducer from '../reducer';
 import { fromJS } from 'immutable';
+
+import {{ camelCase name }}Reducer from '../reducer';
+
 
 describe('{{ camelCase name }}Reducer', () => {
   it('returns the initial state', () => {

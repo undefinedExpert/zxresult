@@ -1,16 +1,21 @@
 /**
-*
-* {{ properCase name }}
-*
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
 */
 
-import React from 'react';
+import React, { PropTypes as ptype, Component } from 'react';
 
 {{#if wantCSS}}
 import styles from './styles.css';
 {{/if}}
 
-class {{ properCase name }} extends React.Component {
+/**
+* {{ properCase name }}
+* @desc TODO: desc for {{ properCase name }}
+*/
+class {{ properCase name }} extends Component {
   render() {
     return (
       {{#if wantCSS}}
@@ -22,5 +27,7 @@ class {{ properCase name }} extends React.Component {
     );
   }
 }
+
+{{ properCase name }}.propTypes = {};
 
 export default {{ properCase name }};

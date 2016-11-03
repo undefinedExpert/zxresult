@@ -1,6 +1,15 @@
+/**
+*  Components are imported in specific (scope based) order:
+*  1. Node_modules
+*  2. Application
+*  3. Module
+*/
+
 import { expect } from 'chai';
-import { DEFAULT_ACTION } as CONSTANT from './constants';
+
 import { defaultAction } from '../actions';
+import * as CONSTANT from '../constants';
+
 
 describe('{{ properCase name }} actions', () => {
   describe('Default Action', () => {
