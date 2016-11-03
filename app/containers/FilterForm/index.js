@@ -5,11 +5,10 @@
  *  3. Module
  */
 
-import React, { PropTypes as ptype, Component } from 'react';
-
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { capitalize } from 'lodash';
+import React, { PropTypes as ptype, Component } from 'react';
 
 import Input from 'components/general/Input';
 import RequestMovie from 'containers/RequestMovie';

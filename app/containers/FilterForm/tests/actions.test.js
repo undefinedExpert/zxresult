@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 
-import * as CONSTANT from './../constants';
+import * as CONSTANT from '../constants';
 import {
   updateFilterGenre,
   updateFilterDecade,
