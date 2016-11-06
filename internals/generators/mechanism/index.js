@@ -19,7 +19,7 @@ module.exports = {
       return 'The name is required';
     },
   }],
-  actions: data => {
+  actions: () => {
     // Generate index.js and index.test.js
     const actions = [
       {
