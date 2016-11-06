@@ -25,25 +25,25 @@ module.exports = {
       {
         type: 'add',
         path: '../../app/mechanisms/{{properCase name}}/index.js',
-        templateFile: './component/index.hbs',
+        templateFile: './mechanism/index.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/mechanisms/{{properCase name}}/mechanism.js',
-        templateFile: './component/mechanism.hbs',
+        templateFile: './mechanism/mechanism.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/mechanisms/{{properCase name}}/tests/index.test.js',
-        templateFile: './component/index.test.hbs',
+        templateFile: './mechanism/index.test.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/mechanisms/{{properCase name}}/tests/mechanism.test.js',
-        templateFile: './component/mechanism.test.hbs',
+        templateFile: './mechanism/mechanism.test.hbs',
         abortOnFail: true,
       },
     ];
