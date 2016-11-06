@@ -81,5 +81,6 @@ export default function* randomizePage({ range }) {
 
   yield put(cacheRandomizedPage.request(picked.cache));
 
+  console.log(picked.number)
   return picked.number;
 }
