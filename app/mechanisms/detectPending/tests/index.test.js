@@ -14,10 +14,6 @@ import { selectResult } from 'containers/RequestMovie/selectors';
 
 import { detectPending, detector } from '../index';
 
-describe('selectFromStore', () => {
-
-});
-
 describe('detectPending', () => {
   describe('detectPending()', () => {
     const generator = detectPending();

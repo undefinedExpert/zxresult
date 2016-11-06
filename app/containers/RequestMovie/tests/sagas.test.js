@@ -9,7 +9,7 @@ import { expect } from 'chai';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { call, put, select, take, fork } from 'redux-saga/effects';
 
-import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
+import { callApi, movieAnalyse, detectPending, mapGenres } from 'mechanisms/index';
 
 import { analyseMovies, updateSingleMovie, updateMovieResult } from '../actions';
 
@@ -108,6 +108,10 @@ describe('RequestMovie saga handlers', () => {
 
       const pending = [{}, {}];
       const singlePending = pending[0];
+      const taskMapGenres = generator.next({ pending }).value;
+      const operationMapGenres = call(mapGenres, {});
+      expect(taskMapGenres).to.be.eql(operationMapGenres);
+
       const taskPut = generator.next({ pending }).value;
       const operationPut = put(updateMovieResult.success(singlePending));
       expect(taskPut).to.be.eql(operationPut);

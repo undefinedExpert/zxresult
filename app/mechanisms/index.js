@@ -8,6 +8,7 @@
 import callApi from 'mechanisms/callToApi';
 import { processMovieAnalyse as movieAnalyse } from 'mechanisms/processMovie';
 import { detectPending } from 'mechanisms/detectPending';
+import { mapGenres } from 'mechanisms/MapGenresWithNames';
 
 
 /**
@@ -20,4 +21,5 @@ export {
   callApi,
   movieAnalyse,
   detectPending,
+  mapGenres,
 };

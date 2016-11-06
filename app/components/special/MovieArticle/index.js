@@ -33,6 +33,7 @@ function MovieArticle({ movie }) {
     voteCount: movie.vote_average,
   };
 
+
   const cs = styles.movieArticle;
   return (
     <article className={cs}>
@@ -40,7 +41,7 @@ function MovieArticle({ movie }) {
       <HeartRate votes={votes} />
       <MovieDescription description={movie.overview} limit={160} />
       <MovieRuntime />
-      <Genres />
+      <Genres items={movie.genres} />
       <CrewList items={crewItems} />
     </article>
   );

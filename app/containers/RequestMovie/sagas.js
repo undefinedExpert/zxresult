@@ -8,7 +8,7 @@
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
 
-import { callApi, movieAnalyse, detectPending } from 'mechanisms/index';
+import { callApi, movieAnalyse, detectPending, mapGenres } from 'mechanisms/index';
 
 import {
   UPDATE_MOVIE_RESULT,
@@ -64,8 +64,18 @@ export function* getAnalyseMovie() {
  */
 export function* pushSingleResult() {
   const { pending } = yield select(selectResult());
-
+  // const { mappedIcons } =
   const singlePendingMovie = pending[0];
+
+  try {
+    singlePendingMovie.genres = yield call(mapGenres, singlePendingMovie);
+    console.log(singlePendingMovie.genres);
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+
   try {
     yield put(updateMovieResult.success(singlePendingMovie));
   }
