@@ -1,9 +1,18 @@
-import Horror from './ghost.svg';
-import Comedy from './mask.svg';
-import SciFi from './science.svg';
-
-export default {
-  Horror,
-  Comedy,
-  SciFi,
-};
+export action from './action.svg';
+export adventure from './adventure.svg';
+export animation from './animation.svg';
+export crime from './crime.svg';
+export documentary from './documentary.svg';
+export drama from './drama.svg';
+export family from './family.svg';
+export fantasy from './fantasy.svg';
+export history from './history.svg';
+export horror from './horror.svg';
+export music from './music.svg';
+export mystery from './mystery.svg';
+export romance from './romance.svg';
+export scifi from './scifi.svg';
+export thriller from './thriller.svg';
+export tvMovie from './tv-movie.svg';
+export war from './war.svg';
+export western from './western.svg';
