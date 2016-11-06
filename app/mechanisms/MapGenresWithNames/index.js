@@ -9,13 +9,12 @@ import { select, call } from 'redux-saga/effects';
 
 import { selectFilters } from 'containers/FilterForm/selectors';
 
+
 /**
 * MapGenresWithNames
 * @desc Returns names of genres included in single movie
 */
 export const mapGenresWithNames = (ids, list) => {
-  console.log('list: ', list);
-  console.log('ids: ', ids);
   const final = [];
 
   ids.forEach((id) => {
@@ -23,15 +22,13 @@ export const mapGenresWithNames = (ids, list) => {
     filtered.forEach((item) => final.push(item.name.toLowerCase()));
   });
 
-  // todo: remove space for items
-
   return final;
-}
+};
 
 
 /**
  * mapGenres
- * @desc provide pending, range for our detector function
+ * @desc Map through genre list and return just the genre names.
  * @return {Array} genres - Names of movie genres
  */
 export function* mapGenres(movie) {

@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import { times, capitalize, camelCase } from 'lodash';
 import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
@@ -24,10 +25,14 @@ function MovieGenres({ sectionSize = '1/2', items = [] }) {
   return (
     <Section title={'Genres'} size={sectionSize}>
       <ul className={styles.genres}>
-        <li className={styles.item}>
-          <GenreIcons type={items[0]} />
-          <h6 className={styles.label}>{items[0]}</h6>
-        </li>
+        {times(items.length, (index) => (
+          <li key={index} className={styles.item}>
+            <GenreIcons type={camelCase(items[index])} />
+            <h6 className={styles.label}>
+              {capitalize(items[index])}
+            </h6>
+          </li>
+        ))}
       </ul>
     </Section>
   );

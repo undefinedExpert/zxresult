@@ -12,6 +12,7 @@ import { selectFilters } from 'containers/FilterForm/selectors';
 
 import { mapGenresWithNames, mapGenres } from '../index';
 
+
 const globalGenreList = [
   {
     name: 'ShouldNotBeIncluded',
@@ -41,13 +42,12 @@ describe('<mapGenresWithNames />', () => {
   });
 
   it('Strings in array should not contain spaces', () => {
-    expected
+   // TODO: Test
   });
 
   it('Strings in array should be always lowercase typed', () => {
-
+    // TODO: Test
   });
-
 });
 
 describe('mapGenres()', () => {
@@ -64,9 +64,7 @@ describe('mapGenres()', () => {
   it('Should select genre.list', () => {
     const task = generator.next({ genre: { list } }).value;
     const operation = call(mapGenresWithNames, ids, list);
-    expect(task).expectEqual(operation);
+    expect(task).to.be.eql(operation);
     generator.next();
   });
 });
-
-

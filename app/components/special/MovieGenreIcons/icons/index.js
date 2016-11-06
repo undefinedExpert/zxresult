@@ -12,7 +12,7 @@ export horror from './horror.svg';
 export music from './music.svg';
 export mystery from './mystery.svg';
 export romance from './romance.svg';
-export scifi from './scifi.svg';
+export scienceFiction from './scifi.svg';
 export thriller from './thriller.svg';
 export tvMovie from './tv-movie.svg';
 export war from './war.svg';

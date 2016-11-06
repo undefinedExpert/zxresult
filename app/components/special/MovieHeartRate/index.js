@@ -5,10 +5,10 @@
  *  3. Module
  */
 
-import React, { PropTypes as ptype } from 'react';
 import { times } from 'lodash';
 import classNames from 'classnames';
 import { IoHeart } from 'react-icons/lib/io/';
+import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
 

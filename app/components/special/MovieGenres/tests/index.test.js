@@ -15,11 +15,11 @@ import MovieGenres from '../index';
 describe('<MovieGenres />', () => {
   let renderComponent;
   beforeEach(() => {
-    renderComponent = mount(<MovieGenres items={['animation']} />, {});
+    renderComponent = mount(<MovieGenres items={['animation', 'action']} />, {});
   });
 
   it('Should contain 3 GenreIcons components', () => {
     const expected = renderComponent.find('img');
-    expect(expected).to.have.length(1);
+    expect(expected).to.have.length(2);
   });
 });
