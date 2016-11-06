@@ -1,6 +1,7 @@
 export action from './action.svg';
 export adventure from './adventure.svg';
 export animation from './animation.svg';
+export comedy from './comedy.svg';
 export crime from './crime.svg';
 export documentary from './documentary.svg';
 export drama from './drama.svg';

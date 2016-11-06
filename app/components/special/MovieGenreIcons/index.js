@@ -8,7 +8,7 @@
 import React, { PropTypes as ptype } from 'react';
 
 import styles from './styles.css';
-import Icons from './icons/index';
+import * as icons from './icons/index';
 
 /**
  * MovieGenreIcons
@@ -20,7 +20,7 @@ function MovieGenreIcons({ type }) {
   const cs = styles.genreIcons;
   return (
     <div className={cs}>
-      <img src={Icons[type]} alt={`${type} icon`} />
+      <img src={icons[type]} alt={`${type} icon`} />
     </div>
   );
 }

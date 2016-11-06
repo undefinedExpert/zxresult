@@ -24,15 +24,15 @@ function MovieGenres({ sectionSize = '1/2' }) {
     <Section title={'Genres'} size={sectionSize}>
       <ul className={styles.genres}>
         <li className={styles.item}>
-          <GenreIcons type="Horror" />
+          <GenreIcons type="documentary" />
           <h6 className={styles.label}>Action</h6>
         </li>
         <li className={styles.item}>
-          <GenreIcons type="SciFi" />
+          <GenreIcons type="western" />
           <h6 className={styles.label}>Sci-fi</h6>
         </li>
         <li className={styles.item}>
-          <GenreIcons type="Comedy" />
+          <GenreIcons type="tvMovie" />
           <h6 className={styles.label}>Comedy</h6>
         </li>
       </ul>
