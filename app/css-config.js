@@ -1,6 +1,6 @@
 /*
  * !!!! ATTENTION !!!!
- * WHEN YOU RUN THIS FILE RERUN WEBPACK (NPM START)
+ * WHEN YOU RUN THIS FILE RESTART WEBPACK (NPM START)
  * */
 
 const _ = require('lodash');
