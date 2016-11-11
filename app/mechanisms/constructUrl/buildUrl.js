@@ -20,7 +20,8 @@ import { apiUrl, apiKey } from 'containers/App/constants';
  * @param {Array|null} ref - api reference
  *
  * - if it's an object, map each value with it's api ref key from our filter
- * - if it's a number
+ * - if it's a number or string
+ * - if it's an array
  *
  * @return {Array}
  */
@@ -32,8 +33,12 @@ export function pairValueAndRef(filter, ref) {
     filterValue.forEach((item) => paramsContainer.push(item));
   }
 
-  if (_.isNumber(filter)) {
+  if (_.isNumber(filter) || _.isString(filter)) {
     paramsContainer.push({ [ref]: filter });
+  }
+
+  if (_.isArray(filter)) {
+    paramsContainer.push({ [ref]: filter.join(',') });
   }
 
   return paramsContainer;

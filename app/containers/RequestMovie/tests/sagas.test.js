@@ -28,6 +28,7 @@ import {
   getAnalyseMovieWatcher,
   getUpdateSingleMovieWatcher,
   getUpdatePendingWatcher,
+  getDetailsWatcher,
   getRequestSagas,
 } from '../sagas';
 import { selectResult } from '../selectors';
@@ -235,6 +236,13 @@ describe('getMovieSagas Saga', () => {
   it('should asynchronously fork getUpdatePendingWatcher saga', () => {
     const task = movieSagas.next();
     const operation = fork(getUpdatePendingWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork getDetailsWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getDetailsWatcher);
 
     expect(task.value).to.be.eql(operation);
   });

@@ -105,17 +105,17 @@ export function* getUpdateUrl() {
 
 
 /**
- * pushSingleResult
+ * details
  * @desc Push single result into user, removes it from pending list.
  */
 export function* details() {
   const { active: { id } } = yield select(selectResult());
   const endpoint = `/movie/${id}`;
   // console.log('pobieranie detail');
-  const data = yield call(callApi, endpoint, { append_to_response: 'images, actors' }, false);
 
-  // console.log(url);
+  const { data } = yield call(callApi, endpoint, { append_to_response: ['images', 'credits'] }, false);
 
+  console.log(data)
   yield put(getDetails.success(data));
 }
 
@@ -145,12 +145,6 @@ export function* getMovieWatcher() {
   }
 }
 
-export function* getResultChangeWatcher() {
-  while (yield take(UPDATE_MOVIE_RESULT.SUCCESS)) {
-    yield call(getUpdateUrl);
-  }
-}
-
 export function* getAnalyseMovieWatcher() {
   while (yield take(ANALYSE_MOVIE.REQUEST)) {
     yield call(getAnalyseMovie);
@@ -170,8 +164,14 @@ export function* getUpdatePendingWatcher() {
 }
 
 export function* getDetailsWatcher() {
-  while (yield take(UPDATE_MOVIE_RESULT.SUCCESS)) {
+  while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) {
     yield call(details);
+  }
+}
+
+export function* getResultChangeWatcher() {
+  while (yield take(DETAILS.SUCCESS)) {
+    yield call(getUpdateUrl);
   }
 }
 
@@ -195,7 +195,6 @@ export function* getRequestSagas() {
 
   yield take(DETAILS.SUCCESS);
   yield cancel(detailsWatcher);
-
 }
 
 /**

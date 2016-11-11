@@ -117,10 +117,7 @@ describe('filterFormReducer', () => {
         }),
       }),
       genre: fromJS({
-        active: fromJS({
-          id: 16,
-          name: 'Animation',
-        }),
+        active: null,
         list: fromJS([]),
         apiRef: fromJS({
           id: 'with_genres',
