@@ -23,16 +23,23 @@ import styles from './styles.css';
  */
 function MovieArticle({ movie }) {
   // TODO: Crew list fetch
-  const crewItems = [
-    { image: movie.backdrop_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
-    { image: movie.backdrop_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-    { image: movie.backdrop_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-  ];
+  let crewItems;
+
+  if (movie.credits) {
+    console.log(movie.credits)
+    crewItems = [
+      { image: movie.credits.cast[0].profile_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
+      { image: movie.credits.cast[1].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
+      { image: movie.credits.cast[2].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
+    ];
+  } else {
+    crewItems = [];
+  }
+
   const votes = {
     voteAverage: movie.vote_average,
     voteCount: movie.vote_average,
   };
-
 
   const cs = styles.movieArticle;
   return (
@@ -40,7 +47,7 @@ function MovieArticle({ movie }) {
       <MovieTitle movieTitle={movie.title} />
       <HeartRate votes={votes} />
       <MovieDescription description={movie.overview} limit={160} />
-      <MovieRuntime />
+      <MovieRuntime time={movie.runtime} />
       <Genres items={movie.genres} />
       <CrewList items={crewItems} />
     </article>

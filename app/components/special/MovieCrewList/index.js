@@ -37,7 +37,7 @@ const renderSingle = (item, index) => {
 function MovieCrewList({ items }) {
   return (
     <div>
-      {items.length ? items.map((item, index) => renderSingle(item, index)) : null}
+      {items.length ? items.map((item, index) => renderSingle(item, index)) : 'LOADING'}
     </div>
     );
 }
