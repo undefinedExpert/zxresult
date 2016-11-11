@@ -10,7 +10,8 @@ import { action } from 'utils/hooks';
 import {
   UPDATE_MOVIE_RESULT,
   ANALYSE_MOVIE,
-  UPDATE_SINGLE_MOVIE } from './constants';
+  UPDATE_SINGLE_MOVIE,
+  DETAILS } from './constants';
 
 
 /**
@@ -46,4 +47,16 @@ export const updateSingleMovie = {
   request: (active) => action(UPDATE_SINGLE_MOVIE.REQUEST, { active }),
   success: (removePending) => action(UPDATE_SINGLE_MOVIE.SUCCESS, { removePending }),
   failure: (error) => action(UPDATE_SINGLE_MOVIE.FAILURE, { error }),
+};
+
+
+/**
+ * @desc Those actions handles:
+ * - Update movie result with 1st from pending list
+ * - After push removes it from pending list
+ */
+export const getDetails = {
+  request: () => action(DETAILS.REQUEST, {}),
+  success: (updatedActive) => action(DETAILS.SUCCESS, { updatedActive }),
+  failure: (error) => action(DETAILS.FAILURE, { error }),
 };

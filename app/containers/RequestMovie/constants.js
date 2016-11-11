@@ -16,8 +16,12 @@ const ANALYSE_MOVIE = createRequestTypes('app/RequestMovie/ANALYSE_MOVIE');
 // Analyse movie results to pick the best
 const UPDATE_SINGLE_MOVIE = createRequestTypes('app/RequestMovie/UPDATE_SINGLE_MOVIE');
 
+// Get movie details
+const DETAILS = createRequestTypes('app/RequestMovie/DETAILS');
+
 export {
   UPDATE_MOVIE_RESULT,
   ANALYSE_MOVIE,
   UPDATE_SINGLE_MOVIE,
+  DETAILS,
 };

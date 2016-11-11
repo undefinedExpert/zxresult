@@ -13,9 +13,10 @@ import { callApi, movieAnalyse, detectPending, mapGenres } from 'mechanisms/inde
 import {
   UPDATE_MOVIE_RESULT,
   ANALYSE_MOVIE,
-  UPDATE_SINGLE_MOVIE } from './constants';
+  UPDATE_SINGLE_MOVIE,
+  DETAILS } from './constants';
 import { selectResult } from './selectors';
-import { analyseMovies, updateSingleMovie, updateMovieResult } from './actions';
+import { analyseMovies, updateSingleMovie, updateMovieResult, getDetails } from './actions';
 
 
 /**
@@ -103,6 +104,22 @@ export function* getUpdateUrl() {
 }
 
 
+/**
+ * pushSingleResult
+ * @desc Push single result into user, removes it from pending list.
+ */
+export function* details() {
+  const { active: { id } } = yield select(selectResult());
+  const endpoint = `/movie/${id}`;
+  // console.log('pobieranie detail');
+  const data = yield call(callApi, endpoint, { append_to_response: 'images, actors' }, false);
+
+  // console.log(url);
+
+  yield put(getDetails.success(data));
+}
+
+
 // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \
 
 //   _______ _______ _______ _______ _______ _______ _______ _______
@@ -152,6 +169,12 @@ export function* getUpdatePendingWatcher() {
   }
 }
 
+export function* getDetailsWatcher() {
+  while (yield take(UPDATE_MOVIE_RESULT.SUCCESS)) {
+    yield call(details);
+  }
+}
+
 
 export function* getRequestSagas() {
   // Fork watcher so we can continue execution
@@ -160,6 +183,7 @@ export function* getRequestSagas() {
   const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
   const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
   const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
+  const detailsWatcher = yield fork(getDetailsWatcher);
 
   // Suspend execution until UPDATE_SINGLE_MOVIE.SUCCESS
   yield take(LOCATION_CHANGE);
@@ -168,6 +192,10 @@ export function* getRequestSagas() {
   yield cancel(analyseMovieWatcher);
   yield cancel(updateSingleMovieWatcher);
   yield cancel(updatePendingWatcher);
+
+  yield take(DETAILS.SUCCESS);
+  yield cancel(detailsWatcher);
+
 }
 
 /**
