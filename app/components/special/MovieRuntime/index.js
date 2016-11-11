@@ -19,18 +19,19 @@ import styles from './styles.css';
  * returns packed runtime section
  * TODO: Make this working on real data.
  */
-function MovieRuntime({ sectionSize = '1/2' }) {
+function MovieRuntime({ sectionSize = '1/2', time }) {
   const title = 'Runtime';
 
   return (
     <Section title={title} size={sectionSize}>
-      <span><IoClock className={styles.icon} size={50} /> 2h 31min</span>
+      <span><IoClock className={styles.icon} size={50} />{time ? `${time} min` : 'LOADING'}</span>
     </Section>
   );
 }
 
 MovieRuntime.propTypes = {
   sectionSize: ptype.string,
+  time: ptype.number,
 };
 
 export default MovieRuntime;
