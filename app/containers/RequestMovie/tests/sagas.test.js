@@ -17,7 +17,7 @@ import {
   UPDATE_MOVIE_RESULT,
   ANALYSE_MOVIE,
   UPDATE_SINGLE_MOVIE,
-} from '../constants';
+  DETAILS } from '../constants';
 import {
   getMovie,
   getAnalyseMovie,
@@ -146,7 +146,7 @@ describe('RequestMovie saga watchers', () => {
   });
   describe('getResultChangeWatcher Watcher', () => {
     const generator = getResultChangeWatcher();
-    const constant = UPDATE_MOVIE_RESULT.SUCCESS;
+    const constant = DETAILS.SUCCESS;
 
     it(`should watch for ${constant} action`, () => {
       const taskLoop = generator.next().value;

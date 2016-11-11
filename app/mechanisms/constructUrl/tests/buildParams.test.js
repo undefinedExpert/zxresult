@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 
-import { cleanBy, iterateWithCleaner, constructParams, buildParams } from '../extractParams';
+import { cleanBy, iterateWithCleaner, constructParams, buildParams } from '../buildParams';
 
 
 describe('buildUrl', () => {

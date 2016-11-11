@@ -11,7 +11,7 @@ import { selectFilters } from 'containers/FilterForm/selectors';
 
 import randomizePage from './randomizePage';
 import { buildUrl } from './buildUrl';
-import { buildParams } from './extractParams';
+import { buildParams } from './buildParams';
 
 
 /**

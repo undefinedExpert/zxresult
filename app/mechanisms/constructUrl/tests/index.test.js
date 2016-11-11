@@ -13,7 +13,7 @@ import { selectFilters } from 'containers/FilterForm/selectors';
 import constructUrl from '../index';
 import randomizePage from '../randomizePage';
 import { buildUrl } from '../buildUrl';
-import { buildParams } from '../extractParams';
+import { buildParams } from '../buildParams';
 
 
 describe('constructUrl', () => {
