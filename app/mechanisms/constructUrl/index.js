@@ -30,7 +30,6 @@ export default function* constructUrl(endPoint, higherParams = {}, withParams = 
   if (withParams) randomPage = yield call(randomizePage, filters);
 
   const params = yield call(buildParams, filters, higherParams, withParams, randomPage);
-  const url = yield call(buildUrl, params, endPoint);
 
-  return url;
+  return yield call(buildUrl, params, endPoint);
 }
