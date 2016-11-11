@@ -16,9 +16,9 @@ import constructUrl from 'mechanisms/constructUrl';
  * @desc Makes API request from current filters options (if withParams set true). It provides an easy way of building final API url
  * which then is used in our call.
  *
- * @param {string} endPoint - What is the endpoint of our API
- * @param {object} higherParams - Does we need to set 'hardcoded' param?
- * @param {boolean} withParams - does this call need params?
+ * @param {String} endPoint - What is the endpoint of our API
+ * @param {Object} higherParams - Does we need to set 'hardcoded' param?
+ * @param {Boolean} withParams - does this call need params?
  *
  * - if we need randomPage
  */
