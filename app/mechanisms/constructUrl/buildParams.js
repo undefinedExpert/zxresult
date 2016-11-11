@@ -73,17 +73,13 @@ export function defineParams(filters) {
  * They allow us to define a hardcoded value (eg. page)
  *
  * @param {object} filters - Contains our params
- * @param {object} higherParams - Higher params set directly in sagas
  * @param {object} randomPage - Page we'll get
  *
  * - if we even need random page
  */
-export function constructParams(filters, higherParams, randomPage) {
+export function constructParams(filters, randomPage) {
   const params = defineParams(filters);
   if (filters.range.pages) params.page = randomPage;
-
-  // Merge params & higherParams
-  Object.assign(params, higherParams);
 
   return params;
 }
@@ -96,8 +92,11 @@ export function constructParams(filters, higherParams, randomPage) {
 export function buildParams(filters, higherParams = {}, withParams, randomPage) {
   let setParams = {};
   if (withParams) {
-    setParams = constructParams(filters, higherParams, randomPage);
+    setParams = constructParams(filters, randomPage);
   }
+
+  // Merge params & higherParams
+  Object.assign(setParams, higherParams);
 
   return setParams;
 }
