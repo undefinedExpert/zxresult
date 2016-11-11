@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import _ from 'lodash';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
 
@@ -106,17 +107,17 @@ export function* getUpdateUrl() {
 
 /**
  * details
- * @desc Push single result into user, removes it from pending list.
+ * @desc Get details of our movie after short amount of time, we got 40req per 10sec limit, be careful with it
  */
 export function* details() {
-  const { active: { id } } = yield select(selectResult());
-  const endpoint = `/movie/${id}`;
+  const { active } = yield select(selectResult());
+  const endpoint = `/movie/${active.id}`;
   // console.log('pobieranie detail');
 
   const { data } = yield call(callApi, endpoint, { append_to_response: ['images', 'credits'] }, false);
 
-  console.log(data)
-  yield put(getDetails.success(data));
+  const merged = _.merge(data, active);
+  yield put(getDetails.success(merged));
 }
 
 

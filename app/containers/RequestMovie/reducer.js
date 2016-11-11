@@ -10,6 +10,7 @@ import { fromJS } from 'immutable';
 import { UPDATE_FILTERS } from 'containers/FilterForm/constants';
 
 import {
+  DETAILS,
   ANALYSE_MOVIE,
   UPDATE_MOVIE_RESULT,
   UPDATE_SINGLE_MOVIE } from './constants';
@@ -31,8 +32,7 @@ function requestMovieReducer(state = initialState, action) {
         .setIn(['isFetching'], true);
     case UPDATE_MOVIE_RESULT.SUCCESS:
       return state
-        .setIn(['active'], fromJS(action.active))
-        .setIn(['isFetching'], false);
+        .setIn(['active'], fromJS(action.active));
     case UPDATE_MOVIE_RESULT.FAILURE:
       return state
         .setIn(['noMoreResults'], true)
@@ -42,14 +42,17 @@ function requestMovieReducer(state = initialState, action) {
         .setIn(['notSorted'], fromJS(action.notSorted));
     case ANALYSE_MOVIE.SUCCESS:
       return state
-        .setIn(['pending'], action.pending)
-        .setIn(['isFetching'], false);
+        .setIn(['pending'], action.pending);
     case ANALYSE_MOVIE.FAILURE:
       return state
         .setIn(['isFetching'], false);
     case UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
         .setIn(['pending'], fromJS(action.removePending));
+    case DETAILS.SUCCESS:
+      return state
+        .setIn(['active'], fromJS(action.updatedActive))
+        .setIn(['isFetching'], false);
     case UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['noMoreResults'], false)
