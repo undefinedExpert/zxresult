@@ -6,12 +6,13 @@
  */
 
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { take, call, put, cancel, fork } from 'redux-saga/effects';
+import { take, call, put, cancel, fork, select } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
 
-import { updateFilterGenre, updateFilters } from './actions';
+import { selectFilters } from './selectors';
 import { FILTER_GENRE_LIST, UPDATE_FILTERS } from './constants';
+import { updateFilterGenre, updateFilters, updateFilterKeyword } from './actions';
 
 
 /**
@@ -25,6 +26,22 @@ export function* getGenreList() {
   }
   catch (err) {
     yield put(updateFilterGenre.list.failure(err));
+  }
+}
+
+
+/**
+ * requestKeyword
+ * @desc call for keyword basing on keyword input
+ */
+export function* requestKeyword() {
+  const { keyword } = select(selectFilters);
+  const { data } = yield call(callApi, '/search/keyword', { page: 1 }, false);
+  try {
+    yield put(updateFilterKeyword.list.success(data.genres));
+  }
+  catch (err) {
+    yield put(updateFilterKeyword.list.failure(err));
   }
 }
 

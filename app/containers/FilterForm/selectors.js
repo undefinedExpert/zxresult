@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import { createSelector, createStructuredSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
 /**
  * filtersDomain
@@ -18,19 +18,10 @@ const filtersDomain = () => state => state.get('filters').toJS();
  * selectFilters
  * @desc Picks all filters from filter
  */
-const selectFilters = () => {
-  const filterSelector = createStructuredSelector({
-    genre: ({ genre }) => genre,
-    trend: ({ trend }) => trend,
-    range: ({ range }) => range,
-    decade: ({ decade }) => decade,
-  });
-  return createSelector(
-    filtersDomain(),
-    filterSelector,
-    ({ genre, trend, range, decade }) => ({ genre, trend, range, decade })
-  );
-};
+const selectFilters = () => createSelector(
+  filtersDomain(),
+  ({ keyword, genre, trend, range, decade }) => ({ keyword, genre, trend, range, decade })
+);
 
 export {
   filtersDomain,

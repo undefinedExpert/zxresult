@@ -24,7 +24,7 @@ const renderSelect = (item, index) => {
    * to avoid unnecessary complex structure.
    */
   const defaultValue = { name: '' };
-  const defaultOptions = { title: '', onChangeHandler: () => {} };
+  const defaultOptions = { title: '', onChangeHandler: () => {}, isLoading: true };
   const {
     value = defaultValue,
     list,
@@ -35,7 +35,7 @@ const renderSelect = (item, index) => {
     <div key={index} className={cs}>
       <Select
         value={value}
-        isLoading={list <= 0}
+        isLoading={options.isLoading}
         options={list}
         onChange={options.onChangeHandler}
         title={options.title}

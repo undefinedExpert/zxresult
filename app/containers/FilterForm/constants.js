@@ -7,6 +7,9 @@
 
 import { createRequestTypes } from 'utils/hooks';
 
+const FILTER_KEYWORD = createRequestTypes('app/FilterForm/FILTER_KEYWORD');
+const FILTER_KEYWORD_LIST = createRequestTypes('app/FilterForm/FILTER_KEYWORD_LIST');
+
 const FILTER_DECADE = createRequestTypes('app/FilterForm/FILTER_DECADE');
 const FILTER_DECADE_LIST = createRequestTypes('app/FilterForm/FILTER_DECADE_LIST');
 
@@ -21,6 +24,8 @@ const UPDATE_FILTERS = createRequestTypes('app/FilterForm/UPDATE_FILTERS');
 const CACHE_RANDOMIZED_PAGE = createRequestTypes('app/FilterForm/CACHE_RANDOMIZED_PAGE');
 
 export {
+  FILTER_KEYWORD,
+  FILTER_KEYWORD_LIST,
   FILTER_DECADE,
   FILTER_DECADE_LIST,
   FILTER_TREND,

@@ -8,6 +8,8 @@
 import { action } from 'utils/hooks';
 
 import {
+  FILTER_KEYWORD,
+  FILTER_KEYWORD_LIST,
   FILTER_DECADE,
   FILTER_DECADE_LIST,
   FILTER_TREND,
@@ -39,6 +41,30 @@ const genreList = {
 export const updateFilterGenre = {
   active: genreActive,
   list: genreList,
+};
+
+
+/**
+ * keywordActive, keywordList
+ * @desc Those actions handles:
+ * - setting as active
+ * - setting list
+ * - getting list
+ */
+const keywordActive = {
+  request: value => action(FILTER_KEYWORD.REQUEST, { value }),
+  success: (value) => action(FILTER_KEYWORD.SUCCESS, { value }),
+  failure: (value, error) => action(FILTER_KEYWORD.FAILURE, { value, error }),
+};
+const keywordList = {
+  request: () => action(FILTER_KEYWORD_LIST.REQUEST, {}),
+  success: (value, response) => action(FILTER_KEYWORD_LIST.SUCCESS, { value, response }),
+  failure: (value, error) => action(FILTER_KEYWORD_LIST.FAILURE, { value, error }),
+};
+
+export const updateFilterKeyword = {
+  active: keywordActive,
+  list: keywordList,
 };
 
 

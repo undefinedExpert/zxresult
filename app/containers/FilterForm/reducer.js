@@ -18,7 +18,13 @@ import {
 
 const currentYear = new Date().getFullYear();
 const initialState = fromJS({
-  sentence: 'ohio',
+  keyword: fromJS({
+    active: null,
+    list: fromJS([]),
+    apiRef: fromJS({
+      id: 'with_genres',
+    }),
+  }),
   trend: fromJS({
     active: fromJS({
       name: 'Popular',

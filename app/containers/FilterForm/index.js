@@ -54,15 +54,17 @@ export class FilterForm extends Component {
 
   render() {
     const {
+      keyword,
       genre,
       decade,
       trend,
       orientation } = this.props;
 
     const selectListItems = [
-      { value: genre.active, list: genre.list, options: { onChangeHandler: this.onChangeSelectHandler('Genre'), title: 'Genres' } },
+      { value: keyword.active, list: keyword.list, options: { onChangeHandler: this.onChangeSelectHandler('Keyword'), title: 'Keyword' } },
+      { value: genre.active, list: genre.list, options: { isLoading: genre.list <= 0, onChangeHandler: this.onChangeSelectHandler('Genre'), title: 'Genres' } },
       { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeSelectHandler('Decade'), title: 'Decade' } },
-      { value: trend.active, list: trend.list, options: { onChangeHandler: this.onChangeSelectHandler('Trend'), title: 'Trend' } },
+      { value: trend.active, list: trend.list, options: { isLoading: false, onChangeHandler: this.onChangeSelectHandler('Trend'), title: 'Trend' } },
     ];
 
     return (
@@ -80,6 +82,7 @@ export class FilterForm extends Component {
 }
 
 FilterForm.propTypes = {
+  keyword: ptype.object,
   genre: ptype.object,
   decade: ptype.object,
   trend: ptype.object,
