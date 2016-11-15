@@ -17,7 +17,7 @@ import styles from './styles.css';
  * TODO: Make this working with real data.
  */
 function MovieSingleCrew({ path, alt }) {
-  const sourcePath = `http://image.tmdb.org/t/p/original/${path}`;
+  const sourcePath = `http://image.tmdb.org/t/p/w154/${path}`;
   return (
     <div>
       <div className={styles.image}>

@@ -28,7 +28,9 @@ describe('<MovieArticle />', () => {
       overview: 'With King Richard off to the Crusades...',
       release_date: '1973-11-08',
       genre_ids: [16, 22],
+      genres: ['animation', 'action'],
       id: 11886,
+      runtime: 95,
       original_title: 'Robin Hood',
       original_language: 'en',
       title: 'Robin Hood',
@@ -37,12 +39,36 @@ describe('<MovieArticle />', () => {
       vote_count: 589,
       video: false,
       vote_average: 6.83,
+      credits: {
+        cast: [
+          {
+            profile_path: '',
+          },
+          {
+            profile_path: '',
+          },
+          {
+            profile_path: '',
+          },
+        ],
+        crew: [
+          {
+            profile_path: '',
+          },
+          {
+            profile_path: '',
+          },
+          {
+            profile_path: '',
+          },
+        ],
+      },
     },
   };
   const crewItems = [
-    { image: props.movie.backdrop_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
-    { image: props.movie.backdrop_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-    { image: props.movie.backdrop_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
+    { image: props.movie.credits.cast[0].profile_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
+    { image: props.movie.credits.cast[1].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
+    { image: props.movie.credits.cast[2].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
   ];
   const votes = {
     voteAverage: props.movie.vote_average,
@@ -51,9 +77,9 @@ describe('<MovieArticle />', () => {
   const components = [
     <MovieTitle movieTitle={props.movie.title} />,
     <HeartRate votes={votes} />,
-    <MovieDescription />,
-    <MovieRuntime />,
-    <Genres />,
+    <MovieDescription description={props.movie.overview} limit={160} />,
+    <MovieRuntime time={props.movie.runtime} />,
+    <Genres items={props.movie.genres} />,
     <CrewList items={crewItems} />,
   ];
   beforeEach(() => {

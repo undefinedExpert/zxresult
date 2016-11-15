@@ -143,53 +143,28 @@ describe('buildUrl', () => {
     });
 
     it('should assign randomPage to params', () => {
-      fixtureFilters.range.pages = 100;
+      fixtureFilters.range.pages = fixtureRandomPage;
       const result = {
-        trend: {
-          ref: {
-            voteCountMin: 'eslotwinskiMin',
-          },
-          value: {
-            voteCountMin: 300,
-          },
-        },
         genre: {
           ref: {
             id: 'with_genres',
           },
           value: {
             id: 16,
+          },
+        },
+        trend: {
+          ref: {
+            voteCountMin: 'eslotwinskiMin',
+          },
+          value: {
+            voteCountMin: 300,
           },
         },
         page: fixtureRandomPage,
       };
 
-      const expected = fn(fixtureFilters, {}, fixtureRandomPage);
-      expect(expected).to.be.eql(result);
-    });
-
-    it('should assign higherParams with params, if need replace existing object (like page)', () => {
-      const result = {
-        trend: {
-          ref: {
-            voteCountMin: 'eslotwinskiMin',
-          },
-          value: {
-            voteCountMin: 300,
-          },
-        },
-        genre: {
-          ref: {
-            id: 'with_genres',
-          },
-          value: {
-            id: 16,
-          },
-        },
-        page: 1000,
-      };
-
-      const expected = fn(fixtureFilters, { page: 1000 }, fixtureRandomPage);
+      const expected = fn(fixtureFilters, fixtureRandomPage);
       expect(expected).to.be.eql(result);
     });
   });
@@ -244,6 +219,32 @@ describe('buildUrl', () => {
         },
       };
 
+      expect(expected).to.be.eql(result);
+    });
+
+    it('should assign higherParams with params, if need replace existing object (like page)', () => {
+      const result = {
+        trend: {
+          ref: {
+            voteCountMin: 'eslotwinskiMin',
+          },
+          value: {
+            voteCountMin: 300,
+          },
+        },
+        genre: {
+          ref: {
+            id: 'with_genres',
+          },
+          value: {
+            id: 16,
+          },
+        },
+        page: 1000,
+      };
+      const fixtureRandPage = 50;
+
+      const expected = fn(fixtureFilters, { page: 1000 }, fixtureRandPage);
       expect(expected).to.be.eql(result);
     });
 

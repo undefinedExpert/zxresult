@@ -22,11 +22,10 @@ import styles from './styles.css';
  * @desc Wraps Components which represent any movie information.
  */
 function MovieArticle({ movie }) {
-  // TODO: Crew list fetch
+  // TODO: display crew list
   let crewItems;
 
   if (movie.credits) {
-    console.log(movie.credits)
     crewItems = [
       { image: movie.credits.cast[0].profile_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
       { image: movie.credits.cast[1].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
