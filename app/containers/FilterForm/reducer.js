@@ -8,6 +8,8 @@
 import { fromJS } from 'immutable';
 
 import {
+  FILTER_KEYWORD,
+  FILTER_KEYWORD_LIST,
   FILTER_DECADE,
   FILTER_TREND,
   FILTER_GENRE,
@@ -19,10 +21,12 @@ import {
 const currentYear = new Date().getFullYear();
 const initialState = fromJS({
   keyword: fromJS({
-    active: null,
-    list: fromJS([]),
+    active: {
+      query: '',
+    },
+    list: null,
     apiRef: fromJS({
-      id: 'with_genres',
+      query: 'query',
     }),
   }),
   trend: fromJS({
@@ -138,6 +142,12 @@ function filterFormReducer(state = initialState, action) {
     case FILTER_DECADE.REQUEST:
       return state
         .setIn(['decade', 'active'], action.value);
+    case FILTER_KEYWORD.REQUEST:
+      return state
+        .setIn(['keyword', 'active', 'query'], action.value);
+    case FILTER_KEYWORD_LIST.SUCCESS:
+      return state
+        .setIn(['keyword', 'list'], action.value);
     case FILTER_TREND.REQUEST:
       return state
         .setIn(['trend', 'active'], action.value);

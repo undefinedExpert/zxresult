@@ -5,13 +5,14 @@
  *  3. Module
  */
 
+import { throttle } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { take, call, put, cancel, fork, select } from 'redux-saga/effects';
 
 import { callApi } from 'mechanisms/index';
 
 import { selectFilters } from './selectors';
-import { FILTER_GENRE_LIST, UPDATE_FILTERS } from './constants';
+import { FILTER_GENRE_LIST, UPDATE_FILTERS, FILTER_KEYWORD } from './constants';
 import { updateFilterGenre, updateFilters, updateFilterKeyword } from './actions';
 
 
@@ -34,11 +35,15 @@ export function* getGenreList() {
  * requestKeyword
  * @desc call for keyword basing on keyword input
  */
-export function* requestKeyword() {
-  const { keyword } = select(selectFilters);
-  const { data } = yield call(callApi, '/search/keyword', { page: 1 }, false);
+export function* requestKeywords() {
+  console.log('should run saga')
+  const { keyword } = yield select(selectFilters());
+  if (!keyword.active.query) return;
+  console.log(keyword.active.query);
+  const { data } = yield call(callApi, '/search/keyword', { query: keyword.active.query }, false);
+  console.log(data.results);
   try {
-    yield put(updateFilterKeyword.list.success(data.genres));
+    yield put(updateFilterKeyword.list.success(data.results));
   }
   catch (err) {
     yield put(updateFilterKeyword.list.failure(err));
@@ -95,10 +100,15 @@ export function* getGenresListWatcher() {
   }
 }
 
+export function* getKeywordListWatcher() {
+  yield throttle(500, FILTER_KEYWORD.REQUEST, requestKeywords);
+}
+
 
 export function* getMovieSagas() {
   const getGenresList = yield fork(getGenresListWatcher);
   const getUpdateFilters = yield fork(getUpdateFiltersWatcher);
+  const getUpdateKeywords = yield fork(getKeywordListWatcher);
 
   // Suspend execution until location change
   // TODO: Change this to custom action, when the user request new 'result' or something like this.
@@ -107,6 +117,7 @@ export function* getMovieSagas() {
   yield take(LOCATION_CHANGE);
   yield cancel(getUpdateFilters);
   yield cancel(getGenresList);
+  yield cancel(getUpdateKeywords);
 }
 
 export default [

@@ -20,11 +20,11 @@ import styles from './styles.css';
  */
 const renderSelect = (item, index) => {
   /**
-   * Default values for our item, we are set default values here in purpose.
-   * to avoid unnecessary complex structure.
+   * Default values for our item, we are set default values here in purpose of
+   * avoiding unnecessary complex structure.
    */
   const defaultValue = { name: '' };
-  const defaultOptions = { title: '', onChangeHandler: () => {}, isLoading: true };
+  const defaultOptions = { title: '', isLoading: true };
   const {
     value = defaultValue,
     list,
@@ -35,10 +35,8 @@ const renderSelect = (item, index) => {
     <div key={index} className={cs}>
       <Select
         value={value}
-        isLoading={options.isLoading}
         options={list}
-        onChange={options.onChangeHandler}
-        title={options.title}
+        {...options}
       />
     </div>
   );
@@ -53,6 +51,7 @@ const renderSelect = (item, index) => {
 function renderSelects(items) {
   return items.map((item, index) => renderSelect(item, index));
 }
+
 
 /**
  * SelectList

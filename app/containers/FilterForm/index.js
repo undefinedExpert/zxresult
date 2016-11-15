@@ -39,11 +39,11 @@ export class FilterForm extends Component {
     }
   }
 
-  onChangeSelectHandler = (type) => {
+  onChangeSelectHandler = (type, wantUpdate = true) => {
     const which = `onChange${capitalize(type)}`;
     return (value) => {
       this.props[which](value);
-      this.props.getUpdateFilters();
+      if (wantUpdate) this.props.getUpdateFilters();
     };
   };
 
@@ -61,17 +61,17 @@ export class FilterForm extends Component {
       orientation } = this.props;
 
     const selectListItems = [
-      { value: keyword.active, list: keyword.list, options: { onChangeHandler: this.onChangeSelectHandler('Keyword'), title: 'Keyword' } },
-      { value: genre.active, list: genre.list, options: { isLoading: genre.list <= 0, onChangeHandler: this.onChangeSelectHandler('Genre'), title: 'Genres' } },
-      { value: decade.active, list: decade.list, options: { onChangeHandler: this.onChangeSelectHandler('Decade'), title: 'Decade' } },
-      { value: trend.active, list: trend.list, options: { isLoading: false, onChangeHandler: this.onChangeSelectHandler('Trend'), title: 'Trend' } },
+      { value: keyword.active.query, list: keyword.list, options: { labelKey: 'name', isLoading: keyword.list === 0, onInputChange: this.onChangeSelectHandler('Keyword', false), title: 'Keyword' } },
+      { value: genre.active, list: genre.list, options: { isLoading: genre.list <= 0, onChange: this.onChangeSelectHandler('Genre'), title: 'Genres' } },
+      { value: decade.active, list: decade.list, options: { onChange: this.onChangeSelectHandler('Decade'), title: 'Decade' } },
+      { value: trend.active, list: trend.list, options: { isLoading: false, onChange: this.onChangeSelectHandler('Trend'), title: 'Trend' } },
     ];
 
     return (
       <div>
         <form onSubmit={this.onSubmitHandler} className={styles.form}>
           <div className={classNames(styles.filters, styles[orientation])} >
-            <Input type="text" title="Sentence" placeholder="Sentence placeholder" />
+            {/*{<Input type="text" title="Sentence" placeholder="Sentence placeholder" />}*/}
             <SelectList items={selectListItems} />
             <RequestMovie />
           </div>
