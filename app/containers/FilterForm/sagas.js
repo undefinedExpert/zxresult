@@ -36,7 +36,7 @@ export function* getGenreList() {
  * @desc call for keyword basing on keyword input
  */
 export function* requestKeywords() {
-  console.log('should run saga')
+  console.log('should run saga');
   const { keyword } = yield select(selectFilters());
   if (!keyword.active.query) return;
   console.log(keyword.active.query);

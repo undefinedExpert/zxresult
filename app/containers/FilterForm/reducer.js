@@ -19,11 +19,11 @@ import {
 
 
 const currentYear = new Date().getFullYear();
-const initialState = fromJS({
+export const initialState = fromJS({
   keyword: fromJS({
-    active: {
+    active: fromJS({
       query: '',
-    },
+    }),
     list: null,
     apiRef: fromJS({
       query: 'query',

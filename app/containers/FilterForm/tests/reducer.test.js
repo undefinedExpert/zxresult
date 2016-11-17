@@ -22,7 +22,15 @@ describe('filterFormReducer', () => {
   const currentYear = new Date().getFullYear();
   beforeEach(() => {
     state = fromJS({
-      sentence: 'ohio',
+      keyword: fromJS({
+        active: {
+          query: '',
+        },
+        list: null,
+        apiRef: fromJS({
+          query: 'query',
+        }),
+      }),
       trend: fromJS({
         active: fromJS({
           name: 'Popular',

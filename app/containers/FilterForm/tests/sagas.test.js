@@ -13,7 +13,7 @@ import { callApi } from 'mechanisms/index';
 
 import { updateFilterGenre, updateFilters } from '../actions';
 import { FILTER_GENRE_LIST, UPDATE_FILTERS } from '../constants';
-import { getGenreList, handleUpdateFilters, getUpdateFiltersWatcher, getGenresListWatcher, getMovieSagas } from '../sagas';
+import { getGenreList, handleUpdateFilters, getUpdateFiltersWatcher, getGenresListWatcher, getKeywordListWatcher, getMovieSagas } from '../sagas';
 
 
 describe('FilterForm saga handlers', () => {
@@ -131,6 +131,13 @@ describe('getMovieSagas Saga', () => {
   it('should asynchronously fork getUpdateFiltersWatcher saga', () => {
     const task = movieSagas.next();
     const operation = fork(getUpdateFiltersWatcher);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork getKeywordListWatcher saga', () => {
+    const task = movieSagas.next();
+    const operation = fork(getKeywordListWatcher);
 
     expect(task.value).to.be.eql(operation);
   });

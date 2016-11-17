@@ -27,6 +27,7 @@ describe('Filters', () => {
   it('selectFilters()', () => {
     const filterSelector = selectFilters();
     const filterState = {
+      keyword: {},
       genre: {},
       trend: {},
       range: {},

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { capitalize } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
-import Input from 'components/general/Input';
+// import Input from 'components/general/Input';
 import RequestMovie from 'containers/RequestMovie';
 import SelectList from 'components/general/SelectList';
 
@@ -71,7 +71,7 @@ export class FilterForm extends Component {
       <div>
         <form onSubmit={this.onSubmitHandler} className={styles.form}>
           <div className={classNames(styles.filters, styles[orientation])} >
-            {/*{<Input type="text" title="Sentence" placeholder="Sentence placeholder" />}*/}
+            {/* {<Input type="text" title="Sentence" placeholder="Sentence placeholder" />} */}
             <SelectList items={selectListItems} />
             <RequestMovie />
           </div>

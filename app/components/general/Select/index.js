@@ -22,12 +22,10 @@ import styles from './styles.css';
  */
 function Select(props) {
   const {
-    async,
     value = '',
     valueKey = 'name',
     labelKey = 'name',
     list,
-    autoload = false,
     title } = props;
 
 
@@ -35,16 +33,13 @@ function Select(props) {
   return (
     <div className={cs}>
       {title ? <Title text={title} /> : null}
-      {async ?
-        <ReactSelect.Async {...props} /> :
-        <ReactSelect
-          options={list}
-          value={value}
-          valueKey={valueKey}
-          labelKey={labelKey}
-          autoload={false}{...props}
-        />
-      }
+      <ReactSelect
+        options={list}
+        value={value}
+        valueKey={valueKey}
+        labelKey={labelKey}
+        autoload={false}{...props}
+      />
     </div>
   );
 }
@@ -56,6 +51,7 @@ Select.propTypes = {
     ptype.string,
     ptype.object,
   ]),
+  list: ptype.array,
   title: ptype.string,
   loading: ptype.func,
 };

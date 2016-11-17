@@ -8,7 +8,6 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
@@ -23,67 +22,72 @@ describe('<FilterForm />', () => {
   let renderComponent;
   let store;
   const props = {
-    sentence: 'ohio',
-    trend: fromJS({
-      active: fromJS({
+    keyword: {
+      active: {
+        query: 'eslotwinski',
+      },
+      list: [],
+    },
+    trend: {
+      active: {
         name: 'Popular',
         voteAverageMin: null,
         voteAverageMax: null,
         voteCountMin: 300,
         voteCountMax: null,
-      }),
-      list: fromJS([
-        fromJS({
+      },
+      list: [
+        {
           name: 'Highly rated',
           voteAverageMin: 6.5,
           voteAverageMax: 10,
           voteCountMin: 70,
           voteCountMax: null,
-        }),
-        fromJS({
+        },
+        {
           name: 'Popular',
           voteAverageMin: null,
           voteAverageMax: null,
           voteCountMin: 300,
           voteCountMax: null,
-        }),
-      ]),
-    }),
-    decade: fromJS({
-      active: fromJS({
+        },
+      ],
+    },
+    decade: {
+      active: {
         name: '1970s',
         dateMin: '1970-01-01',
         dateMax: '1979-01-01',
-      }),
-      list: fromJS([
-        fromJS({
+      },
+      list: [
+        {
           name: '1970s',
           dateMin: '1970-01-01',
           dateMax: '1979-01-01',
-        }),
-        fromJS({
+        },
+        {
           name: '1960s',
           dateMin: '1960-01-01',
           dateMax: '1969-01-01',
-        }),
-      ]),
-    }),
-    genre: fromJS({
-      active: fromJS({
+        },
+      ],
+    },
+    genre: {
+      active: {
         id: 16,
         name: 'Animation',
-      }),
-      list: fromJS([
-        fromJS({
+      },
+      list: [
+        {
           id: 16,
           name: 'Animation',
-        }),
-        fromJS({
+        },
+        {
           id: 18,
           name: 'Action',
-        }),
-      ]),
-    }),
+        },
+      ],
+    },
   };
   beforeEach(() => {
     store = configureStore({}, browserHistory);
@@ -99,14 +103,9 @@ describe('<FilterForm />', () => {
     expect(expected).to.have.length(1);
   });
 
-  it('Should contain appropriate SelectList items: genre, decade, trend', () => {
+  it('Should contain appropriate SelectList items: genre, decade, trend, keyword', () => {
     const expected = renderComponent.find('SelectList').prop('items');
-    expect(expected).to.have.length(3);
-  });
-
-  it('Should contain Input, Sentence filter', () => {
-    const expected = renderComponent.find('Input');
-    expect(expected).to.have.length(1);
+    expect(expected).to.have.length(4);
   });
 
   it('Should contain RequestMovie', () => {
