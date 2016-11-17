@@ -19,25 +19,10 @@ import styles from './styles.css';
  * @param index - Used as React key
  */
 const renderSelect = (item, index) => {
-  /**
-   * Default values for our item, we are set default values here in purpose of
-   * avoiding unnecessary complex structure.
-   */
-  const defaultValue = { name: '' };
-  const defaultOptions = { title: '', isLoading: true };
-  const {
-    value = defaultValue,
-    list,
-    options = defaultOptions } = item;
-
   const cs = styles.selectItem;
   return (
     <div key={index} className={cs}>
-      <Select
-        value={value}
-        options={list}
-        {...options}
-      />
+      <Select {...item} />
     </div>
   );
 };
@@ -78,6 +63,7 @@ SelectList.propTypes = {
     ptype.string,
     ptype.object,
   ]),
+  settings: ptype.object,
   options: ptype.array,
   loading: ptype.func,
   items: ptype.array.isRequired,

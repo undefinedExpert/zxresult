@@ -5,7 +5,6 @@
  *  3. Module
  */
 
-import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -17,9 +16,9 @@ describe('<SelectList />', () => {
   let renderComponent;
   const props = {
     items: [
-      { value: 'test1', list: [], options: { onChange: sinon.spy(), title: 'Test1' } },
-      { value: 'test2', list: [], options: { onChange: sinon.spy(), title: 'Test2' } },
-      { value: 'test3', list: [], options: { onChange: sinon.spy(), title: 'Test3' } },
+      { value: 'test1', options: [], settings: { title: 'Test1' } },
+      { value: 'test2', options: [], settings: { title: 'Test2' } },
+      { value: 'test3', options: [], settings: { title: 'Test3' } },
     ],
   };
   beforeEach(() => {
@@ -29,11 +28,5 @@ describe('<SelectList />', () => {
   it('Should render at least 3 items', () => {
     const expected = renderComponent.find('Select');
     expect(expected.length).to.be.eql(props.items.length);
-  });
-
-  it('Should run onChangeHandler while the select change', () => {
-    const select = renderComponent.find('Select').first();
-    select.simulate('change');
-    expect(select.prop('onChange').calledOnce).to.eql(true);
   });
 });

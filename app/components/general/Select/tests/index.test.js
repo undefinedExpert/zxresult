@@ -34,7 +34,7 @@ describe('<Select />', () => {
     expect(title).to.eql(true);
   });
 
-  it('Should run onChangeHandler while the select change', () => {
+  it('Should run onChange while the select change', () => {
     const select = renderComponent.find('Select');
     select.simulate('change');
     expect(select.prop('onChange').calledOnce).to.eql(true);

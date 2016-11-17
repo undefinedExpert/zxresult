@@ -61,10 +61,10 @@ export class FilterForm extends Component {
       orientation } = this.props;
 
     const selectListItems = [
-      { value: keyword.active.query, list: keyword.list, options: { labelKey: 'name', isLoading: keyword.list === 0, onInputChange: this.onChangeSelectHandler('Keyword', false), title: 'Keyword' } },
-      { value: genre.active, list: genre.list, options: { isLoading: genre.list <= 0, onChange: this.onChangeSelectHandler('Genre'), title: 'Genres' } },
-      { value: decade.active, list: decade.list, options: { onChange: this.onChangeSelectHandler('Decade'), title: 'Decade' } },
-      { value: trend.active, list: trend.list, options: { isLoading: false, onChange: this.onChangeSelectHandler('Trend'), title: 'Trend' } },
+      { value: keyword.active.query, options: keyword.list, labelKey: 'name', isLoading: keyword.list === 0, onInputChange: this.onChangeSelectHandler('Keyword', false), title: 'Keyword' },
+      { value: genre.active, options: genre.list, isLoading: genre.list <= 0, onChange: this.onChangeSelectHandler('Genre'), title: 'Genres' },
+      { value: decade.active, options: decade.list, onChange: this.onChangeSelectHandler('Decade'), title: 'Decade' },
+      { value: trend.active, options: trend.list, isLoading: false, onChange: this.onChangeSelectHandler('Trend'), title: 'Trend' },
     ];
 
     return (
