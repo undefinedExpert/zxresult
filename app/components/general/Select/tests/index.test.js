@@ -18,7 +18,7 @@ import Select from '../index';
 describe('<Select />', () => {
   let renderComponent;
   const props = {
-    title: 'test cos',
+    title: 'test eslotwinski',
     value: 'test',
     valueKey: 'name',
     labelKey: 'name',
