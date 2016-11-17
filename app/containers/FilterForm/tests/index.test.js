@@ -103,14 +103,9 @@ describe('<FilterForm />', () => {
     expect(expected).to.have.length(1);
   });
 
-  it('Should contain Input, Sentence filter', () => {
-    const expected = renderComponent.find('Input');
-    expect(expected).to.have.length(1);
-  });
-
-  it('Should contain appropriate SelectList items: genre, decade, trend, keyword', () => {
+  it('Should contain appropriate SelectList items: genre, decade, trend', () => {
     const expected = renderComponent.find('SelectList').prop('items');
-    expect(expected).to.have.length(4);
+    expect(expected).to.have.length(3);
   });
 
   it('Should contain RequestMovie', () => {

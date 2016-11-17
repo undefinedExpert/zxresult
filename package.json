@@ -115,6 +115,7 @@
     "react-router-redux": "^4.0.4",
     "react-router-scroll": "^0.2.0",
     "react-select": "^1.0.0-beta13",
+    "react-toolbox": "^1.2.5",
     "react-tween-state": "^0.1.5",
     "redux": "^3.5.2",
     "redux-form": "^5.3.1",
