@@ -33,20 +33,15 @@ const renderSelect = (item, index) => {
  * @desc Map Single Select
  * @param items - Set of Select data.
  */
-function renderSelects(items) {
-  return items.map((item, index) => renderSelect(item, index));
-}
+const renderSelects = (items) => items.map((item, index) => renderSelect(item, index));
 
 
 /**
  * SelectList
  * @desc Renders multiple Select components from provided data.
- * Look at MovieSearchForm Container if you need an example
+ * Look at FilterForm Container if you need an example
  *
- * returns Select list, each rendered with their own data.
- *
- * @method renderSelect - Renders single Select component from data, handles map function.
- * We are also preparing our Select Component with default data, if they are not provided.
+ * @return Select list, each rendered with their own data.
  */
 const SelectList = ({ items }) => {
   const cs = styles.selectList;
