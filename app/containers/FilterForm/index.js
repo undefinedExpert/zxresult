@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { capitalize } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
-import Input from 'components/general/Input';
+import Select from 'components/general/Select';
 import RequestMovie from 'containers/RequestMovie';
 import SelectList from 'components/general/SelectList';
 
@@ -61,17 +61,42 @@ export class FilterForm extends Component {
       orientation } = this.props;
 
     const selectListItems = [
-      { value: keyword.active.query, options: keyword.list, labelKey: 'name', isLoading: keyword.list === 0, onInputChange: this.onChangeSelectHandler('Keyword', false), title: 'Keyword' },
-      { value: genre.active, options: genre.list, isLoading: genre.list <= 0, onChange: this.onChangeSelectHandler('Genre'), title: 'Genres' },
-      { value: decade.active, options: decade.list, onChange: this.onChangeSelectHandler('Decade'), title: 'Decade' },
-      { value: trend.active, options: trend.list, isLoading: false, onChange: this.onChangeSelectHandler('Trend'), title: 'Trend' },
+      {
+        value: genre.active,
+        options: genre.list,
+        isLoading: genre.list <= 0,
+        onChange: this.onChangeSelectHandler('Genre'),
+        title: 'Genres',
+      },
+      {
+        value: decade.active,
+        options: decade.list,
+        onChange: this.onChangeSelectHandler('Decade'),
+        title: 'Decade',
+      },
+      {
+        value: trend.active,
+        options: trend.list,
+        isLoading: false,
+        onChange: this.onChangeSelectHandler('Trend'),
+        title: 'Trend',
+      },
     ];
+    const searchKeyword = {
+      value: keyword.active.query,
+      options: keyword.list,
+      labelKey: 'name',
+      isLoading: keyword.list === 0,
+      onInputChange: this.onChangeSelectHandler('Keyword', false),
+      title: 'Keyword',
+      className: styles['style-sup'],
+    };
 
     return (
       <div>
         <form onSubmit={this.onSubmitHandler} className={styles.form}>
           <div className={classNames(styles.filters, styles[orientation])} >
-            <Input type="text" title="Sentence" placeholder="Sentence placeholder" />
+            <Select {...searchKeyword} />
             <SelectList items={selectListItems} />
             <RequestMovie />
           </div>

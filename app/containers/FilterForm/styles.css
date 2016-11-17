@@ -1,6 +1,7 @@
 .form {
   display: flex;
   color: #fff;
+  flex-wrap: wrap;
   justify-content: center;
   position: relative;
 }
@@ -31,5 +32,19 @@
       top: auto;
       bottom: 100%;
     }
+  }
+}
+
+.style-sup {
+  :global .Select-control,
+  :global .is-open > .Select-control {
+    border: 2px solid var(--cSupDark);
+  }
+
+  :global .Select-control,
+  :global .is-open > .Select-control,
+  :global .Select-menu-outer,
+  :global .Select-option {
+    border-color: var(--cSupDark);
   }
 }
