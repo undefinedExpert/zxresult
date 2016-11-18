@@ -9,13 +9,21 @@
   font-size: var(--fsText);
 }
 
+:global .has-value.Select--single > .Select-control .Select-value .Select-value-label,
+:global .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+  color: var(--cText);
+}
+
+:globaL .Select {
+  color: var(--cText);
+}
+
 :global .Select-input {
   color: var(--cText);
 }
 
 :global .Select-control {
   min-width: 200px;
-
   @media (max-width: 100em) {
     min-width: 120px;
   }

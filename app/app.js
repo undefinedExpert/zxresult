@@ -25,8 +25,8 @@ import configureStore from './store';
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/lib/sanitize.css';
 
-// Import bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
+// Import antd
+// import 'antd/dist/antd.css';
 import 'react-select/dist/react-select.css';
 
 // Create redux store with history
