@@ -20,7 +20,6 @@ describe('<Button />', () => {
     isLoading: true,
     children: <div id="test"></div>,
     onClick: sinon.spy(),
-    handleRoute: () => {},
   };
   beforeEach(() => {
     renderComponent = shallow(<Button {...props} />, {});

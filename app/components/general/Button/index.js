@@ -18,13 +18,16 @@ import styles from './styles.css';
  */
 function Button(props) {
   const {
-    handleRoute,
-    type,
-    children } = props;
+    children,
+    className,
+    ...rest } = props;
 
-  const cs = classNames('btn', 'btn-primary', styles.button);
+  const cs = classNames(
+    styles.button,
+    className
+  );
   return (
-    <button onClick={handleRoute} className={cs} type={type} {...props}>
+    <button className={cs} {...rest}>
       {children}
     </button>
   );
@@ -32,6 +35,7 @@ function Button(props) {
 
 Button.propTypes = {
   type: ptype.string,
+  className: ptype.string,
   isLoading: ptype.bool,
   children: ptype.oneOfType([
     ptype.arrayOf(ptype.node),

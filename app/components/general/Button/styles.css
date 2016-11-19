@@ -1,3 +1,25 @@
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  margin: 30px 0;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  width: 100%;
+  background-color: var(--cSupDark);
+  color: var(--cHeading);
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-weight: 500;
+  transition: all 0.35s ease;
+  &:hover {
+    background-color: var(--cSupHover);
+  }
+  &:focus {
+    background-color: var(--cSupDark);
+    outline: none;
+  }
+  &:active {
+    background-color: color(var(--cSup) a(75%));
+  }
 }
