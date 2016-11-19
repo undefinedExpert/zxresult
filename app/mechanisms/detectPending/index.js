@@ -45,6 +45,7 @@ export function detector({ pending, range }) {
   return null;
 }
 
+
 /**
  * detectPending
  * @desc provide pending, range for our detector function
