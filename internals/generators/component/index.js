@@ -13,6 +13,12 @@ module.exports = {
     default: 'Stateless Function',
     choices: () => ['ES6 Class', 'Stateless Function'],
   }, {
+    type: 'list',
+    name: 'directory',
+    message: 'What is the directory name you wish to place this Component?',
+    default: 'general',
+    choices: () => ['general', 'special'],
+  }, {
     type: 'input',
     name: 'name',
     message: 'What should it be called?',
@@ -34,12 +40,12 @@ module.exports = {
     // Generate index.js and index.test.js
     const actions = [{
       type: 'add',
-      path: '../../app/components/{{properCase name}}/index.js',
+      path: '../../app/components/{{properCase directory}}/{{properCase name}}/index.js',
       templateFile: data.type === 'ES6 Class' ? './component/es6.js.hbs' : './component/stateless.js.hbs',
       abortOnFail: true,
     }, {
       type: 'add',
-      path: '../../app/components/{{properCase name}}/tests/index.test.js',
+      path: '../../app/components/{{properCase directory}}/{{properCase name}}/tests/index.test.js',
       templateFile: './component/test.js.hbs',
       abortOnFail: true,
     }];
@@ -48,7 +54,7 @@ module.exports = {
     if (data.wantCSS) {
       actions.push({
         type: 'add',
-        path: '../../app/components/{{properCase name}}/styles.css',
+        path: '../../app/components/{{properCase directory}}/{{properCase name}}/styles.css',
         templateFile: './component/styles.css.hbs',
         abortOnFail: true,
       });
