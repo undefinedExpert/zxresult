@@ -26,7 +26,6 @@ import configureStore from './store';
 import 'sanitize.css/lib/sanitize.css';
 
 // Import antd
-// import 'antd/dist/antd.css';
 import 'react-select/dist/react-select.css';
 
 // Create redux store with history
