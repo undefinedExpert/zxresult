@@ -11,8 +11,8 @@ const colors = {
   cMainHover: 'color(var(--cMain) a(45%))',
   cMainFocus: 'color(var(--cMain) a(45%))',
   cSup: '#db5461', // supplementary color
-  cSupHover: 'color(var(--cSup) a(45%));',
-  cSupFocus: 'color(var(--cSup) a(45%));',
+  cSupHover: 'color(var(--cSup) a(35%));',
+  cSupFocus: 'color(var(--cSup) a(35%));',
   cSupDark: 'color(var(--cSup) a(50%));',
   cHeading: '#C0C5CE',
   cText: '#7B818B',
