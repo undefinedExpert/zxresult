@@ -1,0 +1,23 @@
+.ball {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--cSup);
+  border-bottom-color: transparent;
+  background: transparent;
+  border-radius: 100%;
+  animation: loading 1s 0s infinite linear;
+  animation-fill-mode: both;
+  position: absolute;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
