@@ -22,6 +22,7 @@ function mapState() {
   return createSelector(
     selectResult(),
     createStructuredSelector({
+      active: ({ active }) => active,
       isFetching: ({ isFetching }) => isFetching,
       noMoreResults: ({ noMoreResults }) => noMoreResults,
     }),

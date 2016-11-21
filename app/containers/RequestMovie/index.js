@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Button from 'components/general/Button';
+import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import { mapDispatch, mapState } from './mapProps';
 
@@ -25,31 +26,24 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
     this.props.movieUpdate();
   };
 
-  fetchFunc = () => {
-    const isFetching = this.props.isFetching;
-    if (isFetching) {
-      return (
-        <h4>Loading...</h4>
-      );
-    }
-    return null;
-  };
+  noMoreResults = () => (
+    <h4>No more results</h4>
+  );
 
-  noMoreResults = () => {
-    const noMoreResults = this.props.noMoreResults;
-    if (noMoreResults) {
-      return (
-        <h4>No more results</h4>
-      );
-    }
-    return null;
-  };
   render() {
+    const {
+      isFetching,
+      noMoreResults } = this.props;
+
+    const msg = {
+      initial: 'Search',
+    };
     return (
-      <div>
-        {this.fetchFunc()}
-        {this.noMoreResults()}
-        <Button onClick={this.updateAndRoute}>Update filters and route to result when it's done</Button>
+      <div >
+        {noMoreResults ? this.noMoreResults() : null}
+        <Button onClick={this.updateAndRoute} style={{ height: '40px', minWidth: '120px' }}>
+          {isFetching ? <LoadingIndicator /> : msg.initial}
+        </Button>
       </div>
     );
   }

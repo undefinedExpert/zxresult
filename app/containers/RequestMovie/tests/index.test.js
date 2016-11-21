@@ -13,8 +13,10 @@ import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 import configureStore from '../../../store';
+import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import { RequestMovie } from '../index';
+
 
 describe('<RequestMovie />', () => {
   let renderComponent;
@@ -43,7 +45,7 @@ describe('<RequestMovie />', () => {
 
   it('Should render "loading" message', () => {
     const modifiedComponent = renderComponent.setProps({ isFetching: true });
-    const expected = modifiedComponent.contains(<h4>Loading...</h4>);
+    const expected = modifiedComponent.contains(<LoadingIndicator />);
     expect(expected).to.eql(true);
   });
 
