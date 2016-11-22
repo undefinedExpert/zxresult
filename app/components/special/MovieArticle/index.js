@@ -22,18 +22,6 @@ import styles from './styles.css';
  * @desc Wraps Components which represent any movie information.
  */
 function MovieArticle({ movie }) {
-  // TODO: display crew list
-  let crewItems;
-
-  if (movie.credits) {
-    crewItems = [
-      { image: movie.credits.cast[0].profile_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
-      { image: movie.credits.cast[1].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-    ];
-  } else {
-    crewItems = [];
-  }
-
   const votes = {
     voteAverage: movie.vote_average,
     voteCount: movie.vote_average,
@@ -47,7 +35,7 @@ function MovieArticle({ movie }) {
       <MovieDescription description={movie.overview} limit={160} />
       <MovieRuntime time={movie.runtime} />
       <Genres items={movie.genres} />
-      <CrewList items={crewItems} />
+      <CrewList items={movie.credits} />
     </article>
   );
 }

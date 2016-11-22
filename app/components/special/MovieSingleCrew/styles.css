@@ -1,7 +1,17 @@
+.container {
+  margin: 0 20px 0 0;
+  font-size: 1.4rem;
+}
+
 .image {
   position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
   :local img {
+    position: absolute;
     width: 100%;
+    transform: translateY(-15px);
   }
   &::after {
     content: '';
@@ -14,4 +24,24 @@
     opacity: 0.5;
     z-index: 1;
   }
+}
+
+.name {
+  margin: 6px 0 2px 0;
+  color: var(--cSup)
+}
+
+.character {
+  font-weight: 300;
+  :local b {
+    font-weight: 700;
+  }
+}
+
+.avatar {
+  height: 150px;
+  background-color: color(gray a(50%));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

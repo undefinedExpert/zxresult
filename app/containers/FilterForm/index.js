@@ -108,7 +108,7 @@ export class FilterForm extends Component {
           <div className={classNames(styles.filters, styles[orientation])} >
             <Select {...searchKeyword} />
             <SelectList items={selectListItems} />
-            {range.results > 0 ? <RequestMovie /> : <RequestMovie disabledButton />}
+            <RequestMovie range={range.results} />
             <div>
               current range is:
               <h6>pages: {range.pages}</h6>

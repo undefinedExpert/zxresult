@@ -1,11 +1,9 @@
-$maxHeight: calc(100vh - 50px);
-
 .movieArticle {
   lost-column: 5/12 0;
   overflow: auto;
-  max-height: $maxHeight;
+  max-height: calc(100vh - 50px);
   color: var(--cHeading);
   padding: 25px 0 15px;
-  font-size: 18px;
+  font-size: 1.6rem;
   font-family: "Quattrocento Sans", sans-serif;
 }

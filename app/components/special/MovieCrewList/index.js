@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import _ from 'lodash';
 import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
@@ -14,17 +15,14 @@ import MovieSingleCrew from 'components/special/MovieSingleCrew';
  * renderSingle
  * @desc Render Single Crew Component packed with section basing on provided data.
  */
-const renderSingle = (item, index) => {
+const renderSingle = (item, index=0) => {
   const {
-    image,
-    alt,
-    title,
-    sectionSize } = item;
-
-  const errMsg = `${title} isn't available`;
+    sectionSize,
+    ...rest } = item;
+  console.log(item)
   return (
-    <Section title={title} size={sectionSize} key={index}>
-      {title ? <MovieSingleCrew path={image} alt={alt} /> : <p>{errMsg}</p>}
+    <Section size={sectionSize} key={index}>
+      {<MovieSingleCrew {...rest} />}
     </Section>
   );
 };
@@ -35,15 +33,29 @@ const renderSingle = (item, index) => {
  * @desc Check if there is at least one CrewItem, if yes map & render our single Crew mate.
  */
 function MovieCrewList({ items }) {
+  if (!items) {
+    return (
+      <div>
+        Loading
+      </div>
+    );
+  }
+
+  const director = items.crew.filter((item) => item.job === 'Director')[0];
+  director.sectionSize = '1/3';
+
+  const limitedCast = items.cast.slice(0, 2);
+
   return (
     <div>
-      {items.length ? items.map((item, index) => renderSingle(item, index)) : 'LOADING'}
+      {renderSingle(director)}
+      {limitedCast.map((item, index) => renderSingle(item, index))}
     </div>
-    );
+  );
 }
 
 MovieCrewList.propTypes = {
-  items: ptype.array,
+  items: ptype.object,
 };
 
 export default MovieCrewList;
