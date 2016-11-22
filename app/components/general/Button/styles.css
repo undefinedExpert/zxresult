@@ -12,6 +12,7 @@
   font-family: 'Quattrocento Sans', sans-serif;
   font-weight: 500;
   transition: all 0.35s ease;
+  cursor: pointer;
   &:hover {
     background-color: var(--cSupHover);
   }

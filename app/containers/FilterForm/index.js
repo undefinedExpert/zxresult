@@ -7,7 +7,7 @@
 
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { capitalize } from 'lodash';
+import { capitalize, debounce } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Select from 'components/general/Select';
@@ -82,6 +82,7 @@ export class FilterForm extends Component {
         title: 'Trend',
       },
     ];
+
     const searchKeyword = {
       value: keyword.active.query,
       options: keyword.list,

@@ -53,10 +53,14 @@ function requestMovieReducer(state = initialState, action) {
       return state
         .setIn(['active'], fromJS(action.updatedActive))
         .setIn(['isFetching'], false);
+    case UPDATE_FILTERS.REQUEST:
+      return state
+        .setIn(['isFetching'], true);
     case UPDATE_FILTERS.SUCCESS:
       return state
         .setIn(['noMoreResults'], false)
-        .setIn(['pending'], fromJS([]));
+        .setIn(['pending'], fromJS([]))
+        .setIn(['isFetching'], false);
     default:
       return state;
   }
