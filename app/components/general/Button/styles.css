@@ -23,4 +23,8 @@
   &:active {
     background-color: color(var(--cSup) a(75%));
   }
+  &:disabled {
+    background-color: color(gray a(50%));
+    cursor: not-allowed;
+  }
 }

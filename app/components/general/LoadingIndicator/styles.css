@@ -8,6 +8,10 @@
   animation: loading 1s 0s infinite linear;
   animation-fill-mode: both;
   position: absolute;
+  &.isDisabled {
+    border-color: gray;
+    border-bottom-color: transparent;
+  }
 }
 
 @keyframes loading {

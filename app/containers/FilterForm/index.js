@@ -64,6 +64,7 @@ export class FilterForm extends Component {
       genre,
       decade,
       trend,
+      range,
       orientation } = this.props;
 
     const selectListItems = [
@@ -107,7 +108,12 @@ export class FilterForm extends Component {
           <div className={classNames(styles.filters, styles[orientation])} >
             <Select {...searchKeyword} />
             <SelectList items={selectListItems} />
-            <RequestMovie />
+            {range.results > 0 ? <RequestMovie /> : <RequestMovie disabledButton />}
+            <div>
+              current range is:
+              <h6>pages: {range.pages}</h6>
+              <h6>results: {range.results}</h6>
+            </div>
           </div>
         </form>
       </div>
@@ -120,6 +126,7 @@ FilterForm.propTypes = {
   genre: ptype.object,
   decade: ptype.object,
   trend: ptype.object,
+  range: ptype.object,
   orientation: ptype.string,
   onSubmitForm: ptype.func,
   getGenreList: ptype.func,

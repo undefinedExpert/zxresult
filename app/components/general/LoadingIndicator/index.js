@@ -6,6 +6,7 @@
 */
 
 import React from 'react';
+import classNames from 'classnames';
 
 import styles from './styles.css';
 
@@ -14,8 +15,11 @@ import styles from './styles.css';
 * LoadingIndicator
 * @desc TODO: desc for LoadingIndicator
 */
-const LoadingIndicator = () => {
-  const cs = styles.ball;
+const LoadingIndicator = ({ isDisabled }) => {
+  const cs = classNames(
+    styles.ball,
+    isDisabled ? styles.isDisabled : null,
+  );
   return (
     <div className={cs}></div>
   );

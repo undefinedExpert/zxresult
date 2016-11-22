@@ -32,17 +32,19 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
 
   render() {
     const {
+      disabledButton = false,
       isFetching,
       noMoreResults } = this.props;
 
     const msg = {
       initial: 'Search',
     };
+
     return (
       <div >
         {noMoreResults ? this.noMoreResults() : null}
-        <Button onClick={this.updateAndRoute} style={{ height: '40px', minWidth: '120px' }}>
-          {isFetching ? <LoadingIndicator /> : msg.initial}
+        <Button onClick={this.updateAndRoute} style={{ height: '40px', minWidth: '120px' }} disabled={disabledButton}>
+          {isFetching ? <LoadingIndicator isDisabled={disabledButton} /> : msg.initial}
         </Button>
       </div>
     );

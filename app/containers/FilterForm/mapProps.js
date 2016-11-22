@@ -35,6 +35,7 @@ function mapState() {
       genre: ({ genre }) => genre,
       decade: ({ decade }) => decade,
       trend: ({ trend }) => trend,
+      range: ({ range }) => range,
     }),
   );
 }

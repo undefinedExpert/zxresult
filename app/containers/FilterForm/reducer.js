@@ -148,7 +148,7 @@ function filterFormReducer(state = initialState, action) {
         .setIn(['keyword', 'active'], action.value);
     case FILTER_KEYWORD_LIST.REQUEST:
       return state
-        .setIn(['keyword', 'active', 'query'], action.value);
+        .setIn(['keyword', 'active'], { query: action.value });
     case FILTER_KEYWORD_LIST.SUCCESS:
       return state
         .setIn(['keyword', 'list'], action.value);

@@ -29,7 +29,6 @@ function MovieArticle({ movie }) {
     crewItems = [
       { image: movie.credits.cast[0].profile_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
       { image: movie.credits.cast[1].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-      { image: movie.credits.cast[2].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
     ];
   } else {
     crewItems = [];
