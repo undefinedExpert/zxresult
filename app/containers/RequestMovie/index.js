@@ -37,7 +37,7 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
       noMoreResults } = this.props;
 
     const msg = {
-      initial: 'Search',
+      initial: range === 0 ? 'We couldn\'t find any movie from current filters set.' : 'Search',
     };
 
     return (
