@@ -27,6 +27,7 @@ export const initialState = fromJS({
     list: null,
     apiRef: fromJS({
       query: 'query',
+      id: 'with_keywords',
     }),
   }),
   trend: fromJS({
@@ -143,6 +144,9 @@ function filterFormReducer(state = initialState, action) {
       return state
         .setIn(['decade', 'active'], action.value);
     case FILTER_KEYWORD.REQUEST:
+      return state
+        .setIn(['keyword', 'active'], action.value);
+    case FILTER_KEYWORD_LIST.REQUEST:
       return state
         .setIn(['keyword', 'active', 'query'], action.value);
     case FILTER_KEYWORD_LIST.SUCCESS:

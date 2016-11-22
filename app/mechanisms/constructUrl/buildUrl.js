@@ -88,6 +88,7 @@ export function buildUrl(filters, endpoint) {
     const params = pairParams(filters);
     const query = params.map(item => stringify(item)).join('&');
 
+    console.log(`${baseUrl}&${query}`);
     return `${baseUrl}&${query}`;
   }
 

@@ -17,6 +17,7 @@ function mapDispatch(dispatch) {
     onChangeDecade: (value) => dispatch(updateFilterDecade.active.request(value)),
     onChangeTrend: (value) => dispatch(updateFilterTrend.active.request(value)),
     onChangeKeyword: (value) => dispatch(updateFilterKeyword.active.request(value)),
+    inputChangeKeyword: (value) => dispatch(updateFilterKeyword.list.request(value)),
     getGenreList: () => dispatch(updateFilterGenre.list.request()),
     getUpdateFilters: () => dispatch(updateFilters.request()),
     onSubmitForm: (evt) => {

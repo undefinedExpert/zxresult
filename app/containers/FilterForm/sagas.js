@@ -12,7 +12,7 @@ import { take, call, put, cancel, fork, select } from 'redux-saga/effects';
 import { callApi } from 'mechanisms/index';
 
 import { selectFilters } from './selectors';
-import { FILTER_GENRE_LIST, UPDATE_FILTERS, FILTER_KEYWORD } from './constants';
+import { FILTER_GENRE_LIST, UPDATE_FILTERS, FILTER_KEYWORD, FILTER_KEYWORD_LIST } from './constants';
 import { updateFilterGenre, updateFilters, updateFilterKeyword } from './actions';
 
 
@@ -35,7 +35,7 @@ export function* getGenreList() {
  * requestKeyword
  * @desc call for keyword basing on keyword input
  */
-export function* requestKeywords() {
+export function* requestKeywordList() {
   console.log('should run saga');
   const { keyword } = yield select(selectFilters());
   if (!keyword.active.query) return;
@@ -101,7 +101,7 @@ export function* getGenresListWatcher() {
 }
 
 export function* getKeywordListWatcher() {
-  yield throttle(500, FILTER_KEYWORD.REQUEST, requestKeywords);
+  yield throttle(500, FILTER_KEYWORD_LIST.REQUEST, requestKeywordList);
 }
 
 

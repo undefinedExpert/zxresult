@@ -7,7 +7,7 @@
 
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { capitalize, debounce } from 'lodash';
+import { capitalize } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Select from 'components/general/Select';
@@ -47,6 +47,12 @@ export class FilterForm extends Component {
     };
   };
 
+  onInputChangeKeywordHandler = () => (value) => {
+    if (value.length >= 3) {
+      this.props.inputChangeKeyword(value);
+    }
+  };
+
   onSubmitHandler = (e) => {
     e.preventDefault();
     this.props.onSubmitForm();
@@ -84,15 +90,17 @@ export class FilterForm extends Component {
     ];
 
     const searchKeyword = {
-      value: keyword.active.query,
+      value: keyword.active.query || keyword.active.name,
       options: keyword.list,
       labelKey: 'name',
       isLoading: keyword.list === 0,
-      onInputChange: this.onChangeSelectHandler('Keyword', false),
+      onInputChange: this.onInputChangeKeywordHandler(),
+      onChange: this.onChangeSelectHandler('Keyword'),
       title: 'Keyword',
       className: styles['style-sup'],
     };
-
+    // onInputChange get list of current typed query,
+    // onChange request updateFilters and include with_genres in url
     return (
       <div>
         <form onSubmit={this.onSubmitHandler} className={styles.form}>
@@ -118,6 +126,7 @@ FilterForm.propTypes = {
   onChangeGenre: ptype.func,
   onChangeTrend: ptype.func,
   onChangeDecade: ptype.func,
+  inputChangeKeyword: ptype.func,
   getUpdateFilters: ptype.func,
 };
 

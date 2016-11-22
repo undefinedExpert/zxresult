@@ -57,7 +57,7 @@ const keywordActive = {
   failure: (value, error) => action(FILTER_KEYWORD.FAILURE, { value, error }),
 };
 const keywordList = {
-  request: () => action(FILTER_KEYWORD_LIST.REQUEST, {}),
+  request: value => action(FILTER_KEYWORD_LIST.REQUEST, { value }),
   success: (value, response) => action(FILTER_KEYWORD_LIST.SUCCESS, { value, response }),
   failure: (value, error) => action(FILTER_KEYWORD_LIST.FAILURE, { value, error }),
 };
