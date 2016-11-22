@@ -24,7 +24,7 @@ function MovieRuntime({ sectionSize = '1/2', time }) {
 
   return (
     <Section title={title} size={sectionSize}>
-      <span><IoClock className={styles.icon} size={50} />{time ? `${time} min` : 'LOADING'}</span>
+      <span className={styles.runtime}><IoClock className={styles.icon} size={50} />{time ? `${time} min` : 'LOADING'}</span>
     </Section>
   );
 }
