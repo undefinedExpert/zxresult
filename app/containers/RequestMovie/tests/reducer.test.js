@@ -91,6 +91,13 @@ describe('requestMovieReducer', () => {
     expect(requestMovieReducer(state, updateSingleMovie.success(fixture))).to.eql(expected);
   });
 
+  it('Should handle the UPDATE_FILTERS.REQUEST', () => {
+    const expectedResult = state
+      .setIn(['isFetching'], true);
+
+    expect(requestMovieReducer(state, updateFilters.request())).to.eql(expectedResult);
+  });
+
   it('should handle the UPDATE_FILTERS.SUCCESS', () => {
     const fixtureNoMoreResults = false;
     const fixturePending = fromJS([]);
