@@ -15,11 +15,31 @@ import MovieCrewList from '../index';
 describe('<CrewList />', () => {
   let renderComponent;
   const props = {
-    items: [
-      { image: 'test', alt: 'test', title: 'Director', sectionSize: '1/3' },
-      { image: 'test', alt: 'test', title: 'Cast', sectionSize: '1/3' },
-      { image: 'test', alt: 'test', title: 'Cast', sectionSize: '1/3' },
-    ],
+    items: {
+      cast: [
+        {
+          profile_path: '',
+        },
+        {
+          profile_path: '',
+        },
+        {
+          profile_path: '',
+        },
+      ],
+      crew: [
+        {
+          job: 'Director',
+          profile_path: '',
+        },
+        {
+          profile_path: '',
+        },
+        {
+          profile_path: '',
+        },
+      ],
+    },
   };
   beforeEach(() => {
     renderComponent = mount(<MovieCrewList {...props} />, {});
@@ -27,6 +47,6 @@ describe('<CrewList />', () => {
 
   it('It should render all crewItems', () => {
     const expected = renderComponent.find('MovieSingleCrew');
-    expect(expected).to.be.length(props.items.length);
+    expect(expected).to.be.length(3);
   });
 });

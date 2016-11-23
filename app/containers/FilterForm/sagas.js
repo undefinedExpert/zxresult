@@ -12,7 +12,7 @@ import { take, call, put, cancel, fork, select } from 'redux-saga/effects';
 import { callApi } from 'mechanisms/index';
 
 import { selectFilters } from './selectors';
-import { FILTER_GENRE_LIST, UPDATE_FILTERS, FILTER_KEYWORD, FILTER_KEYWORD_LIST } from './constants';
+import { FILTER_GENRE_LIST, UPDATE_FILTERS, FILTER_KEYWORD_LIST } from './constants';
 import { updateFilterGenre, updateFilters, updateFilterKeyword } from './actions';
 
 

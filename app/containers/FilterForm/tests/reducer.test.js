@@ -23,12 +23,13 @@ describe('filterFormReducer', () => {
   beforeEach(() => {
     state = fromJS({
       keyword: fromJS({
-        active: {
+        active: fromJS({
           query: '',
-        },
+        }),
         list: null,
         apiRef: fromJS({
           query: 'query',
+          id: 'with_keywords',
         }),
       }),
       trend: fromJS({

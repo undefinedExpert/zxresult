@@ -27,8 +27,8 @@
 }
 
 .name {
-  margin: 6px 0 2px 0;
-  color: var(--cSup)
+  margin: 6px 0 2px;
+  color: var(--cSup);
 }
 
 .character {

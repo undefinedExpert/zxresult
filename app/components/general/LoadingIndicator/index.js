@@ -5,7 +5,7 @@
 *  3. Module
 */
 
-import React from 'react';
+import React, { PropTypes as ptype } from 'react';
 import classNames from 'classnames';
 
 import styles from './styles.css';
@@ -25,6 +25,8 @@ const LoadingIndicator = ({ isDisabled }) => {
   );
 };
 
-LoadingIndicator.propTypes = {};
+LoadingIndicator.propTypes = {
+  isDisabled: ptype.bool,
+};
 
 export default LoadingIndicator;

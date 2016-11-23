@@ -65,11 +65,7 @@ describe('<MovieArticle />', () => {
       },
     },
   };
-  const crewItems = [
-    { image: props.movie.credits.cast[0].profile_path, alt: 'test', title: 'Director', sectionSize: '1/3' },
-    { image: props.movie.credits.cast[1].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-    { image: props.movie.credits.cast[2].profile_path, alt: 'test', title: 'Cast', sectionSize: '1/3' },
-  ];
+
   const votes = {
     voteAverage: props.movie.vote_average,
     voteCount: props.movie.vote_average,
@@ -80,7 +76,7 @@ describe('<MovieArticle />', () => {
     <MovieDescription description={props.movie.overview} limit={160} />,
     <MovieRuntime time={props.movie.runtime} />,
     <Genres items={props.movie.genres} />,
-    <CrewList items={crewItems} />,
+    <CrewList items={props.movie.credits} />,
   ];
   beforeEach(() => {
     renderComponent = shallow(<MovieArticle {...props} />, {});
@@ -91,10 +87,5 @@ describe('<MovieArticle />', () => {
       const expected = renderComponent.containsMatchingElement(item);
       expect(expected).to.eql(true);
     }));
-  });
-
-  it('Movie should always be provided', () => {
-    const expected = mount(<MovieArticle {...props} />, {});
-    expect(expected.props().movie).to.not.eql(undefined);
   });
 });

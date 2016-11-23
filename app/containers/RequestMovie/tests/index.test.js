@@ -45,7 +45,7 @@ describe('<RequestMovie />', () => {
 
   it('Should render "loading" message', () => {
     const modifiedComponent = renderComponent.setProps({ isFetching: true });
-    const expected = modifiedComponent.contains(<LoadingIndicator />);
+    const expected = modifiedComponent.contains(<LoadingIndicator isDisabled={5 === 0} />);
     expect(expected).to.eql(true);
   });
 

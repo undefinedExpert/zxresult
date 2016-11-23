@@ -26,7 +26,11 @@ describe('<FilterForm />', () => {
       active: {
         query: 'eslotwinski',
       },
-      list: [],
+      list: null,
+      apiRef: {
+        query: 'query',
+        id: 'with_keywords',
+      },
     },
     trend: {
       active: {
@@ -88,6 +92,11 @@ describe('<FilterForm />', () => {
         },
       ],
     },
+    range: {
+      results: 5,
+      pagesCache: null,
+      pages: 5,
+    },
   };
   beforeEach(() => {
     store = configureStore({}, browserHistory);
@@ -109,7 +118,7 @@ describe('<FilterForm />', () => {
   });
 
   it('Should contain RequestMovie', () => {
-    const expected = renderComponent.contains(<RequestMovie />);
+    const expected = renderComponent.contains(<RequestMovie range={props.range.results} />);
     expect(expected).to.eql(true);
   });
 });

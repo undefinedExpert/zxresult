@@ -5,7 +5,6 @@
  *  3. Module
  */
 
-import _ from 'lodash';
 import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
@@ -15,11 +14,12 @@ import MovieSingleCrew from 'components/special/MovieSingleCrew';
  * renderSingle
  * @desc Render Single Crew Component packed with section basing on provided data.
  */
-const renderSingle = (item, index=0) => {
+const renderSingle = (item, index = 0) => {
   const {
-    sectionSize,
+    sectionSize = '1/4',
     ...rest } = item;
-  console.log(item)
+
+  console.log(item);
   return (
     <Section size={sectionSize} key={index}>
       {<MovieSingleCrew {...rest} />}
