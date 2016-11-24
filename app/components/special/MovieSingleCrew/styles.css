@@ -24,6 +24,10 @@
     opacity: 0.5;
     z-index: 1;
   }
+  @media (min-width: 40em) {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 .name {

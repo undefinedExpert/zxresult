@@ -3,7 +3,7 @@
 $maxHeight: calc(100vh - 50px);
 
 .gallery {
-  lost-column: 7/12 0;
+  lost-column: 1/1 0;
 
   /* fixme: Problem with margins and PostCSS Inheritance, temporary fix is !important */
   margin-top: 0 !important;
@@ -13,4 +13,7 @@ $maxHeight: calc(100vh - 50px);
   max-height: $maxHeight;
   height: $maxHeight;
   background-color: #22262e;
+  @media (min-width: 80em) {
+    lost-column: 7/12 0;
+  }
 }
