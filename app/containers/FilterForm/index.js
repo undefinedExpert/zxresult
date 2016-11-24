@@ -91,7 +91,7 @@ export class FilterForm extends Component {
     ];
 
     const searchKeyword = {
-      value: keyword.active.query || keyword.active.name,
+      value: keyword.active ? keyword.active.query || keyword.active.name : '',
       options: keyword.list,
       labelKey: 'name',
       isLoading: keyword.list === 0,
