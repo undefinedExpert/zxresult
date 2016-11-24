@@ -10,6 +10,8 @@ import React, { Component } from 'react';
 import FilterForm from 'containers/FilterForm';
 import WelcomeText from 'components/special/WelcomeText';
 
+import styles from './styles.css';
+
 
 /**
  * HomePage
@@ -18,7 +20,7 @@ import WelcomeText from 'components/special/WelcomeText';
 class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <div className={styles.homepage}>
         <WelcomeText />
         <FilterForm />
       </div>

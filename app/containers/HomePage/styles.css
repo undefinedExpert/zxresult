@@ -1,0 +1,11 @@
+.homepage {
+  /* fullheight - navigation height*/
+  height: calc(100% - 50px);
+  min-height: 470px;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+}

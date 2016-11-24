@@ -1,6 +1,5 @@
 .welcomeText {
   font-family: 'Quattrocento Sans', sans-serif;
-  margin-top: 2.5vh;
   color: var(--cHeading);
   h1,
   h3 {
@@ -17,8 +16,6 @@
   }
 
   @media (min-width: 80em) {
-    margin-top: 25vh;
-
     h1 {
       font-size: 4.2rem;
     }
