@@ -1,11 +1,12 @@
 .homepage {
   /* fullheight - navigation height*/
-  height: calc(100% - 50px);
-  min-height: 490px;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
+  /*height: calc(100% - 50px);*/
+  /*min-height: 490px;*/
+  /*position: absolute;*/
+  /*width: 100%;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  /*flex-flow: column wrap;*/
+  width: 1000px;
 }
