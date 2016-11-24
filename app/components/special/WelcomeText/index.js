@@ -15,12 +15,16 @@ import styles from './styles.css';
  * TODO: Make it more interesting or sexy.
  */
 function WelcomeText() {
-  const heading = 'Hi, are you looking for a movie?';
-  const subHeading = 'Let me inspire you then!';
+  const msg = {
+    greeting: 'Hi,',
+    heading: 'looking for a movie?',
+    subHeading: 'Let me inspire you then!',
+  };
+
   return (
     <div className={styles.welcomeText}>
-      <h1>{heading}</h1>
-      <h3>{subHeading}</h3>
+      <h1>{msg.greeting} <b>{msg.heading}</b></h1>
+      <h3>{msg.subHeading}</h3>
     </div>
   );
 }
