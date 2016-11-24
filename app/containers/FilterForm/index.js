@@ -69,6 +69,17 @@ export class FilterForm extends Component {
 
     const selectListItems = [
       {
+        value: keyword.active ? keyword.active.query || keyword.active.name : '',
+        options: keyword.list,
+        labelKey: 'name',
+        isLoading: keyword.list === 0,
+        onInputChange: this.onInputChangeKeywordHandler(),
+        onChange: this.onChangeSelectHandler('Keyword'),
+        title: 'Keyword',
+        theme: 'sup',
+        className: styles['full-width'],
+      },
+      {
         value: genre.active,
         options: genre.list,
         isLoading: genre.list <= 0,
@@ -90,30 +101,19 @@ export class FilterForm extends Component {
       },
     ];
 
-    const searchKeyword = {
-      value: keyword.active ? keyword.active.query || keyword.active.name : '',
-      options: keyword.list,
-      labelKey: 'name',
-      isLoading: keyword.list === 0,
-      onInputChange: this.onInputChangeKeywordHandler(),
-      onChange: this.onChangeSelectHandler('Keyword'),
-      title: 'Keyword',
-      className: styles['style-sup'],
-    };
     // onInputChange get list of current typed query,
     // onChange request updateFilters and include with_genres in url
     return (
       <div>
         <form onSubmit={this.onSubmitHandler} className={styles.form}>
           <div className={classNames(styles.filters, styles[orientation])} >
-            <Select {...searchKeyword} />
             <SelectList items={selectListItems} />
             <RequestMovie range={range.results} />
-            <div>
-              current range is:
-              <h6>pages: {range.pages}</h6>
-              <h6>results: {range.results}</h6>
-            </div>
+            {/*<div>*/}
+              {/*current range is:*/}
+              {/*<h6>pages: {range.pages}</h6>*/}
+              {/*<h6>results: {range.results}</h6>*/}
+            {/*</div>*/}
           </div>
         </form>
       </div>

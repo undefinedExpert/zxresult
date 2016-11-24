@@ -5,8 +5,9 @@
  *  3. Module
  */
 
-import React, { PropTypes as ptype } from 'react';
+import classNames from 'classnames';
 import ReactSelect from 'react-select';
+import React, { PropTypes as ptype } from 'react';
 
 import Title from 'components/general/Title';
 
@@ -22,12 +23,15 @@ import styles from './styles.css';
  */
 function Select(props) {
   const {
+    theme,
     value = { name: '' },
     valueKey = 'name',
     labelKey = 'name',
-    title } = props;
+    title,
+    className,
+  } = props;
 
-  const cs = styles.select;
+  const cs = classNames(styles.select, styles[theme], className);
   return (
     <div className={cs}>
       {title ? <Title text={title} /> : null}
@@ -43,6 +47,7 @@ function Select(props) {
 }
 
 Select.propTypes = {
+  theme: ptype.string,
   valueKey: ptype.string,
   labelKey: ptype.string,
   value: ptype.oneOfType([

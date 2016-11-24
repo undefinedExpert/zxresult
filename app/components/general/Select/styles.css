@@ -23,7 +23,7 @@
 }
 
 :global .Select-control {
-  min-width: 200px;
+  min-width: 160px;
 
   @media (max-width: 100em) {
     min-width: 130px;
@@ -63,6 +63,22 @@
 }
 
 .select {
-  margin: 30px 10px 0 0;
-  width: 100%;
+  flex-shrink: 1;
+  flex-grow: 1;
+  padding: 0 5px;
+}
+
+.sup {
+  margin-top: -1px;
+  :global .Select-control,
+  :global .is-open > .Select-control {
+    border: 2px solid var(--cSupDark);
+  }
+
+  :global .Select-control,
+  :global .is-open > .Select-control,
+  :global .Select-menu-outer,
+  :global .Select-option {
+    border-color: var(--cSupDark);
+  }
 }

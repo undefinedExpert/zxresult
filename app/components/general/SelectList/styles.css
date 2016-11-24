@@ -1,11 +1,4 @@
 .selectList {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 }
-
-.selectItem {
-  float: left;
-  flex-grow: 1;
-  padding: 0 10px 0 0;
-}
-
