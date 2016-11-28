@@ -1,7 +1,4 @@
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   padding: 12px 20px;
   font-size: 1.2rem;
@@ -26,4 +23,9 @@
     background-color: color(gray a(50%));
     cursor: not-allowed;
   }
+}
+
+.children {
+  display: flex;
+  justify-content: center;
 }

@@ -28,7 +28,9 @@ function Button(props) {
   );
   return (
     <button className={cs} {...rest}>
-      {children}
+      <div className={styles.children}>
+        {children}
+      </div>
     </button>
   );
 }
