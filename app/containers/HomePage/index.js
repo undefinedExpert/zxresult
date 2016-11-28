@@ -6,11 +6,9 @@
  */
 
 import React, { Component } from 'react';
-import { Swipe, SwipeItem } from 'swipejs/react';
 
-// import FilterForm from 'containers/FilterForm';
-// import WelcomeText from 'components/special/WelcomeText';
-import SwipeBlock from 'components/general/SwipeBlock';
+import FilterForm from 'containers/FilterForm';
+import WelcomeText from 'components/special/WelcomeText';
 
 import styles from './styles.css';
 
@@ -23,11 +21,8 @@ class HomePage extends Component { // eslint-disable-line react/prefer-stateless
   render() {
     return (
       <div className={styles.homepage}>
-        <SwipeBlock>
-          <img src="http://placehold.it/1000x400&text=slide3" />
-          <img src="http://placehold.it/1000x400&text=slide4" />
-          <img src="http://placehold.it/1000x400&text=slide5" />
-        </SwipeBlock>
+        <WelcomeText />
+        <FilterForm />
       </div>
     );
   }
