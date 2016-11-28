@@ -1,7 +1,6 @@
 .homepage {
    /*fullheight - navigation height*/
   height: calc(100% - 50px);
-  transform: translateY(-50%);
   min-height: 490px;
   position: absolute;
   width: 100%;
