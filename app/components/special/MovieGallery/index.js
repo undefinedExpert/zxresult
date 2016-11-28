@@ -9,7 +9,6 @@ import React, { PropTypes as ptype } from 'react';
 
 import Section from 'components/general/Section';
 import ResultImage from 'components/special/MovieResultImage';
-import FilterForm from 'containers/FilterForm';
 
 import styles from './styles.css';
 
@@ -25,7 +24,7 @@ function MovieGallery(props) {
   const {
     path,
     alt,
-    orientation = 'horizontal' } = props;
+  } = props;
 
   const altMsg = `${alt} poster`;
 
@@ -33,7 +32,6 @@ function MovieGallery(props) {
   return (
     <Section className={cs}>
       <ResultImage path={path} alt={altMsg} />
-      <FilterForm orientation={orientation} />
     </Section>
   );
 }

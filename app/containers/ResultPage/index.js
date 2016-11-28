@@ -5,13 +5,16 @@
  *  3. Module
  */
 
-import React, { PropTypes as ptype, Component } from 'react';
 import { connect } from 'react-redux';
+import React, { PropTypes as ptype, Component } from 'react';
 import { createStructuredSelector, createSelector } from 'reselect';
 
+import FilterForm from 'containers/FilterForm';
 import Gallery from 'components/special/MovieGallery';
-import { selectResult } from 'containers/RequestMovie/selectors';
 import MovieArticle from 'components/special/MovieArticle';
+import { selectResult } from 'containers/RequestMovie/selectors';
+
+import styles from './styles.css';
 
 
 export class ResultPage extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -20,7 +23,10 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
 
     return (
       <section>
-        <Gallery path={active.poster_path} alt={`${active.original_title}`} />
+        <div className={styles.halfWrapper}>
+          <Gallery path={active.poster_path} alt={`${active.original_title}`} />
+          <FilterForm orientation={'horizontal'} />
+        </div>
         <MovieArticle movie={active} />
       </section>
     );
