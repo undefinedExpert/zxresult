@@ -1,0 +1,12 @@
+.movieCrewList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  :local h4 {
+    width: 100%;
+  }
+  .singleCrew {
+    float: left;
+    min-width: 150px;
+  }
+}

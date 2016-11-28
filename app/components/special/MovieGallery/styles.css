@@ -1,5 +1,3 @@
-@lost flexbox flex;
-
 .gallery {
   /* fixme: Problem with margins and PostCSS Inheritance, temporary fix is !important */
   margin-top: 0 !important;

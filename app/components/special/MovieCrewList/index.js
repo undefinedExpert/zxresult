@@ -10,20 +10,18 @@ import React, { PropTypes as ptype } from 'react';
 import Section from 'components/general/Section';
 import MovieSingleCrew from 'components/special/MovieSingleCrew';
 
+import styles from './styles.css';
+
+
 /**
  * renderSingle
  * @desc Render Single Crew Component packed with section basing on provided data.
  */
 const renderSingle = (item, index = 0) => {
-  const {
-    sectionSize = '1/4',
-    ...rest } = item;
-
-  console.log(item);
   return (
-    <Section size={sectionSize} key={index}>
-      {<MovieSingleCrew {...rest} />}
-    </Section>
+    <div className={styles.singleCrew} key={index}>
+      {<MovieSingleCrew {...item} />}
+    </div>
   );
 };
 
@@ -42,15 +40,14 @@ function MovieCrewList({ items }) {
   }
 
   const director = items.crew.filter((item) => item.job === 'Director')[0];
-  director.sectionSize = '1/3';
 
   const limitedCast = items.cast.slice(0, 2);
 
   return (
-    <div>
+    <Section size={'1/1'} title="Crew" className={styles.movieCrewList}>
       {renderSingle(director)}
       {limitedCast.map((item, index) => renderSingle(item, index))}
-    </div>
+    </Section>
   );
 }
 

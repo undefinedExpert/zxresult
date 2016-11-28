@@ -61,16 +61,16 @@ class MovieResultImage extends Component {
     }
   };
 
+  onClickHandler = () => {
+    this.setState({ isRevealed: !this.state.isRevealed });
+  };
+
   handleImageSizeLoading(setAttr, path, imageSize) {
     const which = this.state[imageSize];
 
     setAttr(which.pattern(path));
     this.setState({ [imageSize]: { loaded: true } });
   }
-
-  onClickHandler = () => {
-    this.setState({ isRevealed: !this.state.isRevealed });
-  };
 
   render() {
     const { path, alt } = this.props;
