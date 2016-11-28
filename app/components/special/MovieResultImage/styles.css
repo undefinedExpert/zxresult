@@ -2,7 +2,14 @@ $navigationSize:  50px;
 
 .resultImage {
   max-height: calc(100vh - $navigationSize);
-  min-height: calc(100vh - $navigationSize);
+  min-height: 40vh;
+  &.isRevealed {
+    min-height: 100vh;
+  }
+  transition: min-height 0.35s ease;
+  @media (min-width: 80em) {
+    min-height: calc(100vh - $navigationSize);
+  }
   background-color: #22262e;
   position: relative;
   .overlay {

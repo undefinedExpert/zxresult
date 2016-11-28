@@ -5,8 +5,9 @@
  *  3. Module
  */
 
-import React, { PropTypes as ptype, Component } from 'react';
 import { curry } from 'lodash';
+import className from 'classnames';
+import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
 
@@ -36,6 +37,7 @@ class MovieResultImage extends Component {
   state = {
     small: smallDefaultState,
     medium: mediumDefaultState,
+    isRevealed: false,
   };
 
   componentWillReceiveProps() {
@@ -66,10 +68,15 @@ class MovieResultImage extends Component {
     this.setState({ [imageSize]: { loaded: true } });
   }
 
+  onClickHandler = () => {
+    this.setState({ isRevealed: !this.state.isRevealed });
+  };
+
   render() {
     const { path, alt } = this.props;
+    const { isRevealed } = this.state;
     return (
-      <div className={styles.resultImage}>
+      <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
         <div className={styles.overlay}></div>
         <div className={styles.imageContainer}>
           <img
