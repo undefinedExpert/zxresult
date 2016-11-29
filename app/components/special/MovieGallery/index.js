@@ -5,12 +5,12 @@
  *  3. Module
  */
 
-import { merge } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
 import SwipeBlock from 'components/general/SwipeBlock';
 import ResultImage from 'components/special/MovieResultImage';
+import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
 
@@ -27,42 +27,58 @@ class MovieGallery extends Component {
     isFetching: false,
   };
 
-  renderImage = (img, index) => (
-    <ResultImage key={index} path={img.file_path} alt={'test'} />
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.movie.original_title !== this.props.movie.original_title) {
+      return true;
+    }
+
+    else if (typeof this.props.movie.images !== typeof nextProps.movie.images) {
+      return true;
+    }
+
+    return false;
+  }
+
+  handleLoading = (poster) => (
+    <div>
+      {this.renderImage(poster[0])}
+      <LoadingIndicator className={styles.loading} />
+    </div>
   );
 
-  renderImages = (images) => {
-    const poster = images.posters.splice(0, 1);
+  renderImages = (poster, images) => {
     const limitedBackdrops = images.backdrops.slice(0, 10);
     const mergedImages = poster.concat(limitedBackdrops);
 
     return (
-      mergedImages.map((item, index) => this.renderImage(item, index))
+      <SwipeBlock swiperConfig={{ pagination: null, nextButton: null, prevButton: null }}>
+        {mergedImages.map((item, index) => this.renderImage(item, index))}
+      </SwipeBlock>
     );
   };
 
-  // console.log(mergedImages, poster);
+  renderImage = (img, index) => (
+    <ResultImage key={index} path={img.file_path} alt={'test'} />
+  );
+
+
   render() {
     const { movie } = this.props;
-
+    const poster = [{ file_path: movie.poster_path }];
     const altMsg = 'poster';
 
     const cs = styles.gallery;
 
     return (
       <Section className={cs}>
-        <SwipeBlock swiperConfig={{ pagination: null, nextButton: null, prevButton: null }}>
-          {movie.images ? this.renderImages(movie.images) : <h1>loading</h1>}
-        </SwipeBlock>
+          {movie.images ? this.renderImages(poster, movie.images) : this.handleLoading(poster)}
       </Section>
     );
   }
 }
 
 MovieGallery.propTypes = {
-  path: ptype.string,
-  alt: ptype.string,
-  orientation: ptype.string,
+  movie: ptype.object,
 };
 
 export default MovieGallery;

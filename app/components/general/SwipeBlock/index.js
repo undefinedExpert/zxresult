@@ -62,7 +62,7 @@ class SwipeBlock extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     this.swiper = this.createSwiper();
   }
 
