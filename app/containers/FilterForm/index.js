@@ -100,8 +100,6 @@ export class FilterForm extends Component {
       },
     ];
 
-    // onInputChange get list of current typed query,
-    // onChange request updateFilters and include with_genres in url
     return (
       <div>
         <form onSubmit={this.onSubmitHandler} className={styles.form}>
