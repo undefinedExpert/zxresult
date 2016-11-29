@@ -84,7 +84,7 @@ class MovieResultImage extends Component {
             onLoad={this.onLoadHandler}
             alt={alt}
             className={styles.image}
-            src={`http://image.tmdb.org/t/p/original${path}`}
+            src={`http://image.tmdb.org/t/p/w500${path}`}
           />
         </div>
       </div>

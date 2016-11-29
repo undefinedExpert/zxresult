@@ -5,6 +5,11 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  justify-content: center;
+
+  @media (min-width: 62.5em) {
+    justify-content: flex-start;
+  }
 }
 
 .icon {

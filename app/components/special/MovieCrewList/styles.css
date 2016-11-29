@@ -1,7 +1,13 @@
 .movieCrewList {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  .list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    @media (min-width: 62.5em) {
+      justify-content: flex-start;
+    }
+  }
   :local h4 {
     width: 100%;
   }
@@ -19,10 +25,6 @@
         padding: 0 8px 0 0;
       }
     }
-  }
-
-  @media (min-width: 62.5em) {
-    justify-content: flex-start;
   }
 }
 

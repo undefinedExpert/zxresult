@@ -34,8 +34,9 @@ function MovieCrewList({ items }) {
     const limitedCast = items.cast.slice(0, 2);
 
     return (
-      <div>
-        {renderSingle(director)} {limitedCast.map((item, index) => renderSingle(item, index))}
+      <div className={styles.list}>
+        {renderSingle(director)}
+        {limitedCast.map((item, index) => renderSingle(item, index))}
       </div>
     );
   };
