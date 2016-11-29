@@ -51,7 +51,7 @@ class MovieGallery extends Component {
     const mergedImages = poster.concat(limitedBackdrops);
 
     return (
-      <SwipeBlock swiperConfig={{ pagination: null, nextButton: null, prevButton: null }}>
+      <SwipeBlock swiperConfig={{ pagination: null, nextButton: null, prevButton: null, lazyLoading: true, preloadImages: false, lazyLoadingInPrevNext: true}}>
         {mergedImages.map((item, index) => this.renderImage(item, index))}
       </SwipeBlock>
     );
