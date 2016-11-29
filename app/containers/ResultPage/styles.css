@@ -4,12 +4,12 @@
   background-color: #22262e;
   display: flex;
   flex-flow: column wrap;
-  @media (min-width: 80em) {
-    lost-column: 7/12 0;
+  @media (min-width: 62.5em) {
+    lost-column: 6/12 0;
   }
   :local form {
     display: none;
-    @media (min-width: 80em) {
+    @media (min-width: 62.5em) {
       display: inherit;
     }
   }

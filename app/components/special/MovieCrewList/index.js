@@ -40,7 +40,6 @@ function MovieCrewList({ items }) {
   }
 
   const director = items.crew.filter((item) => item.job === 'Director')[0];
-
   const limitedCast = items.cast.slice(0, 2);
 
   return (

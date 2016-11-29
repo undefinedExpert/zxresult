@@ -5,7 +5,8 @@
   font-size: 1.2rem;
 
   justify-content: center;
-  @media (min-width: 80em) {
+  @media (min-width: 62.5em) {
+    justify-content: inherit;
   }
   .item {
     display: flex;
