@@ -15,10 +15,11 @@ import styles from './styles.css';
 * LoadingIndicator
 * @desc TODO: desc for LoadingIndicator
 */
-const LoadingIndicator = ({ isDisabled }) => {
+const LoadingIndicator = ({ isDisabled, className }) => {
   const cs = classNames(
     styles.ball,
     isDisabled ? styles.isDisabled : null,
+    className,
   );
   return (
     <div className={cs}></div>

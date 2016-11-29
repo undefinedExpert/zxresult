@@ -22,14 +22,6 @@
   color: var(--cText);
 }
 
-:global .Select-control {
-  min-width: 160px;
-
-  @media (max-width: 100em) {
-    min-width: 130px;
-  }
-}
-
 :global .Select-option {
   font-size: var(--fsText);
 
@@ -63,9 +55,13 @@
 }
 
 .select {
-  flex-shrink: 1;
   flex-grow: 1;
   padding: 0 5px;
+  min-width: 130px;
+
+  @media (min-width: 60em) {
+    min-width: 150px;
+  }
 }
 
 .sup {
