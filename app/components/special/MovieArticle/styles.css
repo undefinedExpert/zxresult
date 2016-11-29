@@ -11,4 +11,7 @@
     lost-column: 6/12 0;
     overflow: auto;
   }
+  :local section {
+    margin: 14px 0;
+  }
 }

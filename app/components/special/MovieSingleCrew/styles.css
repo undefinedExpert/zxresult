@@ -43,6 +43,7 @@
 
 .avatar {
   height: 150px;
+  min-width: 150px;
   background-color: color(gray a(50%));
   display: flex;
   align-items: center;

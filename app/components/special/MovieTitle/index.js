@@ -19,12 +19,12 @@ import styles from './styles.css';
  * @param sectionSize - Size of this section.
  * TODO: Make date working, it has to work on real data.
  */
-function MovieTitle({ movieTitle, sectionSize = '1/1' }) {
+function MovieTitle({ movieTitle, sectionSize = '1/1', date }) {
   const title = 'Title';
 
   return (
     <Section size={sectionSize} title={title}>
-      <h1 className={styles.title}>{movieTitle} <span className={styles.date}>(2016)</span></h1>
+      <h1 className={styles.title}>{movieTitle} <span className={styles.date}>({date})</span></h1>
     </Section>
   );
 }

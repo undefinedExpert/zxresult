@@ -26,11 +26,13 @@ function MovieArticle({ movie }) {
     voteAverage: movie.vote_average,
     voteCount: movie.vote_average,
   };
+  const year = movie.release_date.match(/(?:(?:19|20)[0-9]{2})/)[0];
+
 
   const cs = styles.movieArticle;
   return (
     <article className={cs}>
-      <MovieTitle movieTitle={movie.title} />
+      <MovieTitle movieTitle={movie.title} date={year} />
       <HeartRate votes={votes} />
       <MovieDescription description={movie.overview} limit={160} />
       <MovieRuntime time={movie.runtime} />
