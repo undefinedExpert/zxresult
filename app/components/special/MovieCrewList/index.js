@@ -17,13 +17,11 @@ import styles from './styles.css';
  * renderSingle
  * @desc Render Single Crew Component packed with section basing on provided data.
  */
-const renderSingle = (item, index = 0) => {
-  return (
-    <div className={styles.singleCrew} key={index}>
-      {<MovieSingleCrew {...item} />}
-    </div>
-  );
-};
+const renderSingle = (item, index = 0) => (
+  <div className={styles.singleCrew} key={index}>
+    {<MovieSingleCrew {...item} />}
+  </div>
+);
 
 
 /**

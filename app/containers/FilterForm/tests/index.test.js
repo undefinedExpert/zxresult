@@ -114,7 +114,7 @@ describe('<FilterForm />', () => {
 
   it('Should contain appropriate SelectList items: genre, decade, trend', () => {
     const expected = renderComponent.find('SelectList').prop('items');
-    expect(expected).to.have.length(3);
+    expect(expected).to.have.length(4);
   });
 
   it('Should contain RequestMovie', () => {

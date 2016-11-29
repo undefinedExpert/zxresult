@@ -50,6 +50,7 @@ Select.propTypes = {
   theme: ptype.string,
   valueKey: ptype.string,
   labelKey: ptype.string,
+  className: ptype.string,
   value: ptype.oneOfType([
     ptype.string,
     ptype.object,

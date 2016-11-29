@@ -1,5 +1,5 @@
 .homepage {
-   /*fullheight - navigation height*/
+  /* fullheight - navigation height */
   height: calc(100% - 50px);
   min-height: 490px;
   position: absolute;

@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { capitalize } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
-import Select from 'components/general/Select';
 import RequestMovie from 'containers/RequestMovie';
 import SelectList from 'components/general/SelectList';
 
@@ -109,11 +108,11 @@ export class FilterForm extends Component {
           <div className={classNames(styles.filters, styles[orientation])} >
             <SelectList items={selectListItems} />
             <RequestMovie range={range.results} />
-            {/*<div>*/}
-              {/*current range is:*/}
-              {/*<h6>pages: {range.pages}</h6>*/}
-              {/*<h6>results: {range.results}</h6>*/}
-            {/*</div>*/}
+            {/* <div> */}
+              {/* current range is: */}
+              {/* <h6>pages: {range.pages}</h6> */}
+              {/* <h6>results: {range.results}</h6> */}
+            {/* </div> */}
           </div>
         </form>
       </div>

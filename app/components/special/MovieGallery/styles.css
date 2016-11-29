@@ -1,10 +1,11 @@
+/* fixme: Problem with margins and PostCSS Inheritance, temporary fix is !important */
 .gallery {
-  /* fixme: Problem with margins and PostCSS Inheritance, temporary fix is !important */
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   position: relative;
   overflow: hidden;
   max-height: calc(100vh - 50px);
-  /*height: calc(100vh - 50px);*/
+
+  /* height: calc(100vh - 50px); */
   background-color: #22262e;
 }

@@ -17,6 +17,7 @@ import styles from './styles.css';
  * @desc Renders movie title
  * @param movieTitle - Movie title provided by data
  * @param sectionSize - Size of this section.
+ * @param date - movie release date
  * TODO: Make date working, it has to work on real data.
  */
 function MovieTitle({ movieTitle, sectionSize = '1/1', date }) {
@@ -30,6 +31,7 @@ function MovieTitle({ movieTitle, sectionSize = '1/1', date }) {
 }
 
 MovieTitle.propTypes = {
+  date: ptype.string,
   movieTitle: ptype.string,
   sectionSize: ptype.string,
 };

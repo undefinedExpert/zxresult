@@ -3,16 +3,18 @@ $navigationSize:  50px;
 .resultImage {
   max-height: calc(100vh - $navigationSize);
   min-height: 40vh;
-  &.isRevealed {
-    min-height: 100vh;
-  }
+  background-color: #22262e;
+  position: relative;
   transition: min-height 0.35s ease;
+
   @media (min-width: 62.5em) {
     min-height: calc(100vh - $navigationSize);
     transition: inherit;
   }
-  background-color: #22262e;
-  position: relative;
+  &.isRevealed {
+    min-height: 100vh;
+  }
+
   .overlay {
     position: absolute;
     width: 100%;

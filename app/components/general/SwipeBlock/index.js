@@ -12,7 +12,7 @@ import Swiper from 'swiper/dist/js/swiper.min';
 import React, { PropTypes as ptype, Component } from 'react';
 import 'swiper/dist/css/swiper.css';
 
-import styles from './styles.css';
+// import styles from './styles.css';
 
 
 const defaultSwiperConfig = {
@@ -33,21 +33,7 @@ const defaultSwiperConfig = {
 * SwipeBlock
 * @desc TODO: desc for SwipeBlock
 */
-const SwipeBlock = React.createClass({
-  propTypes: {
-    swiperConfig: React.PropTypes.object,
-    containerClass: React.PropTypes.string,
-    onSwiperMount: React.PropTypes.func,
-    onSwiperUnmount: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      swiperConfig: defaultSwiperConfig,
-      containerClass: 'swiper-container',
-    };
-  },
-
+class SwipeBlock extends Component {
   componentDidMount() {
     const config = this.props.swiperConfig;
 
@@ -60,7 +46,7 @@ const SwipeBlock = React.createClass({
     if (this.props.onSwiperMount) {
       this.props.onSwiperMount(this.swiper);
     }
-  },
+  }
 
   componentWillUnmount() {
     if (this.swiper) {
@@ -70,11 +56,16 @@ const SwipeBlock = React.createClass({
     if (this.props.onSwiperUnmount) {
       this.props.onSwiperUnmount(this.swiper);
     }
-  },
+  }
+
+  props = {
+    swiperConfig: defaultSwiperConfig,
+    containerClass: 'swiper-container',
+  };
 
   formatChildren(children, config) {
     return React.Children.map(children, (child, index) => (<div className={config.slideClass} key={index}>{child}</div>));
-  },
+  }
 
   createSwiper() {
     const config = merge(defaultSwiperConfig, this.props.swiperConfig);
@@ -101,17 +92,22 @@ const SwipeBlock = React.createClass({
     container.innerHTML = ReactDomServer.renderToStaticMarkup(content);
 
     return new Swiper(container.children[0], config);
-  },
+  }
 
   render() {
     return (
       <div ref="swiperContainer" className="react-swiper-component"></div>
     );
-  },
-});
+  }
+}
+
 
 SwipeBlock.propTypes = {
   children: ptype.node,
+  swiperConfig: React.PropTypes.object,
+  containerClass: React.PropTypes.string,
+  onSwiperMount: React.PropTypes.func,
+  onSwiperUnmount: React.PropTypes.func,
 };
 
 export default SwipeBlock;

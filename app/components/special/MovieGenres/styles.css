@@ -1,4 +1,4 @@
-/* TODO: Improve overflow when there is more then 3 genres*/
+/* TODO: Improve overflow when there is more then 3 genres */
 .genres {
   list-style: none;
   display: flex;
@@ -6,13 +6,14 @@
   font-size: 1.2rem;
   justify-content: center;
   overflow: auto;
+
   @media (min-width: 62.5em) {
     justify-content: inherit;
   }
   .item {
     display: flex;
     flex-direction: column;
-    margin: 6px 12px 0 12px;
+    margin: 6px 12px 0;
     &:first-child {
       margin: 6px 12px 0 0;
     }
