@@ -1,3 +1,26 @@
 .description {
   font-family: "Maven Pro", sans-serif;
+  animation: lol 0.5s ease;
+  :local p {
+    cursor: pointer;
+  }
+}
+
+.animation {
+  :global span {
+    &.fade-enter {
+      opacity: 0;
+      &.fade-enter-active {
+        opacity: 1;
+        transition: opacity 2s ease;
+      }
+    }
+    &.fade-leave {
+
+
+      &.fade-leave-active {
+
+      }
+    }
+  }
 }
