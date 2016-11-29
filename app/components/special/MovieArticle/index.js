@@ -28,7 +28,6 @@ function MovieArticle({ movie }) {
   };
   const year = movie.release_date.match(/(?:(?:19|20)[0-9]{2})/)[0];
 
-
   const cs = styles.movieArticle;
   return (
     <article className={cs}>

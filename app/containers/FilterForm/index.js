@@ -97,6 +97,7 @@ export class FilterForm extends Component {
         isLoading: false,
         onChange: this.onChangeSelectHandler('Trend'),
         title: 'Trend',
+        className: styles['full-width'],
       },
     ];
 

@@ -6,7 +6,7 @@
   flex-flow: column wrap;
 
   @media (min-width: 62.5em) {
-    lost-column: 6/12 0;
+    lost-column: 7/12 0;
   }
   :local form {
     display: none;

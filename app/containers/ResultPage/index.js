@@ -24,7 +24,7 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
     return (
       <section>
         <div className={styles.halfWrapper}>
-          <Gallery path={active.poster_path} alt={`${active.original_title}`} />
+          <Gallery movie={active} />
           <FilterForm orientation={'horizontal'} />
         </div>
         <MovieArticle movie={active} />

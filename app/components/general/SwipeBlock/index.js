@@ -15,27 +15,31 @@ import 'swiper/dist/css/swiper.css';
 // import styles from './styles.css';
 
 
-const defaultSwiperConfig = {
-  slideClass: 'swiper-slide',
-  slideActiveClass: 'swiper-slide-active',
-  slideVisibleClass: 'swiper-slide-visible',
-  slideDuplicateClass: 'swiper-slide-duplicate',
-  slideNextClass: 'swiper-slide-next',
-  slidePrevClass: 'swiper-slide-prev',
-  wrapperClass: 'swiper-wrapper',
-  bulletClass: 'swiper-pagination-bullet',
-  bulletActiveClass: 'swiper-pagination-bullet-active',
-  paginationHiddenClass: 'swiper-pagination-hidden',
-  buttonDisabledClass: 'swiper-button-disabled',
-};
 
 /**
 * SwipeBlock
 * @desc TODO: desc for SwipeBlock
 */
 class SwipeBlock extends Component {
+  constructor(props) {
+    super(props);
+
+    this.swiperConfig = {
+      slideClass: 'swiper-slide',
+      slideActiveClass: 'swiper-slide-active',
+      slideVisibleClass: 'swiper-slide-visible',
+      slideDuplicateClass: 'swiper-slide-duplicate',
+      slideNextClass: 'swiper-slide-next',
+      slidePrevClass: 'swiper-slide-prev',
+      wrapperClass: 'swiper-wrapper',
+      bulletClass: 'swiper-pagination-bullet',
+      bulletActiveClass: 'swiper-pagination-bullet-active',
+      paginationHiddenClass: 'swiper-pagination-hidden',
+    };
+  }
+
   componentDidMount() {
-    const config = this.props.swiperConfig;
+    const config = this.swiperConfig;
 
     this.swiper = this.createSwiper();
 
@@ -58,17 +62,16 @@ class SwipeBlock extends Component {
     }
   }
 
-  props = {
-    swiperConfig: defaultSwiperConfig,
-    containerClass: 'swiper-container',
-  };
+  componentWillReceiveProps(nextProps) {
+    this.swiper = this.createSwiper();
+  }
 
   formatChildren(children, config) {
     return React.Children.map(children, (child, index) => (<div className={config.slideClass} key={index}>{child}</div>));
   }
 
-  createSwiper() {
-    const config = merge(defaultSwiperConfig, this.props.swiperConfig);
+  createSwiper = () => {
+    const config = merge(this.props.swiperConfig, this.swiperConfig);
     const pagination = config.hasOwnProperty('pagination') ? null : <div className="swiper-pagination"></div>;
     const btnNext = config.hasOwnProperty('nextButton') ? null : <div className="swiper-button-next"></div>;
     const btnPrev = config.hasOwnProperty('prevButton') ? null : <div className="swiper-button-prev"></div>;
@@ -78,7 +81,7 @@ class SwipeBlock extends Component {
     const container = ReactDom.findDOMNode(this.refs.swiperContainer);
 
     const content = (
-      <div className={this.props.containerClass} ref="swiperContainer">
+      <div className={'swiper-container'} ref="swiperContainer">
         <div className={config.wrapperClass} >
           {children}
         </div>
