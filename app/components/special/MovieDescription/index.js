@@ -18,7 +18,6 @@ import styles from './styles.css';
 /**
  * MovieDescription
  * @desc Check if movie description exist, truncate it if yes, or display appropriate errMsh
- * TODO: Refactor error handling, it should not depend on returned message, instead use api call status
  */
 class MovieDescription extends Component {
   state = {
@@ -29,12 +28,13 @@ class MovieDescription extends Component {
     this.setState({ isRevealed: !this.state.isRevealed });
   };
 
-  renderDescription = () => {
+  truncateDesc = (desc) => truncate(desc, { length: this.props.limit, omission: '', separator: /,?\.* +/ });
+
+  renderDescription = (shortDesc) => {
     const key = this.state.isRevealed ? 'ON' : 'OFF';
-    const preDesc = truncate(this.props.description, { length: this.props.limit, omission: '', separator: /,?\.* +/ });
     return (
       <span key={key} >
-        {this.state.isRevealed ? this.props.description.replace(preDesc, '') : '...'}
+        {this.state.isRevealed ? this.props.description.replace(shortDesc, '') : '... read more'}
       </span>
     );
   };
@@ -48,20 +48,20 @@ class MovieDescription extends Component {
     const title = 'Description';
     const errMsg = 'Description isn\'t available';
     const errMsgReturnedByApi = 'No overview found.';
+    const shortDesc = this.truncateDesc(description);
 
     const cs = styles.description;
-    const key = this.state.isRevealed ? 'ON' : 'OFF';
     return (
       <Section size={sectionSize} title={title} className={cs}>
         <p onClick={this.handleOnClick}>
-          {truncate(this.props.description, { length: this.props.limit, omission: '', separator: /,?\.* +/ })}
+          {shortDesc}
           <ReactCSSTransitionGroup
             className={styles.animation}
             transitionName="fade"
-            transitionEnterTimeout={2000}
-            transitionLeaveTimeout={1}
+            transitionEnterTimeout={200}
+            transitionLeaveTimeout={100}
           >
-            {description !== errMsgReturnedByApi ? this.renderDescription() : errMsg}
+            {description !== errMsgReturnedByApi ? this.renderDescription(shortDesc) : errMsg}
           </ReactCSSTransitionGroup>
         </p>
       </Section>

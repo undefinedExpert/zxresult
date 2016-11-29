@@ -1,6 +1,5 @@
 .description {
   font-family: "Maven Pro", sans-serif;
-  animation: lol 0.5s ease;
   :local p {
     cursor: pointer;
   }
@@ -12,15 +11,15 @@
       opacity: 0;
       &.fade-enter-active {
         opacity: 1;
-        transition: opacity 2s ease;
+        transition: opacity 200ms ease-in;
+        visibility: visible;
+
       }
     }
     &.fade-leave {
-
-
-      &.fade-leave-active {
-
-      }
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 100ms ease-out;
     }
   }
 }
