@@ -16,9 +16,13 @@ import MovieGallery from '../index';
 describe('<MovieGallery />', () => {
   let renderComponent;
   const props = {
-    path: '/s1EBTUtrX4tKuawlapyDLig3sF9.jpg',
-    alt: 'test',
-    orientation: 'horizontal',
+    movie: {
+      poster_path: '',
+      images: {
+        backdrops: [],
+        posters: [],
+      },
+    },
   };
   beforeEach(() => {
     renderComponent = shallow(<MovieGallery {...props} />, {});
