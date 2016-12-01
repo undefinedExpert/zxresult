@@ -15,7 +15,7 @@ import MovieDescription from '../index';
 describe('<MovieDescription />', () => {
   let renderComponent;
   const props = {
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque laudantium minus recusandae sapiente temporibus ut vero. Hic nihil perferendis quasi qui suscipit voluptates. Culpa, sed, suscipit. Cumque ea fuga laborum?',
+    description: 'Test short description, eslotwinski',
     limit: 30,
   };
   beforeEach(() => {
@@ -24,8 +24,19 @@ describe('<MovieDescription />', () => {
 
   it('Should trim the text in the average of props.limit and before any punctuation mark.', () => {
     const expected = renderComponent.find('p > div').childAt(0).text();
-    const result = 'Lorem ipsum dolor sit amet';
+    const result = 'Test short description';
     expect(expected).to.be.eql(result);
+  });
+
+  it('Should reveal the content when description is clicked', () => {
+    const expectedResult = ', eslotwinski';
+    expect(renderComponent.find('span').text()).to.not.eql(expectedResult);
+
+    const element = renderComponent.find('p');
+    element.simulate('click');
+    expect(renderComponent.state().isRevealed).to.be.eql(true);
+
+    expect(renderComponent.find('span').text()).to.eql(expectedResult);
   });
 
   it('Should contain error msg when "No overview found." message appears', () => {
@@ -35,9 +46,5 @@ describe('<MovieDescription />', () => {
 
     const expected = renderComponent.find('p').text();
     expect(expected).to.eql(errMsg);
-  });
-
-  it('Should reveal the content when description is clicked', () => {
-    // TODO: make this working
   });
 });
