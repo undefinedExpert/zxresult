@@ -67,7 +67,7 @@ class MovieResultImage extends Component {
   };
 
   render() {
-    const { path } = this.props;
+    const { path, lazyLoading } = this.props;
     const { isRevealed } = this.state;
 
     return (
@@ -79,7 +79,7 @@ class MovieResultImage extends Component {
             ref="photo"
             className={className(styles.image, 'swiper-lazy')}
             data-src={`http://image.tmdb.org/t/p/w500${path}`}
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"
+            src={lazyLoading ? 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA' : `http://image.tmdb.org/t/p/w500${path}`}
           />
           <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
         </div>

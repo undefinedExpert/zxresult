@@ -39,26 +39,26 @@ class MovieGallery extends Component {
     return false;
   }
 
-  handleLoading = (poster) => (
-    <div>
-      {this.renderImage(poster[0])}
-      <LoadingIndicator className={styles.loading} />
-    </div>
-  );
+  handleLoading = (poster) => {
+    return (
+      <div>
+        {this.renderImage(poster[0], 1, false)} <LoadingIndicator className={styles.loading} />
+      </div>)
+  };
 
   renderImages = (poster, images) => {
     const limitedBackdrops = images.backdrops.slice(0, 10);
     const mergedImages = poster.concat(limitedBackdrops);
 
     return (
-      <SwipeBlock swiperConfig={{ lazyPreloaderClass: 'swiper-loading-indicator', pagination: null, lazyLoadingInPrevNext: false, nextButton: null, prevButton: null, lazyLoading: true, preloadImages: false, autoplay: 2000, grabCursor: true }}>
-        {mergedImages.map((item, index) => this.renderImage(item, index))}
+      <SwipeBlock swiperConfig={{ lazyPreloaderClass: 'swiper-loading-indicator', pagination: null, lazyLoadingInPrevNext: false, nextButton: null, prevButton: null, lazyLoading: true, preloadImages: false, autoplay: 222000, grabCursor: true }}>
+        {mergedImages.map((item, index) => this.renderImage(item, index, true))}
       </SwipeBlock>
     );
   };
 
-  renderImage = (img, index) => (
-    <ResultImage key={index} path={img.file_path} alt={'test'} />
+  renderImage = (img, index, lazyLoading) => (
+    <ResultImage key={index} path={img.file_path} alt={'test'} lazyLoading={lazyLoading} />
   );
 
 
