@@ -27,6 +27,6 @@ describe('<MovieResultImage />', () => {
     const expected = renderComponent.find('img');
 
     expect(expected).to.have.length(1);
-    expect(expected).to.have.attr('src', 'http://image.tmdb.org/t/p/w45/s1EBTUtrX4tKuawlapyDLig3sF9.jpg');
+    expect(expected).to.have.attr('data-src', 'http://image.tmdb.org/t/p/w500/s1EBTUtrX4tKuawlapyDLig3sF9.jpg');
   });
 });

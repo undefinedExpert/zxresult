@@ -10,6 +10,7 @@ import className from 'classnames';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
+import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
 
@@ -65,27 +66,22 @@ class MovieResultImage extends Component {
     this.setState({ isRevealed: !this.state.isRevealed });
   };
 
-  handleImageSizeLoading(setAttr, path, imageSize) {
-    const which = this.state[imageSize];
-
-    setAttr(which.pattern(path));
-    this.setState({ [imageSize]: { loaded: true } });
-  }
-
   render() {
-    const { path, alt } = this.props;
+    const { path } = this.props;
     const { isRevealed } = this.state;
+
     return (
       <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
         <div className={styles.overlay}></div>
         <div className={styles.imageContainer}>
           <img
+            role="presentation"
             ref="photo"
-            onLoad={this.onLoadHandler}
-            alt={alt}
-            className={styles.image}
-            src={`http://image.tmdb.org/t/p/w500${path}`}
+            className={className(styles.image, 'swiper-lazy')}
+            data-src={`http://image.tmdb.org/t/p/w500${path}`}
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"
           />
+          <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
         </div>
       </div>
     );
@@ -95,6 +91,7 @@ class MovieResultImage extends Component {
 MovieResultImage.propTypes = {
   path: ptype.string,
   alt: ptype.string,
+  lazyLoad: ptype.bool,
 };
 
 export default MovieResultImage;

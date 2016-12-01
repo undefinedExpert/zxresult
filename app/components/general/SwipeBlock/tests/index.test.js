@@ -13,5 +13,5 @@
 
 
 describe('<SwipeBlock />', () => {
-
+  // TODO: TESTS
 });

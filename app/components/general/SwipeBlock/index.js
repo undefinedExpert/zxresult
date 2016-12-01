@@ -74,7 +74,6 @@ class SwipeBlock extends Component {
     const pagination = config.hasOwnProperty('pagination') ? null : <div className="swiper-pagination"></div>;
     const btnNext = config.hasOwnProperty('nextButton') ? null : <div className="swiper-button-next"></div>;
     const btnPrev = config.hasOwnProperty('prevButton') ? null : <div className="swiper-button-prev"></div>;
-    const scrollBar = config.hasOwnProperty('scrollbar') ? null : <div className="swiper-scrollbar"></div>;
 
     const children = this.formatChildren(this.props.children, config);
     const container = ReactDom.findDOMNode(this.refs.swiperContainer);
@@ -87,7 +86,6 @@ class SwipeBlock extends Component {
         {pagination}
         {btnNext}
         {btnPrev}
-        {scrollBar}
       </div>
     );
 
