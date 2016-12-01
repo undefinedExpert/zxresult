@@ -15,7 +15,6 @@ import 'swiper/dist/css/swiper.css';
 // import styles from './styles.css';
 
 
-
 /**
 * SwipeBlock
 * @desc TODO: desc for SwipeBlock
@@ -52,6 +51,10 @@ class SwipeBlock extends Component {
     }
   }
 
+  componentWillReceiveProps() {
+    this.swiper = this.createSwiper();
+  }
+
   componentWillUnmount() {
     if (this.swiper) {
       this.swiper.destroy();
@@ -60,10 +63,6 @@ class SwipeBlock extends Component {
     if (this.props.onSwiperUnmount) {
       this.props.onSwiperUnmount(this.swiper);
     }
-  }
-
-  componentWillReceiveProps() {
-    this.swiper = this.createSwiper();
   }
 
   formatChildren(children, config) {
@@ -95,7 +94,7 @@ class SwipeBlock extends Component {
     container.innerHTML = ReactDomServer.renderToStaticMarkup(content);
 
     return new Swiper(container.children[0], config);
-  }
+  };
 
   render() {
     return (

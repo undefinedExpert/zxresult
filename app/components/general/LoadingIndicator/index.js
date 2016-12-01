@@ -27,6 +27,7 @@ const LoadingIndicator = ({ isDisabled, className }) => {
 };
 
 LoadingIndicator.propTypes = {
+  className: ptype.string,
   isDisabled: ptype.bool,
 };
 

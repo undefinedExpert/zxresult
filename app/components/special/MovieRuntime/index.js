@@ -20,7 +20,6 @@ import styles from './styles.css';
  * returns packed runtime section
  */
 function MovieRuntime({ sectionSize = '1/2', time }) {
-
   const title = 'Runtime';
   return (
     <Section title={title} size={sectionSize}>
