@@ -22,12 +22,13 @@ describe('<MovieDescription />', () => {
     renderComponent = shallow(<MovieDescription {...props} />, {});
   });
 
-  it('Should trim the text with the length of props.limit', () => {
-    const expected = renderComponent.find('p').text();
-    expect(expected).to.have.length(props.limit);
+  it('Should trim the text in the average of props.limit and before any punctuation mark.', () => {
+    const expected = renderComponent.find('p > div').childAt(0).text();
+    const result = 'Lorem ipsum dolor sit amet';
+    expect(expected).to.be.eql(result);
   });
 
-  it('Should contain error msh when "No overview found." message appears', () => {
+  it('Should contain error msg when "No overview found." message appears', () => {
     const errorMsgReturnedByApi = 'No overview found.';
     const errMsg = 'Description isn\'t available';
     renderComponent = shallow(<MovieDescription description={errorMsgReturnedByApi} />, {});

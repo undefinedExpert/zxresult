@@ -30,7 +30,7 @@ class MovieDescription extends Component {
 
   truncateDesc = (desc) => truncate(desc, { length: this.props.limit, omission: '', separator: /,?\.* +/ });
 
-  renderDescription = (shortDesc) => {
+  renderRevealedDescription = (shortDesc) => {
     const key = this.state.isRevealed ? 'ON' : 'OFF';
     return (
       <span key={key} >
@@ -39,30 +39,38 @@ class MovieDescription extends Component {
     );
   };
 
+  renderDescirption = (description) => {
+    const shortDesc = this.truncateDesc(description);
+
+    return (
+      <div>
+        {shortDesc}
+        <ReactCSSTransitionGroup
+          className={styles.animation}
+          transitionName="fade"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={100}
+        >
+          {this.renderRevealedDescription(shortDesc)}
+        </ReactCSSTransitionGroup>
+      </div>
+    );
+  };
+
   render() {
     const {
-      description,
       sectionSize = '1/1',
+      description,
     } = this.props;
 
     const title = 'Description';
     const errMsg = 'Description isn\'t available';
     const errMsgReturnedByApi = 'No overview found.';
-    const shortDesc = this.truncateDesc(description);
-
     const cs = styles.description;
     return (
       <Section size={sectionSize} title={title} className={cs}>
         <p onClick={this.handleOnClick}>
-          {shortDesc}
-          <ReactCSSTransitionGroup
-            className={styles.animation}
-            transitionName="fade"
-            transitionEnterTimeout={200}
-            transitionLeaveTimeout={100}
-          >
-            {description !== errMsgReturnedByApi ? this.renderDescription(shortDesc) : errMsg}
-          </ReactCSSTransitionGroup>
+          {description !== errMsgReturnedByApi ? this.renderDescirption(description) : errMsg}
         </p>
       </Section>
     );
