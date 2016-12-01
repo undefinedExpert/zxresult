@@ -43,7 +43,7 @@ class MovieDescription extends Component {
     const shortDesc = this.truncateDesc(description);
 
     return (
-      <div>
+      <p onClick={this.handleOnClick}>
         {shortDesc}
         <ReactCSSTransitionGroup
           className={styles.animation}
@@ -53,7 +53,7 @@ class MovieDescription extends Component {
         >
           {this.renderRevealedDescription(shortDesc)}
         </ReactCSSTransitionGroup>
-      </div>
+      </p>
     );
   };
 
@@ -69,9 +69,7 @@ class MovieDescription extends Component {
     const cs = styles.description;
     return (
       <Section size={sectionSize} title={title} className={cs}>
-        <p onClick={this.handleOnClick}>
           {description !== errMsgReturnedByApi ? this.renderDescirption(description) : errMsg}
-        </p>
       </Section>
     );
   }
