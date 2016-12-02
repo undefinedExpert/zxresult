@@ -1,12 +1,12 @@
 /* Global Variables */
-:root {
-  background-color: var(--cMain);
-  font-size: 62.5%;
-  overflow: auto;
+:global :root {
+  background-color: var(--cMain) !important;
+  font-size: 62.5% !important;
+  overflow: auto !important;
 }
 
-.app {
-  background-color: var(--cMain);
+:global .app {
+  background-color: var(--cMain) !important;
 }
 
 /*

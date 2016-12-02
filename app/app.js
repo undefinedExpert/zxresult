@@ -22,11 +22,8 @@ import 'react-select';
 
 import configureStore from './store';
 
-// Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/lib/sanitize.css';
 
-// Import antd
-import 'react-select/dist/react-select.css';
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
