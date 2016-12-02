@@ -5,7 +5,6 @@
  *  3. Module
  */
 
-import { curry } from 'lodash';
 import className from 'classnames';
 import React, { PropTypes as ptype, Component } from 'react';
 
@@ -45,31 +44,13 @@ class MovieResultImage extends Component {
     this.setState({ small: smallDefaultState, medium: mediumDefaultState });
   }
 
-  onLoadHandler = (e) => {
-    const {
-      small,
-      medium } = this.state;
-
-    const path = e.target.attributes.src.value;
-    const setAttr = curry((pattern) => e.target.setAttribute('src', pattern));
-    const loadImage = curry((imageSize) => this.handleImageSizeLoading(setAttr, path, imageSize));
-
-    if (!small.loaded) {
-      loadImage('small');
-    }
-    else if (small.loaded && !medium.loaded) {
-      loadImage('medium');
-    }
-  };
-
   onClickHandler = () => {
     this.setState({ isRevealed: !this.state.isRevealed });
   };
 
   render() {
-    const { path, lazyLoading } = this.props;
+    const { path } = this.props;
     const { isRevealed } = this.state;
-
     return (
       <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
         <div className={styles.overlay}></div>
@@ -78,8 +59,7 @@ class MovieResultImage extends Component {
             role="presentation"
             ref="photo"
             className={className(styles.image, 'swiper-lazy')}
-            data-src={`http://image.tmdb.org/t/p/w500${path}`}
-            src={lazyLoading ? 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA' : `http://image.tmdb.org/t/p/w500${path}`}
+            data-src={`http://image.tmdb.org/t/p/original${path}`}
           />
           <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
         </div>
@@ -91,7 +71,7 @@ class MovieResultImage extends Component {
 MovieResultImage.propTypes = {
   path: ptype.string,
   alt: ptype.string,
-  lazyLoad: ptype.bool,
+  lazyLoading: ptype.bool,
 };
 
 export default MovieResultImage;

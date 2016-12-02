@@ -10,7 +10,7 @@ import React, { PropTypes as ptype, Component } from 'react';
 import Section from 'components/general/Section';
 import SwipeBlock from 'components/general/SwipeBlock';
 import ResultImage from 'components/special/MovieResultImage';
-import LoadingIndicator from 'components/general/LoadingIndicator';
+// import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
 
@@ -39,20 +39,32 @@ class MovieGallery extends Component {
     return false;
   }
 
-  handleLoading = (poster) => {
-    return (
-      <div>
-        {this.renderImage(poster[0], 1, false)} <LoadingIndicator className={styles.loading} />
-      </div>)
-  };
+  handleLoading = () => (
+    <div>
+      <ResultImage absolutepPath={'http://37.media.tumblr.com/tumblr_mbha9qWF401qcixnko4_500.gif'} alt={'test'} lazyLoading={false} />
+    </div>
+  );
 
-  renderImages = (poster, images) => {
-    const limitedBackdrops = images.backdrops.slice(0, 10);
-    const mergedImages = poster.concat(limitedBackdrops);
+  renderImages = (images) => {
+    const limitedBackdrops = images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
+    limitedBackdrops.unshift(images.posters[0]);
 
     return (
-      <SwipeBlock swiperConfig={{ lazyPreloaderClass: 'swiper-loading-indicator', pagination: null, lazyLoadingInPrevNext: false, nextButton: null, prevButton: null, lazyLoading: true, preloadImages: false, autoplay: 222000, grabCursor: true }}>
-        {mergedImages.map((item, index) => this.renderImage(item, index, true))}
+      <SwipeBlock
+        swiperConfig={{
+          lazyPreloaderClass: 'swiper-loading-indicator',
+          pagination: null,
+          lazyLoadingInPrevNext: false,
+          nextButton: null,
+          prevButton: null,
+          lazyLoading: true,
+          preloadImages: false,
+          autoplay: 33500,
+          grabCursor: true,
+          slidesPerView: 'auto',
+        }}
+      >
+        {limitedBackdrops.map((item, index) => this.renderImage(item, index, true))}
       </SwipeBlock>
     );
   };
@@ -64,12 +76,12 @@ class MovieGallery extends Component {
 
   render() {
     const { movie } = this.props;
-    const poster = [{ file_path: movie.poster_path }];
+
 
     const cs = styles.gallery;
     return (
       <Section className={cs}>
-          {movie.images ? this.renderImages(poster, movie.images) : this.handleLoading(poster)}
+          {movie.images ? this.renderImages(movie.images) : this.handleLoading()}
       </Section>
     );
   }

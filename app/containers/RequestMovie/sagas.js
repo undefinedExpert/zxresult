@@ -171,7 +171,7 @@ export function* getDetailsWatcher() {
 }
 
 export function* getResultChangeWatcher() {
-  while (yield take(DETAILS.SUCCESS)) {
+  while (yield take(DETAILS.SUCCESS)) { // DETAILS.SUCCESS
     yield call(getUpdateUrl);
   }
 }
