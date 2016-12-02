@@ -1,4 +1,8 @@
-/* Global Variables */
+/* Global Variables
+   FIXME: !important statements are temporary solution for styles loading order
+   https://github.com/mxstbr/react-boilerplate/issues/1102 - more info
+*/
+
 :global :root {
   background-color: var(--cMain) !important;
   font-size: 62.5% !important;
