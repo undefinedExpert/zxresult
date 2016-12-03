@@ -53,7 +53,7 @@ class MovieResultImage extends Component {
             data-src={lazyLoading ? photoPath : null}
             src={!lazyLoading ? photoPath : null}
           />
-          <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none'}} />
+          <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
         </div>
       </div>
     );

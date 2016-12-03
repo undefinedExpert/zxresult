@@ -11,7 +11,6 @@ import Section from 'components/general/Section';
 import SwipeBlock from 'components/general/SwipeBlock';
 import BlankImage from 'components/general/BlankImage';
 import ResultImage from 'components/special/MovieResultImage';
-import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
 
@@ -48,7 +47,6 @@ class MovieGallery extends Component {
       <SwipeBlock
         swiperConfig={{
           lazyPreloaderClass: 'swiper-loading-indicator',
-          pagination: null,
           lazyLoadingInPrevNext: false,
           nextButton: null,
           prevButton: null,
@@ -82,6 +80,7 @@ class MovieGallery extends Component {
 
 MovieGallery.propTypes = {
   movie: ptype.object,
+  isFetching: ptype.bool,
 };
 
 export default MovieGallery;
