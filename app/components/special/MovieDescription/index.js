@@ -25,6 +25,8 @@ class MovieDescription extends Component {
   };
 
   handleOnClick = () => {
+    if (this.props.description.length < this.props.limit) return;
+
     this.setState({ isRevealed: !this.state.isRevealed });
   };
 
@@ -39,9 +41,8 @@ class MovieDescription extends Component {
     );
   };
 
-  renderDescirption = (description) => {
-    const shortDesc = this.truncateDesc(description);
-
+  renderDescription = (description) => {
+    const shortDesc = description.length > this.props.limit ? this.truncateDesc(description) : description;
     return (
       <p onClick={this.handleOnClick}>
         {shortDesc}
@@ -51,7 +52,7 @@ class MovieDescription extends Component {
           transitionEnterTimeout={200}
           transitionLeaveTimeout={100}
         >
-          {this.renderRevealedDescription(shortDesc)}
+          {description.length > this.props.limit ? this.renderRevealedDescription(shortDesc) : null}
         </ReactCSSTransitionGroup>
       </p>
     );
@@ -69,7 +70,7 @@ class MovieDescription extends Component {
     const cs = styles.description;
     return (
       <Section size={sectionSize} title={title} className={cs}>
-          {description !== errMsgReturnedByApi ? this.renderDescirption(description) : errMsg}
+          {description !== errMsgReturnedByApi ? this.renderDescription(description) : errMsg}
       </Section>
     );
   }

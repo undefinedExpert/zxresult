@@ -2,6 +2,8 @@
   font-family: "Maven Pro", sans-serif;
   :local p {
     cursor: pointer;
+    font-size: 1.8rem;
+    line-height: 2.75rem;
   }
 }
 
