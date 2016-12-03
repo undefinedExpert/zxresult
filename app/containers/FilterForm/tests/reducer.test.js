@@ -43,7 +43,7 @@ describe('filterFormReducer', () => {
         list: fromJS([
           fromJS({
             name: 'Highly rated',
-            voteAverageMin: 6.5,
+            voteAverageMin: 7,
             voteAverageMax: 10,
             voteCountMin: 70,
             voteCountMax: null,
