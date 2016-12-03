@@ -26,6 +26,13 @@ module.exports = (options) => ({
       exclude: /node_modules/,
       query: options.babelQuery,
     }, {
+      test: /(\.js|\.jsx)$/,
+      loader: 'babel',
+      include: [path.resolve(__dirname, './node_modules/react-icons/fa')],
+      query: {
+        presets: ['es2015', 'react'],
+      },
+    }, {
       // Transform our own .css files with PostCSS and CSS-modules
       test: /\.css$/,
       exclude: /node_modules/,
@@ -113,8 +120,8 @@ module.exports = (options) => ({
     ],
     mainFields: [
       'browser',
-      'jsnext:main',
       'main',
+      'jsnext:main',
     ],
   },
   devtool: options.devtool,

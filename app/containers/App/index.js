@@ -15,6 +15,7 @@
  *  2. Application
  *  3. Module
  */
+import 'sanitize.css/sanitize.css';
 import React, { Component } from 'react';
 
 import Navigation from 'components/special/Navigation';
