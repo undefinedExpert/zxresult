@@ -7,7 +7,7 @@
 
 import React, { PropTypes as ptype } from 'react';
 import classNames from 'classnames';
-import { IoImage } from 'react-icons/lib/io/';
+// import { IoImage } from 'react-icons/lib/io/';
 
 import styles from './styles.css';
 
@@ -19,7 +19,8 @@ import styles from './styles.css';
 function BlankImage({ className, ...rest }) {
   return (
     <div className={classNames(styles.blankImage, className)} {...rest} >
-      <IoImage size={32} />
+      {/*<IoImage size={32} />*/}
+      lol
     </div>
   );
 }

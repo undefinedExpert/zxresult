@@ -10,8 +10,8 @@ import React, { PropTypes as ptype } from 'react';
 import Genres from 'components/special/MovieGenres';
 import MovieTitle from 'components/special/MovieTitle';
 import CrewList from 'components/special/MovieCrewList';
-import HeartRate from 'components/special/MovieHeartRate';
-import MovieRuntime from 'components/special/MovieRuntime';
+// import HeartRate from 'components/special/MovieHeartRate';
+// import MovieRuntime from 'components/special/MovieRuntime';
 import MovieDescription from 'components/special/MovieDescription';
 
 import styles from './styles.css';
@@ -32,9 +32,9 @@ function MovieArticle({ movie }) {
   return (
     <article className={cs}>
       <MovieTitle movieTitle={movie.title} date={year} />
-      <HeartRate votes={votes} />
+      {/*<HeartRate votes={votes} />*/}
       <MovieDescription description={movie.overview} limit={160} />
-      <MovieRuntime time={movie.runtime} />
+      {/*<MovieRuntime time={movie.runtime} />*/}
       <Genres items={movie.genres} />
       <CrewList items={movie.credits} />
     </article>

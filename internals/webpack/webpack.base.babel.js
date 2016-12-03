@@ -5,6 +5,14 @@
 const path = require('path');
 const webpack = require('webpack');
 
+// PostCSS plugins
+const cssnext = require('postcss-cssnext');
+const postcssFocus = require('postcss-focus');
+const postcssReporter = require('postcss-reporter');
+const lostCssGrid = require('lost');
+const precss = require('precss');
+const cssConfig = require('../../app/css-config.js');
+
 module.exports = (options) => ({
   entry: options.entry,
   output: Object.assign({ // Compile into js/build.js
@@ -36,7 +44,10 @@ module.exports = (options) => ({
       loader: 'file-loader',
     }, {
       test: /\.(jpg|png|gif)$/,
-      loader: 'file-loader',
+      loaders: [
+        'file-loader',
+        'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
+      ],
     }, {
       test: /\.html$/,
       loader: 'html-loader',
@@ -44,15 +55,11 @@ module.exports = (options) => ({
       test: /\.json$/,
       loader: 'json-loader',
     }, {
-      test: /\.mp4$/,
-      loader: 'url?limit=10000&mimetype=video/mp4',
-    }, {
-      test: /\.webm$/,
-      loader: 'url?limit=10000&mimetype=video/webm',
+      test: /\.(mp4|webm)$/,
+      loader: 'url-loader?limit=10000',
     }],
   },
   plugins: options.plugins.concat([
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports?self.fetch!whatwg-fetch',
@@ -66,23 +73,49 @@ module.exports = (options) => ({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
+
+    new webpack.NamedModulesPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        // 'context' needed for css-loader see
+        // https://github.com/mxstbr/react-boilerplate/pull/1032#issuecomment-249821676
+        context: __dirname,
+        postcss: () => [
+          postcssFocus(), // Add a :focus to every :hover
+          cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+            browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
+            features: {
+              customProperties: {
+                variables: cssConfig,
+              },
+              calc: {
+                mediaQueries: true,
+              },
+            },
+          }),
+          postcssReporter({ // Posts messages from plugins to the terminal
+            clearMessages: true,
+          }),
+          lostCssGrid(), // Loads grid
+          precss(),
+        ],
+      },
+    }),
+
   ]),
-  postcss: () => options.postcssPlugins,
   resolve: {
     modules: ['app', 'node_modules'],
     extensions: [
-      '',
       '.js',
       '.jsx',
       '.react.js',
     ],
-    packageMains: [
+    mainFields: [
+      'browser',
       'jsnext:main',
       'main',
     ],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
-  stats: false, // Don't show stats in the console
-  progress: true,
 });
