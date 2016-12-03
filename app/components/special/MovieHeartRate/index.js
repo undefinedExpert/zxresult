@@ -54,8 +54,8 @@ export const renderHearts = (voteAverage) => {
   const range = 5;
   const average = voteAverage / 2; // voteAverage is in 1-10 scale, we divide by half to render 1-5 hearths
   return (
-    <div>
-      {renderMultipleHearts(range, average)}
+    <div className={styles.hearts}>
+      {renderMultipleHearts(range, average)} <h4 className={styles.average}>({average})</h4>
     </div>
   );
 };

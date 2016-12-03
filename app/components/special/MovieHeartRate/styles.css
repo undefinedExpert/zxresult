@@ -13,3 +13,15 @@
     stroke-width: 3;
   }
 }
+
+.hearts {
+  display: flex;
+  align-items: center;
+  .average {
+    color: color(var(--cMain) l(30%));
+    font-size: 2.3rem;
+    margin: auto 0;
+    font-family: 'Quattrocento Sans', sans-serif;
+    font-weight: 700;
+  }
+}
