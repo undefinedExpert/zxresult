@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import { debounce } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
@@ -46,6 +47,7 @@ class MovieGallery extends Component {
     return (
       <SwipeBlock
         swiperConfig={{
+          observeParents: true,
           lazyPreloaderClass: 'swiper-loading-indicator',
           lazyLoadingInPrevNext: false,
           nextButton: null,

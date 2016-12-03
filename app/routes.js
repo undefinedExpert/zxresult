@@ -26,6 +26,7 @@ export default function createRoutes(store) {
           System.import('containers/RequestMovie/sagas'),
           System.import('containers/FilterForm/sagas'),
           System.import('containers/HomePage'),
+          System.import('containers/FilterForm/styles.css'), // Fix for swiper.js
         ]);
 
         const renderRoute = loadModule(cb);

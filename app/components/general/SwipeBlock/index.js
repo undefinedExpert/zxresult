@@ -54,7 +54,9 @@ class SwipeBlock extends Component {
 
   componentWillUnmount() {
     if (this.swiper && this.swiper.params) {
-      // this.swiper.destroy();
+      // this.swiper.destroy(); // TODO: Fix this, it has to be enabled if we want to cancel downloading of non visible images but causes errs
+                                // when there is new result displayed (probably cause lazy load image swiping while
+                                // dosen't exist anymore)
     }
 
     if (this.props.onSwiperUnmount) {
@@ -73,6 +75,7 @@ class SwipeBlock extends Component {
     const btnPrev = config.hasOwnProperty('prevButton') ? null : <div className="swiper-button-prev"></div>;
 
     const children = this.formatChildren(this.props.children, config);
+
     const container = ReactDom.findDOMNode(this.refs.swiperContainer);
 
     const content = (

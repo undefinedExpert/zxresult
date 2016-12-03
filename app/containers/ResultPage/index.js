@@ -39,6 +39,7 @@ ResultPage.propTypes = {
   filters: ptype.object,
   result: ptype.object,
   active: ptype.object,
+  isFetching: ptype.bool,
 };
 
 const mapStateToProps = createSelector(
