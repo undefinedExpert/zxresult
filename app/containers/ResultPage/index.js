@@ -19,12 +19,13 @@ import styles from './styles.css';
 
 export class ResultPage extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { active } = this.props;
+    const { active, isFetching } = this.props;
 
     return (
       <section>
+        {}
         <div className={styles.halfWrapper}>
-          <Gallery movie={active} />
+          <Gallery movie={active} isFetching={isFetching} />
           <FilterForm orientation={'horizontal'} />
         </div>
         <MovieArticle movie={active} />
@@ -44,6 +45,7 @@ const mapStateToProps = createSelector(
   selectResult(),
   createStructuredSelector({
     active: (state) => state.active,
+    isFetching: (state) => state.isFetching,
   })
 );
 

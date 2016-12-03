@@ -51,13 +51,9 @@ class SwipeBlock extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-    this.swiper = this.createSwiper();
-  }
-
   componentWillUnmount() {
-    if (this.swiper) {
-      this.swiper.destroy();
+    if (this.swiper && this.swiper.params) {
+      // this.swiper.destroy();
     }
 
     if (this.props.onSwiperUnmount) {

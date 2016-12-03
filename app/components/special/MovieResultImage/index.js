@@ -49,8 +49,10 @@ class MovieResultImage extends Component {
   };
 
   render() {
-    const { path } = this.props;
+    const { path, absolutePath, lazyLoading } = this.props;
     const { isRevealed } = this.state;
+    const photoPath = absolutePath ? absolutePath : `http://image.tmdb.org/t/p/original${path}`;
+
     return (
       <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
         <div className={styles.overlay}></div>
@@ -59,7 +61,8 @@ class MovieResultImage extends Component {
             role="presentation"
             ref="photo"
             className={className(styles.image, 'swiper-lazy')}
-            data-src={`http://image.tmdb.org/t/p/original${path}`}
+            data-src={lazyLoading ? photoPath : null}
+            src={!lazyLoading ? photoPath : null}
           />
           <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
         </div>
@@ -69,8 +72,9 @@ class MovieResultImage extends Component {
 }
 
 MovieResultImage.propTypes = {
-  path: ptype.string,
   alt: ptype.string,
+  path: ptype.string,
+  absolutePath: ptype.string,
   lazyLoading: ptype.bool,
 };
 

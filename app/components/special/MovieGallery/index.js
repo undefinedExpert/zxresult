@@ -10,7 +10,7 @@ import React, { PropTypes as ptype, Component } from 'react';
 import Section from 'components/general/Section';
 import SwipeBlock from 'components/general/SwipeBlock';
 import ResultImage from 'components/special/MovieResultImage';
-// import LoadingIndicator from 'components/general/LoadingIndicator';
+import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
 
@@ -40,8 +40,8 @@ class MovieGallery extends Component {
   }
 
   handleLoading = () => (
-    <div>
-      <ResultImage absolutepPath={'http://37.media.tumblr.com/tumblr_mbha9qWF401qcixnko4_500.gif'} alt={'test'} lazyLoading={false} />
+    <div className={styles.loading}>
+      <LoadingIndicator className={styles.indicator} />
     </div>
   );
 
@@ -75,13 +75,13 @@ class MovieGallery extends Component {
 
 
   render() {
-    const { movie } = this.props;
+    const { movie, isFetching } = this.props;
 
-
+    console.log(isFetching)
     const cs = styles.gallery;
     return (
       <Section className={cs}>
-          {movie.images ? this.renderImages(movie.images) : this.handleLoading()}
+          {!isFetching && movie.images ? this.renderImages(movie.images) : this.handleLoading()}
       </Section>
     );
   }

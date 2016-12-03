@@ -5,8 +5,9 @@
 *  3. Module
 */
 
+import React, { PropTypes as ptype } from 'react';
+import classNames from 'classnames';
 import { IoImage } from 'react-icons/lib/io/';
-import React from 'react';
 
 import styles from './styles.css';
 
@@ -15,14 +16,16 @@ import styles from './styles.css';
 * BlankImage
 * @desc TODO: desc for BlankImage
 */
-function BlankImage() {
+function BlankImage({ className, ...rest }) {
   return (
-    <div className={styles.blankImage}>
+    <div className={classNames(styles.blankImage, className)} {...rest} >
       <IoImage size={32} />
     </div>
   );
 }
 
-BlankImage.propTypes = {};
+BlankImage.propTypes = {
+  className: ptype.string,
+};
 
 export default BlankImage;
