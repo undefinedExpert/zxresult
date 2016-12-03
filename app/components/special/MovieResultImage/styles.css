@@ -51,3 +51,9 @@ $navigationSize:  50px;
     }
   }
 }
+
+:global .swiper-loading-indicator {
+  z-index: 99;
+  width: 24px;
+  height: 24px;
+}

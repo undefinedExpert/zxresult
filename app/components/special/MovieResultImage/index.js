@@ -24,14 +24,8 @@ const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w154/g, 
 
 /**
  * MovieResultImage
- * @desc Render single result image, it provides primitive lazy-load solution
- * returns packed prop.children with title and appropriate grid size.
- *
- * @method componentWillReceiveProps - Reset image loaders state to default
- * @method onLoadHandler - Handles onLoad event, loads bigger images.
- * @method handleImageSizeLoading - helps with updating state for appropriate image size.
- *
- * returns single result image.
+ * @desc Render single result image.
+ * @return packed prop.children with title and appropriate grid size.
  */
 class MovieResultImage extends Component {
   state = {
@@ -40,10 +34,6 @@ class MovieResultImage extends Component {
     isRevealed: false,
   };
 
-  componentWillReceiveProps() {
-    this.setState({ small: smallDefaultState, medium: mediumDefaultState });
-  }
-
   onClickHandler = () => {
     this.setState({ isRevealed: !this.state.isRevealed });
   };
@@ -51,8 +41,7 @@ class MovieResultImage extends Component {
   render() {
     const { path, absolutePath, lazyLoading } = this.props;
     const { isRevealed } = this.state;
-    const photoPath = absolutePath ? absolutePath : `http://image.tmdb.org/t/p/original${path}`;
-
+    const photoPath = absolutePath || `http://image.tmdb.org/t/p/original${path}`;
     return (
       <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
         <div className={styles.overlay}></div>
@@ -64,7 +53,7 @@ class MovieResultImage extends Component {
             data-src={lazyLoading ? photoPath : null}
             src={!lazyLoading ? photoPath : null}
           />
-          <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
+          <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none'}} />
         </div>
       </div>
     );

@@ -9,6 +9,7 @@ import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
 import SwipeBlock from 'components/general/SwipeBlock';
+import BlankImage from 'components/general/BlankImage';
 import ResultImage from 'components/special/MovieResultImage';
 import LoadingIndicator from 'components/general/LoadingIndicator';
 
@@ -39,12 +40,6 @@ class MovieGallery extends Component {
     return false;
   }
 
-  handleLoading = () => (
-    <div className={styles.loading}>
-      <LoadingIndicator className={styles.indicator} />
-    </div>
-  );
-
   renderImages = (images) => {
     const limitedBackdrops = images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
     limitedBackdrops.unshift(images.posters[0]);
@@ -70,18 +65,16 @@ class MovieGallery extends Component {
   };
 
   renderImage = (img, index, lazyLoading) => (
-    <ResultImage key={index} path={img.file_path} alt={'test'} lazyLoading={lazyLoading} />
-  );
+    img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} lazyLoading={lazyLoading} /> : <BlankImage className={styles.blankImage} />
+   );
 
 
   render() {
     const { movie, isFetching } = this.props;
-
-    console.log(isFetching)
     const cs = styles.gallery;
     return (
       <Section className={cs}>
-          {!isFetching && movie.images ? this.renderImages(movie.images) : this.handleLoading()}
+          {!isFetching && movie.images ? this.renderImages(movie.images) : <div className={styles.loading} />}
       </Section>
     );
   }

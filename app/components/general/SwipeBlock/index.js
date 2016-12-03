@@ -17,7 +17,8 @@ import 'swiper/dist/css/swiper.css';
 
 /**
 * SwipeBlock
-* @desc TODO: desc for SwipeBlock
+* @desc Creates swipeable area where user can iterate through items.
+ * TODO: Remove swiper.js which base on jquery, use react compatible tool instead.
 */
 class SwipeBlock extends Component {
   constructor(props) {
