@@ -11,18 +11,23 @@ $navigationSize: 50px;
 
 .bar {
   lost-center: 95%;
-  padding: 15px 0;
+  display: flex;
+  align-items: center;
   &__item {
+    padding: 5px 0;
     &--left,
     &--right {
       lost-column: 1/2;
       background-color: $bg;
       display: flex;
-      align-items: baseline;
+      color: white;
     }
     &--right {
       justify-content: flex-end;
     }
+  }
+  :local ul {
+    margin: 0;
   }
 }
 
