@@ -107,11 +107,6 @@ export class FilterForm extends Component {
           <div className={classNames(styles.filters, styles[orientation])} >
             <SelectList items={selectListItems} />
             <RequestMovie range={range.results} />
-            { /* <div> */ }
-            { /* current range is: */ }
-            { /* <h6>pages: {range.pages}</h6> */ }
-            { /* <h6>results: {range.results}</h6> */ }
-            { /* </div> */ }
           </div>
         </form>
       </div>

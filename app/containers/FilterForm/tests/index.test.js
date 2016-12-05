@@ -11,10 +11,12 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
+import SelectList from 'components/general/SelectList';
 import RequestMovie from 'containers/RequestMovie';
 import configureStore from '../../../store';
 
 import { FilterForm } from '../index';
+
 
 // mapStateToProps - https://github.com/reactjs/redux/issues/1534
 // TODO: Handle FilterForm methods
@@ -108,12 +110,12 @@ describe('<FilterForm />', () => {
   });
 
   it('Should contain SelectList Component', () => {
-    const expected = renderComponent.find('SelectList');
+    const expected = renderComponent.find(SelectList);
     expect(expected).to.have.length(1);
   });
 
-  it('Should contain appropriate SelectList items: genre, decade, trend', () => {
-    const expected = renderComponent.find('SelectList').prop('items');
+  it('Should contain appropriate SelectList items: genre, decade, trend, keyword', () => {
+    const expected = renderComponent.find(SelectList).props().items;
     expect(expected).to.have.length(4);
   });
 
