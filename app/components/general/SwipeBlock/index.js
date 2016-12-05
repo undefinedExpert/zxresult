@@ -6,11 +6,10 @@
 */
 
 import { merge } from 'lodash';
-import ReactDom from 'react-dom';
+import 'swiper/dist/css/swiper.css';
 import ReactDomServer from 'react-dom/server';
 import Swiper from 'swiper/dist/js/swiper.min';
 import React, { PropTypes as ptype, Component } from 'react';
-import 'swiper/dist/css/swiper.css';
 
 // import styles from './styles.css';
 
@@ -70,16 +69,15 @@ class SwipeBlock extends Component {
 
   createSwiper = () => {
     const config = merge(this.props.swiperConfig, this.swiperConfig);
-    const pagination = config.pagination ? null : <div className="swiper-pagination"></div>;
-    const btnNext = config.nextButton ? null : <div className="swiper-button-next"></div>;
-    const btnPrev = config.prevButton ? null : <div className="swiper-button-prev"></div>;
+    const pagination = config.pagination ? <div className="swiper-pagination"></div> : null;
+    const btnNext = config.nextButton ? <div className="swiper-button-next"></div> : null;
+    const btnPrev = config.prevButton ? <div className="swiper-button-prev"></div> : null;
 
     const children = this.formatChildren(this.props.children, config);
 
-    const container = ReactDom.refs.swiperContainer;
-
+    const container = this.container;
     const content = (
-      <div className={'swiper-container'} ref={(ref) => { this.swiperContainer = ref; }}>
+      <div className={'swiper-container'} ref={(c) => { this.container = c; }}>
         <div className={config.wrapperClass} >
           {children}
         </div>
@@ -96,7 +94,7 @@ class SwipeBlock extends Component {
 
   render() {
     return (
-      <div ref={(ref) => { this.swiperContainer = ref; }} className="react-swiper-component"></div>
+      <div ref={(c) => { this.container = c; }} className="react-swiper-component"></div>
     );
   }
 }
