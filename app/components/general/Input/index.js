@@ -36,7 +36,6 @@ Input.propTypes = {
   title: ptype.string.isRequired,
   placeholder: ptype.string.isRequired,
   type: ptype.string,
-  value: ptype.string,
 };
 
 export default Input;

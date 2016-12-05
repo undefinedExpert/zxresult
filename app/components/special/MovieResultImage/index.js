@@ -48,7 +48,6 @@ class MovieResultImage extends Component {
         <div className={styles.imageContainer}>
           <img
             role="presentation"
-            ref="photo"
             className={className(styles.image, 'swiper-lazy')}
             data-src={lazyLoading ? photoPath : null}
             src={!lazyLoading ? photoPath : null}
@@ -61,7 +60,6 @@ class MovieResultImage extends Component {
 }
 
 MovieResultImage.propTypes = {
-  alt: ptype.string,
   path: ptype.string,
   absolutePath: ptype.string,
   lazyLoading: ptype.bool,

@@ -70,16 +70,16 @@ class SwipeBlock extends Component {
 
   createSwiper = () => {
     const config = merge(this.props.swiperConfig, this.swiperConfig);
-    const pagination = config.hasOwnProperty('pagination') ? null : <div className="swiper-pagination"></div>;
-    const btnNext = config.hasOwnProperty('nextButton') ? null : <div className="swiper-button-next"></div>;
-    const btnPrev = config.hasOwnProperty('prevButton') ? null : <div className="swiper-button-prev"></div>;
+    const pagination = config.pagination ? null : <div className="swiper-pagination"></div>;
+    const btnNext = config.nextButton ? null : <div className="swiper-button-next"></div>;
+    const btnPrev = config.prevButton ? null : <div className="swiper-button-prev"></div>;
 
     const children = this.formatChildren(this.props.children, config);
 
-    const container = ReactDom.findDOMNode(this.refs.swiperContainer);
+    const container = ReactDom.refs.swiperContainer;
 
     const content = (
-      <div className={'swiper-container'} ref="swiperContainer">
+      <div className={'swiper-container'} ref={(ref) => { this.swiperContainer = ref; }}>
         <div className={config.wrapperClass} >
           {children}
         </div>
@@ -96,7 +96,7 @@ class SwipeBlock extends Component {
 
   render() {
     return (
-      <div ref="swiperContainer" className="react-swiper-component"></div>
+      <div ref={(ref) => { this.swiperContainer = ref; }} className="react-swiper-component"></div>
     );
   }
 }
@@ -105,7 +105,6 @@ class SwipeBlock extends Component {
 SwipeBlock.propTypes = {
   children: ptype.node,
   swiperConfig: React.PropTypes.object,
-  containerClass: React.PropTypes.string,
   onSwiperMount: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,
 };

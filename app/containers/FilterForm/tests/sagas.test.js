@@ -47,7 +47,7 @@ describe('FilterForm saga handlers', () => {
     });
 
     it('Should handle error action', () => {
-      const error = new Error;
+      const error = new Error();
       const operation = put(updateFilterGenre.list.failure(error));
 
       expect(generator.next(error).value).to.be.eql(operation);
@@ -78,7 +78,7 @@ describe('FilterForm saga handlers', () => {
     });
 
     it('Should handle error action', () => {
-      const error = new Error;
+      const error = new Error();
       const operation = put(updateFilters.failure(error));
 
       expect(generator.next(error).value).to.be.eql(operation);

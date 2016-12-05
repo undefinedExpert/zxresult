@@ -16,7 +16,7 @@
 export const rankItem = (item) => {
   const minimalVoteCount = 100;
   const globalVoteAverage = 6;
-  return (item.vote_count / (item.vote_count + minimalVoteCount) * item.vote_average + (minimalVoteCount / (item.vote_count + minimalVoteCount)) * globalVoteAverage);
+  return (item.vote_count / (item.vote_count + minimalVoteCount) * item.vote_average + (minimalVoteCount / (item.vote_count + minimalVoteCount)) * globalVoteAverage); // eslint-disable-line
 };
 
 

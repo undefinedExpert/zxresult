@@ -43,7 +43,6 @@ function MovieArticle({ movie }) {
 
 MovieArticle.propTypes = {
   movie: ptype.object.isRequired,
-  className: ptype.string,
 };
 
 export default MovieArticle;

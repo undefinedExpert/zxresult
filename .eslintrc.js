@@ -23,10 +23,7 @@ module.exports = exports = {
     "max-len": 0,
     "camelcase": 2,
     "brace-style": 0,
-    "arrow-parens": [
-      "error",
-      "always"
-    ],
+    "arrow-parens": 0,
     "arrow-body-style": [
       2,
       "as-needed"
@@ -54,6 +51,7 @@ module.exports = exports = {
     "jsx-a11y/href-no-hash": 2,
     "jsx-a11y/label-has-for": 2,
     "jsx-a11y/mouse-events-have-key-events": 2,
+    "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/role-has-required-aria-props": 2,
     "jsx-a11y/role-supports-aria-props": 2,
     "newline-per-chained-call": 0,

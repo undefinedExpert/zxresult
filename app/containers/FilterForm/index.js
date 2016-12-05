@@ -107,11 +107,11 @@ export class FilterForm extends Component {
           <div className={classNames(styles.filters, styles[orientation])} >
             <SelectList items={selectListItems} />
             <RequestMovie range={range.results} />
-            {/* <div> */}
-              {/* current range is: */}
-              {/* <h6>pages: {range.pages}</h6> */}
-              {/* <h6>results: {range.results}</h6> */}
-            {/* </div> */}
+            { /* <div> */ }
+            { /* current range is: */ }
+            { /* <h6>pages: {range.pages}</h6> */ }
+            { /* <h6>results: {range.results}</h6> */ }
+            { /* </div> */ }
           </div>
         </form>
       </div>
@@ -128,9 +128,6 @@ FilterForm.propTypes = {
   orientation: ptype.string,
   onSubmitForm: ptype.func,
   getGenreList: ptype.func,
-  onChangeGenre: ptype.func,
-  onChangeTrend: ptype.func,
-  onChangeDecade: ptype.func,
   inputChangeKeyword: ptype.func,
   getUpdateFilters: ptype.func,
 };

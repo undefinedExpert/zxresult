@@ -56,9 +56,7 @@ Select.propTypes = {
     ptype.string,
     ptype.object,
   ]),
-  options: ptype.array,
   title: ptype.string,
-  loading: ptype.func,
 };
 
 export default Select;

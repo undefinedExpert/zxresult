@@ -35,9 +35,6 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
 }
 
 ResultPage.propTypes = {
-  filterUpdate: ptype.func,
-  filters: ptype.object,
-  result: ptype.object,
   active: ptype.object,
   isFetching: ptype.bool,
 };

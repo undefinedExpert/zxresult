@@ -5,7 +5,6 @@
  *  3. Module
  */
 
-import { debounce } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
@@ -74,7 +73,7 @@ class MovieGallery extends Component {
     const cs = styles.gallery;
     return (
       <Section className={cs}>
-          {!isFetching && movie.images ? this.renderImages(movie.images) : <div className={styles.loading} />}
+        {!isFetching && movie.images ? this.renderImages(movie.images) : <div className={styles.loading} />}
       </Section>
     );
   }

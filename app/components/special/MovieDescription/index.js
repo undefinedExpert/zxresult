@@ -70,7 +70,7 @@ class MovieDescription extends Component {
     const cs = styles.description;
     return (
       <Section size={sectionSize} title={title} className={cs}>
-          {description !== errMsgReturnedByApi ? this.renderDescription(description) : errMsg}
+        {description !== errMsgReturnedByApi ? this.renderDescription(description) : errMsg}
       </Section>
     );
   }

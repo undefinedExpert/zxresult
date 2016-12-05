@@ -31,8 +31,8 @@ class Navigation extends React.Component {
 
   renderLinks = () => (
     <ul className={styles.links}>
-      <li id="loginButton"><a href="#">Log In</a></li>
-      <li id="registerButton"><a href="#">Register</a></li>
+      <li id="loginButton"><button href="#">Log In</button></li>
+      <li id="registerButton"><button href="#">Register</button></li>
     </ul>
   );
 
