@@ -21,6 +21,10 @@
     font-weight: 400;
   }
 
+  h1, h3 {
+    margin: 0;
+  }
+
   @media (min-width: 62.5em) {
     h1 {
       font-size: 4.2rem;

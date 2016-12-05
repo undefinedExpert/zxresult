@@ -17,11 +17,19 @@
 .hearts {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 6px 0;
   .average {
     color: color(var(--cMain) l(30%));
     font-size: 2.3rem;
     margin: auto 0;
     font-family: 'Quattrocento Sans', sans-serif;
     font-weight: 700;
+  }
+
+  @media (min-width: 62.5em) {
+    justify-content: inherit;
+    flex-direction: row;
   }
 }

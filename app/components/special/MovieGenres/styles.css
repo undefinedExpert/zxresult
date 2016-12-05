@@ -20,5 +20,7 @@
   }
   .label {
     margin: 7px auto 0;
+    font-size: 1.2rem;
+    font-weight: 300;
   }
 }

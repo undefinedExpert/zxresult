@@ -1,6 +1,6 @@
 .section {
   float: left;
-  margin: 24px 0 8px;
+  padding: 6px 0 8px;
   &.--1-of-1 {
     lost-column: 1/1;
   }
@@ -38,5 +38,18 @@
     @media (min-width: 40em) {
       lost-column: 1/6;
     }
+  }
+
+  :local {
+    h1, h2, h3, h4, h5, h6 {
+      margin: 5px 0 5px 0;
+    }
+    ul {
+      padding: 0;
+    }
+  }
+
+  @media (min-width: 62.5em) {
+    margin: 24px 0 8px;
   }
 }
