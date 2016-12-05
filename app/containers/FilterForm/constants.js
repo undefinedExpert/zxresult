@@ -5,23 +5,24 @@
  *  3. Module
  */
 
-import { createRequestTypes } from 'utils/hooks';
+import { createConstantTypes } from 'mechanisms/index';
 
-const FILTER_KEYWORD = createRequestTypes('app/FilterForm/FILTER_KEYWORD');
-const FILTER_KEYWORD_LIST = createRequestTypes('app/FilterForm/FILTER_KEYWORD_LIST');
 
-const FILTER_DECADE = createRequestTypes('app/FilterForm/FILTER_DECADE');
-const FILTER_DECADE_LIST = createRequestTypes('app/FilterForm/FILTER_DECADE_LIST');
+const FILTER_KEYWORD = createConstantTypes('app/FilterForm/FILTER_KEYWORD');
+const FILTER_KEYWORD_LIST = createConstantTypes('app/FilterForm/FILTER_KEYWORD_LIST');
 
-const FILTER_TREND = createRequestTypes('app/FilterForm/FILTER_TREND');
-const FILTER_TREND_LIST = createRequestTypes('app/FilterForm/FILTER_TREND_LIST');
+const FILTER_DECADE = createConstantTypes('app/FilterForm/FILTER_DECADE');
+const FILTER_DECADE_LIST = createConstantTypes('app/FilterForm/FILTER_DECADE_LIST');
 
-const FILTER_GENRE = createRequestTypes('app/FilterForm/FILTER_GENRE');
-const FILTER_GENRE_LIST = createRequestTypes('app/FilterForm/FILTER_GENRE_LIST');
+const FILTER_TREND = createConstantTypes('app/FilterForm/FILTER_TREND');
+const FILTER_TREND_LIST = createConstantTypes('app/FilterForm/FILTER_TREND_LIST');
 
-const UPDATE_FILTERS = createRequestTypes('app/FilterForm/UPDATE_FILTERS');
+const FILTER_GENRE = createConstantTypes('app/FilterForm/FILTER_GENRE');
+const FILTER_GENRE_LIST = createConstantTypes('app/FilterForm/FILTER_GENRE_LIST');
 
-const CACHE_RANDOMIZED_PAGE = createRequestTypes('app/FilterForm/CACHE_RANDOMIZED_PAGE');
+const UPDATE_FILTERS = createConstantTypes('app/FilterForm/UPDATE_FILTERS');
+
+const CACHE_RANDOMIZED_PAGE = createConstantTypes('app/FilterForm/CACHE_RANDOMIZED_PAGE');
 
 export {
   FILTER_KEYWORD,

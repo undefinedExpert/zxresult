@@ -5,19 +5,20 @@
  *  3. Module
  */
 
-import { createRequestTypes } from 'utils/hooks';
+import { createConstantTypes } from 'mechanisms/index';
+
 
 // RESULT SET
-const UPDATE_MOVIE_RESULT = createRequestTypes('app/RequestMovie/UPDATE_MOVIE_RESULT');
+const UPDATE_MOVIE_RESULT = createConstantTypes('app/RequestMovie/UPDATE_MOVIE_RESULT');
 
 // Analyse movie results to pick the best
-const ANALYSE_MOVIE = createRequestTypes('app/RequestMovie/ANALYSE_MOVIE');
+const ANALYSE_MOVIE = createConstantTypes('app/RequestMovie/ANALYSE_MOVIE');
 
 // Analyse movie results to pick the best
-const UPDATE_SINGLE_MOVIE = createRequestTypes('app/RequestMovie/UPDATE_SINGLE_MOVIE');
+const UPDATE_SINGLE_MOVIE = createConstantTypes('app/RequestMovie/UPDATE_SINGLE_MOVIE');
 
 // Get movie details
-const DETAILS = createRequestTypes('app/RequestMovie/DETAILS');
+const DETAILS = createConstantTypes('app/RequestMovie/DETAILS');
 
 export {
   UPDATE_MOVIE_RESULT,

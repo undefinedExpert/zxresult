@@ -9,6 +9,7 @@ import callApi from 'mechanisms/callToApi';
 import { processMovieAnalyse as movieAnalyse } from 'mechanisms/processMovie';
 import { detectPending } from 'mechanisms/detectPending';
 import { mapGenres } from 'mechanisms/filterGenresById';
+import { createConstantTypes } from 'mechanisms/createConstantTypes';
 
 
 /**
@@ -22,4 +23,5 @@ export {
   movieAnalyse,
   detectPending,
   mapGenres,
+  createConstantTypes,
 };

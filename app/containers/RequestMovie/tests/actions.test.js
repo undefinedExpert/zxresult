@@ -7,7 +7,10 @@
 
 import { expect } from 'chai';
 
-import * as CONSTANT from '../constants';
+import {
+  UPDATE_MOVIE_RESULT,
+  ANALYSE_MOVIE,
+  UPDATE_SINGLE_MOVIE } from '../constants';
 import {
   updateMovieResult,
   analyseMovies,
@@ -26,14 +29,14 @@ describe('FilterForm Actions', () => {
     it('Should call actions from updateMovieResult - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_MOVIE_RESULT.REQUEST,
+          type: UPDATE_MOVIE_RESULT.REQUEST,
         },
         success: {
-          type: CONSTANT.UPDATE_MOVIE_RESULT.SUCCESS,
+          type: UPDATE_MOVIE_RESULT.SUCCESS,
           active,
         },
         failure: {
-          type: CONSTANT.UPDATE_MOVIE_RESULT.FAILURE,
+          type: UPDATE_MOVIE_RESULT.FAILURE,
           error,
         },
       };
@@ -57,15 +60,15 @@ describe('FilterForm Actions', () => {
     it('Should call actions from analyseMovies - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.ANALYSE_MOVIE.REQUEST,
+          type: ANALYSE_MOVIE.REQUEST,
           notSorted,
         },
         success: {
-          type: CONSTANT.ANALYSE_MOVIE.SUCCESS,
+          type: ANALYSE_MOVIE.SUCCESS,
           pending,
         },
         failure: {
-          type: CONSTANT.ANALYSE_MOVIE.FAILURE,
+          type: ANALYSE_MOVIE.FAILURE,
           error,
         },
       };
@@ -89,15 +92,15 @@ describe('FilterForm Actions', () => {
     it('Should call actions from updateSingleMovie - requested, succeed, failed', () => {
       const expected = {
         request: {
-          type: CONSTANT.UPDATE_SINGLE_MOVIE.REQUEST,
+          type: UPDATE_SINGLE_MOVIE.REQUEST,
           active,
         },
         success: {
-          type: CONSTANT.UPDATE_SINGLE_MOVIE.SUCCESS,
+          type: UPDATE_SINGLE_MOVIE.SUCCESS,
           removePending,
         },
         failure: {
-          type: CONSTANT.UPDATE_SINGLE_MOVIE.FAILURE,
+          type: UPDATE_SINGLE_MOVIE.FAILURE,
           error,
         },
       };

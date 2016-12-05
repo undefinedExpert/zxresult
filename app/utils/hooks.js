@@ -83,20 +83,6 @@ export function getAsyncInjectors(store) {
 
 
 /**
- * @desc Build range of action types.
- */
-export function createRequestTypes(base) {
-  const REQUEST = 'REQUEST';
-  const SUCCESS = 'SUCCESS';
-  const FAILURE = 'FAILURE';
-  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
-    acc[type] = `${base}_${type}`; // eslint-disable-line
-    return acc;
-  }, {});
-}
-
-
-/**
  * @desc Convert & replace by regex pattern
  */
 export const convertToPattern = curry((pattern, replacement, str) => str.replace(pattern, replacement));

@@ -79,8 +79,7 @@
       },
       "test": {
         "plugins": [
-          "istanbul"
-        ]
+          "istanbul"        ]
       }
     }
   },
@@ -144,9 +143,10 @@
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
-    "babel-core": "6.18.0",
+    "babel-core": "^6.18.0",
     "babel-eslint": "7.1.0",
     "babel-loader": "6.2.7",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-istanbul": "2.0.3",
     "babel-plugin-react-intl": "2.2.0",
     "babel-plugin-react-transform": "2.0.2",
@@ -169,7 +169,7 @@
     "eslint-config-airbnb": "12.0.0",
     "eslint-config-airbnb-base": "9.0.0",
     "eslint-import-resolver-webpack": "0.6.0",
-    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.4.1",
     "eslint-plugin-redux-saga": "0.1.5",
