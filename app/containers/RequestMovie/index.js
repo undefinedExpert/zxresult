@@ -67,7 +67,7 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
 
     return (
       <div >
-        <Button onClick={this.requestMovie} style={{ height: '40px', minWidth: '120px', padding: '0 20px' }} disabled={isDisabled}>
+        <Button onClick={this.updateAndRoute} style={{ height: '40px', minWidth: '120px', padding: '0 20px' }} disabled={isDisabled}>
           {isFetching ? <LoadingIndicator isDisabled={isDisabled} /> : activeButtonMessage}
         </Button>
       </div>
