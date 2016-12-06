@@ -53,7 +53,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: true,
           preloadImages: false,
-          autoplay: 33500,
+          autoplay: 3500,
           grabCursor: true,
           slidesPerView: 'auto',
         }}
