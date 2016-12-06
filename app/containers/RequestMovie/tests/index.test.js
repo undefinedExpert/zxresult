@@ -43,15 +43,27 @@ describe('<RequestMovie />', () => {
     expect(expected).to.have.length(1);
   });
 
-  it('Should render "loading" message', () => {
+  it('Should render LoadingIndicator component', () => {
     const modifiedComponent = renderComponent.setProps({ isFetching: true });
     const expected = modifiedComponent.contains(<LoadingIndicator isDisabled={5 === 0} />);
     expect(expected).to.eql(true);
   });
 
-  it('Should render "no more results" message', () => {
+  it('Should render "Search" message', () => {
+    const modifiedComponent = renderComponent.setProps({ range: 5, noMoreResults: false });
+    const expected = modifiedComponent.contains('Search');
+    expect(expected).to.eql(true);
+  });
+
+  it('Should render "End of results" message', () => {
     const modifiedComponent = renderComponent.setProps({ noMoreResults: true });
-    const expected = modifiedComponent.contains(<h4>No more results</h4>);
+    const expected = modifiedComponent.contains('End of results');
+    expect(expected).to.eql(true);
+  });
+
+  it('Should render "Filters are too specific" message', () => {
+    const modifiedComponent = renderComponent.setProps({ range: 0 });
+    const expected = modifiedComponent.contains('Filters are too specific');
     expect(expected).to.eql(true);
   });
 });
