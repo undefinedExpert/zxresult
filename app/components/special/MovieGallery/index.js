@@ -56,7 +56,7 @@ class MovieGallery extends Component {
           preloadImages: false,
           autoplay: 3500,
           grabCursor: true,
-          slidesPerView: 'auto',
+          slidesPerView: 1,
           spaceBetween: 0,
         }}
         className={styles.swipeBlock}
