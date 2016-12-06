@@ -47,6 +47,7 @@ class MovieGallery extends Component {
       <SwipeBlock
         swiperConfig={{
           observeParents: true,
+          observer: true,
           lazyPreloaderClass: 'swiper-loading-indicator',
           lazyLoadingInPrevNext: false,
           nextButton: null,
@@ -56,7 +57,9 @@ class MovieGallery extends Component {
           autoplay: 3500,
           grabCursor: true,
           slidesPerView: 'auto',
+          spaceBetween: 0,
         }}
+        className={styles.swipeBlock}
       >
         {limitedBackdrops.map((item, index) => this.renderImage(item, index, true))}
       </SwipeBlock>

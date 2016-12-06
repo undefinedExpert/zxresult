@@ -68,7 +68,7 @@ class SwipeBlock extends Component {
   }
 
   createSwiper = () => {
-    const config = merge(this.props.swiperConfig, this.swiperConfig);
+    const config = merge(this.swiperConfig, this.props.swiperConfig);
     const pagination = config.pagination ? <div className="swiper-pagination"></div> : null;
     const btnNext = config.nextButton ? <div className="swiper-button-next"></div> : null;
     const btnPrev = config.prevButton ? <div className="swiper-button-prev"></div> : null;
@@ -77,7 +77,7 @@ class SwipeBlock extends Component {
 
     const container = this.container;
     const content = (
-      <div className={'swiper-container'} ref={(c) => { this.container = c; }}>
+      <div className={this.props.className} ref={(c) => { this.container = c; }}>
         <div className={config.wrapperClass} >
           {children}
         </div>
@@ -102,6 +102,7 @@ class SwipeBlock extends Component {
 
 SwipeBlock.propTypes = {
   children: ptype.node,
+  className: ptype.string,
   swiperConfig: React.PropTypes.object,
   onSwiperMount: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,

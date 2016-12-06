@@ -27,3 +27,18 @@
   width: 100%;
   min-height: calc(100vh - 50px);
 }
+
+.swipeBlock {
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: color(var(--cMain) a(50%));
+  }
+}

@@ -1,14 +1,12 @@
-$navigationSize:  50px;
-
 .resultImage {
-  max-height: calc(100vh - $navigationSize);
+  max-height: calc(100vh -  50px);
   min-height: 40vh;
   background-color: #22262e;
   position: relative;
   transition: min-height 0.35s ease;
 
   @media (min-width: 62.5em) {
-    min-height: calc(100vh - $navigationSize);
+    min-height: calc(100vh -  50px);
     transition: inherit;
   }
   &.isRevealed {
@@ -19,9 +17,6 @@ $navigationSize:  50px;
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--cMain);
-    opacity: 0.6;
-    z-index: 3;
   }
 }
 
