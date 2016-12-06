@@ -13,7 +13,7 @@ import { selectResult } from './selectors';
 
 function mapDispatch(dispatch) {
   return {
-    movieUpdate: () => dispatch(updateMovieResult.request()),
+    requestMovie: () => dispatch(updateMovieResult.request()),
     dispatch,
   };
 }

@@ -16,52 +16,59 @@ import { mapDispatch, mapState } from './mapProps';
 
 /**
  * RequestMovie
- * @desc Button which handles getting movies processes chain
- * TODO: Refactor
+ * @desc Requests movie from database, display messages which describe:
+ * - If there is any movie we might propose
+ * - If user saw all our propositions
  */
 export class RequestMovie extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  state = {
-    msgs: {
-      active: this.initial,
+  constructor(props) {
+    super(props);
+    this.messages = {
       initial: 'Search',
       noMovieOnInitial: 'Filters are too specific',
       noMoreResults: 'End of results',
-    },
-  };
+    };
 
-  componentWillReceiveProps(nextProps, nextState) {
+    this.state = {
+      activeButtonMessage: this.messages.initial,
+    };
+  }
 
+  componentWillReceiveProps({ noMoreResults, range }) {
+    if (noMoreResults) {
+      this.setActiveMessage(this.messages.noMoreResults);
+    }
+
+    else if (range === 0) {
+      this.setActiveMessage(this.messages.noMovieOnInitial);
+    }
+
+    else {
+      this.setActiveMessage(this.messages.initial);
+    }
+  }
+
+  setActiveMessage(msg) {
+    this.setState({ activeButtonMessage: msg });
   }
 
   updateAndRoute = () => {
     if (this.props.isFetching) return;
-    this.props.movieUpdate();
+    this.props.requestMovie();
   };
-
-  noMoreResults = () => (
-    <h4>No more results</h4>
-  );
 
   render() {
     const {
       range,
       isFetching,
       noMoreResults } = this.props;
-
-    const msg = {
-      initial: 'Search',
-      noMovieOnInitial: range === 0 ? 'Filters are too specific' : null,
-      noMoreResults: noMoreResults ? 'End of results' : 'Search',
-    };
-
-    console.log('noMoreResults', noMoreResults, msg.noMoreResults)
+    const { activeButtonMessage } = this.state;
+    const isDisabled = range === 0 || noMoreResults;
 
     return (
       <div >
-        {noMoreResults ? this.noMoreResults() : null}
-        <Button onClick={this.updateAndRoute} style={{ height: '40px', minWidth: '120px', padding: '0 20px' }} disabled={range === 0 || noMoreResults}>
-          {isFetching ? <LoadingIndicator isDisabled={range === 0 || noMoreResults} /> : (msg.noMovieOnInitial || msg.noMoreResults)}
+        <Button onClick={this.requestMovie} style={{ height: '40px', minWidth: '120px', padding: '0 20px' }} disabled={isDisabled}>
+          {isFetching ? <LoadingIndicator isDisabled={isDisabled} /> : activeButtonMessage}
         </Button>
       </div>
     );
@@ -71,7 +78,7 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
 RequestMovie.propTypes = {
   range: ptype.number,
   isFetching: ptype.bool,
-  movieUpdate: ptype.func,
+  requestMovie: ptype.func,
   noMoreResults: ptype.bool,
 };
 

@@ -15,14 +15,14 @@ describe('mapDispatchToProps', () => {
     it('should be injected', () => {
       const dispatch = sinon.spy();
       const returned = mapDispatch(dispatch);
-      expect(returned.movieUpdate).to.not.eql(undefined);
+      expect(returned.requestMovie).to.not.eql(undefined);
     });
 
-    it('should dispatch movieUpdate action', () => {
+    it('should dispatch requestMovie action', () => {
       const dispatch = sinon.spy();
       const returned = mapDispatch(dispatch);
 
-      returned.movieUpdate();
+      returned.requestMovie();
       expect(dispatch.calledOnce).to.eql(true);
     });
   });
