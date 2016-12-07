@@ -32,21 +32,27 @@ function Section(props) {
     size,
     children,
     className = '',
-    theme = 'light' } = props;
+    theme = 'light',
+    type = 'section' } = props;
 
   let cssSize;
   if (size) cssSize = `--${classSizePattern(size)}`;
 
+  // Allow us use custom tags
+  // like: section, article, div - basing on current semantic need
+  const CustomTag = type;
+
   const cs = classNames(styles.section, styles[cssSize], className);
   return (
-    <section className={cs}>
+    <CustomTag className={cs}>
       {title ? <Title text={title} theme={theme} /> : null}
       {children}
-    </section>
+    </CustomTag>
   );
 }
 
 Section.propTypes = {
+  type: ptype.string,
   title: ptype.string,
   theme: ptype.string,
   size: ptype.string,
