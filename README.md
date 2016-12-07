@@ -1,10 +1,12 @@
 ### Quick Movie Search app
-###### Underconstruction
-![Travis ci][travis]
-![Code Climate][codeclimate]
-![Coverage Status][coverage]
+###### Under active development
 
-
-[travis]: https://travis-ci.org/lanskey/zxresult.svg?branch=master "Travis ci"
-[coverage]: https://coveralls.io/repos/github/lanskey/zxresult/badge.svg?branch=master "Code Coverage"
-[codeclimate]: https://codeclimate.com/github/lanskey/zxresult/badges/gpa.svg "Code climate"
+<a href="https://travis-ci.org/lanskey/zxresult">
+  <img src="https://travis-ci.org/lanskey/zxresult.svg?branch=master" alt="Build" />
+</a>
+<a href="https://coveralls.io/r/lanskey/zxresult">
+  <img src="https://coveralls.io/repos/github/lanskey/zxresult/badge.svg?branch=master" alt="Test Coverage" />
+</a>
+<a href="https://codeclimate.com/github/lanskey/zxresult">
+  <img src="https://codeclimate.com/github/lanskey/zxresult/badges/gpa.svg" alt="Test Coverage" />
+</a>
