@@ -18,9 +18,6 @@ import styles from './styles.css';
 /**
  * MovieGallery
  * @desc Render Gallery and filters.
- * TODO: Rename MovieGallery
- * TODO: Working Gallery, not just single image.
- * TODO: remove FilterForm container from this Component
  */
 class MovieGallery extends Component {
   state = {
