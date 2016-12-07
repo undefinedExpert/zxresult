@@ -6,6 +6,8 @@
   font-size: 1.6rem;
   font-family: "Quattrocento Sans", sans-serif;
   text-align: center;
+  float: left;
+  clear: right;
   :local section {
     margin: 6px 0;
     &:nth-child(1) {
@@ -15,7 +17,6 @@
 
   @media (min-width: 62.5em) {
     text-align: inherit;
-    lost-column: 5/12 0;
     overflow: auto;
   }
 }

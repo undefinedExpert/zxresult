@@ -1,21 +1,44 @@
 .halfWrapper {
   float: left;
   lost-column: 1/1 0;
-  background-color: #22262e;
   display: flex;
   flex-flow: column wrap;
+
+  &.gallery {
+    background-color: #22262e;
+    :local form {
+      display: none;
+
+      @media (min-width: 62.5em) {
+        display: inherit;
+      }
+    }
+
+    @media (min-width: 62.5em) {
+      lost-column: 7/12 0;
+    }
+  }
+
+  &.article {
+    .mobileFilterForm {
+      z-index: 5;
+      :local form {
+        display: block;
+        width: 100%;
+      }
+
+      @media (min-width: 62.5em) {
+        display: none;
+      }
+    }
+
+    @media (min-width: 62.5em) {
+      lost-column: 5/12 0;
+    }
+  }
+
   :local section {
     margin: 0;
     padding: 0;
-  }
-  @media (min-width: 62.5em) {
-    lost-column: 7/12 0;
-  }
-  :local form {
-    display: none;
-
-    @media (min-width: 62.5em) {
-      display: inherit;
-    }
   }
 }

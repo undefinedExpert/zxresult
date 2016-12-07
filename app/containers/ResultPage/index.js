@@ -6,6 +6,7 @@
  */
 
 import { connect } from 'react-redux';
+import className from 'classnames';
 import React, { PropTypes as ptype, Component } from 'react';
 import { createStructuredSelector, createSelector } from 'reselect';
 
@@ -23,12 +24,16 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
 
     return (
       <section>
-        {}
-        <div className={styles.halfWrapper}>
+        <div className={className(styles.halfWrapper, styles.gallery)}>
           <Gallery movie={active} isFetching={isFetching} />
           <FilterForm orientation={'horizontal'} />
         </div>
-        <MovieArticle movie={active} />
+        <div className={className(styles.halfWrapper, styles.article)}>
+          <MovieArticle movie={active} />
+          <div className={styles.mobileFilterForm}>
+            <FilterForm orientation={'horizontal'} />
+          </div>
+        </div>
       </section>
     );
   }

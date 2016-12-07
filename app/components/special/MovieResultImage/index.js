@@ -15,22 +15,12 @@ import styles from './styles.css';
 
 
 /**
- * @desc Default values for image size loaders. loaded is a representation of: Is this image is loaded?
- * Pattern is a function which replace specific part of URL, so we could download bigger image.
- */
-const smallDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w154') };
-const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w154/g, 'w500') };
-
-
-/**
  * MovieResultImage
  * @desc Render single result image.
  * @return packed prop.children with title and appropriate grid size.
  */
 class MovieResultImage extends Component {
   state = {
-    small: smallDefaultState,
-    medium: mediumDefaultState,
     isRevealed: false,
   };
 
@@ -39,12 +29,17 @@ class MovieResultImage extends Component {
   };
 
   render() {
-    const { path, absolutePath, lazyLoading } = this.props;
+    const {
+      path,
+      absolutePath,
+      lazyLoading
+    } = this.props;
+
     const { isRevealed } = this.state;
+
     const photoPath = absolutePath || `http://image.tmdb.org/t/p/original${path}`;
     return (
       <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
-        <div className={styles.overlay}></div>
         <div className={styles.imageContainer}>
           <img
             role="presentation"

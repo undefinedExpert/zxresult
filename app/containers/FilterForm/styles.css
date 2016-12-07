@@ -4,7 +4,6 @@
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
-
   /* margin-bottom: 30px; */
 }
 
@@ -32,7 +31,6 @@
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
-    position: absolute;
     overflow: visible;
     bottom: 0;
     background-color: #22262e;
@@ -55,6 +53,10 @@
     :global .Select-menu-outer {
       top: auto;
       bottom: 100%;
+    }
+
+    @media (min-width: 62.5em) {
+      position: absolute;
     }
   }
 }
