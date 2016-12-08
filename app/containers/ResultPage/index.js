@@ -25,11 +25,21 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
 
   componentDidMount() {
     this.navMarginTop();
+    window.addEventListener('resize', this.navMarginTop.bind(this));
+  }
+
+  componentWillUpdate() {
+    this.navMarginTop();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.navMarginTop);
   }
 
   navMarginTop() {
+    console.log(this);
     const formHeight = this.mobileNavigation ? this.mobileNavigation.getElementsByTagName('Form')[0].clientHeight : false;
-    if (formHeight) {
+    if (formHeight !== false && formHeight !== this.state.formHeight) {
       this.setState({ formHeight });
     }
   }
@@ -40,14 +50,14 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
 
     console.log(formHeight);
     return (
-      <section>
+      <section >
         <div className={className(styles.halfWrapper, styles.gallery)}>
           <Gallery movie={active} isFetching={isFetching} />
           <FilterForm orientation={'horizontal'} />
         </div>
-        <div className={className(styles.halfWrapper, styles.article)} style={{ paddingBottom: formHeight }}>
+        <div className={className(styles.halfWrapper, styles.article)}>
           <MovieArticle movie={active} />
-          <div ref={(c) => { this.mobileNavigation = c; }} className={styles.mobileFilterForm}>
+          <div ref={(c) => { this.mobileNavigation = c; }} className={styles.mobileFilterForm} style={{height: formHeight }}>
             <FilterForm orientation={'horizontal'} />
           </div>
         </div>

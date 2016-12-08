@@ -1,6 +1,5 @@
 .movieArticle {
   lost-column: 1 0;
-  max-height: calc(100vh - 50px);
   color: var(--cHeading);
   padding: 15px 0 15px;
   font-size: 1.6rem;
@@ -18,5 +17,6 @@
   @media (min-width: 62.5em) {
     text-align: inherit;
     overflow: auto;
+    max-height: calc(100vh - 50px);
   }
 }
