@@ -11,10 +11,6 @@ import classNames from 'classnames';
 import styles from './styles.css';
 
 
-/**
-* LoadingIndicator
-* @desc TODO: desc for LoadingIndicator
-*/
 const LoadingIndicator = ({ isDisabled, className }) => {
   const cs = classNames(
     styles.ball,
