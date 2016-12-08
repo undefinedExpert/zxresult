@@ -12,7 +12,10 @@
     :local .full-width {
        flex-basis: auto;
     }
-    :global .Select-control, :global .Select-option {
+    :global .Select-control,
+    :global .Select-option,
+    :global .is-open > .Select-control,
+    :global .Select-menu-outer {
       background-color: #22262e;
     }
 
