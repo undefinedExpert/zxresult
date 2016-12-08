@@ -17,7 +17,7 @@ import React, { PropTypes as ptype, Component } from 'react';
 /**
 * SwipeBlock
 * @desc Creates swipeable area where user can iterate through items.
- * TODO: Remove swiper.js which base on jquery, use react compatible tool instead.
+* TODO: Remove swiper.js which base on jquery, use react compatible tool instead.
 */
 class SwipeBlock extends Component {
   constructor(props) {
