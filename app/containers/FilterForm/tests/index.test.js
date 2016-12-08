@@ -24,6 +24,7 @@ describe('<FilterForm />', () => {
   let renderComponent;
   let store;
   const props = {
+    orientation: false,
     keyword: {
       active: {
         query: 'eslotwinski',
@@ -120,7 +121,7 @@ describe('<FilterForm />', () => {
   });
 
   it('Should contain RequestMovie', () => {
-    const expected = renderComponent.contains(<RequestMovie range={props.range.results} />);
+    const expected = renderComponent.contains(<RequestMovie range={props.range.results} fullWidth={props.orientation !== 'horizontal'} />);
     expect(expected).to.eql(true);
   });
 });
