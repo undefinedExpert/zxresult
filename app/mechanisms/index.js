@@ -17,6 +17,8 @@ import { createConstantTypes } from 'mechanisms/createConstantTypes';
  * @property callApi - Calls api
  * @property movieAnalyse - Ranks movies
  * @property detectPending - Detect if we can push movie from pending list
+ * @property mapGenres - Map genres ids with their names
+ * @property createConstantTypes - Allows us to create Requested, Successed, Failured types from provided single constant
  */
 export {
   callApi,
