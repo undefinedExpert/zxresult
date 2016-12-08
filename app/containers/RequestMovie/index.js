@@ -81,6 +81,7 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
 
 RequestMovie.propTypes = {
   range: ptype.number,
+  fullWidth: ptype.bool,
   isFetching: ptype.bool,
   requestMovie: ptype.func,
   noMoreResults: ptype.bool,

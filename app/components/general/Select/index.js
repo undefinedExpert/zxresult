@@ -25,12 +25,12 @@ import styles from './styles.css';
 function Select(props) {
   const {
     theme,
-    value = { name: '' },
-    valueKey = 'name',
-    labelKey = 'name',
     title,
     fullWidth,
     className,
+    value = { name: '' },
+    valueKey = 'name',
+    labelKey = 'name',
   } = props;
 
   const cs = classNames(styles.select, styles[theme], fullWidth ? styles.fullWidth : null, className);
@@ -53,6 +53,7 @@ function Select(props) {
 
 Select.propTypes = {
   theme: ptype.string,
+  fullWidth: ptype.bool,
   valueKey: ptype.string,
   labelKey: ptype.string,
   className: ptype.string,

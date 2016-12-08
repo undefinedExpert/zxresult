@@ -8,7 +8,6 @@
 import className from 'classnames';
 import React, { PropTypes as ptype, Component } from 'react';
 
-import { convertToPattern } from 'utils/hooks';
 import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
@@ -32,7 +31,7 @@ class MovieResultImage extends Component {
     const {
       path,
       absolutePath,
-      lazyLoading
+      lazyLoading,
     } = this.props;
 
     const { isRevealed } = this.state;
