@@ -19,18 +19,35 @@ import styles from './styles.css';
 
 
 export class ResultPage extends Component { // eslint-disable-line react/prefer-stateless-function
+  state = {
+    formHeight: null,
+  };
+
+  componentDidMount() {
+    this.navMarginTop();
+  }
+
+  navMarginTop() {
+    const formHeight = this.mobileNavigation ? this.mobileNavigation.getElementsByTagName('Form')[0].clientHeight : false;
+    if (formHeight) {
+      this.setState({ formHeight });
+    }
+  }
+
   render() {
     const { active, isFetching } = this.props;
+    const { formHeight } = this.state;
 
+    console.log(formHeight);
     return (
       <section>
         <div className={className(styles.halfWrapper, styles.gallery)}>
           <Gallery movie={active} isFetching={isFetching} />
           <FilterForm orientation={'horizontal'} />
         </div>
-        <div className={className(styles.halfWrapper, styles.article)}>
+        <div className={className(styles.halfWrapper, styles.article)} style={{ paddingBottom: formHeight }}>
           <MovieArticle movie={active} />
-          <div className={styles.mobileFilterForm}>
+          <div ref={(c) => { this.mobileNavigation = c; }} className={styles.mobileFilterForm}>
             <FilterForm orientation={'horizontal'} />
           </div>
         </div>

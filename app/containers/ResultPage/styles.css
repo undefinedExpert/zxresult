@@ -3,14 +3,28 @@
   lost-column: 1/1 0;
   display: flex;
   flex-flow: column wrap;
-
+  position: relative;
+  justify-content: center;
   &.gallery {
     background-color: #22262e;
+
     :local form {
       display: none;
-
+      position: absolute;
+      bottom: 0;
+      z-index: 44;
+      width: 100%;
+      padding: 20px 0;
+      background-color: #22262e;
       @media (min-width: 62.5em) {
-        display: inherit;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* Pushes dropdown menus at top */
+      :global .Select-menu-outer {
+        top: auto;
+        bottom: 100%;
       }
     }
 
@@ -22,9 +36,12 @@
   &.article {
     .mobileFilterForm {
       z-index: 5;
+      bottom: 0;
       :local form {
         display: block;
         width: 100%;
+        position: fixed;
+        bottom: 0;
       }
 
       @media (min-width: 62.5em) {

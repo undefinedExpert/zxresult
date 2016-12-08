@@ -1,4 +1,17 @@
 .container {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.button {
+  height: 40px;
+  min-width: 120px;
+  padding: 0 20px;
+  max-width: 200px;
+  margin: 15px 5px;
+  &.fullWidth {
+    width: 100%;
+    max-width: 100%;
+  }
 }

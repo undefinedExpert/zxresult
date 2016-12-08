@@ -76,7 +76,7 @@ export class FilterForm extends Component {
         onChange: this.onChangeSelectHandler('Keyword'),
         title: 'Keyword',
         theme: 'sup',
-        className: styles['full-width'],
+        fullWidth: orientation !== 'horizontal',
       },
       {
         value: genre.active,
@@ -97,16 +97,16 @@ export class FilterForm extends Component {
         isLoading: false,
         onChange: this.onChangeSelectHandler('Trend'),
         title: 'Trend',
-        className: styles['full-width'],
+        fullWidth: orientation !== 'horizontal',
       },
     ];
 
     return (
       <div>
-        <form onSubmit={this.onSubmitHandler} className={styles.form}>
-          <div className={classNames(styles.filters, styles[orientation])} >
-            <SelectList items={selectListItems} />
-            <RequestMovie range={range.results} />
+        <form onSubmit={this.onSubmitHandler} className={classNames(styles.form, styles[orientation])}>
+          <div className={styles.filters} >
+            <SelectList items={selectListItems} orientation={orientation} />
+            <RequestMovie range={range.results} fullWidth={orientation !== 'horizontal'} />
           </div>
         </form>
       </div>

@@ -7,8 +7,8 @@
 
 import classNames from 'classnames';
 import ReactSelect from 'react-select';
-import 'react-select/dist/react-select.css';
 import React, { PropTypes as ptype } from 'react';
+import 'react-select/dist/react-select.css';
 
 import Title from 'components/general/Title';
 
@@ -29,20 +29,24 @@ function Select(props) {
     valueKey = 'name',
     labelKey = 'name',
     title,
+    fullWidth,
     className,
   } = props;
 
-  const cs = classNames(styles.select, styles[theme], className);
+  const cs = classNames(styles.select, styles[theme], fullWidth ? styles.fullWidth : null, className);
   return (
     <div className={cs}>
       {title ? <Title text={title} /> : null}
-      <ReactSelect
-        value={value}
-        valueKey={valueKey}
-        labelKey={labelKey}
-        autoload={false}
-        {...props}
-      />
+      <div className={styles.child}>
+        <ReactSelect
+          value={value}
+          valueKey={valueKey}
+          labelKey={labelKey}
+          autoload={false}
+          onBlurResetsInput={false}
+          {...props}
+        />
+      </div>
     </div>
   );
 }

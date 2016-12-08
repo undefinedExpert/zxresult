@@ -6,11 +6,13 @@
  */
 
 import { connect } from 'react-redux';
+import className from 'classnames';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Button from 'components/general/Button';
 import LoadingIndicator from 'components/general/LoadingIndicator';
 
+import styles from './styles.css';
 import { mapDispatch, mapState } from './mapProps';
 
 
@@ -60,14 +62,16 @@ export class RequestMovie extends Component { // eslint-disable-line react/prefe
   render() {
     const {
       range,
+      fullWidth,
       isFetching,
       noMoreResults } = this.props;
     const { activeButtonMessage } = this.state;
     const isDisabled = range === 0 || noMoreResults;
 
+    const cs = className(styles.button, fullWidth ? styles.fullWidth : null);
     return (
-      <div >
-        <Button onClick={this.updateAndRoute} style={{ height: '40px', minWidth: '120px', padding: '0 20px' }} disabled={isDisabled}>
+      <div className={styles.container}>
+        <Button onClick={this.updateAndRoute} className={cs} disabled={isDisabled}>
           {isFetching ? <LoadingIndicator isDisabled={isDisabled} /> : activeButtonMessage}
         </Button>
       </div>

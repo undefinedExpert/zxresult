@@ -1,4 +1,28 @@
 .selectList {
   display: flex;
   flex-flow: row wrap;
+  align-content: stretch;
+  justify-content: center;
+  .select {
+    margin: 0 5px;
+  }
+
+  &.horizontal {
+    padding: 0 5%;
+    :local .full-width {
+       flex-basis: auto;
+    }
+    :global .Select-control, :global .Select-option {
+      background-color: #22262e;
+    }
+
+    :global .Select-option {
+      &:hover,
+      &.is-focused,
+      &:focus {
+        background-color: var(--cSupHover);
+      }
+    }
+  }
 }
+

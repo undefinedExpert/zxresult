@@ -8,55 +8,46 @@
 }
 
 .filters {
-  display: flex;
   color: #fff;
-  flex-direction: column;
   position: relative;
-  max-width: 600px;
-  flex-basis: auto;
-  :local button {
-    margin: 25px 0 0 5px;
-    width: calc(100% - 10px);
-  }
-  :local h4 {
-    margin: 20px 0 4px;
-  }
-  .full-width {
-    flex-basis: 100%;
-  }
-  &.horizontal {
-    flex-basis: 100%;
-    width: 100%;
-    max-width: inherit;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    bottom: 0;
-    background-color: #22262e;
-    padding: 25px 20px;
-    z-index: 4;
-    :local h4 {
-      margin: 12px 0 4px;
-    }
-    :local button {
-      top: 18px;
-      position: relative;
-      margin: 0 0 0 5px;
-    }
-    .full-width {
-      flex-basis: auto;
-    }
-    :global .Select-control {
-      background-color: #22262e;
-    }
-    :global .Select-menu-outer {
-      top: auto;
-      bottom: 100%;
-    }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*&.horizontal {*/
+    /*flex-basis: 100%;*/
+    /*width: 100%;*/
+    /*max-width: inherit;*/
+    /*flex-flow: row wrap;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*position: absolute;*/
+    /*overflow: visible;*/
+    /*bottom: 0;*/
+    /*background-color: #22262e;*/
+    /*padding: 25px 20px;*/
+    /*z-index: 4;*/
+    /*:local h4 {*/
+      /*margin: 12px 0 4px;*/
+    /*}*/
+    /*:local button {*/
+      /*top: 18px;*/
+      /*position: relative;*/
+      /*margin: 0 0 0 5px;*/
+    /*}*/
+    /*.full-width {*/
+      /*flex-basis: auto;*/
+    /*}*/
+    /*:global .Select-control {*/
+      /*background-color: #22262e;*/
+    /*}*/
+    /*:global .Select-menu-outer {*/
+      /*top: auto;*/
+      /*bottom: 100%;*/
+    /*}*/
 
-    @media (min-width: 62.5em) {
-      position: absolute;
-    }
-  }
+    /*@media (min-width: 62.5em) {*/
+      /*position: ab;*/
+    /*}*/
+  /*}*/
 }

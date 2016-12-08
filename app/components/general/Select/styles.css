@@ -16,15 +16,21 @@
 
 :global .Select {
   color: var(--cText);
-  min-width: 130px;
+  width: 100%;
+  position: absolute;
+}
 
-  @media (min-width: 60em) {
-    min-width: 150px;
-  }
+:global .Select > .Select-control {
+  width: inherit;
 }
 
 :global .Select-input {
   color: var(--cText);
+  max-width: 470px;
+  display: block !important;
+  :global input {
+    width: 100% !important;
+  }
 }
 
 :global .Select-option {
@@ -61,7 +67,16 @@
 
 .select {
   flex-grow: 1;
-  padding: 0 5px;
+  flex-shrink: 1;
+  position: relative;
+  min-width: 115px;
+  margin: 0 5px;
+  flex-basis: auto;
+
+  .child {
+    position: relative;
+    height: 36px;
+  }
 }
 
 .sup {
@@ -77,4 +92,9 @@
   :global .Select-option {
     border-color: var(--cSupDark);
   }
+}
+
+.fullWidth {
+  flex-basis: 100%;
+  flex-grow: 4;
 }
