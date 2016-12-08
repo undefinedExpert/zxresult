@@ -45,6 +45,10 @@
         bottom: 0;
         background-color: #22262e;
       }
+      :global .Select-menu-outer {
+        top: auto;
+        bottom: 100%;
+      }
 
       @media (min-width: 62.5em) {
         display: none;
