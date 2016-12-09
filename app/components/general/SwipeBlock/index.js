@@ -7,7 +7,7 @@
 
 import { merge } from 'lodash';
 import 'swiper/dist/css/swiper.css';
-import ReactDomServer from 'react-dom/server';
+import ReactDom from 'react-dom';
 import Swiper from 'swiper/dist/js/swiper.min';
 import React, { PropTypes as ptype, Component } from 'react';
 
@@ -53,7 +53,7 @@ class SwipeBlock extends Component {
 
   componentWillUnmount() {
     if (this.swiper && this.swiper.params) {
-      // this.swiper.destroy(); // TODO: Fix this, it has to be enabled if we want to cancel downloading of non visible images but causes errs
+      this.swiper.destroy(); // TODO: Fix this, it has to be enabled if we want to cancel downloading of non visible images but causes errs
                                 // when there is new result displayed (probably cause lazy load image swiping while
                                 // dosen't exist anymore)
     }
@@ -87,7 +87,8 @@ class SwipeBlock extends Component {
       </div>
     );
 
-    container.innerHTML = ReactDomServer.renderToStaticMarkup(content);
+
+    ReactDom.render(content, container);
 
     return new Swiper(container.children[0], config);
   };
