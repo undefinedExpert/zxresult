@@ -41,4 +41,8 @@
     z-index: 2;
     background-color: color(var(--cMain) a(50%));
   }
+
+  @media (min-width: 62.5em) {
+    min-height: calc(100vh - 50px);
+  }
 }

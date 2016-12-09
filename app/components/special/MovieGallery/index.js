@@ -24,6 +24,11 @@ class MovieGallery extends Component {
     isFetching: false,
   };
 
+  componentDidMount(){
+    console.log('lol');
+    debugger
+  }
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
       return true;
@@ -39,7 +44,6 @@ class MovieGallery extends Component {
   renderImages = (images) => {
     const limitedBackdrops = images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
     limitedBackdrops.unshift(images.posters[0]);
-
     return (
       <SwipeBlock
         swiperConfig={{
@@ -51,7 +55,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: true,
           preloadImages: false,
-          autoplay: 3500,
+          autoplay: 4500,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,
@@ -64,13 +68,14 @@ class MovieGallery extends Component {
   };
 
   renderImage = (img, index, lazyLoading) => (
-    img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} lazyLoading={lazyLoading} /> : <BlankImage className={styles.blankImage} />
+    img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} lazyLoading={lazyLoading} picture={img} /> : <BlankImage className={styles.blankImage} />
    );
 
 
   render() {
     const { movie, isFetching } = this.props;
     const cs = styles.gallery;
+
     return (
       <Section className={cs}>
         {!isFetching && movie.images ? this.renderImages(movie.images) : <div className={styles.loading} />}

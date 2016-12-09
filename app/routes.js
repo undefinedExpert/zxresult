@@ -53,6 +53,9 @@ export default function createRoutes(store) {
           System.import('containers/FilterForm/sagas'),
           System.import('containers/ResultPage'),
           System.import('containers/ResultPage/styles.css'), // Fix for swiper.js
+          System.import('components/special/MovieGallery/styles.css'), // Fix for swiper.js
+          System.import('components/special/MovieGenreIcons/styles.css'), // Fix for swiper.js
+
         ]);
 
         const renderRoute = loadModule(cb);
