@@ -22,15 +22,28 @@ import styles from './styles.css';
 class MovieGallery extends Component {
   state = {
     isFetching: false,
+    images: [],
   };
 
-  componentDidMount(){
-    console.log('lol');
-    debugger
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.movie.images) {
+    //   const backDrops = nextProps.movie.images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
+    //   backDrops.unshift({ file_path: nextProps.movie.poster_path });
+    //
+    //   this.setState({ images: backDrops });
+    // }
+    // else if(nextProps.movie !== this.props.movie) {
+    //   const backDrops = [{ file_path: nextProps.movie.poster_path }];
+    //   this.setState({ images: backDrops });
+    // }
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
+      return true;
+    }
+
+    else if (nextProps.movie.poster_path !== this.props.movie.poster_path) {
       return true;
     }
 
@@ -38,12 +51,30 @@ class MovieGallery extends Component {
       return true;
     }
 
+
     return false;
   }
 
-  renderImages = (images) => {
-    const limitedBackdrops = images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
-    limitedBackdrops.unshift(images.posters[0]);
+  renderImages = () => {
+    const { movie, isFetching } = this.props;
+
+    let limitedBackdrops = [];
+    const poster = {
+      file_path: movie.poster_path,
+    };
+
+    if (!isFetching && movie.images) {
+      limitedBackdrops = movie.images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
+
+      limitedBackdrops.unshift(poster);
+    }
+    else if (!isFetching) {
+      const poster = {
+        file_path: movie.poster_path,
+      };
+      limitedBackdrops.unshift(poster);
+    }
+
     return (
       <SwipeBlock
         swiperConfig={{
@@ -53,22 +84,22 @@ class MovieGallery extends Component {
           lazyLoadingInPrevNext: false,
           nextButton: null,
           prevButton: null,
-          lazyLoading: true,
+          lazyLoading: false,
           preloadImages: false,
-          autoplay: 4500,
+          autoplay: 454400,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,
         }}
         className={styles.swipeBlock}
       >
-        {limitedBackdrops.map((item, index) => this.renderImage(item, index, true))}
+        {limitedBackdrops.map((item, index) => this.renderImage(item, index))}
       </SwipeBlock>
     );
   };
 
-  renderImage = (img, index, lazyLoading) => (
-    img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} lazyLoading={lazyLoading} picture={img} /> : <BlankImage className={styles.blankImage} />
+  renderImage = (img, index) => (
+    img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} picture={img} /> : <BlankImage className={styles.blankImage} />
    );
 
 
@@ -78,7 +109,7 @@ class MovieGallery extends Component {
 
     return (
       <Section className={cs}>
-        {!isFetching && movie.images ? this.renderImages(movie.images) : <div className={styles.loading} />}
+        {this.renderImages(movie)}
       </Section>
     );
   }

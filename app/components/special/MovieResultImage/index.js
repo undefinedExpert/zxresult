@@ -5,9 +5,11 @@
  *  3. Module
  */
 
+import { curry } from 'lodash';
 import className from 'classnames';
 import React, { PropTypes as ptype, Component } from 'react';
 
+import { convertToPattern } from 'utils/hooks';
 import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import styles from './styles.css';
@@ -17,36 +19,26 @@ import styles from './styles.css';
  * MovieResultImage
  * @desc Render single result image.
  * @return packed prop.children with title and appropriate grid size.
+ * TODO: Progressive image loading
  */
 class MovieResultImage extends Component {
-  state = {
-    isRevealed: false,
-  };
-
-  onClickHandler = () => {
-    this.setState({ isRevealed: !this.state.isRevealed });
-  };
-
   render() {
     const {
       path,
       absolutePath,
-      lazyLoading,
     } = this.props;
 
-    const { isRevealed } = this.state;
-
-    const photoPath = absolutePath || `http://image.tmdb.org/t/p/original${path}`;
+    const size = 'w500';
+    const photoPath = absolutePath || `http://image.tmdb.org/t/p/${size}${path}`;
     return (
-      <div className={className(styles.resultImage, isRevealed ? styles.isRevealed : null)} onClick={this.onClickHandler}>
+      <div className={className(styles.resultImage)} >
         <div className={styles.imageContainer}>
           <img
+            ref={image => { this.image = image; }}
             role="presentation"
-            className={className(styles.image, 'swiper-lazy')}
-            data-src={lazyLoading ? photoPath : null}
-            src={!lazyLoading ? photoPath : null}
+            className={className(styles.image)}
+            src={photoPath}
           />
-          <LoadingIndicator className="swiper-loading-indicator" style={{ 'background-image': 'none' }} />
         </div>
       </div>
     );
@@ -56,7 +48,6 @@ class MovieResultImage extends Component {
 MovieResultImage.propTypes = {
   path: ptype.string,
   absolutePath: ptype.string,
-  lazyLoading: ptype.bool,
 };
 
 export default MovieResultImage;

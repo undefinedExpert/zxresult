@@ -1,9 +1,9 @@
 /**
-*  Components are imported in specific (scope based) order:
-*  1. Node_modules
-*  2. Application
-*  3. Module
-*/
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
 import { merge } from 'lodash';
 import 'swiper/dist/css/swiper.css';
@@ -15,10 +15,10 @@ import React, { PropTypes as ptype, Component } from 'react';
 
 
 /**
-* SwipeBlock
-* @desc Creates swipeable area where user can iterate through items.
+ * SwipeBlock
+ * @desc Creates swipeable area where user can iterate through items.
  * TODO: Remove swiper.js which base on jquery, use react compatible tool instead.
-*/
+ */
 class SwipeBlock extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +40,10 @@ class SwipeBlock extends Component {
   componentDidMount() {
     const config = this.swiperConfig;
 
-    this.swiper = this.createSwiper();
+
+    const config2 = merge(this.swiperConfig, this.props.swiperConfig);
+
+    this.swiper = new Swiper(this.container.children[0], config2);
 
     if (config.loop) {
       this.swiper.on('onSlideChangeEnd', (swiper) => { swiper.fixLoop(); });
@@ -51,11 +54,17 @@ class SwipeBlock extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.children !== this.props.children) {
+      this.swiper.slideTo(0, 0)
+    }
+  }
+
   componentWillUnmount() {
     if (this.swiper && this.swiper.params) {
       this.swiper.destroy(); // TODO: Fix this, it has to be enabled if we want to cancel downloading of non visible images but causes errs
-                                // when there is new result displayed (probably cause lazy load image swiping while
-                                // dosen't exist anymore)
+      // when there is new result displayed (probably cause lazy load image swiping while
+      // dosen't exist anymore)
     }
 
     if (this.props.onSwiperUnmount) {
@@ -75,7 +84,6 @@ class SwipeBlock extends Component {
 
     const children = this.formatChildren(this.props.children, config);
 
-    const container = this.container;
     const content = (
       <div className={this.props.className} ref={(c) => { this.container = c; }}>
         <div className={config.wrapperClass} >
@@ -87,15 +95,14 @@ class SwipeBlock extends Component {
       </div>
     );
 
-
-    ReactDom.render(content, container);
-
-    return new Swiper(container.children[0], config);
+    return content;
   };
 
   render() {
     return (
-      <div ref={(c) => { this.container = c; }} className="react-swiper-component"></div>
+      <div ref={(c) => { this.container = c; }} className="react-swiper-component">
+        {this.createSwiper()}
+      </div>
     );
   }
 }
@@ -106,6 +113,7 @@ SwipeBlock.propTypes = {
   className: ptype.string,
   swiperConfig: React.PropTypes.object,
   onSwiperMount: React.PropTypes.func,
+  onSlideChangeStart: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,
 };
 
