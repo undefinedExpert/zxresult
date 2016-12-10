@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import { each } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
@@ -22,20 +23,14 @@ import styles from './styles.css';
 class MovieGallery extends Component {
   state = {
     isFetching: false,
-    images: [],
+    activeIndex: [0],
   };
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.movie.images) {
-    //   const backDrops = nextProps.movie.images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
-    //   backDrops.unshift({ file_path: nextProps.movie.poster_path });
-    //
-    //   this.setState({ images: backDrops });
-    // }
-    // else if(nextProps.movie !== this.props.movie) {
-    //   const backDrops = [{ file_path: nextProps.movie.poster_path }];
-    //   this.setState({ images: backDrops });
-    // }
+    // nowy rezultat, wyzerowanie active index
+    if (nextProps.movie.original_title !== this.props.movie.original_title) {
+      this.setState({activeIndex: [0]});
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -51,9 +46,31 @@ class MovieGallery extends Component {
       return true;
     }
 
+    else if (nextState.activeIndex !== this.state.activeIndex) {
+      return true;
+    }
+
 
     return false;
   }
+
+  handleMountSwiper = (activeIndex) => {
+    this.changeActiveSlideIndex(activeIndex)
+  };
+
+  handleNextSlide = (activeIndex) => {
+    this.changeActiveSlideIndex(activeIndex)
+  };
+
+  changeActiveSlideIndex(nextIndex) {
+    if (!this.state.activeIndex.includes(nextIndex)) {
+      this.setState({ activeIndex: [...this.state.activeIndex, nextIndex] }); // it should collect all visited screens
+    }
+  }
+
+  renderSomething = (limitedBackdrops) => (
+    limitedBackdrops.map((item, index) => this.renderImage(item, index))
+  )
 
   renderImages = () => {
     const { movie, isFetching } = this.props;
@@ -64,8 +81,8 @@ class MovieGallery extends Component {
     };
 
     if (!isFetching && movie.images) {
-      limitedBackdrops = movie.images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
-      limitedBackdrops.unshift(poster);
+      limitedBackdrops = movie.images.backdrops.slice(0, 11);
+      // console.log(limitedBackdrops[0])
     }
 
     return (
@@ -85,15 +102,20 @@ class MovieGallery extends Component {
           spaceBetween: 0,
         }}
         className={styles.swipeBlock}
+        onSwiperMount={this.handleMountSwiper}
+        onNextSlide={this.handleNextSlide}
       >
-        {limitedBackdrops.map((item, index) => this.renderImage(item, index))}
+        {this.renderSomething(limitedBackdrops)}
       </SwipeBlock>
     );
   };
 
-  renderImage = (img, index) => (
-    img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} picture={img} /> : <BlankImage className={styles.blankImage} />
-   );
+  renderImage = (img, index) => {
+    const isVisible = this.state.activeIndex.includes(index);
+    return (
+      img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} picture={img} isLoaded={isVisible} /> : <BlankImage className={styles.blankImage} />
+    );
+  };
 
 
   render() {

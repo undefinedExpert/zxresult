@@ -26,6 +26,7 @@ class MovieResultImage extends Component {
     const {
       path,
       absolutePath,
+      isLoaded,
     } = this.props;
 
     const size = 'w500';
@@ -37,7 +38,7 @@ class MovieResultImage extends Component {
             ref={image => { this.image = image; }}
             role="presentation"
             className={className(styles.image)}
-            src={photoPath}
+            src={isLoaded ? photoPath : null}
           />
         </div>
       </div>

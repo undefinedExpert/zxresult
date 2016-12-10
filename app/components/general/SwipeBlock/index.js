@@ -52,11 +52,27 @@ class SwipeBlock extends Component {
     if (this.props.onSwiperMount) {
       this.props.onSwiperMount(this.swiper);
     }
+    if (this.props.onNextSlide) {
+      this.swiper.on('onTransitionEnd', (swiper) => {
+        this.props.onNextSlide(swiper.activeIndex);
+
+      });
+    }
   }
 
+  shouldComponentUpdate(nextProps) {
+    // if (nextProps.children !== this.props.children) {
+    //   return true;
+    // }
+    //
+    return true;
+  }
+
+
   componentWillUpdate(nextProps) {
+    console.log('swipeblock updaded')
     if (nextProps.children !== this.props.children) {
-      this.swiper.slideTo(0, 0)
+      // this.swiper.slideTo(0, 0);
     }
   }
 
@@ -73,7 +89,7 @@ class SwipeBlock extends Component {
   }
 
   formatChildren(children, config) {
-    return React.Children.map(children, (child, index) => (<div className={config.slideClass} key={index}>{child}</div>));
+    return children.map((child, index) => (<div className={config.slideClass} key={index}>{child}</div>));
   }
 
   createSwiper = () => {
@@ -82,6 +98,7 @@ class SwipeBlock extends Component {
     const btnNext = config.nextButton ? <div className="swiper-button-next"></div> : null;
     const btnPrev = config.prevButton ? <div className="swiper-button-prev"></div> : null;
 
+    console.log(this.props.children)
     const children = this.formatChildren(this.props.children, config);
 
     const content = (
@@ -113,7 +130,7 @@ SwipeBlock.propTypes = {
   className: ptype.string,
   swiperConfig: React.PropTypes.object,
   onSwiperMount: React.PropTypes.func,
-  onSlideChangeStart: React.PropTypes.func,
+  onNextSlide: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,
 };
 
