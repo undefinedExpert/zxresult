@@ -65,13 +65,6 @@ class MovieGallery extends Component {
 
     if (!isFetching && movie.images) {
       limitedBackdrops = movie.images.backdrops.sort((a, b) => b.height - a.height).slice(0, 11);
-
-      limitedBackdrops.unshift(poster);
-    }
-    else if (!isFetching) {
-      const poster = {
-        file_path: movie.poster_path,
-      };
       limitedBackdrops.unshift(poster);
     }
 
