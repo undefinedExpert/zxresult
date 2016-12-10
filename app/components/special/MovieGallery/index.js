@@ -29,7 +29,7 @@ class MovieGallery extends Component {
   componentWillReceiveProps(nextProps) {
     // nowy rezultat, wyzerowanie active index
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
-      this.setState({activeIndex: [0]});
+      this.setState({ activeIndex: [0] });
     }
   }
 
@@ -82,7 +82,14 @@ class MovieGallery extends Component {
 
     if (!isFetching && movie.images) {
       limitedBackdrops = movie.images.backdrops.slice(0, 11);
-      // console.log(limitedBackdrops[0])
+      limitedBackdrops.unshift(poster);
+      console.log(limitedBackdrops[0])
+    }
+    else if (!movie.images) {
+      // TODO: Better Condition for our images, we should display this element
+      // only when we dont have any images and we are sure we download next
+      // result
+      // limitedBackdrops = [poster]
     }
 
     return (

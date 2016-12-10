@@ -71,8 +71,8 @@ class SwipeBlock extends Component {
 
   componentWillUpdate(nextProps) {
     console.log('swipeblock updaded')
-    if (nextProps.children !== this.props.children) {
-      // this.swiper.slideTo(0, 0);
+    if (nextProps.children.length !== this.props.children.length) {
+      this.swiper.slideTo(0, 0);
     }
   }
 
