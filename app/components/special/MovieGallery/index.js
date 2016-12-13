@@ -5,7 +5,7 @@
  *  3. Module
  */
 
-import { each } from 'lodash';
+import { omit } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
@@ -76,15 +76,17 @@ class MovieGallery extends Component {
     const { movie, isFetching } = this.props;
 
     let limitedBackdrops = [];
-    const poster = {
-      file_path: movie.poster_path,
-    };
+
 
     if (!isFetching && movie.images) {
-      limitedBackdrops = movie.images.backdrops.slice(0, 11);
+      const poster = {
+        file_path: movie.poster_path,
+      };
+
+      limitedBackdrops = movie.images.backdrops.filter(item => item.file_path !== poster.file_path);
       limitedBackdrops.unshift(poster);
     }
-    else if (!movie.images) {
+    else if (isFetching) {
       // TODO: Better Condition for our images, we should display this element
       // only when we dont have any images and we are sure we download next
       // result

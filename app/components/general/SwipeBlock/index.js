@@ -53,7 +53,7 @@ class SwipeBlock extends Component {
       this.props.onSwiperMount(this.swiper);
     }
     if (this.props.onNextSlide) {
-      this.swiper.on('onTransitionEnd', (swiper) => {
+      this.swiper.on('onTransitionStart', (swiper) => {
         this.props.onNextSlide(swiper.activeIndex);
 
       });
