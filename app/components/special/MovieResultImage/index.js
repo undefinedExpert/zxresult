@@ -29,9 +29,11 @@ const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'or
  * @desc Render single result image.
  * @return packed prop.children with title and appropriate grid size.
  * TODO: handle condition where image does not contain size
+ * helper: http://stackoverflow.com/questions/9815762/detect-when-an-image-fails-to-load-in-javascript
  */
 class MovieResultImage extends Component {
   state = {
+    isLoading: false,
     small: smallDefaultState,
     medium: mediumDefaultState,
     big: bigDefaultState,
@@ -49,9 +51,9 @@ class MovieResultImage extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-    const { isActive, path } = nextProps;
-    if ((isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
+  componentDidUpdate(prevProps) {
+    const { isActive, path } = prevProps;
+    if ((path !== this.props.path) || (isActive !== this.props.isActive)) {
       this.lazyLoad();
     }
   }
@@ -59,12 +61,11 @@ class MovieResultImage extends Component {
   componentWillUnmount() {
     if (!this.lazyLoadedImage) return;
     this.lazyLoadedImage.setAttribute('src', ''); // Abort image loading
-    this.imagePlaceholder.setAttribute('src', ''); // Abort image loading
   }
 
   lazyLoad = () => {
     const { path, absolutePath } = this.props;
-
+    this.setState({isLoading: true});
     const size = 'w45';
     const photoPath = absolutePath || `http://image.tmdb.org/t/p/${size}${path}`;
 
@@ -89,6 +90,7 @@ class MovieResultImage extends Component {
     }
     else if (medium.loaded && !big.loaded) {
       loadImage('big');
+      this.setState({isLoading: false});
     }
   };
 
@@ -111,6 +113,7 @@ class MovieResultImage extends Component {
     return (
       <div className={className(styles.resultImage)} >
         <div className={styles.imageContainer}>
+          {this.state.isLoading ? <LoadingIndicator /> : null}
           <img
             ref={img => { this.imagePlaceholder = img; }}
             role="presentation"

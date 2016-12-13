@@ -50,7 +50,6 @@ class MovieGallery extends Component {
       return true;
     }
 
-
     return false;
   }
 
@@ -75,28 +74,20 @@ class MovieGallery extends Component {
   renderImages = () => {
     const { movie, isFetching } = this.props;
 
+    const poster = {
+      file_path: movie.poster_path,
+    };
+
     let limitedBackdrops = [];
 
-
     if (!isFetching && movie.images) {
-      const poster = {
-        file_path: movie.poster_path,
-      };
-
-      limitedBackdrops = movie.images.backdrops.filter(item => item.file_path !== poster.file_path);
-      limitedBackdrops.unshift(poster);
-    }
-    else if (isFetching) {
-      // TODO: Better Condition for our images, we should display this element
-      // only when we dont have any images and we are sure we download next
-      // result
-      // limitedBackdrops = [poster]
+      limitedBackdrops = [poster, ...movie.images.backdrops]
     }
 
     return (
       <SwipeBlock
         swiperConfig={{
-          observeParents: true,
+          observeParents: false,
           observer: true,
           lazyPreloaderClass: 'swiper-loading-indicator',
           lazyLoadingInPrevNext: false,
@@ -119,9 +110,9 @@ class MovieGallery extends Component {
   };
 
   renderImage = (img, index) => {
-    const isVisible = this.state.activeIndex.includes(index);
+    const isActive = this.state.activeIndex.includes(index);
     return (
-      img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} picture={img} isActive={isVisible} /> : <BlankImage className={styles.blankImage} />
+      img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} picture={img} isActive={isActive} /> : <BlankImage className={styles.blankImage} />
     );
   };
 
