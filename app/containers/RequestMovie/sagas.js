@@ -71,7 +71,6 @@ export function* pushSingleResult() {
 
   try {
     singlePendingMovie.genres = yield call(mapGenres, singlePendingMovie);
-    console.log(singlePendingMovie.genres);
   }
   catch (err) {
     console.log(err);

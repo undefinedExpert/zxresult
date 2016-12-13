@@ -70,7 +70,6 @@ class SwipeBlock extends Component {
 
 
   componentWillUpdate(nextProps) {
-    console.log('swipeblock updaded')
     if (nextProps.children.length !== this.props.children.length) {
       this.swiper.slideTo(0, 0);
     }
@@ -98,7 +97,6 @@ class SwipeBlock extends Component {
     const btnNext = config.nextButton ? <div className="swiper-button-next"></div> : null;
     const btnPrev = config.prevButton ? <div className="swiper-button-prev"></div> : null;
 
-    console.log(this.props.children)
     const children = this.formatChildren(this.props.children, config);
 
     const content = (

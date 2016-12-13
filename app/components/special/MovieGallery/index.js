@@ -83,7 +83,6 @@ class MovieGallery extends Component {
     if (!isFetching && movie.images) {
       limitedBackdrops = movie.images.backdrops.slice(0, 11);
       limitedBackdrops.unshift(poster);
-      console.log(limitedBackdrops[0])
     }
     else if (!movie.images) {
       // TODO: Better Condition for our images, we should display this element

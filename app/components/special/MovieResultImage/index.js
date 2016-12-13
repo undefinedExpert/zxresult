@@ -22,6 +22,41 @@ import styles from './styles.css';
  * TODO: Progressive image loading
  */
 class MovieResultImage extends Component {
+  componentDidMount() {
+    if (this.image && this.props.isLoaded) {
+      // debugger
+      this.handleImageLoading();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if ((nextProps.isLoaded && nextProps.path !== this.props.path) || nextProps.isLoaded !== this.props.isLoaded) {
+      this.handleImageLoading(this.image);
+    }
+  }
+
+  componentWillUnmount() {
+    if (!this.img) return;
+    this.img.setAttribute('src', '');
+  }
+
+  handleImageLoading = (e) => {
+    const { path } = this.props;
+    const size = 'w500';
+    const photoPath = `http://image.tmdb.org/t/p/${size}${path}`;
+
+    this.img = new Image();
+    this.img.setAttribute('src', photoPath);
+    this.img.addEventListener('load', this.handleOnLoad)
+  };
+
+  handleOnLoad = () => {
+    console.log('image loaded');
+    if (this.image && this.img) {
+      this.image.setAttribute('src', this.img.getAttribute('src'))
+    }
+  }
+
   render() {
     const {
       path,
@@ -29,7 +64,7 @@ class MovieResultImage extends Component {
       isLoaded,
     } = this.props;
 
-    const size = 'w500';
+    const size = 'original';
     const photoPath = absolutePath || `http://image.tmdb.org/t/p/${size}${path}`;
     return (
       <div className={className(styles.resultImage)} >
@@ -38,7 +73,7 @@ class MovieResultImage extends Component {
             ref={image => { this.image = image; }}
             role="presentation"
             className={className(styles.image)}
-            src={isLoaded ? photoPath : null}
+            data-src={isLoaded ? photoPath : null}
           />
         </div>
       </div>
