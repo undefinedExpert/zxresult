@@ -23,7 +23,7 @@ import styles from './styles.css';
  */
 class MovieResultImage extends Component {
   componentDidMount() {
-    if (this.imagePlacholder && this.props.isActive) {
+    if (this.imagePlaceholder && this.props.isActive) {
       this.loadImageHandler();
     }
   }
@@ -52,9 +52,9 @@ class MovieResultImage extends Component {
   };
 
   handleOnLoad = () => {
-    if (this.imagePlacholder && this.lazyLoadedImage) {
+    if (this.imagePlaceholder && this.lazyLoadedImage) {
       const source = this.lazyLoadedImage.getAttribute('src');
-      this.imagePlacholder.setAttribute('src', source);
+      this.imagePlaceholder.setAttribute('src', source);
     }
   };
 
@@ -63,7 +63,7 @@ class MovieResultImage extends Component {
       <div className={className(styles.resultImage)} >
         <div className={styles.imageContainer}>
           <img
-            ref={image => { this.imagePlacholder = image; }}
+            ref={image => { this.imagePlaceholder = image; }}
             role="presentation"
             className={className(styles.image)}
           />
