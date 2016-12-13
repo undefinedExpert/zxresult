@@ -23,57 +23,49 @@ import styles from './styles.css';
  */
 class MovieResultImage extends Component {
   componentDidMount() {
-    if (this.image && this.props.isLoaded) {
-      // debugger
-      this.handleImageLoading();
+    if (this.imagePlacholder && this.props.isActive) {
+      this.loadImageHandler();
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ((nextProps.isLoaded && nextProps.path !== this.props.path) || nextProps.isLoaded !== this.props.isLoaded) {
-      this.handleImageLoading(this.image);
+  componentWillReceiveProps({ isActive, path }) {
+    if ((isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
+      this.loadImageHandler();
     }
   }
 
   componentWillUnmount() {
-    if (!this.img) return;
-    this.img.setAttribute('src', '');
+    if (!this.lazyLoadedImage) return;
+    this.lazyLoadedImage.setAttribute('src', '');
   }
 
-  handleImageLoading = (e) => {
-    const { path } = this.props;
-    const size = 'w500';
-    const photoPath = `http://image.tmdb.org/t/p/${size}${path}`;
+  loadImageHandler = () => {
+    const { path, absolutePath } = this.props;
 
-    this.img = new Image();
-    this.img.setAttribute('src', photoPath);
-    this.img.addEventListener('load', this.handleOnLoad)
+    const size = 'w500';
+    const photoPath = absolutePath || `http://image.tmdb.org/t/p/${size}${path}`;
+
+    this.lazyLoadedImage = new Image();
+    this.lazyLoadedImage.setAttribute('src', photoPath);
+
+    this.lazyLoadedImage.addEventListener('load', this.handleOnLoad);
   };
 
   handleOnLoad = () => {
-    console.log('image loaded');
-    if (this.image && this.img) {
-      this.image.setAttribute('src', this.img.getAttribute('src'))
+    if (this.imagePlacholder && this.lazyLoadedImage) {
+      const source = this.lazyLoadedImage.getAttribute('src');
+      this.imagePlacholder.setAttribute('src', source);
     }
-  }
+  };
 
   render() {
-    const {
-      path,
-      absolutePath,
-      isLoaded,
-    } = this.props;
-
-    const size = 'original';
-    const photoPath = absolutePath || `http://image.tmdb.org/t/p/${size}${path}`;
     return (
       <div className={className(styles.resultImage)} >
         <div className={styles.imageContainer}>
           <img
-            ref={image => { this.image = image; }}
+            ref={image => { this.imagePlacholder = image; }}
             role="presentation"
             className={className(styles.image)}
-            data-src={isLoaded ? photoPath : null}
           />
         </div>
       </div>
@@ -83,6 +75,7 @@ class MovieResultImage extends Component {
 
 MovieResultImage.propTypes = {
   path: ptype.string,
+  isActive: ptype.bool,
   absolutePath: ptype.string,
 };
 
