@@ -18,6 +18,7 @@ import styles from './styles.css';
 /**
  * @desc Default values for image size loaders. loaded is a representation of: Is this image is loaded?
  * Pattern is a function which replace specific part of URL, so we could download bigger image.
+ * TODO: we should use react syntheticEvent instead of addEventListener.
  */
 const smallDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w154') };
 const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w154/g, 'w500') };
@@ -65,7 +66,7 @@ class MovieResultImage extends Component {
 
   lazyLoad = () => {
     const { path, absolutePath } = this.props;
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     const size = 'w45';
     const photoPath = absolutePath || `http://image.tmdb.org/t/p/${size}${path}`;
 
@@ -90,7 +91,7 @@ class MovieResultImage extends Component {
     }
     else if (medium.loaded && !big.loaded) {
       loadImage('big');
-      this.setState({isLoading: false});
+      this.setState({ isLoading: false });
     }
   };
 

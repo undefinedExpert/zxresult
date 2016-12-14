@@ -18,7 +18,7 @@ import styles from './styles.css';
 
 /**
  * MovieGallery
- * @desc Render Gallery and filters.
+ * @desc Render Gallery.
  */
 class MovieGallery extends Component {
   state = {
@@ -27,7 +27,6 @@ class MovieGallery extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    // nowy rezultat, wyzerowanie active index
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
       this.setState({ activeIndex: [0] });
     }
@@ -67,9 +66,9 @@ class MovieGallery extends Component {
     }
   }
 
-  renderSomething = (limitedBackdrops) => (
+  renderChildren = (limitedBackdrops) => (
     limitedBackdrops.map((item, index) => this.renderImage(item, index))
-  )
+  );
 
   renderImages = () => {
     const { movie, isFetching } = this.props;
@@ -81,7 +80,7 @@ class MovieGallery extends Component {
     let limitedBackdrops = [];
 
     if (!isFetching && movie.images) {
-      limitedBackdrops = [poster, ...movie.images.backdrops]
+      limitedBackdrops = [poster, ...movie.images.backdrops];
     }
 
     return (
@@ -104,7 +103,7 @@ class MovieGallery extends Component {
         onSwiperMount={this.handleMountSwiper}
         onNextSlide={this.handleNextSlide}
       >
-        {this.renderSomething(limitedBackdrops)}
+        {this.renderChildren(limitedBackdrops)}
       </SwipeBlock>
     );
   };
