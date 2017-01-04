@@ -109,7 +109,6 @@ class MovieGallery extends Component {
 
   renderImage = (img, index) => {
     const isActive = this.state.activeIndex.includes(index);
-    console.log('Czy jest aktywny?', isActive)
     return (
       img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} isActive={isActive} /> : <BlankImage className={styles.blankImage} />
     );
