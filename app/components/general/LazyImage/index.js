@@ -26,6 +26,7 @@ const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'or
  * LazyImage
  * @desc Allow us to render lazy loaded image with progressive loading
  * TODO: handle condition where image does not contain size
+ * helper: http://stackoverflow.com/questions/9815762/detect-when-an-image-fails-to-load-in-javascript
  * TODO: API endpoint shouldn't be hardcoded
  */
 class LazyImage extends Component {
