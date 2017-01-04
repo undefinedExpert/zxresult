@@ -19,8 +19,6 @@ import constructUrl from 'mechanisms/constructUrl';
  * @param {String} endPoint - What is the endpoint of our API
  * @param {Object} higherParams - Does we need to set 'hardcoded' param?
  * @param {Boolean} withParams - does this call need params?
- *
- * - if we need randomPage
  */
 export default function* callToApi(endPoint, higherParams = {}, withParams) {
   const url = yield call(constructUrl, endPoint, higherParams, withParams);
