@@ -93,7 +93,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: false,
           preloadImages: false,
-          autoplay: 4250,
+          autoplay: 433250,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,
@@ -109,6 +109,7 @@ class MovieGallery extends Component {
 
   renderImage = (img, index) => {
     const isActive = this.state.activeIndex.includes(index);
+    console.log('Czy jest aktywny?', isActive)
     return (
       img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} picture={img} isActive={isActive} /> : <BlankImage className={styles.blankImage} />
     );
@@ -117,7 +118,6 @@ class MovieGallery extends Component {
 
   render() {
     const { movie } = this.props;
-    console.log(this.props)
     const cs = styles.gallery;
 
     return (
