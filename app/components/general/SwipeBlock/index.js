@@ -64,9 +64,7 @@ class SwipeBlock extends Component {
 
   componentWillUnmount() {
     if (this.swiper && this.swiper.params) {
-      this.swiper.destroy(); // TODO: Fix this, it has to be enabled if we want to cancel downloading of non visible images but causes errs
-      // when there is new result displayed (probably cause lazy load image swiping while
-      // dosen't exist anymore)
+      this.swiper.destroy();
     }
 
     if (this.props.onSwiperUnmount) {

@@ -27,8 +27,8 @@ class MovieResultImage extends Component {
       <div className={className(styles.resultImage)} >
         <div className={styles.imageContainer}>
           <LazyImage
+            role="presentation"
             path={this.props.path}
-            absolutePath={this.props.absolutePath}
             isActive={this.props.isActive}
             className={className(styles.image)}
           />
@@ -41,7 +41,6 @@ class MovieResultImage extends Component {
 MovieResultImage.propTypes = {
   path: ptype.string,
   isActive: ptype.bool,
-  absolutePath: ptype.string,
 };
 
 export default MovieResultImage;
