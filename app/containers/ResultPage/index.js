@@ -11,7 +11,7 @@ import React, { PropTypes as ptype, Component } from 'react';
 import { createStructuredSelector, createSelector } from 'reselect';
 
 import FilterForm from 'containers/FilterForm';
-import Gallery from 'components/special/MovieGallery';
+import MovieGallery from 'components/special/MovieGallery';
 import MovieArticle from 'components/special/MovieArticle';
 import { selectResult } from 'containers/RequestMovie/selectors';
 
@@ -50,7 +50,7 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
     return (
       <section >
         <div className={className(styles.halfWrapper, styles.gallery)}>
-          <Gallery movie={active} isFetching={isFetching} />
+          <MovieGallery movie={active} isFetching={isFetching} />
           <FilterForm orientation={'horizontal'} />
         </div>
         <div className={className(styles.halfWrapper, styles.article)}>

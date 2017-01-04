@@ -5,7 +5,7 @@
 *  3. Module
 */
 
-import React, { PropTypes as ptype } from 'react';
+import React from 'react';
 
 import styles from './styles.css';
 

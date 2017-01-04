@@ -5,7 +5,6 @@
  *  3. Module
  */
 
-import { omit } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
@@ -53,11 +52,11 @@ class MovieGallery extends Component {
   }
 
   handleMountSwiper = (activeIndex) => {
-    this.changeActiveSlideIndex(activeIndex)
+    this.changeActiveSlideIndex(activeIndex);
   };
 
   handleNextSlide = (activeIndex) => {
-    this.changeActiveSlideIndex(activeIndex)
+    this.changeActiveSlideIndex(activeIndex);
   };
 
   changeActiveSlideIndex(nextIndex) {
@@ -94,7 +93,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: false,
           preloadImages: false,
-          autoplay: 454400,
+          autoplay: 4250,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,
@@ -117,7 +116,8 @@ class MovieGallery extends Component {
 
 
   render() {
-    const { movie, isFetching } = this.props;
+    const { movie } = this.props;
+    console.log(this.props)
     const cs = styles.gallery;
 
     return (

@@ -7,11 +7,8 @@
 
 import { merge } from 'lodash';
 import 'swiper/dist/css/swiper.css';
-import ReactDom from 'react-dom';
 import Swiper from 'swiper/dist/js/swiper.min';
 import React, { PropTypes as ptype, Component } from 'react';
-
-// import styles from './styles.css';
 
 
 /**
@@ -55,19 +52,9 @@ class SwipeBlock extends Component {
     if (this.props.onNextSlide) {
       this.swiper.on('onTransitionStart', (swiper) => {
         this.props.onNextSlide(swiper.activeIndex);
-
       });
     }
   }
-
-  shouldComponentUpdate(nextProps) {
-    // if (nextProps.children !== this.props.children) {
-    //   return true;
-    // }
-    //
-    return true;
-  }
-
 
   componentWillUpdate(nextProps) {
     if (nextProps.children.length !== this.props.children.length) {

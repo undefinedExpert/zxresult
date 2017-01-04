@@ -5,22 +5,22 @@
 *  3. Module
 */
 
-import React, { PropTypes as ptype, Component } from 'react';
-
-
-/**
-* LazyImage
-*
-*/
-class LazyImage extends Component {
-  render() {
-    return (
-      <div>
-      </div>
-    );
-  }
-}
-
-LazyImage.propTypes = {};
-
-export default LazyImage;
+// import React, { Component } from 'react';
+//
+//
+// /**
+// * LazyImage
+// *
+// */
+// class LazyImage extends Component {
+//   render() {
+//     return (
+//       <div>
+//       </div>
+//     );
+//   }
+// }
+//
+// LazyImage.propTypes = {};
+//
+// export default LazyImage;
