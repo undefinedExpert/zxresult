@@ -5,21 +5,10 @@
 *  3. Module
 */
 
-import { curry } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
-import { convertToPattern } from 'utils/hooks';
 import LoadingIndicator from 'components/general/LoadingIndicator';
-
-
-/**
- * @desc Default values for image size loaders. loaded is a representation of: Is this image size is loaded?
- * Pattern is a function which replace specific part of URL, so we could download bigger image.
- * TODO: sizes sets should not be hardcoded
- */
-const smallDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w154') };
-const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w154/g, 'w500') };
-const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'original') };
+import ProgressiveImage from 'components/general/ProgressiveImage';
 
 
 /**
@@ -32,9 +21,7 @@ const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'or
 class LazyImage extends Component {
   state = {
     isLoading: false,
-    small: smallDefaultState,
-    medium: mediumDefaultState,
-    big: bigDefaultState,
+    src: null,
   };
 
   // Check if mounted image isActive (visible), if yes run lazyLoading
@@ -42,13 +29,6 @@ class LazyImage extends Component {
   componentDidMount() {
     if (this.imagePlaceholder && this.props.isActive) {
       this.lazyLoad();
-    }
-  }
-
-  // Check if we did receive new "potential" image, if yes reset sizes, and their loading status to default
-  componentWillReceiveProps({ isActive, path }) {
-    if ((isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
-      this.setState({ small: smallDefaultState, medium: mediumDefaultState, big: bigDefaultState });
     }
   }
 
@@ -70,44 +50,6 @@ class LazyImage extends Component {
     this.lazyLoadedImage.setAttribute('src', '');
   }
 
-  // Load stack of images progressively, one after another
-  progressiveLoad = (e) => {
-    // get predefined sizes, select active source
-    const { small, medium, big } = this.state;
-    const path = e.target.attributes.src.value;
-
-    // allow us to curry our element "setAttribute" method with predefined 'src' value, then use in handleImageSizeLoading method
-    // so we won't need to specify src all the time
-    const setAttr = curry((pattern) => e.target.setAttribute('src', pattern));
-
-    // It will load appropriate image from size
-    const loadImage = curry((imageSize) => this.handleImageSizeLoading(setAttr, path, imageSize));
-
-    // small image wasn't loaded (small isn't the smallest size, as we get into step the image already loaded smallest size)
-    if (!small.loaded) {
-      loadImage('small');
-    }
-    else if (small.loaded && !medium.loaded) {
-      loadImage('medium');
-    }
-    else if (medium.loaded && !big.loaded) {
-      loadImage('big');
-
-      // If we finished with downloading all content we just set isLoading to false
-      this.setState({ isLoading: false });
-    }
-  };
-
-  // Help us load appropriate image size
-  handleImageSizeLoading(setAttr, path, imageSize) {
-    // which size we will load now?
-    const which = this.state[imageSize];
-
-    // replace src attribute with pattern & mark pattern as loaded
-    setAttr(which.pattern(path));
-    this.setState({ [imageSize]: { loaded: true } });
-  }
-
   // help us with firstly loading fully image and then with displaying it
   lazyLoad = () => {
     const { path } = this.props;
@@ -122,22 +64,26 @@ class LazyImage extends Component {
     this.lazyLoadedImage.setAttribute('src', photoPath);
 
     // When new image will be downloaded, invoke replaceLazyLoadImage
-    this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage);
+
+
+    this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage());
   };
 
   // Handles swapping src of lazyloaded image with our imagePlaceholder
-  replaceLazyLoadImage = () => {
+  replaceLazyLoadImage() {
     // Check if imagePlaceholder is still in view, and lazyLoadedImage exist
     // FIXME: Does we really need to check this if?
     if (this.imagePlaceholder && this.lazyLoadedImage) {
       // swap both placeholder and just loaded image src's
       const source = this.lazyLoadedImage.getAttribute('src');
-      this.imagePlaceholder.setAttribute('src', source);
+
+      // Set src to new image source
+      this.setState({ src: source });
 
       // Remove lazy loaded image
       this.lazyLoadedImage = null;
     }
-  };
+  }
 
   render() {
     const { className, role, alt } = this.props;
@@ -145,11 +91,12 @@ class LazyImage extends Component {
     return (
       <div>
         {this.state.isLoading ? <LoadingIndicator /> : null}
-        <img
+        <ProgressiveImage
+          src={this.state.src ? this.state.src : null}
           alt={alt}
           role={role}
           className={className}
-          onLoad={this.progressiveLoad}
+          isLoaded={false}
           ref={img => { this.imagePlaceholder = img; }}
         />
       </div>
