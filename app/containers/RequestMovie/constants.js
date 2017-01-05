@@ -14,7 +14,7 @@ const UPDATE_MOVIE_RESULT = createConstantTypes('app/RequestMovie/UPDATE_MOVIE_R
 // Analyse movie results to pick the best
 const ANALYSE_MOVIE = createConstantTypes('app/RequestMovie/ANALYSE_MOVIE');
 
-// Analyse movie results to pick the best
+// Push single movie from pending list
 const UPDATE_SINGLE_MOVIE = createConstantTypes('app/RequestMovie/UPDATE_SINGLE_MOVIE');
 
 // Get movie details

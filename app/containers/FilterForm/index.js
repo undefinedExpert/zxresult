@@ -20,7 +20,7 @@ import { mapDispatch, mapState } from './mapProps';
 /**
  * FilterForm
  * @desc Creates filters form, where user is able to get results with data he set. Each time when some filter change,
- * it will dispatch an action and get possible range of results with current set of filters.
+ * it will dispatch an action and get possible range of results basing on current set of filters.
  *
  * @method componentWillMount - Get genre list directly from API.
  * @method onChangeSelectHandler - Dispatch an appropriate action when specific selector will change it's value.

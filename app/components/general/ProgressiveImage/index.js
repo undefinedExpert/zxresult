@@ -23,7 +23,7 @@ const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'or
 
 /**
 * ProgressiveImage
-* @desc TODO: desc for ProgressiveImage
+* @desc Allow us to load image with progressive loading solution
 */
 class ProgressiveImage extends Component {
   state = {

@@ -64,8 +64,6 @@ class LazyImage extends Component {
     this.lazyLoadedImage.setAttribute('src', photoPath);
 
     // When new image will be downloaded, invoke replaceLazyLoadImage
-
-
     this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage());
   };
 
