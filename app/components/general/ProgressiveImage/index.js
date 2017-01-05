@@ -94,6 +94,7 @@ class ProgressiveImage extends Component {
 }
 
 ProgressiveImage.propTypes = {
+  src: ptype.string,
   alt: ptype.string,
   path: ptype.string,
   role: ptype.string,

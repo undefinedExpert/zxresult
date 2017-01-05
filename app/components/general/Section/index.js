@@ -53,7 +53,6 @@ function Section(props) {
 }
 
 Section.propTypes = {
-  src: ptype.string,
   type: ptype.string,
   title: ptype.string,
   theme: ptype.string,
