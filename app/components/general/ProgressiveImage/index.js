@@ -17,8 +17,8 @@ import { convertToPattern } from 'utils/hooks';
  * TODO: sizes sets should not be hardcoded
  */
 const smallDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w154') };
-const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w154/g, 'w500') };
-const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'original') };
+const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w500') };
+const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'original') };
 
 
 /**
@@ -38,6 +38,7 @@ class ProgressiveImage extends Component {
   }
 
   state = {
+    src: null,
     isLoading: false,
     small: smallDefaultState,
     medium: mediumDefaultState,
@@ -47,22 +48,18 @@ class ProgressiveImage extends Component {
   // Check if we did receive new "potential" image, if yes reset sizes, and their loading status to default
   componentWillReceiveProps({ isActive, path }) {
     if ((isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
-      this.setState({ small: smallDefaultState, medium: mediumDefaultState, big: bigDefaultState });
+      this.setState({ small: smallDefaultState, medium: mediumDefaultState, big: bigDefaultState, src: null });
     }
   }
 
   // Load stack of images progressively, one after another
-  progressiveLoad(e) {
+  progressiveLoad() {
     // get predefined sizes, select active source
     const { small, medium, big } = this.state;
-    const path = e.target.attributes.src.value;
-
-    // allow us to curry our element "setAttribute" method with predefined 'src' value, then use in handleImageSizeLoading method
-    // so we won't need to specify src all the time
-    const setAttr = curry((pattern) => e.target.setAttribute('src', pattern));
+    const { src } = this.props;
 
     // It will load appropriate image from size
-    const loadImage = curry((imageSize) => this.handleImageSizeLoading(setAttr, path, imageSize));
+    const loadImage = curry((imageSize) => this.handleImageSizeLoading(src, imageSize));
 
     // small image wasn't loaded (small isn't the smallest size, as we get into step the image already loaded smallest size)
     if (!small.loaded) {
@@ -80,21 +77,19 @@ class ProgressiveImage extends Component {
   }
 
   // Help us load appropriate image size
-  handleImageSizeLoading(setAttr, path, imageSize) {
+  handleImageSizeLoading(path, imageSize) {
     // which size we will load now?
     const which = this.state[imageSize];
 
-    // replace src attribute with pattern & mark pattern as loaded
-    setAttr(which.pattern(path));
-    this.setState({ [imageSize]: { loaded: true } });
+    // replace src with pattern & mark pattern as loaded
+    this.setState({ [imageSize]: { loaded: true }, src: which.pattern(path) });
   }
 
   render() {
     const { className, role, alt, src } = this.props;
-
     return (
       <img
-        src={src}
+        src={this.state.src ? this.state.src : src}
         alt={alt}
         role={role}
         className={className}
