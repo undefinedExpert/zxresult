@@ -28,7 +28,7 @@ describe('<LazyImage />', () => {
 
       mount(<LazyImage {...props} />);
       expect(didMount.calledOnce).to.eql(true);
-      expect(lazyLoad.calledOnce).to.eql(1);
+      expect(lazyLoad.calledOnce).to.eql(true);
     });
   });
 });
