@@ -17,6 +17,9 @@ import ProgressiveImage from 'components/general/ProgressiveImage';
  * TODO: handle condition where image does not contain size
  * helper: http://stackoverflow.com/questions/9815762/detect-when-an-image-fails-to-load-in-javascript
  * TODO: API endpoint shouldn't be hardcoded
+ * FIXME: LoadingIndicator should be removed when image source is available, but img in w45
+ * size is downloading so fast so we can't even see loading indicator. It should be
+ * integrated more with progressive loading
  */
 class LazyImage extends Component {
   constructor(...args) {
@@ -30,7 +33,6 @@ class LazyImage extends Component {
   }
 
   state = {
-    isLoading: false,
     src: null,
   };
 
@@ -63,7 +65,6 @@ class LazyImage extends Component {
   // help us with firstly loading fully image and then with displaying it
   lazyLoad() {
     const { path } = this.props;
-    this.setState({ isLoading: true });
 
     // smallest size
     const size = 'w45';
@@ -80,7 +81,6 @@ class LazyImage extends Component {
   // Handles swapping src of lazyloaded image with our imagePlaceholder
   replaceLazyLoadImage() {
     // Check if imagePlaceholder is still in view, and lazyLoadedImage exist
-    // FIXME: Does we really need to check this if?
     if (this.imagePlaceholder && this.lazyLoadedImage) {
       // swap both placeholder and just loaded image src's
       const source = this.lazyLoadedImage.getAttribute('src');
@@ -98,7 +98,7 @@ class LazyImage extends Component {
 
     return (
       <div>
-        {this.state.isLoading ? <LoadingIndicator /> : null}
+        {this.state.src ? <LoadingIndicator /> : null}
         <ProgressiveImage
           src={this.state.src ? this.state.src : null}
           alt={alt}
