@@ -19,6 +19,17 @@ import ProgressiveImage from 'components/general/ProgressiveImage';
  * TODO: API endpoint shouldn't be hardcoded
  */
 class LazyImage extends Component {
+  constructor(...args) {
+    super(...args);
+
+    // FIXME: Find better way of binding methods into class for testing puproses
+    // ES6 classes does not supports autobinding feature and using
+    // spy on component.instance().method does not work
+    this.lazyLoad = this.lazyLoad.bind(this);
+    this.replaceLazyLoadImage = this.replaceLazyLoadImage.bind(this);
+  }
+
+
   state = {
     isLoading: false,
     src: null,
@@ -51,7 +62,7 @@ class LazyImage extends Component {
   }
 
   // help us with firstly loading fully image and then with displaying it
-  lazyLoad = () => {
+  lazyLoad() {
     const { path } = this.props;
     this.setState({ isLoading: true });
 
