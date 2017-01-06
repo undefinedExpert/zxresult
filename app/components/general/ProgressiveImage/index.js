@@ -24,8 +24,19 @@ const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w500/g, 'or
 /**
 * ProgressiveImage
 * @desc Allow us to load image with progressive loading solution
+ * TODO: Handle unsuccessfully size downloading
 */
 class ProgressiveImage extends Component {
+  constructor(...args) {
+    super(...args);
+
+    // FIXME: Find better way of binding methods into class for testing puproses
+    // ES6 classes does not supports autobinding feature and using
+    // spy on component.instance().method does not work
+    this.progressiveLoad = this.progressiveLoad.bind(this);
+    this.handleImageSizeLoading = this.handleImageSizeLoading.bind(this);
+  }
+
   state = {
     isLoading: false,
     small: smallDefaultState,
@@ -41,7 +52,7 @@ class ProgressiveImage extends Component {
   }
 
   // Load stack of images progressively, one after another
-  progressiveLoad = (e) => {
+  progressiveLoad(e) {
     // get predefined sizes, select active source
     const { small, medium, big } = this.state;
     const path = e.target.attributes.src.value;
@@ -66,7 +77,7 @@ class ProgressiveImage extends Component {
       // If we finished with downloading all content we just set isLoading to false
       this.setState({ isLoading: false });
     }
-  };
+  }
 
   // Help us load appropriate image size
   handleImageSizeLoading(setAttr, path, imageSize) {
