@@ -6,7 +6,7 @@
   transition: min-height 0.35s ease;
 
   @media (min-width: 62.5em) {
-    min-height: calc(100vh -  50px);
+    min-height: calc(100vh - 50px);
     transition: inherit;
   }
   &.isRevealed {
@@ -43,7 +43,7 @@
     transform: translate(-50%, 0);
 
     @media (min-width: 62.5em) {
-      height: calc(100% - 120px);
+      height: calc(100% - 190px);
     }
   }
 }
