@@ -111,7 +111,6 @@ export function* getUpdateUrl() {
 export function* details() {
   const { active } = yield select(selectResult());
   const endpoint = `/movie/${active.id}`;
-  // console.log('pobieranie detail');
 
   const { data } = yield call(callApi, endpoint, { append_to_response: ['images', 'credits'] }, false);
 

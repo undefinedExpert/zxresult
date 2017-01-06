@@ -20,7 +20,7 @@ const filtersDomain = () => state => state.get('filters').toJS();
  */
 const selectFilters = () => createSelector(
   filtersDomain(),
-  ({ keyword, genre, trend, range, decade }) => ({ keyword, genre, trend, range, decade })
+  ({ keyword, genre, trend, range, decade, runtime }) => ({ keyword, genre, trend, range, decade, runtime })
 );
 
 export {

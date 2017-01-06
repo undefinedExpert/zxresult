@@ -32,6 +32,7 @@ describe('Filters', () => {
       trend: {},
       range: {},
       decade: {},
+      runtime: {},
     };
     const mockedState = fromJS({
       filters: fromJS(filterState),

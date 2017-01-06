@@ -130,6 +130,16 @@ export const initialState = fromJS({
       id: 'with_genres',
     }),
   }),
+  runtime: fromJS({
+    active: fromJS({
+      runtimeMin: 59,
+      runtimeMax: null,
+    }),
+    apiRef: fromJS({
+      runtimeMin: 'with_runtime.gte',
+      runtimeMax: 'with_runtime.lte',
+    }),
+  }),
   range: fromJS({
     pages: 0,
     pagesCache: null,
