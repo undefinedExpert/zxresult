@@ -29,7 +29,6 @@ class LazyImage extends Component {
     this.replaceLazyLoadImage = this.replaceLazyLoadImage.bind(this);
   }
 
-
   state = {
     isLoading: false,
     src: null,
@@ -76,7 +75,7 @@ class LazyImage extends Component {
 
     // When new image will be downloaded, invoke replaceLazyLoadImage
     this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage());
-  };
+  }
 
   // Handles swapping src of lazyloaded image with our imagePlaceholder
   replaceLazyLoadImage() {
