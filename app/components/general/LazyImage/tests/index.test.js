@@ -14,7 +14,6 @@ import LazyImage from '../index';
 
 
 describe('<LazyImage />', () => {
-  // 4. it should load image and replace imagePlaceholder src when it will be available
   describe('Methods', () => {
     let props;
     let path;

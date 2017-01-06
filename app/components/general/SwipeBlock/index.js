@@ -100,7 +100,7 @@ class SwipeBlock extends Component {
 
   render() {
     return (
-      <div ref={(c) => { this.container = c; }} className="react-swiper-component">
+      <div ref={(container) => { this.container = container; }} className="react-swiper-component">
         {this.createSwiper()}
       </div>
     );
