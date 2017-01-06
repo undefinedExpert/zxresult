@@ -18,6 +18,7 @@ import styles from './styles.css';
 /**
  * MovieGallery
  * @desc Render Gallery.
+ * FIXME: Autoplay should be reset after movie result change
  */
 class MovieGallery extends Component {
   state = {

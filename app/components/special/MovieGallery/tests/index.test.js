@@ -12,7 +12,7 @@
 // import MovieGallery from '../index';
 
 
-// TODO: We should mount Gallery component instead of shallow
+// TODO: WRITE A TESTS
 describe('<MovieGallery />', () => {
   // let renderComponent;
   // const props = {
