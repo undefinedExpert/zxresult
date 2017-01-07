@@ -64,6 +64,7 @@ class ProgressiveImage extends Component {
         role={role}
         className={className}
         onLoad={this.progressiveLoad}
+        onError={this.progressiveLoad}
       />
     );
   }
