@@ -5,12 +5,11 @@
 *  3. Module
 */
 
-import sinon from 'sinon';
+import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
-import React from 'react';
 
-import ProgressiveImage from '../index';
+import ProgressiveImage, { sizesDefault } from '../index';
 
 
 describe('<ProgressiveImage />', () => {
@@ -22,41 +21,37 @@ describe('<ProgressiveImage />', () => {
   });
 
   it('Should reset state sizes each time when there will be new result', () => {
-    const willReceiveProps = sinon.spy(ProgressiveImage.prototype, 'componentWillReceiveProps');
     const component = mount(<ProgressiveImage {...props} />);
 
     // simulate loading "image"
-    component.setState({ small: { loaded: true } });
-    expect(component.state().small.loaded).to.be.eql(true);
+    const newState = sizesDefault.slice(1);
+    component.setState({ sizes: newState });
+    expect(component.state().sizes.length).to.eql(newState.length);
 
+    // check if reset when prop changed
     component.setProps({ isActive: true });
-    expect(component.state().small.loaded).to.be.eql(false);
-    expect(willReceiveProps.calledOnce).to.be.eql(true);
+    expect(component.state().sizes).to.be.eql(sizesDefault);
   });
 
   it('should load small, medium, big sizes and update their states when each finished', () => {
     const component = mount(<ProgressiveImage {...props} />);
 
     expect(component.state().src).to.eql(null);
-    expect(component.state().small.loaded).to.eql(false);
+    expect(component.state().sizes.length).to.eql(sizesDefault.length);
 
-
-    // does we loaded small?
+    // load & check small
     component.instance().progressiveLoad();
     expect(component.state().src).to.eql(path.replace(/\w45/g, 'w154'));
-    expect(component.state().small.loaded).to.eql(true);
+    expect(component.state().sizes.length).to.eql(sizesDefault.length - 1);
 
-    // does we loaded medium?
+    // load & check medium
     component.instance().progressiveLoad();
     expect(component.state().src).to.eql(path.replace(/\w45/g, 'w500'));
-    expect(component.state().medium.loaded).to.eql(true);
+    expect(component.state().sizes.length).to.eql(sizesDefault.length - 2);
 
-    // does we loaded big?
+    // load & check big
     component.instance().progressiveLoad();
     expect(component.state().src).to.eql(path.replace(/\w45/g, 'original'));
-    expect(component.state().big.loaded).to.eql(true);
-
-    // // does we finished loading?
-    expect(component.state().isLoading).to.eql(false);
+    expect(component.state().sizes.length).to.eql(sizesDefault.length - 3);
   });
 });

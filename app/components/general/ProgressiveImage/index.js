@@ -5,7 +5,7 @@
 *  3. Module
 */
 
-import { curry } from 'lodash';
+import _, { curry } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
@@ -16,10 +16,10 @@ import { convertToPattern } from 'utils/hooks';
  * Pattern is a function which replace specific part of URL, so we could download bigger image.
  * TODO: sizes sets should not be hardcoded
  */
-const smallDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w154') };
-const mediumDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'w500') };
-const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'original') };
-
+const smallDefaultState = convertToPattern(/\w45/g, 'w154');
+const mediumDefaultState = convertToPattern(/\w45/g, 'w500');
+const bigDefaultState = convertToPattern(/\w45/g, 'original');
+export const sizesDefault = [smallDefaultState, mediumDefaultState, bigDefaultState];
 
 /**
 * ProgressiveImage
@@ -27,62 +27,32 @@ const bigDefaultState = { loaded: false, pattern: convertToPattern(/\w45/g, 'ori
  * TODO: Handle unsuccessfully size downloading
 */
 class ProgressiveImage extends Component {
-  constructor(...args) {
-    super(...args);
-
-    // FIXME: Find better way of binding methods into class for testing puproses
-    // ES6 classes does not supports autobinding feature and using
-    // spy on component.instance().method does not work
-    this.progressiveLoad = this.progressiveLoad.bind(this);
-    this.handleImageSizeLoading = this.handleImageSizeLoading.bind(this);
-  }
-
   state = {
     src: null,
-    isLoading: false,
-    small: smallDefaultState,
-    medium: mediumDefaultState,
-    big: bigDefaultState,
+    sizes: sizesDefault,
   };
 
   // Check if we did receive new "potential" image, if yes reset sizes, and their loading status to default
   componentWillReceiveProps({ isActive, path }) {
     if ((isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
-      this.setState({ small: smallDefaultState, medium: mediumDefaultState, big: bigDefaultState, src: null });
+      this.setState({ sizes: sizesDefault });
     }
   }
 
   // Load stack of images progressively, one after another
   progressiveLoad() {
-    // get predefined sizes, select active source
-    const { small, medium, big } = this.state;
+    const { sizes } = this.state;
     const { src } = this.props;
 
-    // It will load appropriate image from size
-    const loadImage = curry((imageSize) => this.handleImageSizeLoading(src, imageSize));
-
-    // small image wasn't loaded (small isn't the smallest size, as we get into step the image already loaded smallest size)
-    if (!small.loaded) {
-      loadImage('small');
-    }
-    else if (small.loaded && !medium.loaded) {
-      loadImage('medium');
-    }
-    else if (medium.loaded && !big.loaded) {
-      loadImage('big');
-
-      // If we finished with downloading all content we just set isLoading to false
-      this.setState({ isLoading: false });
+    if (sizes.length) {
+      const whichToLoad = this.state.sizes[0](src);
+      this.sizeLoading(whichToLoad);
     }
   }
 
-  // Help us load appropriate image size
-  handleImageSizeLoading(path, imageSize) {
-    // which size we will load now?
-    const which = this.state[imageSize];
-
-    // replace src with pattern & mark pattern as loaded
-    this.setState({ [imageSize]: { loaded: true }, src: which.pattern(path) });
+  sizeLoading(src) {
+    const newSizes = this.state.sizes.slice(1);
+    this.setState({ sizes: newSizes, src });
   }
 
   render() {
