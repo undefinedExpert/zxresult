@@ -192,8 +192,6 @@ export function* getRequestSagas() {
   yield cancel(updateSingleMovieWatcher);
   yield cancel(updatePendingWatcher);
   yield cancel(detailsWatcher);
-
-
 }
 
 /**
