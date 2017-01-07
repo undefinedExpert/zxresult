@@ -175,7 +175,7 @@ export function* getResultChangeWatcher() {
 }
 
 
-export function* getRequestSagas() {
+export function* getInitialRequest() {
   // Fork watcher so we can continue execution
   const moviesWatcher = yield fork(getMovieWatcher);
   const updateUrl = yield fork(getResultChangeWatcher);
@@ -200,5 +200,5 @@ export function* getRequestSagas() {
 
 // Bootstrap sagas
 export default [
-  getRequestSagas,
+  getInitialRequest,
 ];
