@@ -35,7 +35,7 @@ export const initialState = fromJS({
       name: 'Popular',
       voteAverageMin: null,
       voteAverageMax: null,
-      voteCountMin: 300,
+      voteCountMin: 150,
       voteCountMax: null,
     }),
     list: fromJS([
@@ -43,21 +43,21 @@ export const initialState = fromJS({
         name: 'Highly rated',
         voteAverageMin: 7,
         voteAverageMax: 10,
-        voteCountMin: 70,
+        voteCountMin: 90,
         voteCountMax: null,
       }),
       fromJS({
         name: 'Popular',
         voteAverageMin: null,
         voteAverageMax: null,
-        voteCountMin: 300,
+        voteCountMin: 150,
         voteCountMax: null,
       }),
       fromJS({
         name: 'Most Popular',
         voteAverageMin: null,
         voteAverageMax: null,
-        voteCountMin: 700,
+        voteCountMin: 400,
         voteCountMax: null,
       }),
       fromJS({
@@ -65,7 +65,7 @@ export const initialState = fromJS({
         voteAverageMin: 7,
         voteAverageMax: 10,
         voteCountMin: 50,
-        voteCountMax: 200,
+        voteCountMax: 150,
       }),
     ]),
     apiRef: fromJS({
@@ -76,11 +76,7 @@ export const initialState = fromJS({
     }),
   }),
   decade: fromJS({
-    active: fromJS({
-      name: '1970s',
-      dateMin: '1970-01-01',
-      dateMax: '1979-01-01',
-    }),
+    active: null,
     list: fromJS([
       fromJS({
         name: '2010s',
