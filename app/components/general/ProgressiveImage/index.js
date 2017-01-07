@@ -5,7 +5,6 @@
 *  3. Module
 */
 
-import _, { curry } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
