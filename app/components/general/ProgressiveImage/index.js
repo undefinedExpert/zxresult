@@ -39,7 +39,7 @@ class ProgressiveImage extends Component {
   }
 
   // Load stack of images progressively, one after another
-  progressiveLoad() {
+  progressiveLoad = () => {
     const { sizes } = this.state;
     const { src } = this.props;
 
@@ -47,7 +47,7 @@ class ProgressiveImage extends Component {
       const whichToLoad = this.state.sizes[0](src);
       this.sizeLoading(whichToLoad);
     }
-  }
+  };
 
   sizeLoading(src) {
     const newSizes = this.state.sizes.slice(1);
