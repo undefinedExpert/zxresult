@@ -5,8 +5,9 @@
  *  3. Module
  */
 
-import { connect } from 'react-redux';
 import className from 'classnames';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import React, { PropTypes as ptype, Component } from 'react';
 import { createStructuredSelector, createSelector } from 'reselect';
 
@@ -22,6 +23,11 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
   state = {
     formHeight: null,
   };
+
+  componentWillMount() {
+    // check if movie exist, if now get new and update or redirect
+    if (!this.props.active) browserHistory.push('/');
+  }
 
   componentDidMount() {
     this.navMarginTop();
@@ -43,12 +49,18 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
     }
   }
 
+  redirectHome = () => (
+    <section />
+  );
+
   render() {
     const { active, isFetching } = this.props;
     const { formHeight } = this.state;
 
+    if (!this.props.active) return this.redirectHome();
+
     return (
-      <section >
+      <section>
         <div className={className(styles.halfWrapper, styles.gallery)}>
           <MovieGallery movie={active} isFetching={isFetching} />
           <FilterForm orientation={'horizontal'} />
