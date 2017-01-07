@@ -133,9 +133,11 @@ LazyImage.propTypes = {
   alt: ptype.string,
   path: ptype.string,
   role: ptype.string,
+  size: ptype.string,
   isActive: ptype.bool,
   className: ptype.string,
   afterLoad: ptype.func,
+  progressiveLoading: ptype.bool,
 };
 
 export default LazyImage;

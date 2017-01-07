@@ -140,7 +140,6 @@ class MovieGallery extends Component {
 
 MovieGallery.propTypes = {
   movie: ptype.object,
-  isFetching: ptype.bool,
 };
 
 export default MovieGallery;
