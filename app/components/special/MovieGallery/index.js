@@ -30,7 +30,6 @@ class MovieGallery extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
       this.setState({ activeIndex: [0], shouldSlideAndLoad: false });
-      // shouldSlideAndLoad: false czemu sprawia ze jest foty sie laduja w preloadzie?
     }
   }
 
@@ -72,21 +71,15 @@ class MovieGallery extends Component {
     }
   }
 
+  // Helper method for SwipeBlock, help SwipeBlock determine when
+  // poster image were downloaded.
+  shouldLoadAndSlide = () => {
+    this.setState({ shouldSlideAndLoad: true });
+  };
+
   renderChildren = (limitedBackdrops) => (
     limitedBackdrops.map((item, index) => this.renderImage(item, index))
   );
-
-  shouldLoadAndSlide = () => {
-    // stworzyc funkcje ktora bedzie sterowac stanm w 'konca' zaladowania zdjecia
-    // z kazda taka zmiana wywolamy specjalna funkcje w naszym swiperblocku
-    // to powinno nam pozwolic na uruchamianie odpowiedniego elementu
-
-    // 1. handler ktory zmienia stan
-    // 2. przekazanie do pojedynczego zdjecia
-    // 3. jesli pojedyncze zdjecie zostanie sciagniete uruchomic handler w pojedynczym zdjeciu
-    // 4. handler powinnien uruchomic funkcje zmiane slajdu w Swiperblocku
-    this.setState({ shouldSlideAndLoad: true })
-  }
 
   renderImages = () => {
     const { movie } = this.props;
@@ -108,7 +101,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: false,
           preloadImages: false,
-          autoplay: movie.images ? 455500 : false,
+          autoplay: movie.images ? 500 : false,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,
