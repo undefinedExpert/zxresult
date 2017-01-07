@@ -1,9 +1,9 @@
 /**
-*  Components are imported in specific (scope based) order:
-*  1. Node_modules
-*  2. Application
-*  3. Module
-*/
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
 import React, { PropTypes as ptype, Component } from 'react';
 
@@ -21,10 +21,10 @@ const bigDefaultState = convertToPattern(/p\/w45/g, 'p/original');
 export const sizesDefault = [smallDefaultState, mediumDefaultState, bigDefaultState];
 
 /**
-* ProgressiveImage
-* @desc Allow us to load image with progressive loading solution
+ * ProgressiveImage
+ * @desc Allow us to load image with progressive loading solution
  * TODO: Handle unsuccessfully size downloading
-*/
+ */
 class ProgressiveImage extends Component {
   state = {
     src: null,

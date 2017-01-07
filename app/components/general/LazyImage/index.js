@@ -1,9 +1,9 @@
 /**
-*  Components are imported in specific (scope based) order:
-*  1. Node_modules
-*  2. Application
-*  3. Module
-*/
+ *  Components are imported in specific (scope based) order:
+ *  1. Node_modules
+ *  2. Application
+ *  3. Module
+ */
 
 import React, { PropTypes as ptype, Component } from 'react';
 
@@ -64,11 +64,11 @@ class LazyImage extends Component {
 
   // help us with firstly loading fully image and then with displaying it
   lazyLoad() {
-    const { path } = this.props;
+    const { path, size } = this.props;
 
     // smallest size
-    const size = 'w45';
-    const photoPath = `http://image.tmdb.org/t/p/${size}${path}`;
+    const photoSize = size || 'w45';
+    const photoPath = `http://image.tmdb.org/t/p/${photoSize}${path}`;
 
     // Start downloading the image
     this.lazyLoadedImage = new Image();
@@ -94,19 +94,35 @@ class LazyImage extends Component {
   }
 
   render() {
-    const { className, role, alt, isActive, afterLoad} = this.props;
+    const { className, role, alt, isActive, afterLoad, progressiveLoading } = this.props;
+
+    if (progressiveLoading) {
+      return (
+        <div>
+          {this.state.src ? <LoadingIndicator /> : null}
+          <ProgressiveImage
+            src={this.state.src && isActive ? this.state.src : null}
+            alt={alt}
+            role={role}
+            className={className}
+            isLoaded={false}
+            ref={img => { this.imagePlaceholder = img; }}
+            onLoad={afterLoad}
+          />
+        </div>
+      );
+    }
 
     return (
       <div>
         {this.state.src ? <LoadingIndicator /> : null}
-        <ProgressiveImage
+        <img
           src={this.state.src && isActive ? this.state.src : null}
           alt={alt}
           role={role}
           className={className}
-          isLoaded={false}
           ref={img => { this.imagePlaceholder = img; }}
-          onLoad={afterLoad ? afterLoad : null}
+          onLoad={afterLoad}
         />
       </div>
     );
