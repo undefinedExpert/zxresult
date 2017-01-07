@@ -24,11 +24,13 @@ class MovieGallery extends Component {
   state = {
     isFetching: false,
     activeIndex: [0],
+    shouldSlideAndLoad: false,
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
-      this.setState({ activeIndex: [0] });
+      this.setState({ activeIndex: [0], shouldSlideAndLoad: false });
+      // shouldSlideAndLoad: false czemu sprawia ze jest foty sie laduja w preloadzie?
     }
   }
 
@@ -46,6 +48,10 @@ class MovieGallery extends Component {
     }
 
     else if (nextState.activeIndex !== this.state.activeIndex) {
+      return true;
+    }
+
+    else if (nextState.shouldSlideAndLoad !== this.state.shouldSlideAndLoad) {
       return true;
     }
 
@@ -70,18 +76,26 @@ class MovieGallery extends Component {
     limitedBackdrops.map((item, index) => this.renderImage(item, index))
   );
 
-  renderImages = () => {
-    const { movie, isFetching } = this.props;
+  shouldLoadAndSlide = () => {
+    // stworzyc funkcje ktora bedzie sterowac stanm w 'konca' zaladowania zdjecia
+    // z kazda taka zmiana wywolamy specjalna funkcje w naszym swiperblocku
+    // to powinno nam pozwolic na uruchamianie odpowiedniego elementu
 
+    // 1. handler ktory zmienia stan
+    // 2. przekazanie do pojedynczego zdjecia
+    // 3. jesli pojedyncze zdjecie zostanie sciagniete uruchomic handler w pojedynczym zdjeciu
+    // 4. handler powinnien uruchomic funkcje zmiane slajdu w Swiperblocku
+    this.setState({ shouldSlideAndLoad: true })
+  }
+
+  renderImages = () => {
+    const { movie } = this.props;
     const poster = {
       file_path: movie.poster_path,
     };
 
-    let limitedBackdrops = [];
-
-    if (!isFetching && movie.images) {
-      limitedBackdrops = [poster, ...movie.images.backdrops];
-    }
+    const backdrops = movie.images ? movie.images.backdrops : [];
+    const limitedBackdrops = [poster, ...backdrops];
 
     return (
       <SwipeBlock
@@ -103,6 +117,8 @@ class MovieGallery extends Component {
         onSwiperMount={this.handleMountSwiper}
         onNextSlide={this.handleNextSlide}
         startAutoplay={this.state.activeIndex.length === 1}
+        shouldLoadAndSlide={this.state.shouldSlideAndLoad}
+        activeIndex={this.state.activeIndex.length}
       >
         {this.renderChildren(limitedBackdrops)}
       </SwipeBlock>
@@ -112,7 +128,7 @@ class MovieGallery extends Component {
   renderImage = (img, index) => {
     const isActive = this.state.activeIndex.includes(index);
     return (
-      img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} isActive={isActive} /> : <BlankImage className={styles.blankImage} />
+      img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} isActive={isActive} afterLoad={this.shouldLoadAndSlide} /> : <BlankImage className={styles.blankImage} />
     );
   };
 

@@ -49,7 +49,7 @@ class LazyImage extends Component {
   componentDidUpdate(prevProps) {
     const { isActive, path } = prevProps;
 
-    if ((path !== this.props.path) || (isActive !== this.props.isActive)) {
+    if ((this.props.isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
       this.lazyLoad();
     }
   }
@@ -94,18 +94,19 @@ class LazyImage extends Component {
   }
 
   render() {
-    const { className, role, alt } = this.props;
+    const { className, role, alt, isActive, afterLoad} = this.props;
 
     return (
       <div>
         {this.state.src ? <LoadingIndicator /> : null}
         <ProgressiveImage
-          src={this.state.src ? this.state.src : null}
+          src={this.state.src && isActive ? this.state.src : null}
           alt={alt}
           role={role}
           className={className}
           isLoaded={false}
           ref={img => { this.imagePlaceholder = img; }}
+          onLoad={afterLoad ? afterLoad : null}
         />
       </div>
     );
@@ -118,6 +119,7 @@ LazyImage.propTypes = {
   role: ptype.string,
   isActive: ptype.bool,
   className: ptype.string,
+  afterLoad: ptype.func,
 };
 
 export default LazyImage;

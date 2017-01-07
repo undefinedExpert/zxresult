@@ -17,6 +17,7 @@ const MovieResultImage = (props) => (
   <div className={className(styles.resultImage)}>
     <div className={styles.imageContainer}>
       <LazyImage
+        afterLoad={props.afterLoad}
         role="presentation"
         path={props.path}
         isActive={props.isActive}
@@ -29,6 +30,7 @@ const MovieResultImage = (props) => (
 MovieResultImage.propTypes = {
   path: ptype.string,
   isActive: ptype.bool,
+  afterLoad: ptype.func,
 };
 
 export default MovieResultImage;

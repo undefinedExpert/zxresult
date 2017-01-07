@@ -35,12 +35,9 @@ class SwipeBlock extends Component {
   }
 
   componentDidMount() {
-    const config = this.swiperConfig;
+    const config = merge(this.swiperConfig, this.props.swiperConfig);
 
-
-    const config2 = merge(this.swiperConfig, this.props.swiperConfig);
-
-    this.swiper = new Swiper(this.container.children[0], config2);
+    this.swiper = new Swiper(this.container.children[0], config);
 
     if (config.loop) {
       this.swiper.on('onSlideChangeEnd', (swiper) => { swiper.fixLoop(); });
@@ -56,8 +53,20 @@ class SwipeBlock extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.children.length !== this.props.children.length) {
+  shouldComponentUpdate(nextProps) {
+    // we don't want to scroll to slide 0 until 'poster' (main photo is firstly loaded) will be available.
+    // Help us with change our slide without 'ugly' blink effect.
+    // do not remove thatuntil you implement new swipe solution.
+    if (!nextProps.shouldLoadAndSlide && nextProps.children.length === 1 && this.swiper.realIndex !== 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  componentDidUpdate() {
+    // make slide to poster(index 0). Detect here if we downloaded poster and we are ready to slide
+    if (this.props.shouldLoadAndSlide && this.swiper.index !== 1 && this.props.activeIndex === 1) {
       this.swiper.slideTo(0, 0);
     }
   }
@@ -111,10 +120,12 @@ class SwipeBlock extends Component {
 SwipeBlock.propTypes = {
   children: ptype.node,
   className: ptype.string,
-  swiperConfig: React.PropTypes.object,
-  onSwiperMount: React.PropTypes.func,
+  activeIndex: ptype.number,
+  shouldLoadAndSlide: ptype.bool,
   onNextSlide: React.PropTypes.func,
+  onSwiperMount: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,
+  swiperConfig: React.PropTypes.object,
 };
 
 export default SwipeBlock;
