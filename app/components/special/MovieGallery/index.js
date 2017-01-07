@@ -18,7 +18,7 @@ import styles from './styles.css';
 /**
  * MovieGallery
  * @desc Render Gallery.
- * FIXME: Autoplay should be reset after movie result change
+ * TODO: Give user the power of turning off autoplay feature
  */
 class MovieGallery extends Component {
   state = {
@@ -94,7 +94,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: false,
           preloadImages: false,
-          autoplay: 433250,
+          autoplay: movie.images ? 455500 : false,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,
@@ -102,6 +102,7 @@ class MovieGallery extends Component {
         className={styles.swipeBlock}
         onSwiperMount={this.handleMountSwiper}
         onNextSlide={this.handleNextSlide}
+        startAutoplay={this.state.activeIndex.length === 1}
       >
         {this.renderChildren(limitedBackdrops)}
       </SwipeBlock>

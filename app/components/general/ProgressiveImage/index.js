@@ -32,9 +32,9 @@ class ProgressiveImage extends Component {
   };
 
   // Check if we did receive new "potential" image, if yes reset sizes, and their loading status to default
-  componentWillReceiveProps({ isActive, path }) {
-    if ((isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
-      this.setState({ sizes: sizesDefault });
+  componentWillReceiveProps({ isActive, src }) {
+    if ((src !== this.props.src) || (isActive !== this.props.isActive)) {
+      this.setState({ sizes: sizesDefault, src: null });
     }
   }
 
@@ -56,6 +56,7 @@ class ProgressiveImage extends Component {
 
   render() {
     const { className, role, alt, src } = this.props;
+
     return (
       <img
         src={this.state.src ? this.state.src : src}
@@ -71,7 +72,6 @@ class ProgressiveImage extends Component {
 ProgressiveImage.propTypes = {
   src: ptype.string,
   alt: ptype.string,
-  path: ptype.string,
   role: ptype.string,
   isActive: ptype.bool,
   className: ptype.string,
