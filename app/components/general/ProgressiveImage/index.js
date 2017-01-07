@@ -15,9 +15,9 @@ import { convertToPattern } from 'utils/hooks';
  * Pattern is a function which replace specific part of URL, so we could download bigger image.
  * TODO: sizes sets should not be hardcoded
  */
-const smallDefaultState = convertToPattern(/\w45/g, 'w154');
-const mediumDefaultState = convertToPattern(/\w45/g, 'w500');
-const bigDefaultState = convertToPattern(/\w45/g, 'original');
+const smallDefaultState = convertToPattern(/p\/w45/g, 'w154');
+const mediumDefaultState = convertToPattern(/p\/w45/g, 'w500');
+const bigDefaultState = convertToPattern(/p\/w45/g, 'original');
 export const sizesDefault = [smallDefaultState, mediumDefaultState, bigDefaultState];
 
 /**
