@@ -48,7 +48,18 @@ class ProgressiveImage extends Component {
       this.sizeLoading(whichToLoad);
     }
 
-    this.props.onLoad && this.state.sizes.length > 2 ? this.props.onLoad() : null;
+    if (this.props.onLoad && this.state.sizes.length > 2) {
+      this.props.onLoad();
+    }
+  };
+
+  errorHandler = () => {
+    if (this.state.sizes.length) {
+      this.progressiveLoad();
+    }
+    else {
+      this.sizeLoading(this.props.src);
+    }
   };
 
   sizeLoading(src) {
@@ -57,7 +68,7 @@ class ProgressiveImage extends Component {
   }
 
   render() {
-    const { className, role, alt, src, isActive } = this.props;
+    const { className, role, alt, src } = this.props;
 
     return (
       <img
@@ -66,7 +77,7 @@ class ProgressiveImage extends Component {
         role={role}
         className={className}
         onLoad={this.progressiveLoad}
-        onError={this.progressiveLoad}
+        onError={this.errorHandler}
       />
     );
   }
@@ -76,7 +87,6 @@ ProgressiveImage.propTypes = {
   src: ptype.string,
   alt: ptype.string,
   role: ptype.string,
-  isActive: ptype.bool,
   className: ptype.string,
   onLoad: ptype.func,
 };
