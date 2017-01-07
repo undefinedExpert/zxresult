@@ -29,7 +29,7 @@ import {
   getUpdateSingleMovieWatcher,
   getUpdatePendingWatcher,
   getDetailsWatcher,
-  getRequestSagas,
+  getInitialRequest,
 } from '../sagas';
 import { selectResult } from '../selectors';
 
@@ -203,7 +203,7 @@ describe('RequestMovie saga watchers', () => {
 });
 
 describe('getMovieSagas Saga', () => {
-  const movieSagas = getRequestSagas();
+  const movieSagas = getInitialRequest();
 
   it('should asynchronously fork moviesWatcher saga', () => {
     const task = movieSagas.next();

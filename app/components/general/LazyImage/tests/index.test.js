@@ -19,7 +19,7 @@ describe('<LazyImage />', () => {
     let path;
 
     beforeEach(() => {
-      props = { isActive: false, path: '/eslotwinski' };
+      props = { isActive: false, src: '/eslotwinski' };
       path = `http://image.tmdb.org/t/p/w45/${props.path}`;
     });
 
@@ -71,7 +71,7 @@ describe('<LazyImage />', () => {
     });
 
     it('should mount component and when isActive become true, set state.src to photo path', () => {
-      const component = mount(<LazyImage {...props} />);
+      const component = mount(<LazyImage {...props} progressiveLoading />);
       const instance = component.instance();
 
       let imagePlaceholderSource = instance.imagePlaceholder.props.src;
