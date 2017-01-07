@@ -15,9 +15,9 @@ import { convertToPattern } from 'utils/hooks';
  * Pattern is a function which replace specific part of URL, so we could download bigger image.
  * TODO: sizes sets should not be hardcoded
  */
-const smallDefaultState = convertToPattern(/p\/w45/g, 'w154');
-const mediumDefaultState = convertToPattern(/p\/w45/g, 'w500');
-const bigDefaultState = convertToPattern(/p\/w45/g, 'original');
+const smallDefaultState = convertToPattern(/p\/w45/g, 'p/w154');
+const mediumDefaultState = convertToPattern(/p\/w45/g, 'p/w500');
+const bigDefaultState = convertToPattern(/p\/w45/g, 'p/original');
 export const sizesDefault = [smallDefaultState, mediumDefaultState, bigDefaultState];
 
 /**
@@ -87,6 +87,7 @@ ProgressiveImage.propTypes = {
   src: ptype.string,
   alt: ptype.string,
   role: ptype.string,
+  isActive: ptype.string,
   className: ptype.string,
   onLoad: ptype.func,
 };
