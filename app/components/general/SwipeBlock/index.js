@@ -69,6 +69,10 @@ class SwipeBlock extends Component {
     if (this.props.shouldLoadAndSlide && this.swiper.index !== 1 && this.props.activeIndex === 1) {
       this.swiper.slideTo(0, 0);
     }
+
+    if (this.props.startAutoplay) {
+      this.swiper.startAutoplay();
+    }
   }
 
   componentWillUnmount() {
@@ -123,6 +127,7 @@ SwipeBlock.propTypes = {
   activeIndex: ptype.number,
   shouldLoadAndSlide: ptype.bool,
   onNextSlide: React.PropTypes.func,
+  startAutoplay: React.PropTypes.func,
   onSwiperMount: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,
   swiperConfig: React.PropTypes.object,
