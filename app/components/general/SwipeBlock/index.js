@@ -127,7 +127,7 @@ SwipeBlock.propTypes = {
   activeIndex: ptype.number,
   shouldLoadAndSlide: ptype.bool,
   onNextSlide: React.PropTypes.func,
-  startAutoplay: React.PropTypes.func,
+  startAutoplay: React.PropTypes.bool,
   onSwiperMount: React.PropTypes.func,
   onSwiperUnmount: React.PropTypes.func,
   swiperConfig: React.PropTypes.object,
