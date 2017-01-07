@@ -1,6 +1,6 @@
 .resultImage {
   max-height: calc(100vh -  50px);
-  min-height: 40vh;
+  min-height: 350px;
   background-color: #22262e;
   position: relative;
   transition: min-height 0.35s ease;
@@ -31,7 +31,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 50px);
   .image {
     position: absolute;
     top: 0;

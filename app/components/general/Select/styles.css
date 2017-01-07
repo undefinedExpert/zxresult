@@ -45,12 +45,14 @@
   &:hover,
   &.is-focused,
   &:focus {
+    color: #fff;
     background-color: var(--cSupHover);
   }
 
   &.is-selected {
     &:hover,
     &.is-focused {
+      color: #fff;
       background-color: var(--cSup);
     }
   }

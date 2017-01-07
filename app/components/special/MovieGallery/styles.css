@@ -30,7 +30,7 @@
 
 .swipeBlock {
   position: relative;
-  min-height: 300px;
+  min-height: 350px;
   &:after {
     content: "";
     display: block;

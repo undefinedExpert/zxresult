@@ -1,6 +1,6 @@
 /*
  * !!!! ATTENTION !!!!
- * WHEN YOU RUN THIS FILE RESTART WEBPACK (NPM START)
+ * WHEN YOU MODIFY THIS FILE RESTART WEBPACK (NPM START)
  * */
 
 const _ = require('lodash');
@@ -11,8 +11,9 @@ const colors = {
   cMainHover: 'color(var(--cMain) a(45%))',
   cMainFocus: 'color(var(--cMain) a(45%))',
   cSup: '#db5461', // supplementary color
-  cSupHover: 'color(var(--cSup) a(35%));',
+  cSupHover: 'color(var(--cSup) a(75%));',
   cSupFocus: 'color(var(--cSup) a(35%));',
+  cSupActive: 'color(var(--cSup) a(35%));',
   cSupDark: 'color(var(--cSup) a(50%));',
   cHeading: '#C0C5CE',
   cText: '#7B818B',

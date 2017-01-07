@@ -17,7 +17,7 @@
     outline: none;
   }
   &:active {
-    background-color: color(var(--cSup) a(75%));
+    background-color: var(--cSupActive);
   }
   &:disabled {
     background-color: color(gray a(50%));
