@@ -48,11 +48,11 @@ function requestMovieReducer(state = initialState, action) {
         .setIn(['isFetching'], false);
     case UPDATE_SINGLE_MOVIE.SUCCESS:
       return state
-        .setIn(['pending'], fromJS(action.removePending));
+        .setIn(['pending'], fromJS(action.removePending))
+        .setIn(['isFetching'], false);
     case DETAILS.SUCCESS:
       return state
-        .setIn(['active'], fromJS(action.updatedActive))
-        .setIn(['isFetching'], false);
+        .setIn(['active'], fromJS(action.updatedActive));
     case UPDATE_FILTERS.REQUEST:
       return state
         .setIn(['isFetching'], true);

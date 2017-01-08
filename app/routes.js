@@ -34,7 +34,7 @@ export default function createRoutes(store) {
         // Params matches the order in our Promise.all func
         importModules.then(([requestMovieSagas, filterFormSagas, component]) => {
           // injectReducer('global', reducer.default);
-          injectSagas(requestMovieSagas.default); // Inject the general app sagas
+          injectSagas(requestMovieSagas.default.initial); // Inject the general app sagas
           injectSagas(filterFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);
@@ -63,7 +63,8 @@ export default function createRoutes(store) {
         // Params matches the order in our Promise.all func
         importModules.then(([requestMovieSagas, filterFormSagas, component]) => {
           // injectReducer('global', reducer.default);
-          injectSagas(requestMovieSagas.default); // Inject the general app sagas
+
+          injectSagas(requestMovieSagas.default.result); // Inject the general app sagas
           injectSagas(filterFormSagas.default); // inject sagas specified for MovieSearchForm container
 
           renderRoute(component);

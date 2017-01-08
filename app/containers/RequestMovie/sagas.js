@@ -7,7 +7,8 @@
 
 import _ from 'lodash';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
-import { take, call, select, put, cancel, fork } from 'redux-saga/effects';
+import { take, actionChannel, call, select, put, cancel, fork } from 'redux-saga/effects';
+import { buffers, takeLatest } from 'redux-saga';
 
 import { callApi, movieAnalyse, detectPending, mapGenres } from 'mechanisms/index';
 
@@ -24,20 +25,21 @@ import { analyseMovies, updateSingleMovie, updateMovieResult, getDetails } from 
  * getMovie
  * @desc Detects if user will get movies from pending list,
  * or we call to an API for a 20 fresh results.
- * TODO: Remove detectPending into separate mechanism "Getting movie"
+ * TODO: Remove detectPending into separate mechanism "Getting pending"
  * TODO: Refactor error handling
  */
 export function* getMovie() {
   const detected = yield call(detectPending);
   const { data } = detected === false ? yield call(callApi, '/discover/movie') : false;
 
-  if (data) {
-    console.info('Page downloaded.');
-    yield put(analyseMovies.request(data.results));
-  }
-  else if (detected === true) {
+
+  if (detected === true) {
     console.info('Pending Pushed.');
     yield put(updateSingleMovie.request());
+  }
+  else if (data) {
+    console.info('Page downloaded.');
+    yield put(analyseMovies.request(data.results));
   }
   else {
     yield put(updateMovieResult.failure('no movies'));
@@ -51,6 +53,7 @@ export function* getMovie() {
  */
 export function* getAnalyseMovie() {
   const analyzed = yield call(movieAnalyse);
+
   try {
     yield put(analyseMovies.success(analyzed));
   }
@@ -66,7 +69,6 @@ export function* getAnalyseMovie() {
  */
 export function* pushSingleResult() {
   const { pending } = yield select(selectResult());
-  // const { mappedIcons } =
   const singlePendingMovie = pending[0];
 
   try {
@@ -75,7 +77,6 @@ export function* pushSingleResult() {
   catch (err) {
     console.log(err);
   }
-
 
   try {
     yield put(updateMovieResult.success(singlePendingMovie));
@@ -100,6 +101,7 @@ export function* pushSingleResult() {
  * @desc Move user into result sub-page when result is set
  */
 export function* getUpdateUrl() {
+  console.log('should push/')
   yield put(push('/result'));
 }
 
@@ -139,7 +141,8 @@ export function* details() {
 
 
 export function* getMovieWatcher() {
-  while (yield take(UPDATE_MOVIE_RESULT.REQUEST)) {
+  const requestChan = yield actionChannel(UPDATE_MOVIE_RESULT.REQUEST, buffers.sliding(1));
+  while (yield take(requestChan)) {
     yield call(getMovie);
   }
 }
@@ -176,7 +179,13 @@ export function* getResultChangeWatcher() {
 
 
 export function* getInitialRequest() {
+  // potrzebuje uruchomic 'sekwencje', i nie lapac kolejnych
+  // getMovieWatcherow
+  // trzeba zrobic kolejkowanie przy wykorzystaniu kanalow redux saga
   // Fork watcher so we can continue execution
+
+  //
+
   const moviesWatcher = yield fork(getMovieWatcher);
   const updateUrl = yield fork(getResultChangeWatcher);
   const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
@@ -194,11 +203,33 @@ export function* getInitialRequest() {
   yield cancel(detailsWatcher);
 }
 
+export function* getRequestSequence() {
+  const moviesWatcher = yield fork(getMovieWatcher);
+  const analyseMovieWatcher = yield fork(getAnalyseMovieWatcher);
+  const updateSingleMovieWatcher = yield fork(getUpdateSingleMovieWatcher);
+  const updatePendingWatcher = yield fork(getUpdatePendingWatcher);
+
+  // Suspend execution until UPDATE_SINGLE_MOVIE.SUCCESS
+  yield take(LOCATION_CHANGE);
+  yield cancel(moviesWatcher);
+  yield cancel(analyseMovieWatcher);
+  yield cancel(updateSingleMovieWatcher);
+  yield cancel(updatePendingWatcher);
+}
+
+// TODO: Anulowanie sciagania naszych detaili po kazdym nowym UPDATE_MOVIE_RESULT.REQUEST i ponowne uruchomienie
+export function* getRequestSequenceDetails() {
+  // const detailsWatcher = yield fork(getDetailsWatcher);
+  //
+  // yield take(LOCATION_CHANGE);
+  // yield cancel(detailsWatcher);
+}
 /**
  * Root saga manages watcher lifecycle
  */
 
 // Bootstrap sagas
-export default [
-  getInitialRequest,
-];
+export default {
+  initial: [getInitialRequest],
+  result: [getRequestSequence, getRequestSequenceDetails]
+};
