@@ -80,6 +80,6 @@ export default function* randomizePage({ range }) {
   if (picked === null) return null;
 
   yield put(cacheRandomizedPage.request(picked.cache));
-
+  console.log('Page visited:', picked.number);
   return picked.number;
 }

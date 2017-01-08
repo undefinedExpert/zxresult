@@ -87,7 +87,7 @@ class MovieGallery extends Component {
       file_path: movie.poster_path,
     };
 
-    const backdrops = movie.images ? movie.images.backdrops : [];
+    const backdrops = movie.images ? movie.images.backdrops.slice(0, 5) : [];
     const limitedBackdrops = [poster, ...backdrops];
 
     return (
@@ -101,7 +101,7 @@ class MovieGallery extends Component {
           prevButton: null,
           lazyLoading: false,
           preloadImages: false,
-          autoplay: movie.images ? 4500 : false,
+          autoplay: movie.images ? 455500 : false,
           grabCursor: true,
           slidesPerView: 1,
           spaceBetween: 0,

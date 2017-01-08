@@ -18,6 +18,7 @@ import ProgressiveImage from 'components/general/ProgressiveImage';
  * helper: http://stackoverflow.com/questions/9815762/detect-when-an-image-fails-to-load-in-javascript
  * TODO: API endpoint shouldn't be hardcoded
  * FIXME: LoadingIndicator should be removed when image source is available, but img in w45
+ * FIXME: Images are downloading
  * size is downloading so fast so we can't even see loading indicator. It should be
  * integrated more with progressive loading
  */
@@ -46,7 +47,7 @@ class LazyImage extends Component {
 
   // Check if we did receive new "potential" image, if yes run lazyLoad, important to mention
   // is fact that imagePlaceholder has to be available in view.
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const { isActive, path } = prevProps;
 
     if ((this.props.isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
@@ -64,6 +65,7 @@ class LazyImage extends Component {
 
   // help us with firstly loading fully image and then with displaying it
   lazyLoad() {
+    console.log('lazyload runned')
     const { path, size } = this.props;
 
     // smallest size
@@ -105,7 +107,7 @@ class LazyImage extends Component {
             alt={alt}
             role={role}
             className={className}
-            isLoaded={false}
+            isActive={isActive}
             ref={img => { this.imagePlaceholder = img; }}
             onLoad={afterLoad}
           />

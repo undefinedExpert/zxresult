@@ -32,14 +32,27 @@ class ProgressiveImage extends Component {
   };
 
   // Check if we did receive new "potential" image, if yes reset sizes, and their loading status to default
-  componentWillReceiveProps({ isActive, src }) {
-    if ((src !== this.props.src) || (isActive !== this.props.isActive)) {
+  componentWillReceiveProps({ isActive, src }, {sizes}) {
+    if ((isActive && src !== this.props.src) || (isActive !== this.props.isActive)) {
       this.setState({ sizes: sizesDefault, src: null });
     }
+
+    // if (isActive !== this.props.isActive && this.state.src === null) {
+    //   this.progressiveLoad()
+    // }
+
+
   }
+
+  // componentWillUpdate(nextProps, nextState) {
+  //   if (nextState.sizes.length === 0 && !this.props.afterLoad()) {
+  //     //this.props.afterLoad()
+  //   }
+  // }
 
   // Load stack of images progressively, one after another
   progressiveLoad = () => {
+    console.log('run progressiveLoad');
     const { sizes } = this.state;
     const { src } = this.props;
 
@@ -67,17 +80,34 @@ class ProgressiveImage extends Component {
     this.setState({ sizes: newSizes, src });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isActive !== this.props.isActive) {
+      return true;
+    }
+
+    else if (nextState.src !== this.state.src) {
+      return true;
+    }
+
+    if (nextProps.src !== this.props.src) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     const { className, role, alt, src } = this.props;
+    console.log('run render');
 
+    // aktwnt sie zmienia, jednak on load juz byl wiec klops
     return (
       <img
-        src={this.state.src && src ? this.state.src : src}
+        src={this.state.src ? this.state.src : src}
         alt={alt}
         role={role}
         className={className}
-        onLoad={this.progressiveLoad}
-        onError={this.errorHandler}
+        onLoad={this.props.src ? this.progressiveLoad : null}
       />
     );
   }
@@ -87,7 +117,7 @@ ProgressiveImage.propTypes = {
   src: ptype.string,
   alt: ptype.string,
   role: ptype.string,
-  isActive: ptype.string,
+  isActive: ptype.bool,
   className: ptype.string,
   onLoad: ptype.func,
 };
