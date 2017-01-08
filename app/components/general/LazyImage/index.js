@@ -69,7 +69,7 @@ class LazyImage extends Component {
     const { path, size } = this.props;
 
     // smallest size
-    const photoSize = size || 'w45';
+    const photoSize = size || 'w154';
     const photoPath = `http://image.tmdb.org/t/p/${photoSize}${path}`;
 
     // Start downloading the image
