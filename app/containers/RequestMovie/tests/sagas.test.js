@@ -6,7 +6,6 @@
  */
 
 import { expect } from 'chai';
-import { buffers, delay } from 'redux-saga';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { call, put, select, take, fork, cancel, actionChannel } from 'redux-saga/effects';
