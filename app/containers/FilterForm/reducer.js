@@ -36,7 +36,7 @@ export const initialState = fromJS({
       voteAverageMin: null,
       voteAverageMax: null,
       voteCountMin: 150,
-      voteCountMax: null,
+      voteCountMax: 400,
     }),
     list: fromJS([
       fromJS({
@@ -51,7 +51,7 @@ export const initialState = fromJS({
         voteAverageMin: null,
         voteAverageMax: null,
         voteCountMin: 150,
-        voteCountMax: null,
+        voteCountMax: 400,
       }),
       fromJS({
         name: 'Most Popular',

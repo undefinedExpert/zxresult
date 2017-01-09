@@ -38,7 +38,7 @@ describe('filterFormReducer', () => {
           voteAverageMin: null,
           voteAverageMax: null,
           voteCountMin: 150,
-          voteCountMax: null,
+          voteCountMax: 400,
         }),
         list: fromJS([
           fromJS({
@@ -53,7 +53,7 @@ describe('filterFormReducer', () => {
             voteAverageMin: null,
             voteAverageMax: null,
             voteCountMin: 150,
-            voteCountMax: null,
+            voteCountMax: 400,
           }),
           fromJS({
             name: 'Most Popular',

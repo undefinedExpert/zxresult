@@ -105,7 +105,7 @@ export function* getKeywordListWatcher() {
 }
 
 
-export function* getMovieSagas() {
+export function* getFilterSagas() {
   const getGenresList = yield fork(getGenresListWatcher);
   const getUpdateFilters = yield fork(getUpdateFiltersWatcher);
   const getUpdateKeywords = yield fork(getKeywordListWatcher);
@@ -121,5 +121,5 @@ export function* getMovieSagas() {
 }
 
 export default [
-  getMovieSagas,
+  getFilterSagas,
 ];
