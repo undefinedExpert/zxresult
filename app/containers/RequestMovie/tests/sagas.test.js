@@ -6,8 +6,10 @@
  */
 
 import { expect } from 'chai';
+import { buffers, delay } from 'redux-saga';
+import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put, select, take, fork } from 'redux-saga/effects';
+import { call, put, select, take, fork, cancel, actionChannel } from 'redux-saga/effects';
 
 import { callApi, movieAnalyse, detectPending, mapGenres } from 'mechanisms/index';
 
@@ -30,6 +32,8 @@ import {
   getUpdatePendingWatcher,
   getDetailsWatcher,
   getInitialRequest,
+  getDetailsSeqWatcher,
+  getRequestSequence,
 } from '../sagas';
 import { selectResult } from '../selectors';
 
@@ -135,7 +139,13 @@ describe('RequestMovie saga watchers', () => {
     const constant = UPDATE_MOVIE_RESULT.REQUEST;
 
     it(`should watch for ${constant} action`, () => {
-      const taskLoop = generator.next().value;
+      const buffer = generator.next().value;
+
+      const taskChannel = generator.next(buffer).value;
+      const operationChannel = actionChannel(constant, buffer);
+      expect(taskChannel).to.be.eql(operationChannel);
+
+      const taskLoop = generator.next(constant, buffer).value;
       const operationLoop = take(constant);
       expect(taskLoop).to.be.eql(operationLoop);
 
@@ -204,59 +214,84 @@ describe('RequestMovie saga watchers', () => {
 
 describe('getMovieSagas Saga', () => {
   const movieSagas = getInitialRequest();
+  const watchersArr = [
+    getMovieWatcher,
+    getResultChangeWatcher,
+    getAnalyseMovieWatcher,
+    getUpdateSingleMovieWatcher,
+    getUpdatePendingWatcher,
+    getDetailsWatcher,
+  ];
+  const mockTask = createMockTask();
+  const mockTasksFork = [() => mockTask, () => mockTask];
+  const mockTasksCancel = [mockTask, mockTask];
 
-  it('should asynchronously fork moviesWatcher saga', () => {
+  it('should fork each element of watchers array', () => {
     const task = movieSagas.next();
-    const operation = fork(getMovieWatcher);
+    const operation = watchersArr;
 
     expect(task.value).to.be.eql(operation);
   });
 
-  it('should asynchronously fork updateUrl saga', () => {
-    const task = movieSagas.next();
-    const operation = fork(getResultChangeWatcher);
-
-    expect(task.value).to.be.eql(operation);
-  });
-
-  it('should asynchronously fork analyseMovieWatcher saga', () => {
-    const task = movieSagas.next();
-    const operation = fork(getAnalyseMovieWatcher);
-
-    expect(task.value).to.be.eql(operation);
-  });
-
-  it('should asynchronously fork getUpdateSingleMovieWatcher saga', () => {
-    const task = movieSagas.next();
-    const operation = fork(getUpdateSingleMovieWatcher);
-
-    expect(task.value).to.be.eql(operation);
-  });
-
-  it('should asynchronously fork getUpdatePendingWatcher saga', () => {
-    const task = movieSagas.next();
-    const operation = fork(getUpdatePendingWatcher);
-
-    expect(task.value).to.be.eql(operation);
-  });
-
-  it('should asynchronously fork getDetailsWatcher saga', () => {
-    const task = movieSagas.next();
-    const operation = fork(getDetailsWatcher);
+  it('should asynchronously fork each watchers', () => {
+    const task = movieSagas.next(mockTasksFork);
+    const operation = mockTasksFork.map(item => fork(item));
 
     expect(task.value).to.be.eql(operation);
   });
 
   it('should yield until LOCATION_CHANGE action', () => {
-    const task = movieSagas.next();
+    const task = movieSagas.next(mockTasksCancel);
     const operation = take(LOCATION_CHANGE);
 
     expect(task.value).to.be.eql(operation);
   });
 
-  it('Should race and cancel forks', () => {
-    // TODO: Make a working test
-    console.warn('TODO');
+  it('should asynchronously cancel each watchers', () => {
+    const task = movieSagas.next();
+    const operation = mockTasksCancel.map(item => cancel(item));
+    expect(task.value).to.be.eql(operation);
+  });
+});
+
+describe('getRequestSequence Saga', () => {
+  const movieSagas = getRequestSequence();
+  const watchersArr = [
+    getMovieWatcher,
+    getAnalyseMovieWatcher,
+    getUpdateSingleMovieWatcher,
+    getUpdatePendingWatcher,
+    getDetailsSeqWatcher,
+  ];
+  const mockTask = createMockTask();
+  const mockTasksFork = [() => mockTask, () => mockTask];
+  const mockTasksCancel = [mockTask, mockTask];
+
+  it('should fork each element of watchers array', () => {
+    const task = movieSagas.next();
+    const operation = watchersArr;
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously fork each watchers', () => {
+    const task = movieSagas.next(mockTasksFork);
+    const operation = mockTasksFork.map(item => fork(item));
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should yield until LOCATION_CHANGE action', () => {
+    const task = movieSagas.next(mockTasksCancel);
+    const operation = take(LOCATION_CHANGE);
+
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should asynchronously cancel each watchers', () => {
+    const task = movieSagas.next();
+    const operation = mockTasksCancel.map(item => cancel(item));
+    expect(task.value).to.be.eql(operation);
   });
 });
 
