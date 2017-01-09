@@ -13,25 +13,29 @@ import LazyImage from 'components/general/LazyImage';
 import styles from './styles.css';
 
 
-const MovieResultImage = (props) => (
-  <div className={className(styles.resultImage)}>
-    <div className={styles.imageContainer}>
-      <LazyImage
-        afterLoad={props.onLoad}
-        role="presentation"
-        path={props.path}
-        isActive={props.isActive}
-        className={className(styles.image)}
-        progressiveLoading
-      />
+const MovieResultImage = (props) => {
+  const { classNames, isActive = true, path, ...rest } = props;
+  return (
+    <div className={className(styles.resultImage)}>
+      <div className={styles.imageContainer}>
+        <LazyImage
+          role="presentation"
+          path={path}
+          isActive={isActive}
+          className={className(styles.image, classNames)}
+          progressiveLoading
+          {...rest}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 MovieResultImage.propTypes = {
-  path: ptype.string,
-  isActive: ptype.bool,
   onLoad: ptype.func,
+  isActive: ptype.bool,
+  classNames: ptype.string,
+  path: ptype.string.isRequired,
 };
 
 export default MovieResultImage;
