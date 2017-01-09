@@ -19,8 +19,8 @@ describe('<LazyImage />', () => {
     let path;
 
     beforeEach(() => {
-      props = { isActive: false, src: '/eslotwinski' };
-      path = `http://image.tmdb.org/t/p/w45/${props.path}`;
+      props = { isActive: false, path: '/eslotwinski' };
+      path = `http://image.tmdb.org/t/p/w154${props.path}`;
     });
 
     it('should run lazyLoad method when componentDidMount', () => {
@@ -80,10 +80,9 @@ describe('<LazyImage />', () => {
       component.setProps({ isActive: true });
 
       // After setProps reaccess to component instance and check imagePlaceholder
-      const expectedUrl = `http://image.tmdb.org/t/p/w45${props.path}`;
       imagePlaceholderSource = instance.imagePlaceholder.props.src;
-      expect(imagePlaceholderSource).to.be.eql(expectedUrl);
-      expect(component.state().src).to.eql(expectedUrl);
+      expect(imagePlaceholderSource).to.be.eql(path);
+      expect(component.state().src).to.eql(path);
     });
   });
 });

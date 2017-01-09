@@ -47,7 +47,7 @@ class LazyImage extends Component {
 
   // Check if we did receive new "potential" image, if yes run lazyLoad, important to mention
   // is fact that imagePlaceholder has to be available in view.
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { isActive, path } = prevProps;
 
     if ((this.props.isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
@@ -65,7 +65,6 @@ class LazyImage extends Component {
 
   // help us with firstly loading fully image and then with displaying it
   lazyLoad() {
-    console.log('lazyload runned')
     const { path, size } = this.props;
 
     // smallest size
@@ -96,7 +95,7 @@ class LazyImage extends Component {
   }
 
   render() {
-    const { className, role, alt, isActive, afterLoad, progressiveLoading } = this.props;
+    const { className, role, alt, isActive, onLoad, progressiveLoading } = this.props;
 
     if (progressiveLoading) {
       return (
@@ -109,7 +108,7 @@ class LazyImage extends Component {
             className={className}
             isActive={isActive}
             ref={img => { this.imagePlaceholder = img; }}
-            onLoad={afterLoad}
+            onLoad={onLoad}
           />
         </div>
       );
@@ -124,7 +123,7 @@ class LazyImage extends Component {
           role={role}
           className={className}
           ref={img => { this.imagePlaceholder = img; }}
-          onLoad={afterLoad}
+          onLoad={onLoad}
         />
       </div>
     );
@@ -138,7 +137,7 @@ LazyImage.propTypes = {
   size: ptype.string,
   isActive: ptype.bool,
   className: ptype.string,
-  afterLoad: ptype.func,
+  onLoad: ptype.func,
   progressiveLoading: ptype.bool,
 };
 

@@ -33,25 +33,20 @@ describe('<ProgressiveImage />', () => {
     expect(component.state().sizes).to.be.eql(sizesDefault);
   });
 
-  it('should load small, medium, big sizes and update their states when each finished', () => {
+  it('should load medium, big sizes and update their states when each finished', () => {
     const component = mount(<ProgressiveImage {...props} />);
 
     expect(component.state().src).to.eql(null);
     expect(component.state().sizes.length).to.eql(sizesDefault.length);
 
-    // load & check small
-    component.instance().progressiveLoad();
-    expect(component.state().src).to.eql(path.replace(/\w45/g, 'w154'));
-    expect(component.state().sizes.length).to.eql(sizesDefault.length - 1);
-
     // load & check medium
     component.instance().progressiveLoad();
-    expect(component.state().src).to.eql(path.replace(/\w45/g, 'w500'));
-    expect(component.state().sizes.length).to.eql(sizesDefault.length - 2);
+    expect(component.state().src).to.eql(path.replace(/\w154/g, 'w500'));
+    expect(component.state().sizes.length).to.eql(sizesDefault.length - 1);
 
     // load & check big
     component.instance().progressiveLoad();
-    expect(component.state().src).to.eql(path.replace(/\w45/g, 'original'));
-    expect(component.state().sizes.length).to.eql(sizesDefault.length - 3);
+    expect(component.state().src).to.eql(path.replace(/\w154/g, 'original'));
+    expect(component.state().sizes.length).to.eql(sizesDefault.length - 2);
   });
 });

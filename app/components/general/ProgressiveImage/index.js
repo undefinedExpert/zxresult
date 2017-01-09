@@ -44,11 +44,11 @@ class ProgressiveImage extends Component {
 
   }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   if (nextState.sizes.length === 0 && !this.props.afterLoad()) {
-  //     //this.props.afterLoad()
-  //   }
-  // }
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.sizes.length === 0 && !this.props.onLoad()) {
+      this.props.onLoad();
+    }
+  }
 
   // Load stack of images progressively, one after another
   progressiveLoad = () => {
