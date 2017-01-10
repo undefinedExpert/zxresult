@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import { isArray } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
@@ -25,33 +26,39 @@ export const sizesDefault = [mediumDefaultState, bigDefaultState];
  */
 class ProgressiveImage extends Component {
   state = {
-    src: null,
-    sizes: sizesDefault,
+    src: this.props.src,
+    sizes: this.convertSizesToPatterns(this.props.sizes, this.props.sizes[0]),
+    ref: this.props.ref,
   };
 
-  // Check if we did receive new "potential" image, if yes reset sizes, and their loading status to default
-  componentWillReceiveProps({ isActive, src }) {
-    if ((isActive && src !== this.props.src) || (isActive !== this.props.isActive)) {
-      this.setState({ sizes: sizesDefault, src: null });
+  componentDidMount() {
+    if (this.state.sizes.length) {
+      this.placeholder.addEventListener('load', this.progressiveLoad.bind(this));
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.isActive !== this.props.isActive) {
-      return true;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.src !== this.props.src) {
+      this.setState(({ sizes: this.convertSizesToPatterns(nextProps.sizes, nextProps.sizes[0]), src: nextProps.src }));
     }
-
-    else if (nextState.src !== this.state.src) {
-      return true;
-    }
-
-    return nextProps.src !== this.props.src;
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.sizes.length === 0 && !this.props.onLoad()) {
-      this.props.onLoad();
-    }
+  componentWillUnmount() {
+    this.placeholder.removeEventListener('load', this.progressiveLoad);
+  }
+
+  convertSizesToPatterns(sizes, defaultSize) {
+    const temp = [];
+    const newSizes = sizes.filter(item => item !== defaultSize);
+
+    newSizes.forEach((nextSize) => {
+      const prevPattern = `p/${defaultSize}`;
+      const nextPattern = `p/${nextSize}`;
+
+      temp.push(convertToPattern(prevPattern, nextPattern));
+    });
+
+    return temp;
   }
 
   // Load stack of images progressively, one after another
@@ -59,52 +66,37 @@ class ProgressiveImage extends Component {
     const { sizes } = this.state;
     const { src } = this.props;
 
-    if (sizes.length) {
+    if (sizes.length > 0) {
       const whichToLoad = this.state.sizes[0](src);
-      this.sizeLoading(whichToLoad);
-    }
-
-    if (this.props.onLoad && this.state.sizes.length > 2) {
-      this.props.onLoad();
+      this.updateSrc(whichToLoad);
     }
   };
 
-  errorHandler = () => {
-    if (this.state.sizes.length) {
-      this.progressiveLoad();
-    }
-    else {
-      this.sizeLoading(this.props.src);
-    }
+  updateSrc = (src) => {
+    this.setState((prevState) => ({ sizes: prevState.sizes.slice(1), src }));
   };
 
-  sizeLoading(src) {
-    const newSizes = this.state.sizes.slice(1);
-    this.setState({ sizes: newSizes, src });
-  }
+  formatChildren = () => {
+    const { src } = this.state;
+    const { children } = this.props;
+
+    return React.Children.map(children, (child => React.cloneElement(child, { src, ref: (img) => { this.placeholder = img; } })));
+  };
 
   render() {
-    const { className, role, alt, src } = this.props;
+    const newChildren = this.formatChildren();
     return (
-      <img
-        src={this.state.src ? this.state.src : src}
-        alt={alt}
-        role={role}
-        className={className}
-        onLoad={this.props.src ? this.progressiveLoad : null}
-        onAbort={this.errorHandler}
-      />
+      <div>
+        {newChildren}
+      </div>
     );
   }
 }
 
 ProgressiveImage.propTypes = {
-  src: ptype.string,
-  alt: ptype.string,
-  role: ptype.string,
-  isActive: ptype.bool,
-  className: ptype.string,
-  onLoad: ptype.func,
+  src: ptype.string.isRequired,
+  children: ptype.node.isRequired,
+  sizes: ptype.array.isRequired,
 };
 
 export default ProgressiveImage;

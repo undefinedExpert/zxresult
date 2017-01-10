@@ -16,37 +16,46 @@ describe('<ProgressiveImage />', () => {
   let path;
   let props;
   beforeEach(() => {
-    path = 'http://image.tmdb.org/t/p/w45/viPjZ3JCOahcfNCcVhiPExusJoZ.jpg';
-    props = { isActive: false, src: path };
+    path = 'size1/eslotwinski';
+    props = { src: path, sizes: ['size1', 'size2', 'size3'] };
   });
 
   it('Should reset state sizes each time when there will be new result', () => {
-    const component = mount(<ProgressiveImage {...props} />);
+    const component = mount(
+      <ProgressiveImage {...props} >
+        <img alt="" />
+      </ProgressiveImage>
+    );
 
     // simulate loading "image"
-    const newState = sizesDefault.slice(1);
-    component.setState({ sizes: newState });
-    expect(component.state().sizes.length).to.eql(newState.length);
+    component.instance().progressiveLoad();
+
+    // one loaded and one removed
+    const newSize = props.sizes.slice(2);
+    expect(component.state().sizes.length).to.eql(newSize.length);
 
     // check if reset when prop changed
-    component.setProps({ isActive: true });
-    expect(component.state().sizes).to.be.eql(sizesDefault);
+    // component.setProps({ src: 'new' });
+    // expect(component.state().sizes.length).to.be.eql(newState);
   });
 
   it('should load medium, big sizes and update their states when each finished', () => {
-    const component = mount(<ProgressiveImage {...props} />);
+    const component = mount(
+      <ProgressiveImage {...props} >
+        <img alt="" />
+      </ProgressiveImage>
+    );
 
-    expect(component.state().src).to.eql(null);
-    expect(component.state().sizes.length).to.eql(sizesDefault.length);
+    expect(component.state().src).to.eql(path);
+    expect(component.state().sizes.length).to.eql(props.sizes.length - 1);
 
-    // load & check medium
-    component.instance().progressiveLoad();
-    expect(component.state().src).to.eql(path.replace(/\w154/g, 'w500'));
-    expect(component.state().sizes.length).to.eql(sizesDefault.length - 1);
+    // loop over all sizes and load each size
+    component.state().sizes.forEach((nextSize) => {
+      component.instance().progressiveLoad();
 
-    // load & check big
-    component.instance().progressiveLoad();
-    expect(component.state().src).to.eql(path.replace(/\w154/g, 'original'));
-    expect(component.state().sizes.length).to.eql(sizesDefault.length - 2);
+      const prevSize = props.sizes[0];
+      const expectedPath = path.replace(prevSize, nextSize);
+      expect(component.state().src).to.eql(expectedPath);
+    });
   });
 });

@@ -22,14 +22,13 @@ import styles from './styles.css';
  */
 class MovieGallery extends Component {
   state = {
-    isFetching: false,
     activeIndex: [0],
-    shouldSlideAndLoad: false,
+    shouldSlideAndLoad: null,
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.movie.original_title !== this.props.movie.original_title) {
-      this.setState({ activeIndex: [0], shouldSlideAndLoad: false });
+      this.setState({ activeIndex: [0], shouldSlideAndLoad: null });
     }
   }
 
@@ -50,6 +49,7 @@ class MovieGallery extends Component {
       return true;
     }
 
+    // Helper method for SwipeBlock, help SwipeBlock determine when poster image were loaded.
     else if (nextState.shouldSlideAndLoad !== this.state.shouldSlideAndLoad) {
       return true;
     }
@@ -57,11 +57,7 @@ class MovieGallery extends Component {
     return false;
   }
 
-  handleMountSwiper = (activeIndex) => {
-    this.changeActiveSlideIndex(activeIndex);
-  };
-
-  handleNextSlide = (activeIndex) => {
+  handleChangeIndex = (activeIndex) => {
     this.changeActiveSlideIndex(activeIndex);
   };
 
@@ -71,60 +67,62 @@ class MovieGallery extends Component {
     }
   }
 
-  // Helper method for SwipeBlock, help SwipeBlock determine when
-  // poster image were downloaded.
+  // Helper method for SwipeBlock, help SwipeBlock determine when poster image were loaded.
   shouldLoadAndSlide = () => {
     this.setState({ shouldSlideAndLoad: true });
   };
 
-  renderChildren = (limitedBackdrops) => (
-    limitedBackdrops.map((item, index) => this.renderImage(item, index))
-  );
+  swipeConfig = {
+    observeParents: false,
+    observer: true,
+    lazyPreloaderClass: 'swiper-loading-indicator',
+    lazyLoadingInPrevNext: false,
+    nextButton: null,
+    prevButton: null,
+    lazyLoading: false,
+    preloadImages: false,
+    autoplay: 455500,
+    grabCursor: true,
+    slidesPerView: 1,
+    spaceBetween: 0,
+  };
 
-  renderImages = () => {
+  renderSwipeBlock = () => {
     const { movie } = this.props;
     const poster = {
       file_path: movie.poster_path,
+      aspect_ratio: 0.666666666666667,
     };
 
-    const backdrops = movie.images ? movie.images.backdrops.slice(0, 5) : [];
+    const backdrops = movie.images ? movie.images.backdrops : [];
     const limitedBackdrops = [poster, ...backdrops];
 
+    const swipeBlockProps = {
+      swiperConfig: this.swipeConfig,
+      className: styles.swipeBlock,
+      onSwiperMount: this.handleChangeIndex,
+      onNextSlide: this.handleChangeIndex,
+      startAutoplay: this.state.activeIndex.length === 1,
+      shouldLoadAndSlide: this.state.shouldSlideAndLoad,
+      activeIndex: this.state.activeIndex.length,
+    };
     return (
-      <SwipeBlock
-        swiperConfig={{
-          observeParents: false,
-          observer: true,
-          lazyPreloaderClass: 'swiper-loading-indicator',
-          lazyLoadingInPrevNext: false,
-          nextButton: null,
-          prevButton: null,
-          lazyLoading: false,
-          preloadImages: false,
-          autoplay: movie.images ? 455500 : false,
-          grabCursor: true,
-          slidesPerView: 1,
-          spaceBetween: 0,
-        }}
-        className={styles.swipeBlock}
-        onSwiperMount={this.handleMountSwiper}
-        onNextSlide={this.handleNextSlide}
-        startAutoplay={this.state.activeIndex.length === 1}
-        shouldLoadAndSlide={this.state.shouldSlideAndLoad}
-        activeIndex={this.state.activeIndex.length}
-      >
+      <SwipeBlock {...swipeBlockProps}>
         {this.renderChildren(limitedBackdrops)}
       </SwipeBlock>
     );
   };
 
+  renderChildren = (limitedBackdrops) => (
+    limitedBackdrops.map((item, index) => this.renderImage(item, index)).slice(0, 10)
+  );
+
   renderImage = (img, index) => {
     const isActive = this.state.activeIndex.includes(index);
     return (
-      img.file_path ? <ResultImage key={index} path={img.file_path} alt={'test'} isActive={isActive} onLoad={this.shouldLoadAndSlide} /> : <BlankImage className={styles.blankImage} />
+      <ResultImage onLoad={index === 0 ? this.shouldLoadAndSlide : null} key={index} image={img} isActive={isActive} />
     );
   };
-
 
   render() {
     const { movie } = this.props;
@@ -132,7 +130,7 @@ class MovieGallery extends Component {
 
     return (
       <Section className={cs}>
-        {this.renderImages(movie)}
+        {this.renderSwipeBlock(movie)}
       </Section>
     );
   }

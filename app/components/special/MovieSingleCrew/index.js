@@ -18,10 +18,12 @@ import styles from './styles.css';
  * @memberOf MovieCrewList
  */
 function MovieSingleCrew(item) {
+  const photoPath = `http://image.tmdb.org/t/p/w154${item.profile_path}`;
+
   return (
     <div className={styles.container}>
       <div className={styles.image}>
-        {item.profile_path ? <LazyImage size="w154" path={item.profile_path} alt={item.alt} isActive /> : <BlankImage />}
+        {/*{item.profile_path ? <LazyImage src={photoPath} alt={item.alt} /> : <BlankImage />}*/}
       </div>
       <h4 className={styles.name}>{item.name}</h4>
       <h5 className={styles.character}>

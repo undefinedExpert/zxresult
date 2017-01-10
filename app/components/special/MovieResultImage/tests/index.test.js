@@ -16,8 +16,11 @@ import MovieResultImage from '../index';
 describe('<MovieResultImage />', () => {
   let renderComponent;
   const props = {
-    path: '/s1EBTUtrX4tKuawlapyDLig3sF9.jpg',
     alt: 'test',
+    image: {
+      aspect_ratio: '0.6666',
+      file_path: '/s1EBTUtrX4tKuawlapyDLig3sF9.jpg',
+    },
   };
   beforeEach(() => {
     renderComponent = mount(<MovieResultImage {...props} />, {});

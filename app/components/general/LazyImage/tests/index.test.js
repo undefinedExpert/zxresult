@@ -16,19 +16,21 @@ import LazyImage from '../index';
 describe('<LazyImage />', () => {
   describe('Methods', () => {
     let props;
-    let path;
+    let mockup;
 
     beforeEach(() => {
-      props = { isActive: false, path: '/eslotwinski' };
-      path = `http://image.tmdb.org/t/p/w154${props.path}`;
+      props = { src: '/eslotwinski' };
+      mockup = (
+        <LazyImage src={props.src}>
+          <img role="presentation" />
+        </LazyImage>
+      );
     });
 
     it('should run lazyLoad method when componentDidMount', () => {
       const didMount = sinon.spy(LazyImage.prototype, 'componentDidMount');
       const lazyLoad = sinon.spy(LazyImage.prototype, 'lazyLoad');
-
-      props.isActive = true;
-      mount(<LazyImage {...props} />);
+      mount(mockup);
 
       expect(didMount.calledOnce).to.eql(true);
       expect(lazyLoad.calledOnce).to.eql(true);
@@ -40,10 +42,7 @@ describe('<LazyImage />', () => {
     it('should run lazyLoad method when componentDidUpdate', () => {
       const lazyLoad = sinon.spy(LazyImage.prototype, 'lazyLoad');
 
-      const component = mount(<LazyImage {...props} />);
-      expect(lazyLoad.calledOnce).to.eql(false);
-
-      component.setProps({ isActive: true });
+      mount(mockup);
       expect(lazyLoad.calledOnce).to.eql(true);
 
       lazyLoad.restore();
@@ -52,15 +51,15 @@ describe('<LazyImage />', () => {
     it('should break downloading when component componentWillUnmount and we are still downloading image', () => {
       const willUnmount = sinon.spy(LazyImage.prototype, 'componentWillUnmount');
       const replaceLazyLoadImageStub = sinon.stub(LazyImage.prototype, 'replaceLazyLoadImage');
-      const component = mount(<LazyImage {...props} />);
+      const component = mount(mockup);
       const instance = component.instance();
 
       expect(willUnmount.calledOnce).to.eql(false);
 
       // Simulate downloading image
       const loadImage = instance.lazyLoadedImage = new Image();
-      loadImage.src = path;
-      expect(instance.lazyLoadedImage.attributes.src.value).to.eql(path);
+      loadImage.src = props.src;
+      expect(instance.lazyLoadedImage.attributes.src.value).to.eql(props.src);
 
       // Break image downloading when it's in progress
       component.unmount();
@@ -70,19 +69,12 @@ describe('<LazyImage />', () => {
       willUnmount.restore();
     });
 
-    it('should mount component and when isActive become true, set state.src to photo path', () => {
-      const component = mount(<LazyImage {...props} progressiveLoading />);
+    it('should mount component set state.src to imagePlaceholder src', () => {
+      const component = mount(mockup);
       const instance = component.instance();
 
-      let imagePlaceholderSource = instance.imagePlaceholder.props.src;
-      expect(imagePlaceholderSource).to.be.eql(null);
-
-      component.setProps({ isActive: true });
-
-      // After setProps reaccess to component instance and check imagePlaceholder
-      imagePlaceholderSource = instance.imagePlaceholder.props.src;
-      expect(imagePlaceholderSource).to.be.eql(path);
-      expect(component.state().src).to.eql(path);
+      expect(instance.imagePlaceholder.attributes.src.value).to.be.eql(props.src);
+      expect(component.state().src).to.eql(props.src);
     });
   });
 });

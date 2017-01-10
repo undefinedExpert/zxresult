@@ -18,7 +18,6 @@ import ProgressiveImage from 'components/general/ProgressiveImage';
  * helper: http://stackoverflow.com/questions/9815762/detect-when-an-image-fails-to-load-in-javascript
  * TODO: API endpoint shouldn't be hardcoded
  * FIXME: LoadingIndicator should be removed when image source is available, but img in w45
- * FIXME: Images are downloading
  * size is downloading so fast so we can't even see loading indicator. It should be
  * integrated more with progressive loading
  */
@@ -40,7 +39,7 @@ class LazyImage extends Component {
   // Check if mounted image isActive (visible), if yes run lazyLoading
   // Also it won't run if there is no imagePlaceholder
   componentDidMount() {
-    if (this.imagePlaceholder && this.props.isActive) {
+    if (this.imagePlaceholder) {
       this.lazyLoad();
     }
   }
@@ -48,9 +47,9 @@ class LazyImage extends Component {
   // Check if we did receive new "potential" image, if yes run lazyLoad, important to mention
   // is fact that imagePlaceholder has to be available in view.
   componentDidUpdate(prevProps) {
-    const { isActive, path } = prevProps;
+    const { src } = prevProps;
 
-    if ((this.props.isActive && path !== this.props.path) || (isActive !== this.props.isActive)) {
+    if (src !== this.props.src) {
       this.lazyLoad();
     }
   }
@@ -65,15 +64,13 @@ class LazyImage extends Component {
 
   // help us with firstly loading fully image and then with displaying it
   lazyLoad() {
-    const { path, size } = this.props;
+    const { src } = this.props;
 
     // smallest size
-    const photoSize = size || 'w154';
-    const photoPath = `http://image.tmdb.org/t/p/${photoSize}${path}`;
 
     // Start downloading the image
     this.lazyLoadedImage = new Image();
-    this.lazyLoadedImage.setAttribute('src', photoPath);
+    this.lazyLoadedImage.setAttribute('src', src);
 
     // When new image will be downloaded, invoke replaceLazyLoadImage
     this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage());
@@ -95,50 +92,27 @@ class LazyImage extends Component {
   }
 
   render() {
-    const { className, role, alt, isActive, onLoad, progressiveLoading } = this.props;
+    const { children, ...rest } = this.props;
 
-    if (progressiveLoading) {
-      return (
-        <div>
-          {this.state.src ? <LoadingIndicator /> : null}
-          <ProgressiveImage
-            src={this.state.src && isActive ? this.state.src : null}
-            alt={alt}
-            role={role}
-            className={className}
-            isActive={isActive}
-            ref={img => { this.imagePlaceholder = img; }}
-            onLoad={onLoad}
-          />
-        </div>
-      );
-    }
+    const childProps = {
+      src: this.state.src ? this.state.src : null,
+      ref: img => { this.imagePlaceholder = img; },
+      ...rest,
+    };
+    const newChildren = React.cloneElement(children, childProps);
 
     return (
       <div>
         {this.state.src ? <LoadingIndicator /> : null}
-        <img
-          src={this.state.src && isActive ? this.state.src : null}
-          alt={alt}
-          role={role}
-          className={className}
-          ref={img => { this.imagePlaceholder = img; }}
-          onLoad={onLoad}
-        />
+        {newChildren}
       </div>
     );
   }
 }
 
 LazyImage.propTypes = {
-  alt: ptype.string,
-  path: ptype.string,
-  role: ptype.string,
-  size: ptype.string,
-  isActive: ptype.bool,
-  className: ptype.string,
-  onLoad: ptype.func,
-  progressiveLoading: ptype.bool,
+  children: ptype.node,
+  src: ptype.string.isRequired,
 };
 
 export default LazyImage;
