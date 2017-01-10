@@ -23,11 +23,6 @@
   }
 }
 
-.blankImage {
-  width: 100%;
-  min-height: calc(100vh - 50px);
-}
-
 .swipeBlock {
   position: relative;
   min-height: 350px;

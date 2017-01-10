@@ -9,7 +9,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-import ProgressiveImage, { sizesDefault } from '../index';
+import ProgressiveImage from '../index';
 
 
 describe('<ProgressiveImage />', () => {
@@ -26,12 +26,8 @@ describe('<ProgressiveImage />', () => {
         <img alt="" />
       </ProgressiveImage>
     );
-
-    // simulate loading "image"
-    component.instance().progressiveLoad();
-
-    // one loaded and one removed
-    const newSize = props.sizes.slice(2);
+    // Removing defaultFirst value
+    const newSize = props.sizes.slice(1);
     expect(component.state().sizes.length).to.eql(newSize.length);
 
     // check if reset when prop changed
@@ -46,7 +42,7 @@ describe('<ProgressiveImage />', () => {
       </ProgressiveImage>
     );
 
-    expect(component.state().src).to.eql(path);
+    expect(component.instance().placeholder.getAttribute('src')).to.eql(path);
     expect(component.state().sizes.length).to.eql(props.sizes.length - 1);
 
     // loop over all sizes and load each size
@@ -55,7 +51,7 @@ describe('<ProgressiveImage />', () => {
 
       const prevSize = props.sizes[0];
       const expectedPath = path.replace(prevSize, nextSize);
-      expect(component.state().src).to.eql(expectedPath);
+      expect(component.instance().placeholder.getAttribute('src')).to.eql(expectedPath);
     });
   });
 });

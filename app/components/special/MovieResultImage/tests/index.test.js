@@ -7,14 +7,14 @@
 
 import React from 'react';
 import { expect } from 'chai';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import MovieResultImage from '../index';
-
 
 // TODO: Write a test which will cover image loading
 describe('<MovieResultImage />', () => {
   let renderComponent;
+  let sizes;
   const props = {
     alt: 'test',
     image: {
@@ -23,11 +23,23 @@ describe('<MovieResultImage />', () => {
     },
   };
   beforeEach(() => {
-    renderComponent = mount(<MovieResultImage {...props} />, {});
+    renderComponent = shallow(<MovieResultImage {...props} />, {});
+    sizes = props.image.aspect_ratio < 1 ? ['w185', 'w780', 'original'] : ['w45', 'w780', 'original'];
   });
 
-  it('Should render image with appropriate src', () => {
-    const expected = renderComponent.find('img');
-    expect(expected).to.have.length(1);
+  it('Should render all required components', (done) => {
+    const expected = renderComponent;
+    setTimeout(() => {
+      expect(expected.find('img')).to.have.length(1);
+      expect(expected.find('LazyImage')).to.have.length(1);
+      expect(expected.find('LoadingIndicator')).to.have.length(0);
+      expect(expected.find('ProgressiveImage')).to.have.length(1);
+      done();
+    }, 0);
+  });
+
+  it('Should pick appropriate size from ratio', () => {
+    const expected = renderComponent;
+    expect(expected.find('LazyImage').prop('src').includes(sizes[0])).to.eql(true);
   });
 });

@@ -23,7 +23,7 @@ function MovieSingleCrew(item) {
   return (
     <div className={styles.container}>
       <div className={styles.image}>
-        {/*{item.profile_path ? <LazyImage src={photoPath} alt={item.alt} /> : <BlankImage />}*/}
+        {item.profile_path ? <LazyImage src={photoPath} ><img alt={item.alt} /></LazyImage> : <BlankImage />}
       </div>
       <h4 className={styles.name}>{item.name}</h4>
       <h5 className={styles.character}>

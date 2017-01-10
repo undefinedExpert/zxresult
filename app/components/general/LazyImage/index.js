@@ -6,10 +6,7 @@
  */
 
 import React, { PropTypes as ptype, Component } from 'react';
-
 import LoadingIndicator from 'components/general/LoadingIndicator';
-import ProgressiveImage from 'components/general/ProgressiveImage';
-
 
 /**
  * LazyImage
@@ -39,22 +36,26 @@ class LazyImage extends Component {
   // Check if mounted image isActive (visible), if yes run lazyLoading
   // Also it won't run if there is no imagePlaceholder
   componentDidMount() {
-    if (this.imagePlaceholder) {
+    if (this.props.src) {
       this.lazyLoad();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.src !== this.state.src) {
+      // Allow us to change image replacment, when src == null prev image will dissapair
+      // this.setState({ src: null });
     }
   }
 
   // Check if we did receive new "potential" image, if yes run lazyLoad, important to mention
   // is fact that imagePlaceholder has to be available in view.
-  componentDidUpdate(prevProps) {
-    const { src } = prevProps;
-
+  componentDidUpdate({ src }) {
     if (src !== this.props.src) {
       this.lazyLoad();
     }
   }
 
-  // Stop image from being downloaded when new result occur
   componentWillUnmount() {
     if (!this.lazyLoadedImage) return;
 
@@ -66,24 +67,19 @@ class LazyImage extends Component {
   lazyLoad() {
     const { src } = this.props;
 
-    // smallest size
-
     // Start downloading the image
     this.lazyLoadedImage = new Image();
     this.lazyLoadedImage.setAttribute('src', src);
 
     // When new image will be downloaded, invoke replaceLazyLoadImage
-    this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage());
+    this.lazyLoadedImage.addEventListener('load', this.replaceLazyLoadImage);
   }
 
   // Handles swapping src of lazyloaded image with our imagePlaceholder
   replaceLazyLoadImage() {
     // Check if imagePlaceholder is still in view, and lazyLoadedImage exist
-    if (this.imagePlaceholder && this.lazyLoadedImage) {
-      // swap both placeholder and just loaded image src's
+    if (this.lazyLoadedImage) {
       const source = this.lazyLoadedImage.getAttribute('src');
-
-      // Set src to new image source
       this.setState({ src: source });
 
       // Remove lazy loaded image
@@ -92,19 +88,17 @@ class LazyImage extends Component {
   }
 
   render() {
-    const { children, ...rest } = this.props;
-
+    const { children } = this.props;
     const childProps = {
       src: this.state.src ? this.state.src : null,
-      ref: img => { this.imagePlaceholder = img; },
-      ...rest,
     };
-    const newChildren = React.cloneElement(children, childProps);
+    const formattedChildren = React.Children.map(children, (child => React.cloneElement(child, childProps)));
 
     return (
       <div>
-        {this.state.src ? <LoadingIndicator /> : null}
-        {newChildren}
+        {!childProps.src ? <LoadingIndicator /> : null}
+
+        {this.state.src ? formattedChildren : null}
       </div>
     );
   }
@@ -112,7 +106,10 @@ class LazyImage extends Component {
 
 LazyImage.propTypes = {
   children: ptype.node,
-  src: ptype.string.isRequired,
+  src: ptype.oneOfType([
+    ptype.string,
+    ptype.null,
+  ]),
 };
 
 export default LazyImage;

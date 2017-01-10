@@ -67,7 +67,6 @@ class SwipeBlock extends Component {
   componentDidUpdate() {
     // make slide to poster(index 0). Detect here if we downloaded poster and we are ready to slide
     if (this.props.shouldLoadAndSlide && this.swiper.index !== 1 && this.props.activeIndex === 1) {
-      console.log('slide?')
       this.swiper.slideTo(0, 0);
     }
 

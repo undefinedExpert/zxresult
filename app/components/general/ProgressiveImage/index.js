@@ -5,20 +5,10 @@
  *  3. Module
  */
 
-import { isArray } from 'lodash';
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
 
-
-/**
- * @desc Default values for image size loaders. loaded is a representation of: Is this image size is loaded?
- * Pattern is a function which replace specific part of URL, so we could download bigger image.
- * TODO: sizes sets should not be hardcoded
- */
-const mediumDefaultState = convertToPattern(/p\/w154/g, 'p/w500');
-const bigDefaultState = convertToPattern(/p\/w154/g, 'p/original');
-export const sizesDefault = [mediumDefaultState, bigDefaultState];
 
 /**
  * ProgressiveImage
@@ -26,33 +16,33 @@ export const sizesDefault = [mediumDefaultState, bigDefaultState];
  */
 class ProgressiveImage extends Component {
   state = {
-    src: this.props.src,
     sizes: this.convertSizesToPatterns(this.props.sizes, this.props.sizes[0]),
-    ref: this.props.ref,
   };
 
-  componentDidMount() {
-    if (this.state.sizes.length) {
-      this.placeholder.addEventListener('load', this.progressiveLoad.bind(this));
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
+    // Reset properties and break image downloading
     if (nextProps.src !== this.props.src) {
-      this.setState(({ sizes: this.convertSizesToPatterns(nextProps.sizes, nextProps.sizes[0]), src: nextProps.src }));
+      this.setState(({ sizes: this.convertSizesToPatterns(nextProps.sizes, nextProps.sizes[0]), src: null }));
+      this.placeholder.removeEventListener('load', this.updateSrc);
+      this.lazyLoadedImage.setAttribute('src', '');
+      this.placeholder.setAttribute('src', '');
     }
   }
 
   componentWillUnmount() {
-    this.placeholder.removeEventListener('load', this.progressiveLoad);
+    if (!this.lazyLoadedImage) return;
+
+    // Abort image loading
+    this.lazyLoadedImage.setAttribute('src', '');
+    this.placeholder.removeEventListener('load', this.updateSrc);
   }
 
   convertSizesToPatterns(sizes, defaultSize) {
     const temp = [];
     const newSizes = sizes.filter(item => item !== defaultSize);
 
-    newSizes.forEach((nextSize) => {
-      const prevPattern = `p/${defaultSize}`;
+    newSizes.forEach((nextSize, index) => {
+      const prevPattern = `p/${sizes[index]}`;
       const nextPattern = `p/${nextSize}`;
 
       temp.push(convertToPattern(prevPattern, nextPattern));
@@ -63,24 +53,34 @@ class ProgressiveImage extends Component {
 
   // Load stack of images progressively, one after another
   progressiveLoad = () => {
-    const { sizes } = this.state;
-    const { src } = this.props;
+    if (this.state.sizes.length > 0) {
+      const path = this.state.src || this.props.src;
+      const whichToLoad = this.state.sizes[0](path);
 
-    if (sizes.length > 0) {
-      const whichToLoad = this.state.sizes[0](src);
-      this.updateSrc(whichToLoad);
+      this.lazyLoadedImage = new Image();
+      this.lazyLoadedImage.src = whichToLoad;
+      this.lazyLoadedImage.addEventListener('load', this.updateSrc.bind(this));
     }
   };
 
-  updateSrc = (src) => {
-    this.setState((prevState) => ({ sizes: prevState.sizes.slice(1), src }));
+  updateSrc = () => {
+    // Temp hack for making swiper slides change working
+    // Remove that at future
+    if (this.props.onLoad && (this.props.sizes.length - this.state.sizes.length) === 1) this.props.onLoad();
+
+    const path = this.state.src || this.props.src;
+    const src = this.state.sizes[0](path);
+    this.setState((prevState) => ({
+      sizes: prevState.sizes.slice(1),
+      src,
+    }));
   };
 
   formatChildren = () => {
-    const { src } = this.state;
     const { children } = this.props;
+    const path = this.state.src ? this.state.src : this.props.src;
 
-    return React.Children.map(children, (child => React.cloneElement(child, { src, ref: (img) => { this.placeholder = img; } })));
+    return React.Children.map(children, (child => React.cloneElement(child, { src: path, ref: (img) => { this.placeholder = img; }, onLoad: this.progressiveLoad })));
   };
 
   render() {
@@ -94,9 +94,13 @@ class ProgressiveImage extends Component {
 }
 
 ProgressiveImage.propTypes = {
-  src: ptype.string.isRequired,
-  children: ptype.node.isRequired,
+  src: ptype.oneOfType([
+    ptype.string,
+    ptype.null,
+  ]),
   sizes: ptype.array.isRequired,
+  onLoad: ptype.func.isRequired,
+  children: ptype.node.isRequired,
 };
 
 export default ProgressiveImage;

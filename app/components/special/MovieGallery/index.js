@@ -9,7 +9,6 @@ import React, { PropTypes as ptype, Component } from 'react';
 
 import Section from 'components/general/Section';
 import SwipeBlock from 'components/general/SwipeBlock';
-import BlankImage from 'components/general/BlankImage';
 import ResultImage from 'components/special/MovieResultImage';
 
 import styles from './styles.css';
@@ -114,20 +113,20 @@ class MovieGallery extends Component {
   };
 
   renderChildren = (limitedBackdrops) => (
-    limitedBackdrops.map((item, index) => this.renderImage(item, index)).slice(0, 10)
+    limitedBackdrops.slice(0, 10).map((item, index) => this.renderImage(item, index))
   );
 
   renderImage = (img, index) => {
     const isActive = this.state.activeIndex.includes(index);
+    // TODO: [rzemoesc shouldLoadAndSlide do swipeblock
     return (
-      <ResultImage onLoad={index === 0 ? this.shouldLoadAndSlide : null} key={index} image={img} isActive={isActive} />
+    isActive ? <ResultImage onLoad={index === 0 ? this.shouldLoadAndSlide : null} key={index} image={img} /> : null
     );
   };
 
   render() {
     const { movie } = this.props;
     const cs = styles.gallery;
-
     return (
       <Section className={cs}>
         {this.renderSwipeBlock(movie)}
