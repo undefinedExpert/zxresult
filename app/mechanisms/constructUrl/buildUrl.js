@@ -14,7 +14,7 @@ import { apiUrl, apiKey } from 'containers/App/constants';
 
 /**
  * pairValueAndRef
- * @desc Pairs our values with they api references
+ * @desc Pairs each filter value with it's api references
  *
  * @param {Object|number} filter - Current filter on which we will operate
  * @param {Array|null} ref - api reference
@@ -47,7 +47,7 @@ export function pairValueAndRef(filter, ref) {
 
 /**
  * pairParams
- * @desc Pairs our values with they api references
+ * @desc Pairs all our filters params
  * @param {Object} filters
  *
  * @return {Object} - paired filters with they api refs
@@ -74,7 +74,7 @@ export function pairParams(filters) {
  * @param {String} endpoint - Url endpoint we wish to reach
  *
  * - handle apiUrl && apiKey potential errors.
- * - if there is no filters
+ * - if our filters exist
  *
  * TODO: move ApiUrl and apiKey error handler from this function
  * @return {String} - Constructed URL

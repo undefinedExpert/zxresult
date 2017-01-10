@@ -18,7 +18,6 @@ import { cacheRandomizedPage } from 'containers/FilterForm/actions';
  * Creates preFilled array, makes a copy of it with a shuffle. Returns random element and removes it from our collection so we can
  * push updated collection into our cache.
  *
- * TODO: Refactor this func to be a generator.
  * @param {Number} collectionSize - Current range of pages, basing on filters
  * @param {Array|null} cache - What pages we still can pick
  *
