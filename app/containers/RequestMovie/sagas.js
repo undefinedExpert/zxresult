@@ -67,33 +67,23 @@ export function* getAnalyseMovie() {
  * @desc Map result genrr_ids with their names, Push single result into user, removes it from pending list
  */
 export function* pushSingleResult() {
-  const { pending } = yield select(selectResult());
-  const singlePendingMovie = pending[0];
-
   try {
+    const { pending } = yield select(selectResult());
+
+    // Add genre names to result
+    const singlePendingMovie = pending[0];
     singlePendingMovie.genres = yield call(mapGenres, singlePendingMovie);
-  }
-  catch (error) {
-    console.error(error);
-    yield put(updateMovieResult.failure(error));
-  }
 
-  try {
+    // Update pending movie
     yield put(updateMovieResult.success(singlePendingMovie));
-  }
-  catch (error) {
-    console.error(error);
-    yield put(updateMovieResult.failure(error));
-  }
 
-  // Reduce pending movies by item user just take
-  const newPending = pending.slice(1);
-  try {
+    // Reduce pending movies by item user just take
+    const newPending = pending.slice(1);
     yield put(updateSingleMovie.success(newPending));
   }
   catch (error) {
     console.error(error);
-    yield put(updateSingleMovie.failure(error));
+    yield put(updateMovieResult.failure(error));
   }
 }
 
@@ -112,10 +102,9 @@ export function* getUpdateUrl() {
  * @desc Get details of our movie after short amount of time, we got 40req per 10sec limit, be careful with it
  */
 export function* details() {
-  const { active } = yield select(selectResult());
-  const endpoint = `/movie/${active.id}`;
-
   try {
+    const { active } = yield select(selectResult());
+    const endpoint = `/movie/${active.id}`;
     const { data } = yield call(callApi, endpoint, { append_to_response: ['images', 'credits'] }, false);
     const merged = _.merge(data, active);
     yield put(getDetails.success(merged));
@@ -149,10 +138,8 @@ export function* details() {
 export function* getMovieWatcher() {
   // yield buffer for tests
   // https://github.com/redux-saga/redux-saga/issues/727
-
   const requestChan = yield actionChannel(UPDATE_MOVIE_RESULT.REQUEST, yield buffers.sliding(1));
-  while (true) {
-    yield take(requestChan);
+  while (yield take(requestChan)) {
     yield call(getMovie);
   }
 }
@@ -182,13 +169,12 @@ export function* getDetailsWatcher() {
 }
 
 export function* getWatching() {
-  yield call(delay, 210); // debounces details call
+  yield call(delay, 210);
   yield call(details);
 }
 
 export function* getDetailsSeqWatcher() {
-  while (true) {
-    yield take(UPDATE_SINGLE_MOVIE.SUCCESS);
+  while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) {
     yield race({
       call: call(getWatching),
       cancel: take(UPDATE_SINGLE_MOVIE.REQUEST),
@@ -197,7 +183,7 @@ export function* getDetailsSeqWatcher() {
 }
 
 export function* getResultChangeWatcher() {
-  while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) { // DETAILS.SUCCESS
+  while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) {
     yield call(getUpdateUrl);
   }
 }
@@ -234,14 +220,11 @@ export function* getRequestSequence() {
   ];
   const forked = yield watchers.map(item => fork(item));
 
-  // Suspend execution until UPDATE_SINGLE_MOVIE.SUCCESS
+  // Suspend execution until LOCATION_CHANGE
   yield take(LOCATION_CHANGE);
   yield forked.map(item => cancel(item));
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
 
 export default {
   initial: [getInitialRequest, getInitialDetails],
