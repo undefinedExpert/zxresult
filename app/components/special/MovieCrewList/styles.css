@@ -1,9 +1,14 @@
 .movieCrewList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  @media (min-width: 62.5em) {
+    justify-content: flex-start;
+  }
   .list {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-
     @media (min-width: 62.5em) {
       justify-content: flex-start;
     }
@@ -18,7 +23,6 @@
     &:nth-child(1) {
       padding: 0 4px 0 0;
     }
-
     @media (min-width: 70em) {
       padding: 0 8px;
       &:nth-child(1) {
