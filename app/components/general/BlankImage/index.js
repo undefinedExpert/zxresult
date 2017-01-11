@@ -14,7 +14,7 @@ import styles from './styles.css';
 
 /**
 * BlankImage
-* @desc TODO: desc for BlankImage
+* @desc Renders BlankImage, placeholder for all images which wasn't loaded or were aborted for some reason.
 */
 function BlankImage({ className, ...rest }) {
   return (

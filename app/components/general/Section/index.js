@@ -25,7 +25,6 @@ const classSizePattern = convertToPattern(/\//, '-of-');
  * Section
  * @desc allows us to create section with our custom Title and a size (css grid size) class name.
  * returns packed prop.children with title and appropriate grid size.
- * TODO: Add possibility to use sectionSizes independently
  */
 function Section(props) {
   const {

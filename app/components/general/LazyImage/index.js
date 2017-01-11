@@ -14,15 +14,12 @@ import LoadingIndicator from 'components/general/LoadingIndicator';
  * TODO: handle condition where image does not contain size
  * helper: http://stackoverflow.com/questions/9815762/detect-when-an-image-fails-to-load-in-javascript
  * TODO: API endpoint shouldn't be hardcoded
- * FIXME: LoadingIndicator should be removed when image source is available, but img in w45
- * size is downloading so fast so we can't even see loading indicator. It should be
- * integrated more with progressive loading
  */
 class LazyImage extends Component {
   constructor(...args) {
     super(...args);
 
-    // FIXME: Find better way of binding methods into class for testing puproses
+    // FIXME: Find better way of binding methods into class for testing purposes
     // ES6 classes does not supports autobinding feature and using
     // spy on component.instance().method does not work
     this.lazyLoad = this.lazyLoad.bind(this);
