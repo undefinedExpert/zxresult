@@ -4,7 +4,7 @@
  *  2. Application
  *  3. Module
  */
-
+var StackBlur = require("stackblur-canvas");
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
@@ -16,6 +16,7 @@ import { convertToPattern } from 'utils/hooks';
  */
 class ProgressiveImage extends Component {
   state = {
+    src: this.props.src,
     sizes: this.convertSizesToPatterns(this.props.sizes, this.props.sizes[0]),
   };
 
@@ -53,14 +54,16 @@ class ProgressiveImage extends Component {
 
   // Load stack of images progressively, one after another
   progressiveLoad = () => {
-    if (this.state.sizes.length > 0) {
-      const path = this.state.src || this.props.src;
-      const whichToLoad = this.state.sizes[0](path);
+      if (this.state.sizes.length > 0) {
+        const path = this.state.src || this.props.src;
+        const whichToLoad = this.state.sizes[0](path);
 
-      this.lazyLoadedImage = new Image();
-      this.lazyLoadedImage.src = whichToLoad;
-      this.lazyLoadedImage.addEventListener('load', this.updateSrc.bind(this));
-    }
+        this.lazyLoadedImage = new Image();
+        this.lazyLoadedImage.src = whichToLoad;
+
+        this.lazyLoadedImage.onload = this.updateSrc.bind(this);
+      }
+
   };
 
   updateSrc = () => {
@@ -68,8 +71,10 @@ class ProgressiveImage extends Component {
     // Remove that at future
     if (this.props.onLoad && (this.props.sizes.length - this.state.sizes.length) === 1) this.props.onLoad();
 
-    const path = this.state.src || this.props.src;
-    const src = this.state.sizes[0](path);
+    console.log('loading?');
+    const path = this.state.src;
+    const src = `${this.state.sizes[0](path)}`;
+
     this.setState((prevState) => ({
       sizes: prevState.sizes.slice(1),
       src,
@@ -78,7 +83,7 @@ class ProgressiveImage extends Component {
 
   formatChildren = () => {
     const { children } = this.props;
-    const path = this.state.src ? this.state.src : this.props.src;
+    const path = this.state.src;
 
     return React.Children.map(children, (child => React.cloneElement(child, { src: path, ref: (img) => { this.placeholder = img; }, onLoad: this.progressiveLoad })));
   };
@@ -99,7 +104,7 @@ ProgressiveImage.propTypes = {
     ptype.null,
   ]),
   sizes: ptype.array.isRequired,
-  onLoad: ptype.func.isRequired,
+  onLoad: ptype.func,
   children: ptype.node.isRequired,
 };
 
