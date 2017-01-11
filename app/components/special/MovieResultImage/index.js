@@ -47,7 +47,7 @@ class MovieResultImage extends Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
 MovieResultImage.propTypes = {
