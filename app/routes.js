@@ -24,15 +24,14 @@ export default function createRoutes(store) {
         // Dirty styles importing, it allow us to 'load' styles before the user gets into the page.
         // Normally end user might see not styled components, most of them are loaded when each components 'mounts', so we are preloading them
         // when he comes to the route.
-        System.import('react-select/dist/react-select.css');
         System.import('containers/HomePage/styles.css');
         System.import('containers/App/styles.css');
         System.import('containers/FilterForm/styles.css');
-        System.import('components/general/Select/styles.css');
         System.import('components/general/SelectList/styles.css');
         System.import('components/general/Title/styles.css');
         System.import('components/general/Button/styles.css');
         System.import('components/special/WelcomeText/styles.css');
+        System.import('components/general/Select/styles.css');
 
         const importModules = Promise.all([
           System.import('containers/RequestMovie/sagas'),
