@@ -274,8 +274,6 @@ describe('getRequestSequence Saga', () => {
     const operation = cancel(mockTask);
     expect(task.value).to.be.eql(operation);
   });
-
-
 });
 
 
