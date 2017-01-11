@@ -67,6 +67,7 @@ class ProgressiveImage extends Component {
   updateSrc = () => {
     // Temp hack for making swiper slides change working
     // Remove that at future
+    // Firefox images flashes while changing img src: https://bugzilla.mozilla.org/show_bug.cgi?id=705826
     if (this.props.onLoad && (this.props.sizes.length - this.state.sizes.length) === 1) this.props.onLoad();
     const path = this.state.src;
     const src = `${this.state.sizes[0](path)}`;

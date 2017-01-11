@@ -17,6 +17,7 @@ import styles from './styles.css';
 
 class MovieResultImage extends Component {
   shouldComponentUpdate(nextProps) {
+    // When we get new image path
     if (nextProps.image.file_path !== this.props.image.file_path) {
       return true;
     }
@@ -46,7 +47,7 @@ class MovieResultImage extends Component {
         </div>
       </div>
     );
-  }
+  };
 }
 
 MovieResultImage.propTypes = {

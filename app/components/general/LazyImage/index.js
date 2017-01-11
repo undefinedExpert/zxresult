@@ -51,7 +51,7 @@ class LazyImage extends Component {
   // Check if we did receive new "potential" image, if yes run lazyLoad, important to mention
   // is fact that imagePlaceholder has to be available in view.
   componentDidUpdate({ src }) {
-    if (src.src !== this.state.src) {
+    if (src !== this.props.src) {
       this.lazyLoad();
     }
   }
@@ -84,8 +84,6 @@ class LazyImage extends Component {
 
       // Remove lazy loaded image
       this.lazyLoadedImage = null;
-      // run callback
-      // if (this.props.onLoad) this.props.onLoad();
     }
   }
 
