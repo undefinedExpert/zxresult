@@ -31,6 +31,7 @@ import {
   getUpdatePendingWatcher,
   getDetailsWatcher,
   getInitialRequest,
+  getInitialDetails,
   getDetailsSeqWatcher,
   getRequestSequence,
 } from '../sagas';
@@ -155,7 +156,7 @@ describe('RequestMovie saga watchers', () => {
   });
   describe('getResultChangeWatcher Watcher', () => {
     const generator = getResultChangeWatcher();
-    const constant = DETAILS.SUCCESS;
+    const constant = UPDATE_SINGLE_MOVIE.SUCCESS;
 
     it(`should watch for ${constant} action`, () => {
       const taskLoop = generator.next().value;
@@ -211,7 +212,7 @@ describe('RequestMovie saga watchers', () => {
   });
 });
 
-describe('getMovieSagas Saga', () => {
+describe('getInitialRequest Saga', () => {
   const movieSagas = getInitialRequest();
   const watchersArr = [
     getMovieWatcher,
@@ -219,7 +220,6 @@ describe('getMovieSagas Saga', () => {
     getAnalyseMovieWatcher,
     getUpdateSingleMovieWatcher,
     getUpdatePendingWatcher,
-    getDetailsWatcher,
   ];
   const mockTask = createMockTask();
   const mockTasksFork = [() => mockTask, () => mockTask];
@@ -252,6 +252,32 @@ describe('getMovieSagas Saga', () => {
     expect(task.value).to.be.eql(operation);
   });
 });
+
+describe('getRequestSequence Saga', () => {
+  const generator = getInitialDetails();
+  const mockTask = createMockTask();
+
+  it('should fork the getDetailsWatcher', () => {
+    const task = generator.next();
+    const operation = fork(getDetailsWatcher);
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should wait until DETAILS.SUCESS action show ', () => {
+    const task = generator.next(mockTask);
+    const operation = take(DETAILS.SUCCESS);
+    expect(task.value).to.be.eql(operation);
+  });
+
+  it('should cancel our forked getDetailsWatcher', () => {
+    const task = generator.next();
+    const operation = cancel(mockTask);
+    expect(task.value).to.be.eql(operation);
+  });
+
+
+});
+
 
 describe('getRequestSequence Saga', () => {
   const movieSagas = getRequestSequence();

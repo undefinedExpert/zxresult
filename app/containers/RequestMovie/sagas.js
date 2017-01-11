@@ -197,11 +197,10 @@ export function* getDetailsSeqWatcher() {
 }
 
 export function* getResultChangeWatcher() {
-  while (yield take(DETAILS.SUCCESS)) { // DETAILS.SUCCESS
+  while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) { // DETAILS.SUCCESS
     yield call(getUpdateUrl);
   }
 }
-
 
 export function* getInitialRequest() {
   const watchers = yield [
@@ -210,14 +209,19 @@ export function* getInitialRequest() {
     getAnalyseMovieWatcher,
     getUpdateSingleMovieWatcher,
     getUpdatePendingWatcher,
-    getDetailsWatcher,
   ];
   const forked = yield watchers.map(item => fork(item));
-
 
   // Suspend execution until UPDATE_SINGLE_MOVIE.SUCCESS
   yield take(LOCATION_CHANGE);
   yield forked.map(item => cancel(item));
+}
+
+export function* getInitialDetails() {
+  const detailsWatcher = yield fork(getDetailsWatcher);
+
+  yield take(DETAILS.SUCCESS);
+  yield cancel(detailsWatcher);
 }
 
 export function* getRequestSequence() {
@@ -235,12 +239,11 @@ export function* getRequestSequence() {
   yield forked.map(item => cancel(item));
 }
 
-
 /**
  * Root saga manages watcher lifecycle
  */
 
 export default {
-  initial: [getInitialRequest],
+  initial: [getInitialRequest, getInitialDetails],
   result: [getRequestSequence],
 };
