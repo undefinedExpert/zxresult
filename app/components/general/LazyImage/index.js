@@ -44,14 +44,14 @@ class LazyImage extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.src !== this.state.src) {
       // Allow us to change image replacment, when src == null prev image will dissapair
-      // this.setState({ src: null });
+      this.setState({ src: null });
     }
   }
 
   // Check if we did receive new "potential" image, if yes run lazyLoad, important to mention
   // is fact that imagePlaceholder has to be available in view.
   componentDidUpdate({ src }) {
-    if (src !== this.props.src) {
+    if (src.src !== this.state.src) {
       this.lazyLoad();
     }
   }
@@ -84,6 +84,8 @@ class LazyImage extends Component {
 
       // Remove lazy loaded image
       this.lazyLoadedImage = null;
+      // run callback
+      // if (this.props.onLoad) this.props.onLoad();
     }
   }
 

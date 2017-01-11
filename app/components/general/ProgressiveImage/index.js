@@ -4,7 +4,6 @@
  *  2. Application
  *  3. Module
  */
-var StackBlur = require("stackblur-canvas");
 import React, { PropTypes as ptype, Component } from 'react';
 
 import { convertToPattern } from 'utils/hooks';
@@ -54,23 +53,21 @@ class ProgressiveImage extends Component {
 
   // Load stack of images progressively, one after another
   progressiveLoad = () => {
-      if (this.state.sizes.length > 0) {
-        const path = this.state.src || this.props.src;
-        const whichToLoad = this.state.sizes[0](path);
+    if (this.state.sizes.length > 0) {
+      const path = this.state.src || this.props.src;
+      const whichToLoad = this.state.sizes[0](path);
 
-        this.lazyLoadedImage = new Image();
-        this.lazyLoadedImage.src = whichToLoad;
+      this.lazyLoadedImage = new Image();
+      this.lazyLoadedImage.src = whichToLoad;
 
-        this.lazyLoadedImage.onload = this.updateSrc.bind(this);
-      }
-
+      this.lazyLoadedImage.onload = this.updateSrc.bind(this);
+    }
   };
 
   updateSrc = () => {
     // Temp hack for making swiper slides change working
     // Remove that at future
     if (this.props.onLoad && (this.props.sizes.length - this.state.sizes.length) === 1) this.props.onLoad();
-
     console.log('loading?');
     const path = this.state.src;
     const src = `${this.state.sizes[0](path)}`;
@@ -85,7 +82,13 @@ class ProgressiveImage extends Component {
     const { children } = this.props;
     const path = this.state.src;
 
-    return React.Children.map(children, (child => React.cloneElement(child, { src: path, ref: (img) => { this.placeholder = img; }, onLoad: this.progressiveLoad })));
+    return React.Children.map(children, (child => React.cloneElement(child, {
+      src: path,
+      ref: (img) => {
+        this.placeholder = img;
+      },
+      onLoad: this.progressiveLoad,
+    })));
   };
 
   render() {
