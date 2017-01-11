@@ -8,7 +8,6 @@
 import classNames from 'classnames';
 import ReactSelect from 'react-select';
 import React, { PropTypes as ptype } from 'react';
-import 'react-select/dist/react-select.css';
 
 import Title from 'components/general/Title';
 

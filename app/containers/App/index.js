@@ -21,13 +21,11 @@ import React, { Component } from 'react';
 
 import Navigation from 'components/special/Navigation';
 
-import styles from './styles.css'; // eslint-disable-line
-
 
 export default class App extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={styles.app}>
+      <div>
         <Navigation logotype />
         {this.props.children}
       </div>
