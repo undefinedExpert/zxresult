@@ -6,40 +6,43 @@
  */
 
 import { expect } from 'chai';
+import { delay } from 'redux-saga';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { call, put, select, take, fork, cancel, actionChannel } from 'redux-saga/effects';
+import { call, put, select, take, fork, cancel, race, actionChannel } from 'redux-saga/effects';
 
 import { callApi, movieAnalyse, detectPending, mapGenres } from 'mechanisms/index';
 
-import { analyseMovies, updateSingleMovie, updateMovieResult } from '../actions';
+import { analyseMovies, updateSingleMovie, updateMovieResult, getDetails } from '../actions';
 
 import {
-  UPDATE_MOVIE_RESULT,
+  DETAILS,
   ANALYSE_MOVIE,
-  UPDATE_SINGLE_MOVIE,
-  DETAILS } from '../constants';
+  UPDATE_MOVIE_RESULT,
+  UPDATE_SINGLE_MOVIE } from '../constants';
 import {
   getMovie,
+  getUpdateUrl,
+  getMovieDetails,
+  getMovieWatcher,
   getAnalyseMovie,
   pushSingleResult,
-  getUpdateUrl,
-  getMovieWatcher,
-  getResultChangeWatcher,
-  getAnalyseMovieWatcher,
-  getUpdateSingleMovieWatcher,
-  getUpdatePendingWatcher,
   getDetailsWatcher,
   getInitialRequest,
   getInitialDetails,
-  getDetailsSeqWatcher,
   getRequestSequence,
+  getDetailsSeqWatcher,
+  getMovieDetailsWatcher,
+  getResultChangeWatcher,
+  getAnalyseMovieWatcher,
+  getUpdatePendingWatcher,
+  getUpdateSingleMovieWatcher,
 } from '../sagas';
 import { selectResult } from '../selectors';
 
 
 describe('RequestMovie saga handlers', () => {
-  describe('getMovie Saga', () => {
+  describe('getMovie()', () => {
     let globalGenerator;
 
     // detectPending might return false, true, null
@@ -79,7 +82,7 @@ describe('RequestMovie saga handlers', () => {
       expect(taskPushPending).to.be.eql(operationPushPending);
     });
   });
-  describe('getAnalyseMovie Saga', () => {
+  describe('getAnalyseMovie()', () => {
     let generator;
     beforeEach(() => {
       generator = getAnalyseMovie();
@@ -100,7 +103,7 @@ describe('RequestMovie saga handlers', () => {
       // FIXME: create test for handling error
     });
   });
-  describe('pushSingleResult Saga', () => {
+  describe('pushSingleResult()', () => {
     let generator;
 
 
@@ -125,6 +128,30 @@ describe('RequestMovie saga handlers', () => {
       const taskUpdatePending = generator.next(newPending).value;
       const operationUpdatePending = put(updateSingleMovie.success(newPending));
       expect(taskUpdatePending).to.be.eql(operationUpdatePending);
+    });
+
+    it('Should handle error action', () => {
+      // FIXME: create test for handling error
+    });
+  });
+  describe('getMovieDetails()', () => {
+    let generator;
+
+    it('should get movie details and send getDetails action with merged active and new data', () => {
+      generator = getMovieDetails();
+
+      const taskSelect = generator.next().value;
+      const operationSelect = select(selectResult());
+      expect(taskSelect).expectEqual(operationSelect);
+
+      const active = { active: { id: 5 } };
+      const taskCall = generator.next(active).value;
+      const operationCall = call(callApi, '/movie/5', { append_to_response: ['images', 'credits'] }, false);
+      expect(taskCall).to.be.eql(operationCall);
+
+      const taskPut = generator.next({}).value;
+      const operationPut = put(getDetails.success({ id: 5 }));
+      expect(taskPut).to.eql(operationPut);
     });
 
     it('Should handle error action', () => {
@@ -210,6 +237,52 @@ describe('RequestMovie saga watchers', () => {
       expect(taskCall).to.be.eql(operationCall);
     });
   });
+  describe('getDetailsWatcher Watcher', () => {
+    const generator = getDetailsWatcher();
+    const constant = UPDATE_SINGLE_MOVIE.SUCCESS;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next().value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = call(getMovieDetails);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+  describe('getWatching Watcher', () => {
+    const generator = getMovieDetailsWatcher();
+    const constant = UPDATE_SINGLE_MOVIE.SUCCESS;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskDelay = generator.next().value;
+      const operationDelay = call(delay, 210);
+      expect(taskDelay).to.be.eql(operationDelay);
+
+      const taskCall = generator.next().value;
+      const operationCall = call(getMovieDetails);
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
+
+  describe('getDetailsSeqWatcher Watcher', () => {
+    const generator = getDetailsSeqWatcher();
+    const constant = UPDATE_SINGLE_MOVIE.SUCCESS;
+
+    it(`should watch for ${constant} action`, () => {
+      const taskLoop = generator.next(constant).value;
+      const operationLoop = take(constant);
+      expect(taskLoop).to.be.eql(operationLoop);
+
+      const taskCall = generator.next(constant).value;
+      const operationCall = race({
+        call: call(getMovieDetailsWatcher),
+        cancel: take(UPDATE_SINGLE_MOVIE.REQUEST),
+      });
+      expect(taskCall).to.be.eql(operationCall);
+    });
+  });
 });
 
 describe('getInitialRequest Saga', () => {
@@ -253,7 +326,7 @@ describe('getInitialRequest Saga', () => {
   });
 });
 
-describe('getRequestSequence Saga', () => {
+describe('getInitialDetails Saga', () => {
   const generator = getInitialDetails();
   const mockTask = createMockTask();
 
@@ -275,7 +348,6 @@ describe('getRequestSequence Saga', () => {
     expect(task.value).to.be.eql(operation);
   });
 });
-
 
 describe('getRequestSequence Saga', () => {
   const movieSagas = getRequestSequence();

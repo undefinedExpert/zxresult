@@ -101,17 +101,19 @@ export function* getUpdateUrl() {
  * details
  * @desc Get details of our movie after short amount of time, we got 40req per 10sec limit, be careful with it
  */
-export function* details() {
+export function* getMovieDetails() {
   try {
     const { active } = yield select(selectResult());
+
     const endpoint = `/movie/${active.id}`;
     const { data } = yield call(callApi, endpoint, { append_to_response: ['images', 'credits'] }, false);
+
     const merged = _.merge(data, active);
     yield put(getDetails.success(merged));
   }
   catch (err) {
     console.error(err);
-    yield put(getDetails.error(err));
+    yield put(getDetails.failure(err));
   }
 }
 
@@ -164,19 +166,19 @@ export function* getUpdatePendingWatcher() {
 
 export function* getDetailsWatcher() {
   while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) {
-    yield call(details);
+    yield call(getMovieDetails);
   }
 }
 
-export function* getWatching() {
+export function* getMovieDetailsWatcher() {
   yield call(delay, 210);
-  yield call(details);
+  yield call(getMovieDetails);
 }
 
 export function* getDetailsSeqWatcher() {
   while (yield take(UPDATE_SINGLE_MOVIE.SUCCESS)) {
     yield race({
-      call: call(getWatching),
+      call: call(getMovieDetailsWatcher),
       cancel: take(UPDATE_SINGLE_MOVIE.REQUEST),
     });
   }
