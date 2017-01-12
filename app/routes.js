@@ -58,8 +58,17 @@ export default function createRoutes(store) {
       name: 'result',
       getComponent(nextState, cb) {
         System.import('containers/ResultPage/styles.css');
+        System.import('components/general/Section/styles.css');
+        System.import('components/special/MovieArticle/styles.css');
+        System.import('components/special/MovieCrewList/styles.css');
+        System.import('components/special/MovieGenres/styles.css');
         System.import('components/special/MovieGallery/styles.css');
+        System.import('components/special/MovieHeartRate/styles.css');
+        System.import('components/special/MovieRuntime/styles.css');
+        System.import('components/special/MovieSingleCrew/styles.css');
         System.import('components/special/MovieGenreIcons/styles.css');
+        System.import('components/special/MovieResultImage/styles.css');
+        System.import('components/special/MovieDescription/styles.css');
 
         // We import what we want
         const importModules = Promise.all([
