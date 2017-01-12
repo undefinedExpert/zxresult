@@ -1,0 +1,20 @@
+.mobileFilterForm {
+  z-index: 5;
+  bottom: 0;
+  lost-utility: clearfix;
+  :local form {
+    display: block;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: #22262e;
+  }
+  :global .Select-menu-outer {
+    top: auto;
+    bottom: 100%;
+  }
+
+  @media (min-width: 62.5em) {
+    display: none;
+  }
+}

@@ -12,6 +12,7 @@ import React, { PropTypes as ptype, Component } from 'react';
 
 import RequestMovie from 'containers/RequestMovie';
 import SelectList from 'components/general/SelectList';
+import MobileFilterForm from 'components/special/MobileFilterForm';
 
 import styles from './styles.css';
 import { mapDispatch, mapState } from './mapProps';
@@ -29,6 +30,10 @@ import { mapDispatch, mapState } from './mapProps';
  * @attr orientation - Handles horizontal, vertical orientation of this form by applying appropriate css class.
  */
 export class FilterForm extends Component {
+  state = {
+    formHeight: null,
+  };
+
   componentWillMount() {
     // Get Genre list (by dispatching an action)
     const genreList = this.props.genre.list;
@@ -36,6 +41,17 @@ export class FilterForm extends Component {
       this.props.getGenreList();
       this.props.getUpdateFilters();
     }
+  }
+
+  componentDidMount() {
+    if (this.state.formHeight === null) {
+      this.getFormHeight();
+      window.addEventListener('resize', this.getFormHeight.bind(this));
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.getFormHeight);
   }
 
   onChangeSelectHandler = (type, wantUpdate = true) => {
@@ -57,14 +73,31 @@ export class FilterForm extends Component {
     this.props.onSubmitForm();
   };
 
+  getFormHeight = () => {
+    const height = this.form ? this.form.clientHeight : null;
+    if (height && height > 0 && height !== this.state.formHeight) this.setState({ formHeight: height });
+  };
+
+  renderForm = (selectListItems) => {
+    const { orientation, range } = this.props;
+    return (
+      <form ref={(form) => { this.form = form; }} onSubmit={this.onSubmitHandler} className={classNames(styles.form, styles[orientation])}>
+        <div className={styles.filters} >
+          <SelectList items={selectListItems} orientation={orientation} />
+          <RequestMovie range={range.results} fullWidth={orientation !== 'horizontal'} />
+        </div>
+      </form>
+    );
+  };
+
   render() {
     const {
       keyword,
       genre,
       decade,
       trend,
-      range,
-      orientation } = this.props;
+      orientation,
+      mobileAdopt } = this.props;
 
     const selectListItems = [
       {
@@ -101,30 +134,30 @@ export class FilterForm extends Component {
       },
     ];
 
-    return (
-      <div>
-        <form onSubmit={this.onSubmitHandler} className={classNames(styles.form, styles[orientation])}>
-          <div className={styles.filters} >
-            <SelectList items={selectListItems} orientation={orientation} />
-            <RequestMovie range={range.results} fullWidth={orientation !== 'horizontal'} />
-          </div>
-        </form>
-      </div>
-    );
+    if (mobileAdopt) {
+      return (
+        <MobileFilterForm formHeight={this.state.formHeight}>
+          {this.renderForm(selectListItems)}
+        </MobileFilterForm>
+      );
+    }
+
+    return this.renderForm(selectListItems);
   }
 }
 
 FilterForm.propTypes = {
-  keyword: ptype.object,
   genre: ptype.object,
-  decade: ptype.object,
   trend: ptype.object,
   range: ptype.object,
-  orientation: ptype.string,
+  decade: ptype.object,
+  keyword: ptype.object,
+  mobileAdopt: ptype.bool,
   onSubmitForm: ptype.func,
   getGenreList: ptype.func,
-  inputChangeKeyword: ptype.func,
+  orientation: ptype.string,
   getUpdateFilters: ptype.func,
+  inputChangeKeyword: ptype.func,
 };
 
 const mapStateToProps = mapState();

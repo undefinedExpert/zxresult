@@ -34,27 +34,6 @@
   }
 
   &.article {
-    .mobileFilterForm {
-      z-index: 5;
-      bottom: 0;
-
-      :local form {
-        display: block;
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        background-color: #22262e;
-      }
-      :global .Select-menu-outer {
-        top: auto;
-        bottom: 100%;
-      }
-
-      @media (min-width: 62.5em) {
-        display: none;
-      }
-    }
-
     @media (min-width: 62.5em) {
       lost-column: 5/12 0;
     }

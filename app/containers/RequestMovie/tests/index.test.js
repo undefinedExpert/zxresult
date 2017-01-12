@@ -12,7 +12,7 @@ import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-import configureStore from '../../../store';
+import configureStore from 'store/store';
 import LoadingIndicator from 'components/general/LoadingIndicator';
 
 import { RequestMovie } from '../index';

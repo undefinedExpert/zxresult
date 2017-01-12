@@ -22,7 +22,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import 'react-select';
 
-import configureStore from './store';
+import configureStore from 'store/store';
 
 
 // Create redux store with history

@@ -11,9 +11,9 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-import SelectList from 'components/general/SelectList';
+import configureStore from 'store/store';
 import RequestMovie from 'containers/RequestMovie';
-import configureStore from '../../../store';
+import SelectList from 'components/general/SelectList';
 
 import { FilterForm } from '../index';
 

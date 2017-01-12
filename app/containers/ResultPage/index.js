@@ -20,33 +20,9 @@ import styles from './styles.css';
 
 
 export class ResultPage extends Component { // eslint-disable-line react/prefer-stateless-function
-  state = {
-    formHeight: null,
-  };
-
   componentWillMount() {
     // check if movie exist, if now get new and update or redirect
     if (!this.props.active) browserHistory.push('/');
-  }
-
-  componentDidMount() {
-    this.navMarginTop();
-    window.addEventListener('resize', this.navMarginTop.bind(this));
-  }
-
-  componentWillUpdate() {
-    this.navMarginTop();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.navMarginTop);
-  }
-
-  navMarginTop() {
-    const formHeight = this.mobileNavigation ? this.mobileNavigation.getElementsByTagName('Form')[0].clientHeight : false;
-    if (formHeight !== false && formHeight !== this.state.formHeight) {
-      this.setState({ formHeight });
-    }
   }
 
   redirectHome = () => (
@@ -55,7 +31,6 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
 
   render() {
     const { active, isFetching } = this.props;
-    const { formHeight } = this.state;
 
     if (!this.props.active) return this.redirectHome();
 
@@ -67,9 +42,7 @@ export class ResultPage extends Component { // eslint-disable-line react/prefer-
         </div>
         <div className={className(styles.halfWrapper, styles.article)}>
           <MovieArticle movie={active} />
-          <div ref={(c) => { this.mobileNavigation = c; }} className={styles.mobileFilterForm} style={{ height: formHeight }}>
-            <FilterForm orientation={'horizontal'} />
-          </div>
+          <FilterForm orientation={'horizontal'} mobileAdopt />
         </div>
       </section>
     );
