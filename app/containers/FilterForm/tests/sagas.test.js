@@ -6,6 +6,7 @@
  */
 
 import { expect } from 'chai';
+import { sortBy } from 'lodash';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { call, put, take, fork } from 'redux-saga/effects';
 
@@ -28,6 +29,10 @@ describe('FilterForm saga handlers', () => {
     });
 
     it('Should handle success action', () => {
+      const exceptionalGenreIcon = {
+        name: 'Foreign',
+        id: 10769,
+      };
       const result = {
         data: {
           genres: [
@@ -41,8 +46,13 @@ describe('FilterForm saga handlers', () => {
         },
       };
       const task = generator.next(result).value;
-      const operation = put(updateFilterGenre.list.success(result.data.genres));
 
+      // Genre list we download from api does not contain this 'genre', this is
+      // temporary work-around for missing api icon
+      const expectedResult = result.data.genres.concat(exceptionalGenreIcon);
+      const sorted = sortBy(expectedResult, 'name');
+
+      const operation = put(updateFilterGenre.list.success(sorted));
       expect(task).to.eql(operation);
     });
 

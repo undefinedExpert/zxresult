@@ -7,6 +7,7 @@ export documentary from './documentary.svg';
 export drama from './drama.svg';
 export family from './family.svg';
 export fantasy from './fantasy.svg';
+export foreign from './foreign.svg';
 export history from './history.svg';
 export horror from './horror.svg';
 export music from './music.svg';

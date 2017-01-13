@@ -143,7 +143,6 @@ export const initialState = fromJS({
   }),
 });
 
-
 function filterFormReducer(state = initialState, action) {
   switch (action.type) {
     case FILTER_DECADE.REQUEST:

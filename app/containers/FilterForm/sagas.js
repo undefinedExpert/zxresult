@@ -5,6 +5,7 @@
  *  3. Module
  */
 
+import { sortBy } from 'lodash';
 import { throttle } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { take, call, put, cancel, fork, select } from 'redux-saga/effects';
@@ -20,10 +21,20 @@ import { updateFilterGenre, updateFilters, updateFilterKeyword } from './actions
  * getGenreList
  * @desc Gets current genre list from API using xhr request
  */
+
 export function* getGenreList() {
-  const { data } = yield call(callApi, '/genre/movie/list', {}, false);
   try {
-    yield put(updateFilterGenre.list.success(data.genres));
+    // Genre list we download from api does not contain this 'genre', this is
+    // temporary work-around for missing api icon
+    const exceptionalGenreIcon = {
+      name: 'Foreign',
+      id: 10769,
+    };
+
+    const { data } = yield call(callApi, '/genre/movie/list', {}, false);
+    const genresWithException = sortBy(data.genres.concat(exceptionalGenreIcon), 'name');
+
+    yield put(updateFilterGenre.list.success(genresWithException));
   }
   catch (err) {
     yield put(updateFilterGenre.list.failure(err));
@@ -36,13 +47,11 @@ export function* getGenreList() {
  * @desc call for keyword basing on keyword input
  */
 export function* requestKeywordList() {
-  console.log('should run saga');
-  const { keyword } = yield select(selectFilters());
-  if (!keyword.active.query) return;
-  console.log(keyword.active.query);
-  const { data } = yield call(callApi, '/search/keyword', { query: keyword.active.query }, false);
-  console.log(data.results);
   try {
+    const { keyword } = yield select(selectFilters());
+    if (!keyword.active.query) return;
+
+    const { data } = yield call(callApi, '/search/keyword', { query: keyword.active.query }, false);
     yield put(updateFilterKeyword.list.success(data.results));
   }
   catch (err) {
