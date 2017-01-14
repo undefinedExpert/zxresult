@@ -9,6 +9,7 @@
   font-weight: 500;
   transition: all 0.35s ease;
   cursor: pointer;
+  @mixin bgc blue;
   &:hover {
     background-color: var(--cSupHover);
   }
