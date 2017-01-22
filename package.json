@@ -1,6 +1,6 @@
 {
   "name": "zxresult",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Web application which helps you to find a movie you wish to watch!",
   "repository": {
     "type": "git",
@@ -122,6 +122,7 @@
     "react-addons-css-transition-group": "^15.4.0",
     "react-addons-transition-group": "^15.4.0",
     "react-dom": "^15.4.1",
+    "react-ga": "^2.1.2",
     "react-icons": "^2.2.1",
     "react-inlinesvg": "^0.5.3",
     "react-redux": "4.4.5",
