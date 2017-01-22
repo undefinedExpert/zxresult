@@ -14,7 +14,6 @@ $navigationSize: 50px;
   display: flex;
   align-items: center;
   &__item {
-    padding: 5px 0;
     &--left,
     &--right {
       lost-column: 1/2;
@@ -36,8 +35,21 @@ $navigationSize: 50px;
 */
 
 .logotype {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
   h3 {
-    color: #fff;
+    padding: 0;
+    margin: 0;
+    color: var(--cHeading);
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Maven Pro', sans-serif;
+    span {
+      font-weight: 300;
+      color: #FFF;
+    }
   }
 }
 

@@ -25,7 +25,7 @@ import styles from './styles.css';
 class Navigation extends React.Component {
   renderLogotype = () => (
     <div id="logotype" className={styles.logotype}>
-      <h3>Logotyp</h3>
+      <h3>ZX<span>Result</span></h3>
     </div>
   );
 
@@ -50,7 +50,7 @@ class Navigation extends React.Component {
   renderBar = () => (
     <div className={styles.bar}>
       {this.renderSide('left', this.renderLogotype)}
-      {this.renderSide('right', this.renderLinks)}
+      {/* {this.renderSide('right', this.renderLinks)} */}
     </div>
   );
 

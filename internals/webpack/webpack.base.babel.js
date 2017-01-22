@@ -15,7 +15,7 @@ const cssConfig = require('../../app/css-config.js');
 const postcssMixins = require('postcss-mixins');
 const postcssSimpleVars = require('postcss-simple-vars');
 const postcssNested = require('postcss-nested');
-const postcssCustomProps = require('postcss-custom-properties');
+// const postcssCustomProps = require('postcss-custom-properties');
 
 
 module.exports = (options) => ({
@@ -100,7 +100,6 @@ module.exports = (options) => ({
           postcssMixins({
             mixinsDir: path.join('app/assets/styles'),
           }),
-          postcssCustomProps(),
           postcssSimpleVars(),
           postcssNested(),
           postcssFocus(), // Add a :focus to every :hover
