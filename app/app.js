@@ -22,9 +22,15 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import 'react-select';
-
+import ReactGA from 'react-ga';
 import configureStore from 'store/store';
 
+
+// set up Google analytics
+ReactGA.initialize('UA-90719739-1');
+browserHistory.listen(() => {
+  ReactGA.pageview(location.pathname);
+});
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
