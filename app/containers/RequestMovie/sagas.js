@@ -28,11 +28,11 @@ export function* getMovie() {
     const { data } = detected === false ? yield call(callApi, '/discover/movie') : false;
 
     if (detected === true) {
-      console.info('Pending Pushed.');
+      // console.info('Pending Pushed.');
       yield put(updateSingleMovie.request());
     }
     else if (data) {
-      console.info('Page downloaded.');
+      // console.info('Page downloaded.');
       yield put(analyseMovies.request(data.results));
     }
     else {
