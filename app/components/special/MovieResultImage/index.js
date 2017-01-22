@@ -14,7 +14,6 @@ import ProgressiveImage from 'components/general/ProgressiveImage';
 
 import styles from './styles.css';
 
-
 class MovieResultImage extends Component {
   shouldComponentUpdate(nextProps) {
     // When we get new image path
@@ -32,7 +31,8 @@ class MovieResultImage extends Component {
   render() {
     const { classNames, image, onLoad, ...rest } = this.props;
     const sizes = image.aspect_ratio < 1 ? ['w185', 'w780', 'original'] : ['w45', 'w780', 'original'];
-    const photoPath = `http://image.tmdb.org/t/p/${sizes[0]}/${image.file_path}`;
+    // TODO: Move hardcoded api link value from this file
+    const photoPath = `https://image.tmdb.org/t/p/${sizes[0]}/${image.file_path}`;
 
     return (
       <div className={className(styles.resultImage)}>

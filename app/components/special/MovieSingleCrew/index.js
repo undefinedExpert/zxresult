@@ -16,9 +16,10 @@ import styles from './styles.css';
  * MovieSingleCrew
  * @desc Single representation of a crew member.
  * @memberOf MovieCrewList
+ * TODO: Move hardcoded api link value from this file
  */
 function MovieSingleCrew(item) {
-  const photoPath = `http://image.tmdb.org/t/p/w154${item.profile_path}`;
+  const photoPath = `https://image.tmdb.org/t/p/w154${item.profile_path}`;
 
   return (
     <div className={styles.container}>

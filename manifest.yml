@@ -2,7 +2,7 @@ applications:
 - name: ZXResult
 memory: 192M
 disk_quota: 256M
-command: npm run build start:production
+command: npm run start:prod
 buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
 env:
   NODE_ENV: production

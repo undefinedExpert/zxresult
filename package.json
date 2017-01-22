@@ -7,7 +7,7 @@
     "url": "git://github.com/eslotwinski/zxresult.git"
   },
   "engines": {
-    "npm": ">=3"
+    "npm": ">=4.0.0"
   },
   "private": true,
   "author": "Emanuel Slotwinski",
