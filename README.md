@@ -18,7 +18,7 @@
 
 Link: <a href="https://goo.gl/AtaqtS">Build preview</a>
 
-There is still **a lot** "TODO", if you are interested what else left,
+There is still **a lot** "TODO", if you are interested in what else left,
 here is Trello board i'm using actively:
 <a href="https://goo.gl/RXRUAl">Trello Board</a>
 
