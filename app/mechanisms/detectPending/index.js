@@ -31,8 +31,8 @@ export function detector({ pending, range }) {
   }
 
   const cacheLength = range.pagesCache.length;
-  console.info(`pending movies length: ${pending.length}`);
-  console.info(`All pages: ${range.pages}`, `Visited pages: ${range.pages - cacheLength}`);
+  // console.info(`pending movies length: ${pending.length}`);
+  // console.info(`All pages: ${range.pages}`, `Visited pages: ${range.pages - cacheLength}`);
 
   if (cacheLength > 0 && pending.length < 30) {
     return false;

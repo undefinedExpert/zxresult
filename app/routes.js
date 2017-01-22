@@ -22,11 +22,12 @@ export default function createRoutes(store) {
       name: 'home',
       getComponent(nextState, cb) {
         // Dirty styles importing, it allow us to 'load' styles before the user gets into the page.
-        // Normally end user might see not styled components, most of them are loaded when each components 'mounts', so we are preloading them
+        // Normally end user might see not styled components, most of them are loaded when each components 'mounts', so we are loading them
         // when he comes to the route. It also breaks up hot-module-loading for those files.
         // TODO: Invent better solution for injecting styles directly from our components.
         // https://github.com/kriasoft/isomorphic-style-loader
         // https://github.com/dferber90/webapp/blob/master/knowhow/css-modules.md
+        // http://stackoverflow.com/questions/36453826/how-to-stop-fouc-when-using-css-loaded-by-webpack
         System.import('containers/HomePage/styles.css');
         System.import('containers/App/styles.css');
         System.import('containers/FilterForm/styles.css');

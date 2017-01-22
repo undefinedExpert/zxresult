@@ -20,7 +20,7 @@ import 'sanitize.css/sanitize.css';
 import React, { Component } from 'react';
 
 import Navigation from 'components/special/Navigation';
-
+import './styles.css';
 
 export default class App extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {

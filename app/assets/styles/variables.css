@@ -1,0 +1,12 @@
+:root {
+  --color: pink;
+}
+
+.red {
+  @mixin bgc red;
+}
+
+.button {
+  composes: red
+}
+

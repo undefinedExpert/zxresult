@@ -1,6 +1,6 @@
 {
   "name": "zxresult",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Web application which helps you to find a movie you wish to watch!",
   "repository": {
     "type": "git",
@@ -209,6 +209,7 @@
     "postcss-custom-properties": "^5.0.1",
     "postcss-custom-selectors": "^1.0.0",
     "postcss-focus": "^1.0.0",
+    "postcss-import": "^9.1.0",
     "postcss-loader": "^1.1.0",
     "postcss-mixins": "^5.4.1",
     "postcss-nested": "^1.0.0",

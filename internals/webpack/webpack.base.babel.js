@@ -15,6 +15,8 @@ const cssConfig = require('../../app/css-config.js');
 const postcssMixins = require('postcss-mixins');
 const postcssSimpleVars = require('postcss-simple-vars');
 const postcssNested = require('postcss-nested');
+const postcssCustomProps = require('postcss-custom-properties');
+
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -92,11 +94,15 @@ module.exports = (options) => ({
         // https://github.com/mxstbr/react-boilerplate/pull/1032#issuecomment-249821676
         context: __dirname,
         postcss: () => [
+          // require('postcss-import')({
+          //   path: ['app/assets/styles', 'app/components', 'app/containers'],
+          // }),
           postcssMixins({
             mixinsDir: path.join('app/assets/styles'),
           }),
+          postcssCustomProps(),
           postcssSimpleVars(),
-          postcssSimpleVars(),
+          postcssNested(),
           postcssFocus(), // Add a :focus to every :hover
           cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
             browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
@@ -125,6 +131,7 @@ module.exports = (options) => ({
       '.js',
       '.jsx',
       '.react.js',
+      'css',
     ],
     mainFields: [
       'browser',
