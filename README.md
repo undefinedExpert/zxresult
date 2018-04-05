@@ -1,5 +1,4 @@
 ### ZXResult
-###### Under active development
 
 > ZXResult, React & Redux web application which tries to solve 
 > movie searching "problem" you get each evening. It simply inspires you 
